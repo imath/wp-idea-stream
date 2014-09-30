@@ -1,0 +1,759 @@
+/*--------------------------------------------------------------
+WP Idea Stream stylesheet
+
+----------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1 - Icons
+2 - Pagination
+3 - User feedback
+4 - Idea Listing Navigation
+5 - Idea Listing / User comments listing
+6 - Single Idea
+7 - User profile
+8 - Forms
+9 - Widgets
+10 - Media Queries
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+1 - Icons
+--------------------------------------------------------------*/
+
+#wp-idea-stream .icon:before,
+#wp-idea-stream #rate i:before,
+span.sticky-idea:before,
+span.private-idea:before,
+span.protected-idea:before,
+#wp-idea-stream .tag span:before,
+.idea-title-sep:before,
+span.wp-idea-stream-group:before {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	line-height: 1;
+	font-family: "dashicons";
+	text-decoration: inherit;
+	font-weight: normal;
+	font-style: normal;
+	vertical-align: top;
+	text-align: center;
+	-webkit-transition: color .1s ease-in 0;
+	transition: color .1s ease-in 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#wp-idea-stream .idea-comment-link:before {
+	content: "\f101";
+}
+
+#wp-idea-stream .idea-rating-link.empty:before,
+#wp-idea-stream .star-off-png:before {
+	content: "\f154";
+}
+
+#wp-idea-stream .idea-rating-link:before,
+#wp-idea-stream .star-on-png:before {
+	content: "\f155";
+}
+
+#wp-idea-stream .star-half-png:before {
+	content: "\f459";
+}
+
+#wp-idea-stream .cancel-on-png:before {
+  content: "\f153";
+}
+
+#wp-idea-stream .cancel-off-png:before {
+  content: "\f159";
+}
+
+.idea-title-sep:before {
+	content: "\f139";
+	vertical-align: middle;
+}
+
+span.sticky-idea:before {
+	content: "\f109";
+	vertical-align: middle;
+}
+
+span.private-idea:before {
+	content: "\f332";
+	vertical-align: middle;
+}
+span.protected-idea:before {
+	content: "\f178";
+	vertical-align: middle;
+}
+
+span.wp-idea-stream-group:before {
+	content: "\f307";
+	vertical-align: middle;
+}
+
+/*--------------------------------------------------------------
+2 - Pagination
+--------------------------------------------------------------*/
+
+#wp-idea-stream div.pagination {
+	background: transparent;
+	border: none;
+	color: #888;
+	font-size: 90%;
+	margin: 0;
+	position: relative;
+	display: block;
+	float: left;
+	width: 100%;
+	padding: 10px 0;
+}
+
+#wp-idea-stream div.pagination .pag-count {
+	float: left;
+	margin-left: 10px;
+}
+#wp-idea-stream div.pagination .pagination-links {
+	float: right;
+	margin-right: 10px;
+}
+#wp-idea-stream div.pagination .pagination-links span,
+#wp-idea-stream div.pagination .pagination-links a {
+	font-size: 90%;
+	padding: 0 5px;
+}
+#wp-idea-stream div.pagination .pagination-links a:hover {
+	font-weight: bold;
+}
+#wp-idea-stream div.pagination {
+	margin-bottom: 15px;
+}
+
+#wp-idea-stream div#pag-top {
+	border-bottom: solid 1px #ccc;
+}
+
+#wp-idea-stream div#pag-bottom {
+	border-top: solid 1px #ccc;
+	margin: 15px 0;
+}
+
+/*--------------------------------------------------------------
+3 - User Feedback
+--------------------------------------------------------------*/
+
+#wp-idea-stream .message {
+	padding: 1px 12px;
+	background-color: #fff;
+	-webkit-box-shadow: 0 1px 1px 1px rgba(0,0,0,0.1);
+	box-shadow: 0 1px 1px 1px rgba(0,0,0,0.1);
+ 	margin: 10px 0;
+ 	padding: 10px;
+}
+#wp-idea-stream .message p{
+ 	margin: 0;
+ 	padding: 0;
+}
+#wp-idea-stream .error{
+	margin-bottom: 10px;
+	padding: 10px 20px;
+	width: 100%;
+}
+
+#wp-idea-stream .info {
+	border-left: 4px solid #3388aa;
+}
+
+#wp-idea-stream .info a{
+	font-weight: bold;
+}
+#wp-idea-stream .warning,
+#wp-idea-stream .error {
+ 	border-left: 4px solid #dd3333;
+}
+#wp-idea-stream .notice{
+ 	border-left: 4px solid #eeeebb;
+}
+#wp-idea-stream .success{
+ 	border-left: 4px solid #88aa22;
+}
+
+/*--------------------------------------------------------------
+4 - Idea Listing Navigation
+--------------------------------------------------------------*/
+
+#wp-idea-stream .clear {
+	clear: left;
+}
+
+#wp-idea-stream ul#ideas-main-nav {
+	margin-bottom: 10px;
+}
+
+#wp-idea-stream ul#ideas-main-nav li {
+	max-width: 48%;
+}
+
+#wp-idea-stream ul#ideas-main-nav li {
+	display:inline-block;
+}
+
+#wp-idea-stream ul#ideas-main-nav li.last {
+	float:right;
+}
+
+.idea-title-sep {
+	display: inline-block;
+	margin:0 5px;
+}
+
+/*--------------------------------------------------------------
+5 - Idea Listing
+--------------------------------------------------------------*/
+
+#wp-idea-stream ul.idea-list,
+#wp-idea-stream ul.idea-comments-list,
+#wp-idea-stream ul#ideas-main-nav {
+	width: 100%;
+	list-style: none;
+	clear: both;
+	margin: 0;
+	padding: 0;
+}
+
+#wp-idea-stream ul.idea-list li,
+#wp-idea-stream ul.idea-comments-list li,
+#wp-idea-stream ul#ideas-main-nav li {
+	overflow: hidden;
+	padding: 15px 0 0;
+	list-style: none;
+	position: relative;
+	margin:5px 0;
+}
+
+#wp-idea-stream ul.idea-list li.sticky-idea {
+	background-color: rgba(230, 230, 230, 0.5);
+	background: rgba(230, 230, 230, 0.5);
+	padding: 15px 10px 10px;
+}
+
+#wp-idea-stream ul.idea-list .idea-avatar,
+#wp-idea-stream ul.idea-comments-list .idea-comment-avatar {
+	float: left;
+}
+
+#wp-idea-stream ul.idea-list li img.avatar,
+#wp-idea-stream ul.idea-comments-list li img.avatar {
+	float: left;
+	margin: 0 10px 0 0;
+	vertical-align: top;
+}
+
+#wp-idea-stream ul.idea-list li a.idea-group img.avatar {
+	float:none;
+	margin: 0 5px 0 0;
+	vertical-align: bottom;
+}
+
+#wp-idea-stream ul.idea-list .idea-content,
+#wp-idea-stream ul.idea-comments-list .idea-comment-content {
+	margin: 0 0 0 110px;
+}
+
+#wp-idea-stream ul.idea-list li div.idea-title,
+#wp-idea-stream ul.idea-comments-list li div.idea-comment-title {
+	font-size: 120%;
+	margin: 0;
+	padding-bottom: 10px;
+}
+
+#wp-idea-stream ul.idea-list li div.idea-title a,
+#wp-idea-stream ul.idea-comments-list li div.idea-comment-title a {
+	text-decoration: none;
+}
+
+#wp-idea-stream ul.idea-list li div.idea-header,
+#wp-idea-stream ul.idea-list li div.idea-excerpt,
+#wp-idea-stream ul.idea-comments-list li div.idea-comment-excerpt {
+	margin:0;
+	padding-bottom:10px;
+}
+
+#wp-idea-stream ul.idea-list li div.idea-excerpt p,
+#wp-idea-stream ul.idea-comments-list li div.idea-comment-excerpt p {
+	margin:5px 0;
+}
+
+#wp-idea-stream .idea-list li div.idea-footer p.idea-meta,
+#wp-idea-stream .idea-comments-list li div.idea-comment-footer p.idea-comment-meta {
+	font-size: 90%;
+	margin:0;
+	padding:5px 0;
+}
+
+#wp-idea-stream ul.idea-list li .user-rating-link img.avatar {
+	float:none;
+	margin: 0 5px 0 5px;
+}
+
+#wp-idea-stream .idea-comment-link,
+#wp-idea-stream .idea-rating-link,
+#wp-idea-stream .user-rating-link,
+#wp-idea-stream .idea-comments-protected,
+#wp-idea-stream .idea-comments-private,
+#wp-idea-stream .rating-info a {
+	text-decoration: none;
+	line-height: 20px;
+	vertical-align: top;
+	font-size:13px;
+}
+
+
+/*--------------------------------------------------------------
+6 - Single Idea
+--------------------------------------------------------------*/
+
+#wp-idea-stream .idea-description {
+	margin-top:20px;
+}
+
+#wp-idea-stream .idea-title {
+	font-weight: normal;
+}
+
+#wp-idea-stream .idea-title a {
+	text-decoration: none;
+}
+
+#wp-idea-stream .idea-author a {
+	text-decoration: none;
+}
+
+#wp-idea-stream .idea-author img.avatar {
+	float:none;
+	margin-right:5px;
+	vertical-align: middle;
+}
+
+#wp-idea-stream ul.idea-nav-single {
+	border-top: solid 1px #f1f1f1;
+	margin-top:15px;
+	padding:10px 0;
+	clear:both;
+	overflow: hidden;
+}
+
+#wp-idea-stream ul.idea-nav-single li {
+	margin: 0;
+	width:32%;
+}
+
+#wp-idea-stream ul.idea-nav-single li.idea-nav-previous {
+	text-align: left;
+}
+
+#wp-idea-stream ul.idea-nav-single li.idea-nav-all {
+	text-align: center;
+}
+
+#wp-idea-stream ul.idea-nav-single li.idea-nav-next {
+	text-align: right;
+}
+
+#wp-idea-stream ul.idea-nav-single li {
+	display: inline-block;
+}
+
+#wp-idea-stream #comments .commentlist li {
+	margin:0;
+}
+
+body.single-ideas #comments .commentlist .reply,
+#wp-idea-stream #comments .commentlist .reply {
+	padding-bottom: 15px;
+}
+
+#wp-idea-stream #rate {
+	display:inline-block;
+	margin-left:5px;
+}
+
+#wp-idea-stream .rating-info {
+	display:inline-block;
+	vertical-align: top;
+	margin-left: 5px;
+}
+
+#wp-idea-stream a.comment-trash-link,
+#wp-idea-stream a.remove-idea {
+	color:#a00;
+	text-decoration: none;
+}
+
+#wp-idea-stream a.comment-spam-link {
+	color:#d98500;
+	text-decoration: none;
+}
+
+a.wpis-title-button {
+	vertical-align: middle;
+}
+
+/*--------------------------------------------------------------
+7 - User Profile
+--------------------------------------------------------------*/
+
+#wp-idea-stream .user-avatar {
+	width:auto;
+	float:left;
+	margin-right: 15px;
+	margin-bottom: 15px
+}
+
+#wp-idea-stream ul.user-nav {
+	background: transparent;
+	clear: left;
+	overflow: hidden;
+	margin:15px 0;
+}
+
+#wp-idea-stream ul.user-nav li {
+	float: left;
+	margin: 0;
+	list-style: none;
+}
+
+#wp-idea-stream ul.user-nav li a {
+	display: block;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+
+#wp-idea-stream ul.user-nav li.current a {
+	background-color: #eee;
+	color: #555;
+	opacity: .8;
+	font-weight: bold;
+}
+
+#wp-idea-stream #wp_idea_stream_profile_description {
+	display:none;
+}
+
+#wp-idea-stream #wp_idea_stream_profile_description:focus {
+	outline: none;
+}
+
+#wp-idea-stream .user-profile-form textarea {
+	height: 60px;
+	width:100%;
+}
+
+#wp-idea-stream .user-profile-form input[type=submit] {
+	display:block;
+	float:right;
+	margin-top:5px;
+}
+
+/*--------------------------------------------------------------
+8 - Forms
+--------------------------------------------------------------*/
+#wp-idea-stream .standard-form textarea:not(.wp-idea-stream-tinymce),
+#wp-idea-stream .user-profile-form textarea,
+#wp-idea-stream .standard-form input[type=text],
+#wp-idea-stream .standard-form input[type=text],
+#wp-idea-stream .standard-form input[type=color],
+#wp-idea-stream .standard-form input[type=date],
+#wp-idea-stream .standard-form input[type=datetime],
+#wp-idea-stream .standard-form input[type=datetime-local],
+#wp-idea-stream .standard-form input[type=email],
+#wp-idea-stream .standard-form input[type=month],
+#wp-idea-stream .standard-form input[type=number],
+#wp-idea-stream .standard-form input[type=range],
+#wp-idea-stream .standard-form input[type=search],
+#wp-idea-stream .standard-form input[type=tel],
+#wp-idea-stream .standard-form input[type=time],
+#wp-idea-stream .standard-form input[type=url],
+#wp-idea-stream .standard-form input[type=week],
+#wp-idea-stream .standard-form select,
+#wp-idea-stream .standard-form input[type=password],
+#wp-idea-stream .nav-form input[type=text],
+#wp-idea-stream .nav-form select {
+	border: 1px solid #ccc;
+	background: #fafafa;
+	border-radius: 0;
+	color: #888;
+	font: inherit;
+	font-size: 100%;
+	padding: 6px;
+}
+
+#wp-idea-stream .nav-form input[type=text] {
+	padding:2px;
+}
+
+#wp-idea-stream .nav-form select {
+	padding:4px;
+	vertical-align: middle;
+}
+
+#wp-idea-stream .nav-form input[type=submit] {
+	margin-left:5px;
+}
+
+#wp-idea-stream .standard-form .tagging,
+#wp-idea-stream .standard-form .tag-items {
+	border: solid 1px #ccc;
+	background: #fafafa;
+	border-radius: 0;
+	cursor: text;
+	height: auto;
+	padding: 5px 5px 10px;
+	width:90%;
+}
+
+#wp-idea-stream .standard-form .tag {
+	background: none repeat scroll 0 0 #FFF;
+	color: #888;
+	cursor: default;
+	display: inline-block;
+	position: relative;
+	white-space: nowrap;
+	margin: 5px 10px 0 0;
+}
+
+#wp-idea-stream .standard-form .tag span:before {
+	content: "\f323";
+	vertical-align: middle;
+}
+
+#wp-idea-stream .standard-form .tag .tag-i {
+	color: #888;
+	cursor: pointer;
+	display:inline-block;
+	margin-left: 5px;
+	bottom: 0.7em;
+	width: 10px;
+}
+
+#wp-idea-stream .standard-form .tag .tag-i:hover {
+	color: #555;
+	text-decoration: underline;
+}
+
+#wp-idea-stream .standard-form .type-zone {
+	border: 0 none;
+	height: auto;
+	width: auto;
+	min-width: 20px;
+	display: inline-block;
+}
+
+#wp-idea-stream .standard-form .type-zone:focus {
+	outline: none;
+}
+
+#wp-idea-stream .standard-form span.required {
+	color:red;
+}
+#wp-idea-stream .standard-form select {
+	padding: 3px;
+}
+#wp-idea-stream .standard-form input[type=password] {
+	margin-bottom: 5px;
+}
+#wp-idea-stream .standard-form label,
+#wp-idea-stream .standard-form span.label {
+	display: block;
+	font-weight: bold;
+	margin: 15px 0 5px 0;
+}
+#wp-idea-stream .standard-form ul.category-list {
+	overflow: hidden;
+	margin:0;
+	padding:0;
+}
+#wp-idea-stream .standard-form ul.category-list li {
+	display:inline-block;
+	width:30%;
+	margin: 0px 5px 5px 0;
+	vertical-align: top;
+}
+
+#wp-idea-stream .standard-form ul.category-list li label {
+	font-weight: normal;
+	margin: 0;
+}
+
+#wp-idea-stream .standard-form div.checkbox label:nth-child(n+2),
+#wp-idea-stream .standard-form div.radio div label {
+	color: #888;
+	font-size: 100%;
+	font-weight: normal;
+	margin: 5px 0 0 0;
+}
+#wp-idea-stream .standard-form input[type=text] {
+	width: 90%;
+}
+#wp-idea-stream .form-allowed-tags,
+#wp-idea-stream #commentform input[type=text],
+#wp-idea-stream #commentform textarea {
+	width: 90%;
+}
+#wp-idea-stream .standard-form textarea:not(.wp-idea-stream-tinymce) {
+	height: 120px;
+	width: 90%;
+}
+
+#wp-wp_idea_stream_the_content-wrap {
+	width: 90%;
+	border: 1px solid #ccc;
+}
+
+#wp_idea_stream_the_content_ifr {
+	width:99%!important;
+}
+
+#wp-idea-stream #wp-wp_idea_stream_the_content-editor-container .mce-container button {
+	border-radius: 0;
+	padding: 2px 3px;
+	line-height: normal;
+}
+
+#wp-idea-stream .standard-form p.description {
+	color: #888;
+	font-size: 80%;
+	margin: 5px 0;
+}
+#wp-idea-stream .standard-form div.submit {
+	clear: both;
+	padding: 15px 0 0 0;
+}
+#wp-idea-stream .standard-form p.submit {
+	margin-bottom: 0;
+	padding: 15px 0 0 0;
+}
+#wp-idea-stream .standard-form div.submit input {
+	margin-right: 15px;
+}
+#wp-idea-stream .standard-form div.radio ul {
+	margin: 10px 0 15px 38px;
+	list-style: disc;
+}
+#wp-idea-stream .standard-form div.radio ul li {
+	margin-bottom: 5px;
+}
+#wp-idea-stream .standard-form a.clear-value {
+	display: block;
+	margin-top: 5px;
+	outline: none;
+}
+#wp-idea-stream .standard-form input:focus,
+#wp-idea-stream .standard-form textarea:focus:not(.wp-idea-stream-tinymce),
+#wp-idea-stream .user-profile-form textarea:focus,
+#wp-idea-stream .standard-form select:focus {
+	background: #fafafa;
+	color: #555;
+}
+#wp-idea-stream form#send-invite-form {
+	margin-top: 20px;
+}
+#wp-idea-stream button:not(.ed_button),
+#wp-idea-stream a.button,
+a.wpis-title-button,
+#wp-idea-stream input[type=submit],
+#wp-idea-stream input[type=button]:not(.ed_button),
+#wp-idea-stream input[type=reset],
+body.single-ideas #comments .comment-reply-link {
+	background: #fff; /* Old browsers */
+	border: 1px solid #ccc;
+	color: #777;
+	font-size: .8rem;
+	cursor: pointer;
+	outline: none;
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+}
+#wp-idea-stream button:hover:not(.ed_button),
+#wp-idea-stream a.button:hover,
+#wp-idea-stream a.button:focus,
+a.wpis-title-button:hover,
+a.wpis-title-button:focus,
+#wp-idea-stream input[type=submit]:hover,
+#wp-idea-stream input[type=button]:hover:not(.ed_button),
+#wp-idea-stream input[type=reset]:hover,
+body.single-ideas #comments .comment-reply-link:hover {
+	background: #ededed;
+	border: 1px solid #bbb;
+	color: #555;
+	outline: none;
+	text-decoration: none;
+}
+
+#wp-idea-stream .standard-form .submit {
+	margin-top:15px;
+	width:90%;
+	text-align: right;
+}
+
+#wp-idea-stream .standard-form .submit input[type=submit],
+#wp-idea-stream .standard-form .submit input[type=reset] {
+	font-size:110%;
+}
+#wp-idea-stream #ideas-search-submit,
+#wp-idea-stream #ideas-order-submit {
+	font-size: 80%;
+}
+
+/*--------------------------------------------------------------
+9 - Widgets
+--------------------------------------------------------------*/
+
+.widget ul.wp-idea-stream-tops li a {
+	display: block;
+	line-height: 40px;
+	margin:5px 0;
+}
+.widget ul.wp-idea-stream-tops li a {
+	text-decoration: none;
+}
+
+.widget ul.wp-idea-stream-tops li a img {
+	vertical-align: bottom;
+}
+
+/*--------------------------------------------------------------
+10 - Media Queries
+--------------------------------------------------------------*/
+
+@media only screen and (max-width: 480px ){
+	#wp-idea-stream ul#ideas-main-nav {
+		margin-bottom: 10px;
+	}
+
+	#wp-idea-stream ul#ideas-main-nav li {
+		max-width: 100%;
+	}
+
+	#wp-idea-stream ul#ideas-main-nav li {
+		display:block;
+	}
+
+	#wp-idea-stream ul#ideas-main-nav li.last {
+		float:none;
+	}
+
+	#wp-idea-stream ul.idea-list .idea-avatar,
+	#wp-idea-stream ul.idea-comments-list .idea-comment-avatar {
+		display:none;
+	}
+
+	#wp-idea-stream ul.idea-list .idea-content,
+	#wp-idea-stream ul.idea-comments-list .idea-comment-content {
+		margin: 0px;
+	}
+}
