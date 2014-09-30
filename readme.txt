@@ -36,14 +36,6 @@ Since 2.0.0, plugin is requiring 4.0.
 Version 1.2 of the plugin requires WordPress 3.9, if you want to use this plugin with an earlier version of WordPress, you'll need to download a previous version of the plugin.
 I advise you to browse the [different versions](http://wordpress.org/extend/plugins/wp-idea-stream/developers/ "Other version") available and choose version 1.0.3 if you run a WordPress from 3.1 to 3.4.2 and 1.1 if you run a WordPress from 3.5.
 
-= I'm still using the twentyeleven or twentyten theme with WordPress 3.5, how can i make the different templates go along with it ? =
-You can download from my dorpbox a [zip file](https://dl.dropbox.com/u/2322874/templates-2010-11.zip "my dropbox") containing the idea templates optimized for this 2 themes. Once you've downloaded them, simply copy and paste them
-in your twentyeleven or twentyten (child) theme directory.
-
-= When on front end, idea category or tag are displaying a 404 ? =
-
-To fix this, you can go to your permalinks settings and simply click on the "save changes" button to update your permalinks settings
-
 = If you have any other questions =
 
 Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or use this plugin forum.
