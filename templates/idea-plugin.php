@@ -16,6 +16,4 @@
 
 	<?php do_action( 'wp_idea_stream_ideas_plugin_content' ); ?>
 
-	<p>Tada!</p>
-
 </div>
