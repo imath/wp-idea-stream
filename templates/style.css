@@ -14,6 +14,7 @@ WP Idea Stream stylesheet
 8 - Forms
 9 - Widgets
 10 - Media Queries
+11 - Sup Grégoire
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -124,6 +125,7 @@ span.wp-idea-stream-group:before {
 #wp-idea-stream div.pagination .pagination-links a {
 	font-size: 90%;
 	padding: 0 5px;
+	border: none;
 }
 #wp-idea-stream div.pagination .pagination-links a:hover {
 	font-weight: bold;
@@ -273,6 +275,7 @@ span.wp-idea-stream-group:before {
 #wp-idea-stream ul.idea-list li div.idea-title a,
 #wp-idea-stream ul.idea-comments-list li div.idea-comment-title a {
 	text-decoration: none;
+	border: none;
 }
 
 #wp-idea-stream ul.idea-list li div.idea-header,
@@ -309,6 +312,7 @@ span.wp-idea-stream-group:before {
 	line-height: 20px;
 	vertical-align: top;
 	font-size:13px;
+	border: none;
 }
 
 
@@ -328,8 +332,10 @@ span.wp-idea-stream-group:before {
 	text-decoration: none;
 }
 
-#wp-idea-stream .idea-author a {
+#wp-idea-stream .idea-author a,
+#wp-idea-stream .idea-author a:hover {
 	text-decoration: none;
+	border: none;
 }
 
 #wp-idea-stream .idea-author img.avatar {
@@ -430,6 +436,7 @@ a.wpis-title-button {
 	display: block;
 	padding: 5px 10px;
 	text-decoration: none;
+	border: none;
 }
 
 #wp-idea-stream ul.user-nav li.current a {
@@ -756,4 +763,15 @@ body.single-ideas #comments .comment-reply-link:hover {
 	#wp-idea-stream ul.idea-comments-list .idea-comment-content {
 		margin: 0px;
 	}
+}
+
+/*--------------------------------------------------------------
+11 - Sup Grégoire  / Theme vft
+--------------------------------------------------------------*/
+#wp-idea-stream .user-description blockquote{
+	font-size: 17px;
+	line-height: 1.5;
+}
+#wp-idea-stream .user-description blockquote::before {
+	content: "";
 }
