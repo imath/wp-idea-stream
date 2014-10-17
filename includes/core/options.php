@@ -567,7 +567,7 @@ function wp_idea_stream_edit_slug( $default = 'edit' ) {
  * @uses   wp_idea_stream_signup_get_slug() to get user slug
  * @return string       the user slug (prefixed by the root one)
  */
-function wp_idea_stream_signup_slug() {
+function wp_idea_stream_signup_slug( $default = 'sign-up' ) {
 	return apply_filters( 'wp_idea_stream_signup_slug', get_option( '_ideastream_signup_slug', $default ) );
 }
 
