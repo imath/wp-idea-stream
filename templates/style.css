@@ -14,7 +14,6 @@ WP Idea Stream stylesheet
 8 - Forms
 9 - Widgets
 10 - Media Queries
-11 - Sup Grégoire
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -763,15 +762,4 @@ body.single-ideas #comments .comment-reply-link:hover {
 	#wp-idea-stream ul.idea-comments-list .idea-comment-content {
 		margin: 0px;
 	}
-}
-
-/*--------------------------------------------------------------
-11 - Sup Grégoire  / Theme vft
---------------------------------------------------------------*/
-#wp-idea-stream .user-description blockquote{
-	font-size: 17px;
-	line-height: 1.5;
-}
-#wp-idea-stream .user-description blockquote::before {
-	content: "";
 }
