@@ -3,7 +3,7 @@
 Plugin Name: WP Idea Stream
 Plugin URI: http://imathi.eu/tag/ideastream/
 Description: Share ideas, great ones will rise to the top!
-Version: 2.0.1-beta1
+Version: 2.1.0-alpha
 Requires at least: 4.0
 Tested up to: 4.0
 License: GNU/GPL 2
@@ -81,7 +81,7 @@ final class WP_Idea_Stream {
 	 */
 	private function setup_globals() {
 		// Version
-		$this->version = '2.0.1-beta1';
+		$this->version = '2.1.0-alpha';
 
 		// Domain
 		$this->domain = 'wp-idea-stream';

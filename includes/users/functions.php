@@ -400,6 +400,51 @@ function wp_idea_stream_users_get_user_comments_url( $user_id = 0, $user_nicenam
 	return apply_filters( 'wp_idea_stream_users_get_user_comments_url', $url, $user_id, $user_nicename );
 }
 
+/**
+ * Gets the signup url
+ * 
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.1.0
+ * 
+ * @global  $wp_rewrite
+ * @return string signup url
+ */
+function wp_idea_stream_users_get_signup_url() {
+	global $wp_rewrite;
+
+	/**
+	 * Early filter to override form url before being built
+	 *
+	 * @param mixed false or url to override
+	 */
+	$early_signup_url = apply_filters( 'wp_idea_stream_users_pre_get_signup_url', false );
+
+	if ( ! empty( $early_form_url ) ) {
+		return $early_form_url;
+	}
+
+	// Pretty permalinks
+	if ( $wp_rewrite->using_permalinks() ) {
+		$signup_url = $wp_rewrite->root . wp_idea_stream_action_slug() . '/%' . wp_idea_stream_action_rewrite_id() . '%';
+
+		$signup_url = str_replace( '%' . wp_idea_stream_action_rewrite_id() . '%', wp_idea_stream_signup_slug(), $signup_url );
+		$signup_url = home_url( user_trailingslashit( $signup_url ) );
+
+	// Unpretty permalinks
+	} else {
+		$signup_url = add_query_arg( array( wp_idea_stream_action_rewrite_id() => wp_idea_stream_signup_slug() ), home_url( '/' ) );
+	}
+
+	/**
+	 * Filter to override form url after being built
+	 *
+	 * @param string url to override
+	 */
+	return apply_filters( 'wp_idea_stream_get_form_url', $signup_url );
+}
+
 /** Template functions ********************************************************/
 
 /**
@@ -731,4 +776,32 @@ function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
 	$query = apply_filters( 'wp_idea_stream_users_ideas_count_by_user_query', join( ' ', $sql ), $sql, $max );
 
 	return $wpdb->get_results( $query );
+}
+
+/**
+ * Redirect the loggedin user to its profile as already a member
+ * Or redirect WP (non multisite) register form to IdeaStream signup form
+ * 
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.1.0
+ * 
+ * @param  string $context the template context
+ */
+function wp_idea_stream_user_signup_redirect( $context = '' ) {
+	// Bail if signup is not allowed
+	if ( ! wp_idea_stream_is_signup_allowed() ) {
+		return;
+	}
+
+	if ( is_user_logged_in() && 'signup' == $context ) {
+		wp_safe_redirect( wp_idea_stream_users_get_logged_in_profile_url() );
+		return;
+	} else if ( ! empty( $_SERVER['SCRIPT_NAME'] ) && false !== strpos( $_SERVER['SCRIPT_NAME'], 'wp-login.php' ) && ! empty( $_REQUEST['action'] ) &&  'register' == $_REQUEST['action'] ) {
+		wp_safe_redirect( wp_idea_stream_users_get_signup_url() );
+		return;
+	} else {
+		return;
+	}
 }

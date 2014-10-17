@@ -192,6 +192,17 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			// Yes so set the corresponding var
 			wp_idea_stream_set_idea_var( 'is_edit', true );
 
+		// Signup support for non multisite config
+		} else if ( wp_idea_stream_signup_slug() == $action && wp_idea_stream_is_signup_allowed() ) {
+			// Set the signup global var
+			wp_idea_stream_set_idea_var( 'is_signup', true );
+
+			/**
+			 * Make sure no result.
+			 * We are not querying any content, but creating one
+			 */
+			$posts_query->set( 'p', -1 );
+
 		} else if ( has_action( 'wp_idea_stream_custom_action' ) ) {
 			/**
 			 * Allow plugins to other custom idea actions
@@ -391,6 +402,21 @@ function wp_idea_stream_is_addnew() {
  */
 function wp_idea_stream_is_edit() {
 	return (bool) wp_idea_stream_get_idea_var( 'is_edit' );
+}
+
+/**
+ * Is this the signup form ?
+ *
+ * @package WP Idea Stream
+ * @subpackage core/template-functions
+ *
+ * @since 2.1.0
+ *
+ * @uses   wp_idea_stream_get_idea_var() to get a globalized var
+ * @return bool true if on the edit form, false otherwise
+ */
+function wp_idea_stream_is_signup() {
+	return (bool) wp_idea_stream_get_idea_var( 'is_signup' );
 }
 
 /**
@@ -735,6 +761,11 @@ function wp_idea_stream_reset_post_title( $context = '' ) {
 		case 'edit-idea' :
 			$post_title = '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
 			$post_title .= '<span class="idea-title-sep"></span>' . __( 'Edit Idea', 'wp-idea-stream' );
+			break;
+
+		case 'signup' :
+			$post_title = '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
+			$post_title .= '<span class="idea-title-sep"></span>' . __( 'Create an account', 'wp-idea-stream' );
 			break;
 	}
 
