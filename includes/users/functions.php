@@ -778,6 +778,27 @@ function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
 	return $wpdb->get_results( $query );
 }
 
+/**
+ * Signup a new user
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.1.0
+ *
+ * @uses check_admin_referer()
+ * @uses wp_idea_stream_get_redirect_url()
+ * @uses wp_idea_stream_add_message()
+ * @uses WP_Error()
+ * @uses register_new_user()
+ * @uses wp_update_user()
+ * @uses wp_safe_redirect();
+ * @uses apply_filters() Calls 'wp_idea_stream_users_is_signup_field_required' to force a contact method to be required
+ *                       Calls 'wp_idea_stream_users_signup_userdata' to override the user data to update
+ * @uses do_action() Calls 'wp_idea_stream_users_before_signup_user' to perform actions before signup is registered
+ *                   Calls 'wp_idea_stream_users_after_signup_user' to perform actions after signup is registered
+ *                   Calls 'wp_idea_stream_users_signup_user_created' to perform actions once the user created has been edited
+ */
 function wp_idea_stream_users_signup_user() {
 	// Bail if not a post request
 	if ( 'POST' != strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
@@ -842,8 +863,27 @@ function wp_idea_stream_users_signup_user() {
 		return;
 	}
 
+	/**
+	 * Perform actions before the user is created
+	 *
+	 * @param  string $user_login the user login
+	 * @param  string $user_email the user email
+	 * @param  array  $edit_user  all extra user fields
+	 */
+	do_action( 'wp_idea_stream_users_before_signup_user', $user_login, $user_email, $edit_user );
+
 	// Register the user
 	$user = register_new_user( $user_login, $user_email );
+
+	/**
+	 * Perform actions after the user is created
+	 *
+	 * @param  string             $user_login the user login
+	 * @param  string             $user_email the user email
+	 * @param  array              $edit_user  all extra user fields
+	 * @param  mixed int|WP_Error $user the user id or an error
+	 */
+	do_action( 'wp_idea_stream_users_after_signup_user', $user_login, $user_email, $edit_user, $user );
 
 	if ( is_wp_error( $user ) ) {
 		//Add feedback to the user
@@ -861,6 +901,14 @@ function wp_idea_stream_users_signup_user() {
 			$userdata = new stdClass();
 			$userdata = (object) $edit_user;
 			$userdata->ID = $user;
+
+			/**
+			 * Just before the user is updated, this will only be available
+			 * if custom fields/contact methods are used.
+			 *
+			 * @param object $userdata the userdata to update
+			 */
+			$userdata = apply_filters( 'wp_idea_stream_users_signup_userdata', $userdata );
 
 			// Edit the user
 			if ( wp_update_user( $userdata ) ) {
