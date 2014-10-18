@@ -14,7 +14,19 @@
 
 	<?php wp_idea_stream_user_feedback(); ?>
 
-	<p>Sinup form</p>
+	<form class="standard-form" id="wp-idea-stream-form" action="" method="post">
+
+		<?php wp_idea_stream_users_the_signup_fields() ; ?>
+
+		<?php do_action( 'wp_idea_stream_signup_custom_field' ); ?>
+
+		<div class="submit">
+
+			<?php wp_idea_stream_users_the_signup_submit() ;?>
+
+		</div>
+
+	</form>
 
 	<?php do_action( 'wp_idea_stream_signup_after_content' ); ?>
 

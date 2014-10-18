@@ -271,9 +271,53 @@ function wp_idea_stream_users_the_user_idea_rating( $id = 0, $user_id = 0 ) {
 		/**
 		 * Filter the user idea rating output
 		 *
-		 * @param string $output        the rating		 *
+		 * @param string $output        the rating
 		 * @param int    $id            the idea ID
 		 * @param int    $user_id       the user ID
 		 */
 		return apply_filters( 'wp_idea_stream_users_get_user_idea_rating', $output, $id, $user_id );
 	}
+
+function wp_idea_stream_users_the_signup_fields() {
+	echo wp_idea_stream_users_get_signup_fields();
+}
+	function wp_idea_stream_users_get_signup_fields() {
+		$output = '';
+
+		foreach ( (array) wp_idea_stream_user_get_fields() as $key => $label ) {
+			// reset
+			$sanitized = array(
+				'key'   => sanitize_key( $key ),
+				'label' => esc_html( $label ),
+				'value' => '',
+			);
+
+			if ( ! empty( $_POST['wp_idea_stream_signup'][ $sanitized['key'] ] ) ) {
+				$sanitized['value'] = apply_filters( "wp_idea_stream_users_get_signup_field_{$key}", $_POST['wp_idea_stream_signup'][ $sanitized['key'] ] );
+			}
+
+			$required = apply_filters( 'wp_idea_stream_users_is_signup_field_required', false, $key );
+			$required_output = false;
+
+			if ( ! empty( $required ) || in_array( $key, array( 'user_login', 'user_email' ) ) ) {
+				$required_output = '<span class="required">*</span>';
+			}
+
+			$output .= '<label for="_wp_idea_stream_signup_' . $sanitized['key'] . '">' . $sanitized['label'] . ' ' . $required_output . '</label>';
+			$output .= '<input type="text" id="_wp_idea_stream_signup_' . $sanitized['key'] . '" name="wp_idea_stream_signup[' . $sanitized['key'] . ']" value="' . $sanitized['value'] . '"/>';
+		}
+
+		return apply_filters( 'wp_idea_stream_users_get_signup_fields', $output );
+	}
+
+function wp_idea_stream_users_the_signup_submit() {
+	$wp_idea_stream = wp_idea_stream();
+
+	wp_nonce_field( 'wp_idea_stream_signup' );
+
+	do_action( 'wp_idea_stream_users_the_signup_submit' ); ?>
+
+	<input type="reset" value="<?php esc_attr_e( 'Reset', 'wp-idea-stream' ) ;?>"/>
+	<input type="submit" value="<?php esc_attr_e( 'Sign-up', 'wp-idea-stream' ) ;?>" name="wp_idea_stream_signup[signup]"/>
+	<?php
+}

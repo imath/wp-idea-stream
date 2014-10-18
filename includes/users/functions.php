@@ -402,12 +402,12 @@ function wp_idea_stream_users_get_user_comments_url( $user_id = 0, $user_nicenam
 
 /**
  * Gets the signup url
- * 
+ *
  * @package WP Idea Stream
  * @subpackage users/functions
  *
  * @since 2.1.0
- * 
+ *
  * @global  $wp_rewrite
  * @return string signup url
  */
@@ -778,15 +778,138 @@ function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
 	return $wpdb->get_results( $query );
 }
 
+function wp_idea_stream_users_signup_user() {
+	// Bail if not a post request
+	if ( 'POST' != strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
+		return;
+	}
+
+	// Bail if not a post idea request
+	if ( empty( $_POST['wp_idea_stream_signup'] ) || ! is_array( $_POST['wp_idea_stream_signup'] ) ) {
+		return;
+	}
+
+	// Check nonce
+	check_admin_referer( 'wp_idea_stream_signup' );
+
+	$redirect = wp_idea_stream_get_redirect_url();
+
+	$user_login = false;
+
+	// Force the login to exist and to be at least 4 characters long
+	if ( ! empty( $_POST['wp_idea_stream_signup']['user_login'] ) &&  4 < mb_strlen( $_POST['wp_idea_stream_signup']['user_login'] ) ) {
+		$user_login = $_POST['wp_idea_stream_signup']['user_login'];
+	}
+
+	$user_email = false;
+	if ( ! empty( $_POST['wp_idea_stream_signup']['user_email'] ) ) {
+		$user_email = $_POST['wp_idea_stream_signup']['user_email'];
+	}
+
+	// Do we need to edit the user once created ?
+	$edit_user = array_diff_key(
+		$_POST['wp_idea_stream_signup'],
+		array(
+			'signup'     => 'signup',
+			'user_login' => 'user_login',
+			'user_email' => 'user_email',
+		)
+	);
+
+	/**
+	 * Before registering the user, check for required field
+	 */
+	$required_errors = new WP_Error();
+
+	foreach ( $edit_user as $key => $value ) {
+
+		if ( ! apply_filters( 'wp_idea_stream_users_is_signup_field_required', false, $key ) ) {
+			continue;
+		}
+
+		if ( empty( $value ) ) {
+			$required_errors->add( 'empty_required_field', __( 'Please fill all required fields.', 'wp-idea-stream' ) );
+		}
+	}
+
+	// Stop the process and ask to fill all fields.
+	if ( $required_errors->get_error_code() ) {
+		//Add feedback to the user
+		wp_idea_stream_add_message( array(
+			'type'    => 'error',
+			'content' => $required_errors->get_error_message(),
+		) );
+		return;
+	}
+
+	// Register the user
+	$user = register_new_user( $user_login, $user_email );
+
+	if ( is_wp_error( $user ) ) {
+		//Add feedback to the user
+		wp_idea_stream_add_message( array(
+			'type'    => 'error',
+			'content' => join( ' ', array_map( 'strip_tags', $user->get_error_messages() ) ),
+		) );
+		return;
+
+	// User is created, now we need to eventually edit him
+	} else {
+
+		if ( ! empty( $edit_user ) )  {
+
+			$userdata = new stdClass();
+			$userdata = (object) $edit_user;
+			$userdata->ID = $user;
+
+			// Edit the user
+			if ( wp_update_user( $userdata ) ) {
+				/**
+				 * Any extra field not using contact methods or WordPress built in user fields can hook here
+				 *
+				 * @param int $user the user id
+				 * @param array $edit_user the submitted user fields
+				 */
+				do_action( 'wp_idea_stream_users_signup_user_created', $user, $edit_user );
+			}
+		}
+
+		// Finally invite the user to check his email.
+		wp_idea_stream_add_message( array(
+			'type'    => 'success',
+			'content' => __( 'Registration complete. Please check your e-mail.', 'wp-idea-stream' ),
+		) );
+
+		wp_safe_redirect( $redirect );
+		exit();
+	}
+}
+
+function wp_idea_stream_user_get_fields( $type = 'signup' ) {
+	$fields = wp_get_user_contact_methods();
+
+	if ( 'signup' == $type ) {
+		$fields = array_merge(
+			apply_filters( 'wp_idea_stream_user_get_signup_fields', array(
+				'user_login' => __( 'Username',   'wp-idea-stream' ),
+				'user_email' => __( 'E-mail',     'wp-idea-stream' ),
+			) ),
+			$fields
+		);
+	}
+
+	return apply_filters( 'wp_idea_stream_user_get_fields', $fields, $type );
+}
+
 /**
  * Redirect the loggedin user to its profile as already a member
  * Or redirect WP (non multisite) register form to IdeaStream signup form
- * 
+ *
  * @package WP Idea Stream
  * @subpackage users/functions
  *
  * @since 2.1.0
- * 
+ *
  * @param  string $context the template context
  */
 function wp_idea_stream_user_signup_redirect( $context = '' ) {
