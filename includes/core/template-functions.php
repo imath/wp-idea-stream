@@ -81,6 +81,8 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			wp_idea_stream_set_idea_var( 'orderby', 'rates_count' );
 		}
 
+		do_action( 'wp_idea_stream_admin_request', $posts_query );
+
 		return;
 	}
 
