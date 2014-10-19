@@ -391,7 +391,12 @@ final class WP_Idea_Stream {
 	public function load_textdomain() {
 		// Traditional WordPress plugin locale filter
 		$locale        = apply_filters( 'plugin_locale', get_locale(), $this->domain );
-		$mofile        = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
+
+		if ( empty( $locale ) ) {
+			$mofile = $this->domain . '.mo';
+		} else {
+			$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
+		}
 
 		// Setup paths to current locale file
 		$mofile_local  = $this->lang_dir . $mofile;
