@@ -1177,7 +1177,9 @@ function wp_idea_stream_tag_cloud_args( $args = array() ) {
  * @return array           associative array containing the number of tags and the content of the cloud.
  */
 function wp_idea_stream_generate_tag_cloud( $number = 10, $args = array() ) {
-	$tags = get_terms( wp_idea_stream_get_tag(), array( 'number' => $number, 'orderby' => 'count', 'order' => 'DESC' ) );
+	$tags = get_terms( wp_idea_stream_get_tag(), apply_filters( 'wp_idea_stream_generate_tag_cloud_args',
+		array( 'number' => $number, 'orderby' => 'count', 'order' => 'DESC' )
+	) );
 
 	if ( empty( $tags ) ) {
 		return;
