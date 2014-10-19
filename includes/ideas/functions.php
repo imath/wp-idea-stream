@@ -519,6 +519,7 @@ function wp_idea_stream_ideas_heartbeat_check_locked( $response = array(), $data
  * @uses   get_post_meta() to check if the idea received rates
  * @uses   apply_filters() call 'wp_idea_stream_ideas_pre_can_edit' to disable the time lock, comments and rates checks
  *                         call 'wp_idea_stream_ideas_can_edit' to override user's edit capability
+ *                         call 'wp_idea_stream_ideas_can_edit_time' to change the time period an idea can be edited
  * @return bool          whether the user can edit the idea (true), or not (false)
  */
 function wp_idea_stream_ideas_can_edit( $idea = null ) {
@@ -580,7 +581,7 @@ function wp_idea_stream_ideas_can_edit( $idea = null ) {
 	}
 
 	// Period of time
-	$lockable  = '+5 minutes';
+	$lockable  = apply_filters( 'wp_idea_stream_ideas_can_edit_time', '+5 minutes' );
 
 	// Now
 	$cur_time  = current_time( 'timestamp', true );
