@@ -246,7 +246,8 @@ class WP_Idea_Stream_Idea {
 
 			foreach ( $this->metas as $meta_key => $meta_value ) {
 				// Do not update these keys.
-				if ( in_array( $meta_key, array( 'keys', 'rates', 'average_rate' ) ) ) {
+				$skip_keys = apply_filters( 'wp_idea_stream_meta_key_skip_save', array( 'keys', 'rates', 'average_rate' ) );
+				if ( in_array( $meta_key, $skip_keys ) ) {
 					continue;
 				}
 
