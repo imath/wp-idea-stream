@@ -701,6 +701,19 @@ class WP_Idea_Stream_Admin {
 			return $actions;
 		}
 
+		/**
+		 * I don't know yet if inline edit is well supported by the plugin, so if you
+		 * want to test, just return true to this filter
+		 * eg: add_filter( 'wp_idea_stream_admin_ideas_inline_edit', '__return_true' );
+		 *
+		 * @param  bool true to allow inline edit, false otherwise (default is false)
+		 */
+		$keep_inline_edit = apply_filters( 'wp_idea_stream_admin_ideas_inline_edit', false );
+
+		if ( ! empty( $keep_inline_edit ) ) {
+			return $actions;
+		}
+
 		if ( ! empty( $actions['inline hide-if-no-js'] ) ) {
 			unset( $actions['inline hide-if-no-js'] );
 		}
