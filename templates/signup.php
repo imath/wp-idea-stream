@@ -16,9 +16,11 @@
 
 	<form class="standard-form" id="wp-idea-stream-form" action="" method="post">
 
+		<?php do_action( 'wp_idea_stream_signup_custom_field_before' ); ?>
+
 		<?php wp_idea_stream_users_the_signup_fields() ; ?>
 
-		<?php do_action( 'wp_idea_stream_signup_custom_field' ); ?>
+		<?php do_action( 'wp_idea_stream_signup_custom_field_after' ); ?>
 
 		<div class="submit">
 

@@ -795,7 +795,8 @@ function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
  * @uses wp_safe_redirect();
  * @uses apply_filters() Calls 'wp_idea_stream_users_is_signup_field_required' to force a contact method to be required
  *                       Calls 'wp_idea_stream_users_signup_userdata' to override the user data to update
- * @uses do_action() Calls 'wp_idea_stream_users_before_signup_user' to perform actions before signup is registered
+ * @uses do_action() Calls 'wp_idea_stream_users_before_signup_field_required' to perform actions before required fields are checked
+ *                   Calls 'wp_idea_stream_users_before_signup_user' to perform actions before signup is registered
  *                   Calls 'wp_idea_stream_users_after_signup_user' to perform actions after signup is registered
  *                   Calls 'wp_idea_stream_users_signup_user_created' to perform actions once the user created has been edited
  */
@@ -836,6 +837,15 @@ function wp_idea_stream_users_signup_user() {
 			'user_email' => 'user_email',
 		)
 	);
+
+	/**
+	 * Perform actions before the required fields check
+	 *
+	 * @param  string $user_login the user login
+	 * @param  string $user_email the user email
+	 * @param  array  $edit_user  all extra user fields
+	 */
+	do_action( 'wp_idea_stream_users_before_signup_field_required', $user_login, $user_email, $edit_user );
 
 	/**
 	 * Before registering the user, check for required field

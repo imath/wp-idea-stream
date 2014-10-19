@@ -1295,12 +1295,12 @@ function wp_idea_stream_adminbar_menu( $wp_admin_bar = null ){
 
 /**
  * Checks wether signups are allowed
- * 
+ *
  * @package WP Idea Stream
  * @subpackage core/functions
  *
  * @since 2.1.0
- * 
+ *
  * @return bool true if signups are allowed and not on a multisite config, false otherwise
  */
 function wp_idea_stream_is_signup_allowed() {
