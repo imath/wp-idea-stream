@@ -1116,6 +1116,34 @@ function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&he
 }
 
 /**
+ * Prepare the content to be output in a csv file
+ *
+ * @package WP Idea Stream
+ * @subpackage core/functions
+ *
+ * @since 2.1.0
+ *
+ * @param  string $content the content
+ * @uses   apply_filters() call 'wp_idea_stream_generate_csv_content' to add extra formatting stuff
+ * @return string          the content to be displayed in a csv file
+ */
+function wp_idea_stream_generate_csv_content( $content = '' ) {
+	// Avoid some chars
+	$content = str_replace( '&#8212;', 0, $content );
+
+	// Strip shortcodes
+	$content = strip_shortcodes( $content );
+
+	// Strip slashes
+	$content = wp_unslash( $content );
+
+	// Strip all tags
+	$content = wp_strip_all_tags( $content, true );
+
+	return apply_filters( 'wp_idea_stream_generate_csv_content', $content );
+}
+
+/**
  * Specific tag cloud count text callback
  *
  * By Default, WordPress uses "topic/s", This will

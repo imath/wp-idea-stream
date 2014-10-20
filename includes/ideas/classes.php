@@ -794,7 +794,10 @@ class WP_Idea_Stream_Idea_Metas {
 
 		check_admin_referer( 'admin-ideastream-metas', '_admin_ideastream_metas' );
 
-		$the_metas = $_POST['wp_idea_stream']['_the_metas'];
+		$the_metas = array();
+		if ( ! empty( $_POST['wp_idea_stream']['_the_metas'] ) ) {
+			$the_metas = $_POST['wp_idea_stream']['_the_metas'];
+		}
 
 		$meta_keys = explode( ',', $_POST['wp_idea_stream']['meta_keys'] );
 		$meta_keys = array_map( 'sanitize_key', (array) $meta_keys );
