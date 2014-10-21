@@ -1274,9 +1274,9 @@ class WP_Idea_Stream_Admin {
 
 		// If some users are still using Microsoft ;)
 		if ( preg_match( "/Windows/i", $_SERVER['HTTP_USER_AGENT'] ) ) {
-        	$comma = ';';
-        	$output = utf8_decode( $output );
-        }
+			$comma = ';';
+			$output = utf8_decode( $output );
+		}
 
 		// $output to csv
 		$csv = array();
@@ -1285,16 +1285,16 @@ class WP_Idea_Stream_Admin {
 		preg_match_all( '/<tr(>| [^>]*>)(.*?)<\/tr( |>)/is', $table, $b );
 		$rows = $b[2];
 		foreach ( $rows as $row ) {
-		    //cycle through each row
-		    if ( preg_match( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row ) ) {
-		        //match for table headers
-		        preg_match_all( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row, $b );
-		        $csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
-		    } else if ( preg_match( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row ) ) {
-		        //match for table cells
-		        preg_match_all( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row, $b );
-		        $csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
-		    }
+			//cycle through each row
+			if ( preg_match( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row ) ) {
+				//match for table headers
+				preg_match_all( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row, $b );
+				$csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
+			} else if ( preg_match( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row ) ) {
+				//match for table cells
+				preg_match_all( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row, $b );
+				$csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
+			}
 		}
 
 		$file = implode( "\n", $csv );
