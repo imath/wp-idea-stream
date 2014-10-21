@@ -988,7 +988,17 @@ class WP_Idea_Stream_Admin {
 	 */
 	public function idea_row_extra_data( $column_name = '', $idea_id = '' ) {
 		if ( 'idea_content' == $column_name ) {
+			// Temporarly remove filters
+			remove_filter( 'the_content', 'wptexturize'     );
+			remove_filter( 'the_content', 'convert_smilies' );
+			remove_filter( 'the_content', 'convert_chars'   );
+			
 			the_content();
+
+			// Restore just in case
+			add_filter( 'the_content', 'wptexturize'     );
+			add_filter( 'the_content', 'convert_smilies' );
+			add_filter( 'the_content', 'convert_chars'   );
 		} else if ( 'idea_link' == $column_name ) {
 			the_permalink();
 		}
@@ -1260,6 +1270,14 @@ class WP_Idea_Stream_Admin {
 
 		$output = wp_kses( $output, $allowed_html );
 
+		$comma = ',';
+
+		// If some users are still using Microsoft ;)
+		if ( preg_match( "/Windows/i", $_SERVER['HTTP_USER_AGENT'] ) ) {
+        	$comma = ';';
+        	$output = utf8_decode( $output );
+        }
+
 		// $output to csv
 		$csv = array();
 		preg_match( '/<table(>| [^>]*>)(.*?)<\/table( |>)/is', $output, $b );
@@ -1271,11 +1289,11 @@ class WP_Idea_Stream_Admin {
 		    if ( preg_match( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row ) ) {
 		        //match for table headers
 		        preg_match_all( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row, $b );
-		        $csv[] = '"' . implode( '","', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
+		        $csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
 		    } else if ( preg_match( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row ) ) {
 		        //match for table cells
 		        preg_match_all( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row, $b );
-		        $csv[] = '"' . implode( '","', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
+		        $csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
 		    }
 		}
 

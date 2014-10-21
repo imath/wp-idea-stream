@@ -1129,7 +1129,7 @@ function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&he
  */
 function wp_idea_stream_generate_csv_content( $content = '' ) {
 	// Avoid some chars
-	$content = str_replace( '&#8212;', 0, $content );
+	$content = str_replace( array( '&#8212;', '"' ), array( 0, "'" ), $content );
 
 	// Strip shortcodes
 	$content = strip_shortcodes( $content );
