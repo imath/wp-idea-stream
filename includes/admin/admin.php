@@ -992,7 +992,7 @@ class WP_Idea_Stream_Admin {
 			remove_filter( 'the_content', 'wptexturize'     );
 			remove_filter( 'the_content', 'convert_smilies' );
 			remove_filter( 'the_content', 'convert_chars'   );
-			
+
 			the_content();
 
 			// Restore just in case
