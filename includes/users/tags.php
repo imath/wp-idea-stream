@@ -305,6 +305,8 @@ function wp_idea_stream_users_the_signup_fields() {
 
 			$output .= '<label for="_wp_idea_stream_signup_' . $sanitized['key'] . '">' . $sanitized['label'] . ' ' . $required_output . '</label>';
 			$output .= '<input type="text" id="_wp_idea_stream_signup_' . $sanitized['key'] . '" name="wp_idea_stream_signup[' . $sanitized['key'] . ']" value="' . $sanitized['value'] . '"/>';
+
+			$output .= apply_filters( 'wp_idea_stream_users_after_signup_field', '', $sanitized );
 		}
 
 		return apply_filters( 'wp_idea_stream_users_get_signup_fields', $output );

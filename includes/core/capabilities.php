@@ -224,5 +224,5 @@ function wp_idea_stream_user_can( $capability = '', $args = false ) {
 		$can = current_user_can( $capability );
 	}
 
-	return apply_filters( 'wp_idea_stream_user_can', $can );
+	return apply_filters( 'wp_idea_stream_user_can', $can, $capability );
 }
