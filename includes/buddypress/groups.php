@@ -421,7 +421,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 	 * @uses   remove_filter() to remove the temporary filters
 	 * @return string html output
 	 */
-	public function display() {
+	public function display( $group_id = null ) {
 		global $wp_query;
 
 		// Catch BuddyPress group's query post settings
