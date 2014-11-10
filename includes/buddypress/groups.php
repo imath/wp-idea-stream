@@ -99,8 +99,9 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 					'enabled'  => self::groups_activated(),
 				),
 				'edit' => array(
-					'position' => 61,
-					'enabled'  => self::groups_activated(),
+					'position'          => 61,
+					'enabled'           => self::groups_activated(),
+					'show_in_admin_bar' => true,
 				),
 			)
 		);
