@@ -549,7 +549,7 @@ class WP_Idea_Stream_Loop_Comments extends WP_Idea_Stream_Loop {
 		);
 
 		// All post status if user is viewing his profile
-		if ( wp_idea_stream_is_current_user_profile() ) {
+		if ( wp_idea_stream_is_current_user_profile() || current_user_can( 'read_private_ideas' ) ) {
 			$default['post_status'] = '';
 		}
 
