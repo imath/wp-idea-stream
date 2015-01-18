@@ -421,8 +421,8 @@ function wp_idea_stream_users_get_signup_url() {
 	 */
 	$early_signup_url = apply_filters( 'wp_idea_stream_users_pre_get_signup_url', false );
 
-	if ( ! empty( $early_form_url ) ) {
-		return $early_form_url;
+	if ( ! empty( $early_signup_url ) ) {
+		return $early_signup_url;
 	}
 
 	// Pretty permalinks
@@ -983,6 +983,12 @@ function wp_idea_stream_user_signup_redirect( $context = '' ) {
 		wp_safe_redirect( wp_idea_stream_users_get_signup_url() );
 		return;
 	} else {
+		/**
+		 * If we are here the IdeaStream signup url has been requested
+		 * Before using it let plugins override it. Used internally to
+		 * let BuddyPress handle signups if needed
+		 */
+		do_action( 'wp_idea_stream_user_signup_override' );
 		return;
 	}
 }

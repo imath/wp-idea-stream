@@ -78,6 +78,9 @@ class WP_Idea_Stream_BuddyPress extends BP_Component {
 		// Let BuddyPress take the lead on user's profile link in ideas post type comments
 		remove_filter( 'comments_array', 'wp_idea_stream_comments_append_profile_url',  11, 2 );
 
+		// Remove the signup override of ideastream
+		remove_action( 'login_form_register', 'wp_idea_stream_user_signup_redirect' );
+
 		// Filter the user domains once ideastream nav is set
 		add_action( 'bp_' . $this->id .'_setup_nav', array( $this, 'filter_user_domains' ) );
 	}
