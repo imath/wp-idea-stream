@@ -983,12 +983,14 @@ function wp_idea_stream_user_signup_redirect( $context = '' ) {
 		wp_safe_redirect( wp_idea_stream_users_get_signup_url() );
 		return;
 	} else {
-		/**
-		 * If we are here the IdeaStream signup url has been requested
-		 * Before using it let plugins override it. Used internally to
-		 * let BuddyPress handle signups if needed
-		 */
-		do_action( 'wp_idea_stream_user_signup_override' );
+		if ( 'signup' == $context )  {
+			/**
+			 * If we are here the IdeaStream signup url has been requested
+			 * Before using it let plugins override it. Used internally to
+			 * let BuddyPress handle signups if needed
+			 */
+			do_action( 'wp_idea_stream_user_signup_override' );
+		}
 		return;
 	}
 }
