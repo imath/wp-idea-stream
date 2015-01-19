@@ -1431,8 +1431,9 @@ function wp_idea_stream_ideas_not_loggedin() {
 
 	if ( ! is_user_logged_in() ) {
 		$output = sprintf(
-			__( 'Please <a href="%s" title="Log in">log in</a> to submit an idea', 'wp-idea-stream' ),
-			esc_url( wp_login_url( wp_idea_stream_get_form_url() ) )
+			__( 'Please <a href="%s" title="Log in">log in</a> or <a href="%s" title="Sign up">register</a> to this site to submit an idea.', 'wp-idea-stream' ),
+			esc_url( wp_login_url( wp_idea_stream_get_form_url() ) ),
+			esc_url( wp_idea_stream_users_get_signup_url() )
 		);
 
 		// Check for a custom message..

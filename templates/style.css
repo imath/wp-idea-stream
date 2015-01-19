@@ -464,6 +464,10 @@ a.wpis-title-button {
 	margin-top:5px;
 }
 
+#wp_idea_stream_profile_form blockquote {
+	border:none;
+}
+
 /*--------------------------------------------------------------
 8 - Forms
 --------------------------------------------------------------*/

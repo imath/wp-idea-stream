@@ -816,11 +816,18 @@ function wp_idea_stream_users_signup_user() {
 
 	$redirect = wp_idea_stream_get_redirect_url();
 
+	/**
+	 * Before registering the user, check for required field
+	 */
+	$required_errors = new WP_Error();
+
 	$user_login = false;
 
 	// Force the login to exist and to be at least 4 characters long
 	if ( ! empty( $_POST['wp_idea_stream_signup']['user_login'] ) &&  4 < mb_strlen( $_POST['wp_idea_stream_signup']['user_login'] ) ) {
 		$user_login = $_POST['wp_idea_stream_signup']['user_login'];
+	} else {
+		$required_errors->add( 'user_login_fourchars', __( 'Please choose a login having at least 4 characters.', 'wp-idea-stream' ) );
 	}
 
 	$user_email = false;
@@ -846,11 +853,6 @@ function wp_idea_stream_users_signup_user() {
 	 * @param  array  $edit_user  all extra user fields
 	 */
 	do_action( 'wp_idea_stream_users_before_signup_field_required', $user_login, $user_email, $edit_user );
-
-	/**
-	 * Before registering the user, check for required field
-	 */
-	$required_errors = new WP_Error();
 
 	foreach ( $edit_user as $key => $value ) {
 
