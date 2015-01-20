@@ -27,8 +27,8 @@ tests_add_filter( 'muplugins_loaded', '_bootstrap_wp_idea_stream' );
 
 require getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit/includes/bootstrap.php';
 
-if ( defined( 'WP_TESTS_BUDDYPRESS' ) && true === WP_TESTS_BUDDYPRESS ) {
-	// Load the BP test files
+if ( defined( 'WP_TESTS_BUDDYPRESS' ) && 1 == WP_TESTS_BUDDYPRESS ) {
+	// Load the BP-specific testing tools
 	require BP_TESTS_DIR . '/includes/testcase.php';
 }
 

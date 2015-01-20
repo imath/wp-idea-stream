@@ -16,8 +16,4 @@ class WP_Idea_Stream_TestCase extends WP_UnitTestCase {
 		$this->post_type = '';
 		wp_set_current_user( $this->old_current_user );
 	}
-
-	/**
-	 * http://wern-ancheta.com/blog/2013/09/29/unit-testing-wordpress-plugins/
-	 */
 }
