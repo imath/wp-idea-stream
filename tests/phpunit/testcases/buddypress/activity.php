@@ -176,6 +176,104 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 
 		$this->assertTrue( empty( $a['activities'] ), 'No activity should be generated for a password protected idea' );
 	}
+
+	/**
+	 * @group group_activity
+	 */
+	function test_wp_idea_stream_activity_public_group() {
+		$bp = buddypress();
+		$reset_current_group = $bp->groups->current_group;
+		$reset_current_component = $bp->current_component;
+		$bp->current_component = $bp->groups->id;
+
+		$ga = $this->factory->user->create();
+		$gm = $this->factory->user->create();
+
+		$g = $this->factory->group->create( array( 'creator_id' => $ga ) );
+
+		// Allow IdeaStream
+		groups_update_groupmeta( $g, '_group_ideastream_activate', 1 );
+
+		groups_join_group( $g, $gm );
+
+		$bp->groups->current_group = groups_get_group( array(
+			'group_id'        => $g,
+			'populate_extras' => true,
+		) );
+
+		$idea_id = $this->factory->idea->create( array(
+			'author' => $gm,
+			'metas'  => array( '_ideastream_group_id' => $g )
+		) );
+
+		$component = $bp->groups->id;
+
+		$a = bp_activity_get( array(
+			'filter' => array(
+				'action'       => 'new_ideas',
+				'object'       => $component,
+				'primary_id'   => $g,
+				'secondary_id' => $idea_id,
+			)
+		) );
+
+		$this->assertTrue( $idea_id   == $a['activities'][0]->secondary_item_id, 'An activity should be created when an idea is published in a public group' );
+		$this->assertTrue( $component == $a['activities'][0]->component, 'The component should be set to groups' );
+
+		// clean up!
+		$bp->groups->current_group = $reset_current_group;
+		$bp->current_component = $reset_current_component;
+	}
+
+	/**
+	 * @group group_activity
+	 */
+	function test_wp_idea_stream_activity_private_group() {
+		$bp = buddypress();
+		$reset_current_group = $bp->groups->current_group;
+		$reset_current_component = $bp->current_component;
+		$bp->current_component = $bp->groups->id;
+
+		$ga = $this->factory->user->create();
+		$gm = $this->factory->user->create();
+
+		$g = $this->factory->group->create( array( 'creator_id' => $ga, 'status' => 'private' ) );
+
+		// Allow IdeaStream
+		groups_update_groupmeta( $g, '_group_ideastream_activate', 1 );
+
+		groups_join_group( $g, $gm );
+
+		$bp->groups->current_group = groups_get_group( array(
+			'group_id'        => $g,
+			'populate_extras' => true,
+		) );
+
+		$idea_id = $this->factory->idea->create( array(
+			'author' => $gm,
+			'metas'  => array( '_ideastream_group_id' => $g ),
+			'status' => 'private',
+		) );
+
+		$component = $bp->groups->id;
+
+		$a = bp_activity_get( array(
+			'filter' => array(
+				'action'       => 'new_ideas',
+				'object'       => $component,
+				'primary_id'   => $g,
+				'secondary_id' => $idea_id,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertTrue( $idea_id   == $a['activities'][0]->secondary_item_id, 'An activity should be created when an idea is published in a private group' );
+		$this->assertTrue( $component == $a['activities'][0]->component, 'The component should be set to groups' );
+
+		// clean up!
+		$bp->groups->current_group = $reset_current_group;
+		$bp->current_component = $reset_current_component;
+	}
 }
 
 endif;
