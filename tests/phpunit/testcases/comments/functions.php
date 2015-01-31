@@ -3,11 +3,12 @@
  * @group comments
  */
 class WP_Idea_Stream_Comment_Functions_Tests extends WP_Idea_Stream_TestCase {
+	public $idea_id;
 
 	function setUp() {
 		parent::setUp();
 
-		$this->post_id = $this->factory->post->create( array( 'post_type' => $this->post_type ) );
+		$this->idea_id = $this->factory->idea->create();
 	}
 
 	public function tearDown() {
@@ -18,8 +19,8 @@ class WP_Idea_Stream_Comment_Functions_Tests extends WP_Idea_Stream_TestCase {
 	 * @group wp_idea_stream_comments_get_comments
 	 */
 	function test_wp_idea_stream_comments_get_comments() {
-		$comment_id_approved = $this->factory->comment->create( array( 'comment_post_ID' => $this->post_id ) );
-		$comment_id_not_approved = $this->factory->comment->create( array( 'comment_post_ID' => $this->post_id, 'comment_approved' => 0 ) );
+		$comment_id_approved = $this->factory->comment->create( array( 'comment_post_ID' => $this->idea_id ) );
+		$comment_id_not_approved = $this->factory->comment->create( array( 'comment_post_ID' => $this->idea_id, 'comment_approved' => 0 ) );
 
 		$p = $this->factory->post->create();
 		$comment_id_post = $this->factory->comment->create( array( 'comment_post_ID' => $p ) );

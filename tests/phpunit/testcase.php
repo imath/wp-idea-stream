@@ -1,19 +1,29 @@
 <?php
 
-class WP_Idea_Stream_TestCase extends WP_UnitTestCase {
-	public $post_type;
+/**
+ * Include WP Idea Stream Factory
+ */
+require_once dirname( __FILE__ ) . '/factory.php';
+
+/**
+ * Use BuddyPress unit testcase if running BuddyPress tests
+ */
+if ( class_exists( 'BP_UnitTestCase' ) && defined( 'WP_TESTS_BUDDYPRESS' ) && 1 == WP_TESTS_BUDDYPRESS ) :
+class WP_Idea_Stream_TestCase extends BP_UnitTestCase {
 
 	function setUp() {
 		parent::setUp();
 
-		$this->post_type = wp_idea_stream_get_post_type();
-		$this->old_current_user = get_current_user_id();
-	}
-
-	public function tearDown() {
-		parent::tearDown();
-
-		$this->post_type = '';
-		wp_set_current_user( $this->old_current_user );
+		$this->factory = new WP_Idea_Stream_UnitTest_Factory;
 	}
 }
+else :
+class WP_Idea_Stream_TestCase extends WP_UnitTestCase {
+
+	function setUp() {
+		parent::setUp();
+
+		$this->factory = new WP_Idea_Stream_UnitTest_Factory;
+	}
+}
+endif;
