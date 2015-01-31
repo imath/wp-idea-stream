@@ -10,6 +10,7 @@ class WP_Idea_Stream_UnitTest_Factory extends BP_UnitTest_Factory {
 		parent::__construct();
 
 		$this->idea = new WP_Idea_Stream_UnitTest_Factory_For_Idea( $this );
+		$this->idea_comment = new WP_Idea_Stream_UnitTest_Factory_For_Idea_Comment( $this );
 	}
 }
 else :
@@ -69,5 +70,51 @@ class WP_Idea_Stream_UnitTest_Factory_For_Idea extends WP_UnitTest_Factory_For_T
 
 	function get_object_by_id( $idea_id ) {
 		return new WP_Idea_Stream_Idea( $idea_id );
+	}
+}
+
+class WP_Idea_Stream_UnitTest_Factory_For_Idea_Comment extends WP_UnitTest_Factory_For_Thing {
+
+	function __construct( $factory = null ) {
+		parent::__construct( $factory );
+
+		$this->default_generation_definitions = array(
+			'comment_author'       => new WP_UnitTest_Generator_Sequence( 'Idea Commenter %s' ),
+			'comment_author_url'   => new WP_UnitTest_Generator_Sequence( 'http://example.com/%s/' ),
+			'comment_author_email' => new WP_UnitTest_Generator_Sequence( 'test%s@comment.url' ),
+			'comment_type'         => '',
+			'comment_content'      => new WP_UnitTest_Generator_Sequence( 'Idea comment %s' ),
+		);
+	}
+
+	function create_object( $args ) {
+		$reset_server = $_SERVER;
+		$_SERVER['REMOTE_ADDR'] = '';
+		$_SERVER['SERVER_NAME'] = '';
+
+		$comment_id = wp_new_comment( $this->addslashes_deep( $args ) );
+
+		// Reset $_SERVER
+		$_SERVER = $reset_server;
+
+		return $comment_id;
+	}
+
+	function update_object( $comment_id, $fields ) {
+		$reset_server = $_SERVER;
+		$_SERVER['REMOTE_ADDR'] = '';
+		$_SERVER['SERVER_NAME'] = '';
+
+		$fields['comment_ID'] = $comment_id;
+		$comment_id = wp_update_comment( $this->addslashes_deep( $fields ) );
+
+		// Reset $_SERVER
+		$_SERVER = $reset_server;
+
+		return $comment_id;
+	}
+
+	function get_object_by_id( $comment_id ) {
+		return wp_idea_stream_comments_get_comment( $comment_id );
 	}
 }
