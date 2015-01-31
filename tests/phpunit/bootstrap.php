@@ -4,7 +4,13 @@ require_once getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit/includes/functions.php
 
 function _bootstrap_wp_idea_stream() {
 	if ( defined( 'WP_TESTS_BUDDYPRESS' ) && 1 == WP_TESTS_BUDDYPRESS ) {
-		echo "Testing with BuddyPress integration..." . PHP_EOL;
+
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			echo "Testing with BuddyPress integration..." . PHP_EOL;
+			echo "Running without BuddyPress multisite integration... To test BuddyPress multisite integration, use -c tests/phpunit/buddymulti.xml" . PHP_EOL;
+		} else {
+			echo "Testing with BuddyPress multisite integration..." . PHP_EOL;
+		}
 
 		if ( ! defined( 'BP_TESTS_DIR' ) ) {
 			define( 'BP_TESTS_DIR', dirname( __FILE__ ) . '/../../../buddypress/tests/phpunit' );
@@ -18,6 +24,7 @@ function _bootstrap_wp_idea_stream() {
 		require BP_TESTS_DIR . '/includes/loader.php';
 	} else {
 		echo "Running without BuddyPress integration... To test BuddyPress integration, use -c tests/phpunit/buddypress.xml" . PHP_EOL;
+		echo "To test BuddyPress multisite integration, use -c tests/phpunit/buddymulti.xml" . PHP_EOL;
 	}
 
 	// load WP Idea Stream
