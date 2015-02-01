@@ -5,7 +5,7 @@
 class WP_Idea_Stream_Comment_Functions_Tests extends WP_Idea_Stream_TestCase {
 	public $idea_id;
 
-	function setUp() {
+	public function setUp() {
 		parent::setUp();
 
 		$this->idea_id = $this->factory->idea->create();
@@ -18,7 +18,7 @@ class WP_Idea_Stream_Comment_Functions_Tests extends WP_Idea_Stream_TestCase {
 	/**
 	 * @group wp_idea_stream_comments_get_comments
 	 */
-	function test_wp_idea_stream_comments_get_comments() {
+	public function test_wp_idea_stream_comments_get_comments() {
 		$comment_id_approved = $this->factory->comment->create( array( 'comment_post_ID' => $this->idea_id ) );
 		$comment_id_not_approved = $this->factory->comment->create( array( 'comment_post_ID' => $this->idea_id, 'comment_approved' => 0 ) );
 
