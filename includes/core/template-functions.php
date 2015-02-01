@@ -788,9 +788,7 @@ function wp_idea_stream_reset_post_title( $context = '' ) {
  *
  * @since 2.0.0
  *
- * @param string $title
- * @param string $sep
- * @param string $seplocation
+ * @param array $title the title parts
  * @uses  wp_idea_stream_is_ideastream() to make sure it's plugin's territory
  * @uses  wp_idea_stream_is_addnew() to check the submit form is displayed
  * @uses  wp_idea_stream_is_user_profile() to check if a user's profile is displayed
@@ -800,27 +798,25 @@ function wp_idea_stream_reset_post_title( $context = '' ) {
  * @uses  wp_idea_stream_get_current_term() to get the current term
  * @uses  get_taxonomy() to get the taxonomy
  * @uses  wp_idea_stream_set_idea_var() to globalize the current term
+ * @uses  wp_idea_stream_is_signup() to check if on the signup page
  * @uses  apply_filters() call 'wp_idea_stream_title' to override the title meta tag of the page
  * @return string the page title meta tag
  */
-function wp_idea_stream_title( $title = '', $sep = '&raquo;', $seplocation = '' ) {
+function wp_idea_stream_title( $title_array = array() ) {
 	if ( ! wp_idea_stream_is_ideastream() ) {
-		return $title;
+		return $title_array;
 	}
 
-	$new_title = '';
-	// Temporary separator, for accurate flipping, if necessary
-	$t_sep  = '%WP_TITILE_SEP%';
-	$prefix = '';
+	$new_title = array();
 
 	if ( wp_idea_stream_is_addnew() ) {
-		$new_title = esc_attr__( 'New idea', 'wp-idea-stream' );
+		$new_title[] = esc_attr__( 'New idea', 'wp-idea-stream' );
 	} else if ( wp_idea_stream_is_edit() ) {
-		$new_title = esc_attr__( 'Edit idea', 'wp-idea-stream' );
+		$new_title[] = esc_attr__( 'Edit idea', 'wp-idea-stream' );
 	} else if ( wp_idea_stream_is_user_profile() ) {
-		$new_title = sprintf( esc_html__( '%s&#39;s profile', 'wp-idea-stream' ), wp_idea_stream_users_get_displayed_user_displayname() );
+		$new_title[] = sprintf( esc_html__( '%s&#39;s profile', 'wp-idea-stream' ), wp_idea_stream_users_get_displayed_user_displayname() );
 	} else if ( wp_idea_stream_is_single_idea() ) {
-		$new_title = single_post_title( '', false );
+		$new_title[] = single_post_title( '', false );
 	} else if ( is_tax() ) {
 		$term = wp_idea_stream_get_current_term();
 		if ( $term ) {
@@ -829,31 +825,22 @@ function wp_idea_stream_title( $title = '', $sep = '&raquo;', $seplocation = '' 
 			// Catch the term for later use
 			wp_idea_stream_set_idea_var( 'current_term', $term );
 
-			$new_title = single_term_title( $tax->labels->name . $t_sep, false );
+			$new_title[] = single_term_title( '', false );
+			$new_title[] = $tax->labels->name;
 		}
+	} else if ( wp_idea_stream_is_signup() ) {
+		$new_title[] = esc_html__( 'Create an account', 'wp-idea-stream' );
 	} else {
-		$new_title = esc_html__( 'Ideas', 'wp-idea-stream' );
+		$new_title[] = esc_html__( 'Ideas', 'wp-idea-stream' );
 	}
 
 	// Compare new title with original title
-	if ( $new_title === $title ) {
-		return $title;
+	if ( empty( $new_title ) ) {
+		return $title_array;
 	}
 
-	if ( ! empty( $new_title ) ) {
-		$prefix = " $sep ";
-	}
-
-	// sep on right, so reverse the order
-	if ( 'right' === $seplocation ) {
-		$new_title_array = array_reverse( explode( $t_sep, $new_title ) );
-		$new_title       = implode( " $sep ", $new_title_array ) . $prefix;
-
-	// sep on left, do not reverse
-	} else {
-		$new_title_array = explode( $t_sep, $new_title );
-		$new_title       = $prefix . implode( " $sep ", $new_title_array );
-	}
+	$title_array = array_diff( $title_array, $new_title );
+	$new_title_array = array_merge( $title_array, $new_title );
 
 	/**
 	 * @param  string $new_title the filtered title
@@ -861,7 +848,32 @@ function wp_idea_stream_title( $title = '', $sep = '&raquo;', $seplocation = '' 
 	 * @param  string $seplocation
 	 * @param  string $title the original title meta tag
 	 */
-	return apply_filters( 'wp_idea_stream_title', $new_title, $sep, $seplocation, $title );
+	return apply_filters( 'wp_idea_stream_title', $new_title_array, $title_array, $new_title );
+}
+
+/**
+ * Remove the site description from title.
+ * @todo we should make sure $wp_query->is_home is false in a future release
+ * 
+ * @since 2.1.0
+ * 
+ * @param  string $new_title the filtered title
+ * @param  string $sep
+ * @param  string $seplocation
+ */ 
+function wp_idea_stream_title_adjust( $title = '', $sep = '&raquo;', $seplocation = '' ) {
+	if ( ! wp_idea_stream_is_ideastream() ) {
+		return $title;
+	}
+
+	$site_description = get_bloginfo( 'description', 'display' );
+	if ( ! empty( $sep ) ) {
+		$site_description = ' ' . $sep . ' ' . $site_description;
+	}
+
+	$new_title = str_replace( $site_description, '', $title );
+
+	return apply_filters( 'wp_idea_stream_title_adjust', $new_title, $title, $sep, $seplocation );
 }
 
 /**

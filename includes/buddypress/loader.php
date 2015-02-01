@@ -292,7 +292,9 @@ class WP_Idea_Stream_BuddyPress extends BP_Component {
 	public function filter_user_domains() {
 		// When on a BuddyPress profile / ideastream screen, the current nav item is not IdeaStream
 		if ( bp_is_user() || bp_is_group() ) {
-			remove_filter( 'wp_nav_menu_objects', 'wp_idea_stream_wp_nav', 10, 2 );
+			remove_filter( 'wp_nav_menu_objects', 'wp_idea_stream_wp_nav',       10, 2 );
+			remove_filter( 'wp_title_parts',      'wp_idea_stream_title',        10, 1 );
+			remove_filter( 'wp_title',            'wp_idea_stream_title_adjust', 20, 3 );
 		}
 
 		/* BuddyPress profile urls override */
