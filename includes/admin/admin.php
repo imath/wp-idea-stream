@@ -580,11 +580,17 @@ class WP_Idea_Stream_Admin {
 		 */
 		$idea_views = apply_filters( 'wp_idea_stream_admin_edit_ideas_views', $views );
 
+		$csv_args = array(
+			'post_type' => $this->post_type,
+			'csv'       => 1,
+		);
+
+		if ( ! empty( $_GET['post_status'] ) ) {
+			$csv_args['post_status'] = $_GET['post_status'];
+		}
+
 		$csv_url = add_query_arg(
-			array(
-				'post_type' => $this->post_type,
-				'csv'        => 1,
-			),
+			$csv_args,
 			admin_url( 'edit.php' )
 		);
 
@@ -1201,9 +1207,14 @@ class WP_Idea_Stream_Admin {
 	 *
 	 * @param  WP_Query $posts_query
 	 */
-	public function get_all_ideas( $posts_query = null ) {
+	public function get_ideas_by_status( $posts_query = null ) {
 		if ( ! empty( $posts_query->query_vars['posts_per_page'] ) ) {
 			$posts_query->query_vars['posts_per_page'] = -1;
+		}
+
+		// Unset the post status if not registered
+		if ( ! empty( $_GET['post_status'] ) && ! get_post_status_object( $_GET['post_status'] ) ) {
+			unset( $posts_query->query_vars['post_status'] );
 		}
 	}
 
@@ -1242,8 +1253,9 @@ class WP_Idea_Stream_Admin {
 		// Strip edit inline extra html
 		remove_filter( 'map_meta_cap', 'wp_idea_stream_map_meta_caps', 10, 4 );
 		add_filter( 'user_has_cap', array( $this, 'filter_has_cap' ), 10, 1 );
+
 		// Get all ideas
-		add_action( 'wp_idea_stream_admin_request', array( $this, 'get_all_ideas' ), 10, 1 );
+		add_action( 'wp_idea_stream_admin_request', array( $this, 'get_ideas_by_status' ), 10, 1 );
 
 		$html_list_table = _get_list_table( 'WP_Posts_List_Table' );
 		$html_list_table->prepare_items();
@@ -1606,10 +1618,7 @@ class WP_Idea_Stream_Admin {
 				color: #fff;
 			}
 
-			.about-wrap .wp-idea-stream-badge,
-			.buddy-badge.ideastream-credits,
-			.beebee-badge.ideastream-credits,
-			.doubleup-badge.ideastream-credits {
+			.about-wrap .wp-idea-stream-badge {
 				font: normal 150px/1 'dashicons' !important;
 				/* Better Font Rendering =========== */
 				-webkit-font-smoothing: antialiased;
@@ -1634,26 +1643,15 @@ class WP_Idea_Stream_Admin {
 					left: 0;
 				}
 
-			.buddy-badge.ideastream-credits,
-			.beebee-badge.ideastream-credits,
-			.doubleup-badge.ideastream-credits {
+			.ideastream-credits {
 				position:relative;
 				float:left;
 				margin-right:15px;
 			}
 
-			.buddy-badge.ideastream-credits:before {
-				content:"\f448";
-				color:#d84800;
-			}
-
-			.beebee-badge.ideastream-credits:before {
-				content:"\f477";
-				color:#009933;
-			}
-			.doubleup-badge.ideastream-credits:before {
-				content:"\f120";
-				color:#0074a2;
+			.ideastream-credits img.gravatar {
+				width:150px;
+				height:150px;
 			}
 
 			.dashboard_page_credits-ideastream .changelog {
