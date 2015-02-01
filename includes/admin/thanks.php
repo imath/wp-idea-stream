@@ -142,7 +142,7 @@ function wp_idea_stream_admin_credits() {
 				</li>
 				<li class="wp-person" id="wp-person-aglekis">
 					<a href="http://profiles.wordpress.org/aglekis"><img src="http://0.gravatar.com/avatar/9aed4c3373374032e4ecdde02894d5fb?s=60" class="gravatar" alt="Grégoire Noyelle" /></a>
-					<a class="web" href="http://profiles.wordpress.org/aglekis">Grégoire Noyelles</a>
+					<a class="web" href="http://profiles.wordpress.org/aglekis">Grégoire Noyelle</a>
 					<span class="title"><?php _e( 'Contributor', 'wp-idea-stream' ); ?></span>
 				</li>
 			</ul>
