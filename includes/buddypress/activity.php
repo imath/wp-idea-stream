@@ -152,9 +152,6 @@ class WP_Idea_Stream_Activity {
 		// First register plugin's activities
 		add_action( 'bp_register_activity_actions', array( $this, 'register_activity_actions' ), 11 );
 
-		// And Make sure the Activity Administration screen dropdown filter only use IdeaStream Component
-		add_action( 'bp_activity_admin_index',      array( $this, 'organise_activity_actions' ), 11 );
-
 		// Intercept the activity just before its creation
 		add_action( 'bp_activity_before_save', array( $this, 'adjust_activity_args' ), 10, 1 );
 
@@ -186,12 +183,14 @@ class WP_Idea_Stream_Activity {
 	 */
 	public function setup_filters() {
 		// Add post type to BuddyPress built in post tracking
-		add_filter( 'bp_blogs_record_post_post_types',    array( $this, 'record_post_type' ), 10, 1 );
 		add_filter( 'bp_blogs_record_comment_post_types', array( $this, 'record_post_type' ), 10, 1 );
 
+		// Fake post new post types action to populate the dropdowns
+		add_filter( 'bp_activity_get_post_types_tracking_args', array( $this, 'dropdown_filters' ), 10, 1 );
+
 		// Intercept the post/comment to see if it's an idea/comment about an idea
-		add_filter( 'bp_blogs_activity_new_post_content',    array( $this, 'catch_idea' ), 10, 3 );
-		add_filter( 'bp_blogs_activity_new_comment_content', array( $this, 'catch_idea' ), 10, 3 );
+		add_filter( "bp_activity_{$this->post_type}_pre_publish", array( $this, 'catch_idea'         ), 10, 4 );
+		add_filter( 'bp_blogs_activity_new_comment_content',      array( $this, 'catch_idea_comment' ), 10, 3 );
 
 		// Make sure the comment will generate an activity
 		add_filter( 'bp_disable_blogforum_comments', array( $this, 'force_activity_add' ), 10, 1 );
@@ -219,7 +218,8 @@ class WP_Idea_Stream_Activity {
 	 * @since 2.0.0
 	 *
 	 * @uses  buddypress() to get BuddyPress main instance
-	 * @uses  bp_activity_set_action() to register the plugin's activity actions
+	 * @uses  add_post_type_support() to add the ideas post type to BuddyPress activities
+	 * @uses  bp_activity_set_post_type_tracking_arg() to register the plugin's activity actions
 	 * @uses  apply_filters() call 'wp_idea_stream_buddypress_get_activity_actions' to override/add activity actions
 	 */
 	public function register_activity_actions() {
@@ -230,7 +230,7 @@ class WP_Idea_Stream_Activity {
 		 * @param array the list of activity actions
 		 */
 		$this->activity_actions = apply_filters( 'wp_idea_stream_buddypress_get_activity_actions', array(
-			'new_blog_post' => (object) array(
+			'new_' . $this->post_type => (object) array(
 				'component'         => buddypress()->blogs->id,
 				'type'              => 'new_' . $this->post_type,
 				'admin_caption'     => sprintf( _x( 'New %s published', 'activity admin dropdown caption', 'wp-idea-stream' ), mb_strtolower( $this->post_type_object->labels->singular_name, 'UTF-8' ) ),
@@ -248,54 +248,83 @@ class WP_Idea_Stream_Activity {
 			),
 		) );
 
-		// Register the activity actions
-		foreach ( $this->activity_actions as $activity_action ) {
-			bp_activity_set_action(
-				$activity_action->component,
-				$activity_action->type,
-				$activity_action->admin_caption,
-				$activity_action->action_callback,
-				$activity_action->front_caption,
-				$activity_action->contexts
-			);
-		}
+		// Only add the new idea to BuddyPress tracked post types
+		add_post_type_support( $this->post_type, 'buddypress-activity' );
+
+		$tracking_args = $this->activity_actions['new_' . $this->post_type];
+
+		bp_activity_set_post_type_tracking_args( $this->post_type, array(
+			'component_id'             => $tracking_args->component,
+			'action_id'                => $tracking_args->type,
+			'bp_activity_admin_filter' => $tracking_args->admin_caption,
+			'bp_activity_front_filter' => $tracking_args->front_caption,
+			'contexts'                 => $tracking_args->contexts,
+			'activity_comment'         => false,
+			'format_callback'          => $tracking_args->action_callback,
+			'position'                 => 50,
+		) );
 	}
 
 	/**
+	 * Fake post type activities in order to add custom options
+	 * to BuddyPress activity dropdowns
+	 *
 	 * Make sure the Groups/blogs activity actions appears as one component > IdeaStream
 	 * in the Activity Administration screen.
 	 *
 	 * @package WP Idea Stream
 	 * @subpackage buddypress/activity
 	 *
-	 * @since 2.0.0
+	 * @since 2.1.0
 	 *
-	 * @uses  buddypress() to get BuddyPress main instance
-	 * @uses  wp_list_pluck() to pluck a certain field out of each object in a list.
+	 * @uses    buddypress() to get BuddyPress main instance
+	 * @return  array        new tracking args
 	 */
-	public function organise_activity_actions() {
-		$bp = buddypress();
+	public function dropdown_filters( $tracking_args ) {
+		if ( ! isset( $tracking_args[ 'new_' . $this->post_type ] ) ) {
+			return;
+		}
 
-		$ideastream_actions = wp_list_pluck( $this->activity_actions, 'type' );
-		$catch_unique_actions = array();
+		if ( is_admin() && function_exists( 'get_current_screen' ) ) {
+			$current_screen = get_current_screen();
 
-		foreach ( $bp->activity->actions as $key_component => $actions ) {
-
-			foreach ( $actions as $key_action => $action ) {
-
-				if ( in_array( $key_action, $ideastream_actions ) ) {
-
-					if ( $key_component == $bp->blogs->id ) {
-						$catch_unique_actions[ $key_action ] = $action;
-					}
-
-					unset( $bp->activity->actions->{$key_component}->{$key_action} );
-				}
+			if ( ! empty( $current_screen->id ) && strpos( 'toplevel_page_bp-activity', $current_screen->id ) !== false ) {
+				$component =  buddypress()->ideastream->id;
 			}
 		}
 
-		// Finally set IdeaStream actions for the Activity admin screen
-		$bp->activity->actions->{$bp->ideastream->id} = (object) $catch_unique_actions;
+		if ( empty( $component ) && ! bp_is_activity_directory() && ! bp_is_user_activity() && ! bp_is_group_home() ) {
+			return $tracking_args;
+		}
+
+		$position = 50;
+
+		foreach ( $this->activity_actions as $key_action => $action ) {
+			if ( 'new_' . $this->post_type == $key_action ) {
+				if ( ! empty( $component ) ) {
+					$tracking_args[ $key_action ]->component_id = $component;
+				}
+
+				continue;
+			}
+
+			$position += 1;
+
+			$tracking_args[ $key_action ] = new stdClass();
+			$tracking_args[ $key_action ]->component_id     = ! empty( $component ) ? $component : $action->component;
+			$tracking_args[ $key_action ]->action_id        = $action->type;
+			$tracking_args[ $key_action ]->admin_filter     = $action->admin_caption;
+			$tracking_args[ $key_action ]->front_filter     = $action->front_caption;
+			$tracking_args[ $key_action ]->contexts         = $action->contexts;
+			$tracking_args[ $key_action ]->activity_comment = false;
+			$tracking_args[ $key_action ]->format_callback  = $action->action_callback;
+			$tracking_args[ $key_action ]->position         = $position;
+		}
+
+		/**
+		 * Used internally to disallow activity dropdowns on groups not supporting ideastream
+		 */
+		return apply_filters( 'wp_idea_stream_buddypress_activity_filters', $tracking_args );
 	}
 
 	/** Adding activities *********************************************************/
@@ -303,8 +332,8 @@ class WP_Idea_Stream_Activity {
 	/**
 	 * The BuddyPress blogs component is only registering blog posts or blog comments
 	 * Our steps will be to :
-	 * 1/ Use the 'bp_blogs_record_post_post_types' & 'bp_blogs_record_comment_post_types' to include our post type
-	 * 2/ then catch the idea using the post/comment object included as a param to 'bp_blogs_activity_new_post_content' or
+	 * 1/ Use Post types Activities for post and use the 'bp_blogs_record_comment_post_types' filter to include our post type
+	 * 2/ then catch the idea using the post_id/comment object included as a param to 'bp_activity_{$this->post_type}_pre_publish' or
 	 *    'bp_blogs_activity_new_comment_content' filters (in this second case we'll take advantage of the fact that BuddyPress
 	 *    is appending the post object to the comment one)
 	 * 3/ we'll use the action 'bp_activity_before_save' to adjust the activity to fit our need.
@@ -314,7 +343,7 @@ class WP_Idea_Stream_Activity {
 	 */
 
 	/**
-	 * 1/ Force BuddyPress to listen to posted ideas or posted comments about ideas
+	 * 1/ Force BuddyPress to listen to posted comments about ideas
 	 *
 	 * @package WP Idea Stream
 	 * @subpackage buddypress/activity
@@ -332,12 +361,38 @@ class WP_Idea_Stream_Activity {
 	 * 2/ Catch the idea in order to use it just before the activity is saved
 	 * @see  $this->adjust_activity_args();
 	 *
+	 * @package WP Idea Stream
+	 * @subpackage buddypress/activity
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param  bool $true           whether to stop BuddyPress attempt to save an activity for the post type
+	 *                              by returning false
+	 * @param  int  $blog_id        the current blog id
+	 * @param  int  $post_id        the ID of the idea
+	 * @param  int  $user_id        the ID of the user
+	 * @uses   get_post()           to get the post
+	 * @return bool                 true
+	 */
+	public function catch_idea( $true = true, $blog_id = 0, $post_id = 0, $user_id = 0 ) {
+		if ( ! empty( $post_id ) ) {
+			$this->idea              = get_post( $post_id );
+			$this->secondary_item_id = $post_id;
+		}
+
+		return $true;
+	}
+
+	/**
+	 * 2/ Catch the idea in order to use it just before the activity is saved
+	 * @see  $this->adjust_activity_args();
+	 *
 	 * We won't change anything to the $activity_content.
 	 *
 	 * @package WP Idea Stream
 	 * @subpackage buddypress/activity
 	 *
-	 * @since 2.0.0
+	 * @since 2.1.0
 	 *
 	 * @param  string  $activity_content the excerpt created by BuddyPress
 	 * @param  WP_Post $post             the post object (can be an idea)
@@ -346,32 +401,29 @@ class WP_Idea_Stream_Activity {
 	 * @uses   bp_activity_delete()      to delete an activity
 	 * @return string                    the activity content unchanged
 	 */
-	public function catch_idea( $activity_content = '', $post = null, $post_permalink = '' ) {
+	public function catch_idea_comment( $activity_content = '', $post = null, $post_permalink = '' ) {
 		// If it's a comment, BuddyPress is attaching it into the post var of the comment object
-		if ( ! empty( $post->post->post_type ) && $this->post_type == $post->post->post_type ) {
-			$this->idea              = $post->post;
-			$this->secondary_item_id = $post->comment_ID;
+		if ( empty( $post->post->post_type ) || $this->post_type != $post->post->post_type ) {
+			return $activity_content;
+		}
 
-			/**
-			 * For this particular case, we need to check for a previous entry to delete it
-			 * As a the 'edit_comment' hook will be fired if the comment was edited from the
-			 * 'wp-admin/comment.php?action=editcomment..' screen, bp_blogs_record_comment()
-			 * will not find the new_blog_comment activity to edit and will post a new one
-			 */
-			$id = bp_activity_get_activity_id( array(
-				'type'              => 'new_' . $this->post_type . '_comment',
-				'secondary_item_id' => $this->secondary_item_id,
-			) );
+		$this->idea              = $post->post;
+		$this->secondary_item_id = $post->comment_ID;
 
-			// Found one, delete it to prevent duplicates
-			if ( ! empty( $id ) ) {
-				bp_activity_delete( array( 'id' => $id ) );
-			}
+		/**
+		 * For this particular case, we need to check for a previous entry to delete it
+		 * As a the 'edit_comment' hook will be fired if the comment was edited from the
+		 * 'wp-admin/comment.php?action=editcomment..' screen, bp_blogs_record_comment()
+		 * will not find the new_blog_comment activity to edit and will post a new one
+		 */
+		$id = bp_activity_get_activity_id( array(
+			'type'              => 'new_' . $this->post_type . '_comment',
+			'secondary_item_id' => $this->secondary_item_id,
+		) );
 
-		// Default is post
-		} else if ( ! empty( $post->post_type ) && $this->post_type == $post->post_type ) {
-			$this->idea              = $post;
-			$this->secondary_item_id = $post->ID;
+		// Found one, delete it to prevent duplicates
+		if ( ! empty( $id ) ) {
+			bp_activity_delete( array( 'id' => $id ) );
 		}
 
 		// return without editing.
@@ -389,6 +441,7 @@ class WP_Idea_Stream_Activity {
 	 * @param  BP_Activity_Activity $activity the activity object before being saved
 	 * @uses   apply_filters() call 'wp_idea_stream_buddypress_pre_adjust_activity' to early override the activity object
 	 *                         call 'wp_idea_stream_buddypress_adjust_activity' to override the activity object
+	 * @uses   bp_activity_set_action() to define the post type activity action if not set
 	 * @uses   bp_activity_generate_action_string() to generate the action strings using the 'action_callback'
 	 *                                              of our activity actions
 	 * @return BP_Activity_Activity           the activity to be saved
@@ -399,6 +452,10 @@ class WP_Idea_Stream_Activity {
 			return;
 		}
 
+		$bp = buddypress();
+		$bp_activity_actions = new stdClass();
+		$bp_activity_actions = $bp->activity->actions;
+
 		/**
 		 * Used internally to override ideas posted within a group
 		 *
@@ -407,8 +464,23 @@ class WP_Idea_Stream_Activity {
 		 */
 		$activity = apply_filters( 'wp_idea_stream_buddypress_pre_adjust_activity', $activity, $this->idea );
 
+		// Define the corresponding index
+		$activity_type = $activity->type;
+
 		// override the activity type
-		$activity->type   = $this->activity_actions[ $activity->type ]->type;
+		if ( ! empty( $this->activity_actions[ $activity_type ] ) ) {
+			$activity->type   = $this->activity_actions[ $activity_type ]->type;
+		}
+
+		if ( empty( $bp->activity->actions->{$activity->component}->{$activity->type}['format_callback'] ) ) {
+			bp_activity_set_action(
+				$this->activity_actions[ $activity_type ]->component,
+				$this->activity_actions[ $activity_type ]->type,
+				$this->activity_actions[ $activity_type ]->admin_caption,
+				$this->activity_actions[ $activity_type ]->action_callback
+			);
+		}
+
 		// Regenerate the action string
 		$activity->action = bp_activity_generate_action_string( $activity );
 
@@ -426,6 +498,9 @@ class WP_Idea_Stream_Activity {
 		 * @param BP_Activity_Activity $activity   the activity object
 		 */
 		$activity = apply_filters( 'wp_idea_stream_buddypress_adjust_activity', $activity );
+
+		// Reset BuddyPress activity actions
+		$bp->activity->actions = $bp_activity_actions;
 	}
 
 	/**
@@ -710,6 +785,10 @@ class WP_Idea_Stream_Activity {
 			 * component argument. As a result, we need to set a fiew vars
 			 */
 
+			$bp = buddypress();
+			$bp_activity_actions = new stdClass();
+			$bp_activity_actions = $bp->activity->actions;
+
 			// First the item id: the current blog
 			$blog_id = get_current_blog_id();
 
@@ -731,27 +810,43 @@ class WP_Idea_Stream_Activity {
 
 			if ( ! empty( $idea->post_content ) ) {
 				$content = bp_activity_thumbnail_content_images( $idea->post_content, $args['primary_link'], $args );
-
-				/**
-				 * @param string          the activity content
-				 * @param string $content the idea content
-				 * @param array  $args    the private activity arguments
-				 */
-				$content = apply_filters( 'bp_blogs_record_activity_content', bp_create_excerpt( $content ), $content, $args );
+				$content = bp_create_excerpt( $content );
 			}
 
 			// Add the content to the activity args
 			$args['content'] = $content;
 
 			/**
-			 * Finally publish the private activity
-			 *
 			 * Filter is used internally to override ideas posted within a private or hidden group
 			 *
 			 * @param array   $args    the private activity arguments
 			 * @param WP_Post $idea    the idea object
 			 */
-			bp_activity_add( apply_filters( 'wp_idea_stream_buddypress_activity_post_private', $args, $idea ) );
+			$args = apply_filters( 'wp_idea_stream_buddypress_activity_post_private', $args, $idea );
+
+			// Define the corresponding index
+			$activity_type      = $args['type'];
+			$activity_component = $args['component'];
+
+			// override the activity type
+			$args['type'] = $this->activity_actions[ $activity_type ]->type;
+
+			if ( empty( $bp->activity->actions->{$activity_component}->{$activity_type}['format_callback'] ) ) {
+				bp_activity_set_action(
+					$this->activity_actions[ $activity_type ]->component,
+					$this->activity_actions[ $activity_type ]->type,
+					$this->activity_actions[ $activity_type ]->admin_caption,
+					$this->activity_actions[ $activity_type ]->action_callback
+				);
+			}
+
+			/**
+			 * Finally publish the private activity
+			 * and reset BuddyPress activity actions
+			 */
+			bp_activity_add( $args );
+
+			$bp->activity->actions = $bp_activity_actions;
 		}
 	}
 
@@ -1392,3 +1487,4 @@ endif;
  * so that we can hook to it to set our activity actions
  */
 add_action( 'bp_init', array( 'WP_Idea_Stream_Activity', 'manage_activities' ), 7 );
+

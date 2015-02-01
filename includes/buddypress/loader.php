@@ -326,7 +326,7 @@ function wp_idea_stream_buddypress() {
 	$bp_version = 0;
 
 	// Set the required version
-	$required_buddypress_version = '2.1';
+	$required_buddypress_version = '2.2-rc';
 
 	// Get main plugin instance
 	$wp_idea_stream = wp_idea_stream();

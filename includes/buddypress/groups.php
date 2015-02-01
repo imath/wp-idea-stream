@@ -957,6 +957,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		add_filter( 'wp_idea_stream_buddypress_pre_adjust_activity',   array( $this, 'group_adjust_activity' ),  10, 2 );
 		add_filter( 'wp_idea_stream_buddypress_activity_post_private', array( $this, 'private_group_activity' ), 10, 2 );
 		add_filter( 'wp_idea_stream_buddypress_activity_edit',         array( $this, 'update_group_activity' ),  10, 2 );
+		add_filter( 'wp_idea_stream_buddypress_activity_filters',      array( $this, 'group_activity_filters' ), 10, 1 );
 
 		/** Ideas Post type Administration screens ************************************/
 
@@ -2667,6 +2668,12 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 			wp_idea_stream_set_idea_var( 'idea_activity_group_id', array( $idea->ID => $group_id ) );
 			$activity->component = buddypress()->groups->id;
 			$activity->item_id   = $group_id;
+
+			if ( 'new_blog_comment' == $activity->type ) {
+				$activity->type = 'new_group_comment';
+			} else {
+				$activity->type = 'new_group_idea';
+			}
 		}
 
 		return $activity;
@@ -2703,10 +2710,19 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 
 		wp_idea_stream_set_idea_var( 'idea_activity_group_id', array( $idea->ID => $group_id ) );
 
+		$activity_type = $private_activity['type'];
+
+		if ( 'new_blog_comment' == $activity_type ) {
+			$activity_type = 'new_group_comment';
+		} else {
+			$activity_type = 'new_group_idea';
+		}
+
 		// Otherwise, override the private activity args
 		return array_merge( $private_activity, array(
 			'component' => buddypress()->groups->id,
 			'item_id'   => $group_id,
+			'type'      => $activity_type,
 		) );
 	}
 
@@ -2761,6 +2777,30 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 
 		// It's a group activity !
 		return array( 'component' => buddypress()->groups->id, 'item_id' => $group_id );
+	}
+
+	/**
+	 * Disallow idea filters if the group doesn't support ideas
+	 *
+	 * @package WP Idea Stream
+	 * @subpackage buddypress/groups
+	 *
+	 * @since  2.1.0
+	 *
+	 * @param  array  $tracking_args Post Type activities arguments
+	 * @return array                 unchanged tracking args if the group supports ideas,
+	 *                               tracking args without ideas one otherwise
+	 */
+	public function group_activity_filters( $tracking_args = array() ) {
+		if ( ! bp_is_group() ) {
+			return $tracking_args;
+		}
+
+		if ( ! self::group_get_option( bp_get_current_group_id(), '_group_ideastream_activate', false ) ) {
+			unset( $tracking_args['new_group_idea'], $tracking_args['new_group_comment'] );
+		}
+
+		return $tracking_args;
 	}
 
 	/**
