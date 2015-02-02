@@ -1430,11 +1430,19 @@ function wp_idea_stream_ideas_not_loggedin() {
 	$output = esc_html__( 'You are not allowed to submit ideas', 'wp-idea-stream' );
 
 	if ( ! is_user_logged_in() ) {
-		$output = sprintf(
-			__( 'Please <a href="%s" title="Log in">log in</a> or <a href="%s" title="Sign up">register</a> to this site to submit an idea.', 'wp-idea-stream' ),
-			esc_url( wp_login_url( wp_idea_stream_get_form_url() ) ),
-			esc_url( wp_idea_stream_users_get_signup_url() )
-		);
+
+		if ( wp_idea_stream_is_signup_allowed() ) {
+			$output = sprintf(
+				__( 'Please <a href="%s" title="Log in">log in</a> or <a href="%s" title="Sign up">register</a> to this site to submit an idea.', 'wp-idea-stream' ),
+				esc_url( wp_login_url( wp_idea_stream_get_form_url() ) ),
+				esc_url( wp_idea_stream_users_get_signup_url() )
+			);
+		} else {
+			$output = sprintf(
+				__( 'Please <a href="%s" title="Log in">log in</a> to this site to submit an idea.', 'wp-idea-stream' ),
+				esc_url( wp_login_url( wp_idea_stream_get_form_url() ) )
+			);
+		}
 
 		// Check for a custom message..
 		$custom_message = wp_idea_stream_login_message();
