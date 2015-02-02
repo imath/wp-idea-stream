@@ -824,7 +824,7 @@ function wp_idea_stream_users_signup_user() {
 	$user_login = false;
 
 	// Force the login to exist and to be at least 4 characters long
-	if ( ! empty( $_POST['wp_idea_stream_signup']['user_login'] ) &&  4 < mb_strlen( $_POST['wp_idea_stream_signup']['user_login'] ) ) {
+	if ( ! empty( $_POST['wp_idea_stream_signup']['user_login'] ) &&  4 <= mb_strlen( $_POST['wp_idea_stream_signup']['user_login'] ) ) {
 		$user_login = $_POST['wp_idea_stream_signup']['user_login'];
 	} else {
 		$required_errors->add( 'user_login_fourchars', __( 'Please choose a login having at least 4 characters.', 'wp-idea-stream' ) );
