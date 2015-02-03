@@ -60,8 +60,8 @@ class WP_Idea_Stream_UnitTest_Factory_For_Idea extends WP_UnitTest_Factory_For_T
 		$idea = new WP_Idea_Stream_Idea( $idea_id );
 
 		foreach ( $fields as $field_key => $field_value ) {
-			if ( isset( $idea->field_key ) ) {
-				$idea->field_key = $field_value;
+			if ( isset( $idea->{$field_key} ) ) {
+				$idea->{$field_key} = $field_value;
 			}
 		}
 

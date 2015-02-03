@@ -604,6 +604,7 @@ class WP_Idea_Stream_Activity {
 	 *
 	 * @param  int     $idea_id     the idea ID
 	 * @param  string  $post_status the status of the idea
+	 * @param  string  $post_password the post password if set
 	 * @uses   bp_activity_get() to get activities
 	 * @uses   wp_idea_stream_get_post_type() to get the idea post type
 	 * @uses   wp_idea_stream_comments_get_comments() to get the comments about the idea
@@ -611,7 +612,7 @@ class WP_Idea_Stream_Activity {
 	 * @uses   wp_list_pluck() to pluck a certain field out of each object in a list.
 	 * @return array                activity ids to manage
 	 */
-	public function get_idea_and_comments( $idea_id = 0, $post_status = 'publish' ) {
+	public function get_idea_and_comments( $idea_id = 0, $post_status = 'publish', $post_password = '' ) {
 		$idea_and_comments = array();
 
 		if ( empty( $idea_id ) ) {
@@ -634,8 +635,11 @@ class WP_Idea_Stream_Activity {
 			'per_page'     => false,
 		) );
 
+		// Case when the activity is deleted but we need to get the comments
+		$already_deleted = (bool) ! empty( $post_password ) || in_array( $post_status, array( 'trash', 'draft', 'pending' ) );
+
 		// If it exists, add it to the array
-		if ( ! empty( $activity['activities'] ) ) {
+		if ( ! empty( $activity['activities'] ) || ( empty( $activity['activities'] ) && $already_deleted ) ) {
 			$idea_and_comments = (array) $activity['activities'];
 
 			// Check for comments
@@ -703,7 +707,10 @@ class WP_Idea_Stream_Activity {
 			return false;
 		}
 
-		$in = implode( ',', wp_parse_id_list( $activities ) );
+		// Sanitize ids
+		$activities = wp_parse_id_list( $activities );
+
+		$in = implode( ',', $activities );
 		$where = "id IN ({$in})";
 
 		// Update visibility ?
@@ -729,12 +736,17 @@ class WP_Idea_Stream_Activity {
 		// Join the set part of the update query
 		$set = join( ', ', $set );
 
-		// Reset the bp_activity_get() cache just in case
-		wp_cache_delete( 'bp_activity_sitewide_front', 'bp' );
-
 		// We don't try to edit the activity action field as since BuddyPress 2.0
 		// action are generated at run time for internationalization reasons.
-		return $wpdb->get_var( "UPDATE {$bp->activity->table_name} SET {$set} WHERE {$where}" );
+		$updated = $wpdb->get_var( "UPDATE {$bp->activity->table_name} SET {$set} WHERE {$where}" );
+
+		// Reset the activity cache
+		foreach ( $activities as $activity_id ) {
+			wp_cache_delete( $activity_id, 'bp_activity' );
+		}
+		wp_cache_delete( 'bp_activity_sitewide_front', 'bp' );
+
+		return $updated;
 	}
 
 	/**
@@ -844,9 +856,24 @@ class WP_Idea_Stream_Activity {
 			 * Finally publish the private activity
 			 * and reset BuddyPress activity actions
 			 */
-			bp_activity_add( $args );
+			$private_activity_id = bp_activity_add( $args );
+
+			// Check for comments
+			if ( ! empty( $private_activity_id ) ) {
+				$activities = $this->get_idea_and_comments( $idea_id, $idea->post_status );
+
+				$activities = array_diff( $activities, array( $private_activity_id ) );
+
+				// Update comments visibility
+				if ( ! empty( $activities ) ) {
+					$test = self::bulk_edit_activity( $activities, 1 );
+				}
+			}
 
 			$bp->activity->actions = $bp_activity_actions;
+
+			// Reset edited activities
+			$this->edit_activities = array();
 		}
 	}
 
@@ -871,21 +898,23 @@ class WP_Idea_Stream_Activity {
 			$idea = get_post( $idea_id );
 		}
 
-		$activities = $this->get_idea_and_comments( $idea_id, $idea->post_status );
+		$activities = $this->get_idea_and_comments( $idea_id, $idea->post_status, $idea->post_password );
 
 		// If no activity stop.
 		if ( empty( $activities ) ) {
+
+			// Publish the activity (no more pending or the password was reset?)
+			if ( 'publish' == $idea->post_status && empty( $idea->post_password ) ) {
+				bp_activity_post_type_publish( $idea_id, $idea );
+			}
+
 			return;
 		}
 
 		// Published with a password / trashed / pending or drafted idea > delete activities
 		if ( ! empty( $idea->post_password ) || in_array( $idea->post_status, array( 'trash', 'draft', 'pending' ) ) ) {
 			/**
-			 * No bulk delete in BuddyPress, i guess it's
-			 * linked to the fact we need to delete corresponding
-			 * activity comments..
-			 * We could create a db routine, but i think it's safer
-			 * to rely on BuddyPress delete function.
+			 * Delete activities.
 			 */
 			foreach ( $activities as $activity_id ) {
 				bp_activity_delete( array( 'id' => $activity_id ) );
@@ -915,6 +944,9 @@ class WP_Idea_Stream_Activity {
 				// Delete the private to avoid duplicates
 				bp_activity_delete( array( 'id' => $this->private_activities[ $idea_id ][0] ) );
 			}
+
+			// Reset edited activities
+			$this->edit_activities = array();
 
 			// The above case needs a new check.
 			if ( empty( $activities ) ) {

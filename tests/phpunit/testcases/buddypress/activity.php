@@ -188,7 +188,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 
 		$idea_id = $this->factory->idea->create( array(
 			'author' => $gm1,
-			'metas'  => array( '_ideastream_group_id' => $g )
+			'metas'  => array( 'group_id' => $g )
 		) );
 
 		$component = $bp->groups->id;
@@ -268,7 +268,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 
 		$idea_id = $this->factory->idea->create( array(
 			'author' => $gm1,
-			'metas'  => array( '_ideastream_group_id' => $g ),
+			'metas'  => array( 'group_id' => $g ),
 			'status' => 'private',
 		) );
 
@@ -437,6 +437,174 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		$a_obj = new BP_Activity_Activity( $a );
 
 		$this->assertSame( $expected, $a_obj->action );
+	}
+
+	/**
+	 * @group show_hidden
+	 */
+	public function test_wp_idea_stream_idea_switch_status_activity_visibility() {
+		$u = $this->factory->user->create();
+
+		$idea_id = $this->factory->idea->create( array(
+			'author' => $u,
+			'status' => 'publish',
+		) );
+
+		$idea_object = $this->factory->idea->get_object_by_id( $idea_id );
+		$user = $this->factory->user->get_object_by_id( $u );
+
+		// Create a comment for $u
+		$c = $this->factory->idea_comment->create( array(
+			'user_id'              => $u,
+			'comment_author_email' => $user->user_email,
+			'comment_post_ID'      => $idea_id,
+		) );
+
+		$public_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id'      => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$public_comment_id = wp_filter_object_list( $public_activities['activities'], array( 'type' => 'new_ideas_comment' ), 'and', 'id' );
+		$public_idea_id = wp_filter_object_list( $public_activities['activities'], array( 'type' => 'new_ideas' ), 'and', 'id' );
+		$this->assertEquals( array( '0', '0' ), wp_list_pluck( $public_activities['activities'], 'hide_sitewide' ), 'Pubished ideas generate public activities' );
+
+		// publish -> private
+		$idea = $idea_object->idea;
+		$idea->post_status = 'private';
+
+		wp_update_post( $idea );
+
+		$private_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id'      => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$private_comment_id = wp_filter_object_list( $private_activities['activities'], array( 'type' => 'new_ideas_comment' ), 'and', 'id' );
+		$private_idea_id = wp_filter_object_list( $private_activities['activities'], array( 'type' => 'new_ideas' ), 'and', 'id' );
+
+		$this->assertEquals( array_values( $private_comment_id ), array_values( $public_comment_id ), 'activity about comments are not deleted' );
+		$this->assertNotEquals( array_values( $private_idea_id ), array_values( $public_idea_id ), 'Private idea is first deleted, and then recreated with a new id' );
+		$this->assertEquals( array( '1', '1' ), wp_list_pluck( $private_activities['activities'], 'hide_sitewide' ), 'Private ideas generate hidden activities' );
+
+		// private -> password protected
+		$idea->post_status = 'publish';
+		$idea->post_password  = 'foo';
+
+		wp_update_post( $idea );
+
+		$protected_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id'      => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEmpty( $protected_activities['activities'], 'Password protected ideas have no activities' );
+
+		// password protected -> publish
+		$idea->post_password = '';
+
+		wp_update_post( $idea );
+		$this->factory->idea_comment->update_object( $c, array( 'comment_content' => 'foo bar' ) );
+
+		$public_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id' => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEquals( array( '0', '0' ), wp_list_pluck( $public_activities['activities'], 'hide_sitewide' ), 'Pubished ideas generate public activities' );
+
+		// publish -> pending
+		$idea->post_status = 'pending';
+
+		wp_update_post( $idea );
+
+		$pending_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id'      => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEmpty( $pending_activities['activities'], 'Pending ideas have no activities' );
+
+		// pending -> private
+		$idea->post_status = 'private';
+
+		wp_update_post( $idea );
+		$this->factory->idea_comment->update_object( $c, array( 'comment_content' => 'bar foo' ) );
+
+		$private_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id' => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEquals( array( '1', '1' ), wp_list_pluck( $private_activities['activities'], 'hide_sitewide' ), 'Private ideas generate hidden activities' );
+
+		// private -> publish
+		$idea->post_status = 'publish';
+
+		wp_update_post( $idea );
+
+		$public_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id' => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEquals( array( '0', '0' ), wp_list_pluck( $public_activities['activities'], 'hide_sitewide' ), 'Pubished ideas generate public activities' );
+
+		// Publish -> password protected
+		$idea->post_password  = 'foo';
+
+		wp_update_post( $idea );
+
+		$protected_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id'      => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEmpty( $protected_activities['activities'], 'Password protected ideas have no activities' );
+
+		// password protected -> private
+		$idea->post_status = 'private';
+		$idea->post_password = '';
+
+		wp_update_post( $idea );
+		$this->factory->idea_comment->update_object( $c, array( 'comment_content' => 'foo bar' ) );
+
+		$private_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id' => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEquals( array( '1', '1' ), wp_list_pluck( $private_activities['activities'], 'hide_sitewide' ), 'Private ideas generate hidden activities' );
+
+		// Trash idea
+		wp_trash_post( $idea_id );
+
+		$trashed_activities = bp_activity_get( array(
+			'filter' => array(
+				'user_id'      => $u,
+			),
+			'show_hidden' => true,
+		) );
+
+		$this->assertEmpty( $trashed_activities['activities'], 'Trashed ideas have no activities' );
 	}
 }
 
