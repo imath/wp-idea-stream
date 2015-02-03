@@ -151,7 +151,7 @@ function wp_idea_stream_admin_credits() {
 		<div class="changelog">
 			<h4 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h4>
 			<div class="ideastream-credits">
-				<a href="http://profiles.wordpress.org/aglekis"><img src="http://2015.paris.wordcamp.org/files/2014/11/250-250.jpg" class="gravatar" alt="WordCamp Paris 2015" /></a>
+				<a href="http://2015.paris.wordcamp.org/"><img src="http://2015.paris.wordcamp.org/files/2014/11/250-250.jpg" class="gravatar" alt="WordCamp Paris 2015" /></a>
 			</div>
 			<p><?php printf( esc_html__( 'WP Idea Stream was the choice of the WordCamp Paris 2015 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file.', 'wp-idea-stream' ), '<a href="https://github.com/imath/wc-talk">wp-idea-stream-custom.php</a>' ); ?></p>
 			<p><?php esc_html_e( 'The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system.', 'wp-idea-stream' ); ?></p>
