@@ -1,5 +1,5 @@
 === WP Idea Stream ===
-Contributors: imath
+Contributors: imath, aglekis
 Donate link: http://imathi.eu/donations/
 Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
 Requires at least: 4.1
