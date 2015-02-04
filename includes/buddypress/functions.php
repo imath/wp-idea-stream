@@ -181,6 +181,36 @@ function wp_idea_stream_buddypress_profile_redirect( $context = '' ) {
 add_action( 'wp_idea_stream_set_core_template', 'wp_idea_stream_buddypress_profile_redirect', 10, 1 );
 
 /**
+ * Let BuddyPress handle signups by early overriding the ideastream signup url
+ *
+ * @package WP Idea Stream
+ * @subpackage buddypress/functions
+ *
+ * @since  2.1.0
+ *
+ * @uses bp_get_signup_page() to get BuddyPress sign up url
+ */
+function wp_idea_stream_buddypress_get_signup_url( $url = '' ) {
+	return bp_get_signup_page();
+}
+add_filter( 'wp_idea_stream_users_pre_get_signup_url', 'wp_idea_stream_buddypress_get_signup_url', 10, 1 );
+
+/**
+ * Let BuddyPress handle signups by redirecting to BuddyPress signup form
+ *
+ * @package WP Idea Stream
+ * @subpackage buddypress/functions
+ *
+ * @since  2.1.0
+ *
+ * @uses bp_get_signup_page() to get BuddyPress sign up url
+ */
+function wp_idea_stream_buddypress_signup_redirect() {
+	wp_safe_redirect( bp_get_signup_page() );
+}
+add_action( 'wp_idea_stream_user_signup_override', 'wp_idea_stream_buddypress_signup_redirect' );
+
+/**
  * Sets a new IdeaStream territory to load needed scripts & css
  *
  * @package WP Idea Stream

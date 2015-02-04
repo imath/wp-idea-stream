@@ -61,6 +61,7 @@ function wp_idea_stream_get_default_options() {
 			'_ideastream_user_slug'          => 'user',
 			'_ideastream_user_comments_slug' => 'comments',
 			'_ideastream_user_rates_slug'    => 'rates',
+			'_ideastream_signup_slug'        => 'sign-up',
 			'_ideastream_action_slug'        => 'action',
 			'_ideastream_addnew_slug'        => 'add',
 			'_ideastream_edit_slug'          => 'edit',
@@ -551,6 +552,23 @@ function wp_idea_stream_addnew_slug( $default = 'add' ) {
  */
 function wp_idea_stream_edit_slug( $default = 'edit' ) {
 	return apply_filters( 'wp_idea_stream_edit_slug', get_option( '_ideastream_edit_slug', $default ) );
+}
+
+/**
+ * Build the signup slug (root + signup one)
+ *
+ * @package WP Idea Stream
+ * @subpackage core/options
+ *
+ * @since 2.1.0
+ *
+ * @uses   apply_filters() call 'wp_idea_stream_signup_slug' to override value
+ * @uses   wp_idea_stream_root_slug() to get root slug
+ * @uses   wp_idea_stream_signup_get_slug() to get user slug
+ * @return string       the user slug (prefixed by the root one)
+ */
+function wp_idea_stream_signup_slug( $default = 'sign-up' ) {
+	return apply_filters( 'wp_idea_stream_signup_slug', get_option( '_ideastream_signup_slug', $default ) );
 }
 
 /**

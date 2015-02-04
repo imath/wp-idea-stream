@@ -1353,9 +1353,9 @@ function wp_idea_stream_ideas_the_idea_footer() {
 			// no point at the end
 			$retarray['date'] = sprintf( _x( 'on %s', 'idea date of publication no point', 'wp-idea-stream' ), $date );
 
-			$username = wp_idea_stream_users_get_user_data( 'id', $idea->post_author, 'user_nicename' );
-			$user_link = '<a class="idea-author" href="' . esc_url( wp_idea_stream_users_get_user_profile_url( $idea->post_author, $username ) ) . '" title="' . esc_attr( $username ) . '">';
-			$user_link .= get_avatar( $idea->post_author, 20 ) . esc_html( $username ) . '</a>';
+			$user = wp_idea_stream_users_get_user_data( 'id', $idea->post_author );
+			$user_link = '<a class="idea-author" href="' . esc_url( wp_idea_stream_users_get_user_profile_url( $idea->post_author, $user->user_nicename ) ) . '" title="' . esc_attr( $user->display_name ) . '">';
+			$user_link .= get_avatar( $idea->post_author, 20 ) . esc_html( $user->display_name ) . '</a>';
 
 			$retarray['author'] = sprintf( _x( 'by %s.', 'single idea author link', 'wp-idea-stream' ), $user_link );
 		}
@@ -1430,10 +1430,19 @@ function wp_idea_stream_ideas_not_loggedin() {
 	$output = esc_html__( 'You are not allowed to submit ideas', 'wp-idea-stream' );
 
 	if ( ! is_user_logged_in() ) {
-		$output = sprintf(
-			__( 'Please <a href="%s" title="Log in">log in</a> to submit an idea', 'wp-idea-stream' ),
-			esc_url( wp_login_url( wp_idea_stream_get_form_url() ) )
-		);
+
+		if ( wp_idea_stream_is_signup_allowed() ) {
+			$output = sprintf(
+				__( 'Please <a href="%s" title="Log in">log in</a> or <a href="%s" title="Sign up">register</a> to this site to submit an idea.', 'wp-idea-stream' ),
+				esc_url( wp_login_url( wp_idea_stream_get_form_url() ) ),
+				esc_url( wp_idea_stream_users_get_signup_url() )
+			);
+		} else {
+			$output = sprintf(
+				__( 'Please <a href="%s" title="Log in">log in</a> to this site to submit an idea.', 'wp-idea-stream' ),
+				esc_url( wp_login_url( wp_idea_stream_get_form_url() ) )
+			);
+		}
 
 		// Check for a custom message..
 		$custom_message = wp_idea_stream_login_message();

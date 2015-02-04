@@ -3,9 +3,9 @@
 Plugin Name: WP Idea Stream
 Plugin URI: http://imathi.eu/tag/ideastream/
 Description: Share ideas, great ones will rise to the top!
-Version: 2.0.1-beta1
-Requires at least: 4.0
-Tested up to: 4.0
+Version: 2.1.0-beta1
+Requires at least: 4.1
+Tested up to: 4.1
 License: GNU/GPL 2
 Author: imath
 Author URI: http://imathi.eu/
@@ -81,7 +81,7 @@ final class WP_Idea_Stream {
 	 */
 	private function setup_globals() {
 		// Version
-		$this->version = '2.0.1-beta1';
+		$this->version = '2.1.0-beta1';
 
 		// Domain
 		$this->domain = 'wp-idea-stream';
@@ -391,7 +391,12 @@ final class WP_Idea_Stream {
 	public function load_textdomain() {
 		// Traditional WordPress plugin locale filter
 		$locale        = apply_filters( 'plugin_locale', get_locale(), $this->domain );
-		$mofile        = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
+
+		if ( empty( $locale ) ) {
+			$mofile = $this->domain . '.mo';
+		} else {
+			$mofile = sprintf( '%1$s-%2$s.mo', $this->domain, $locale );
+		}
 
 		// Setup paths to current locale file
 		$mofile_local  = $this->lang_dir . $mofile;

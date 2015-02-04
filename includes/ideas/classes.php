@@ -246,7 +246,8 @@ class WP_Idea_Stream_Idea {
 
 			foreach ( $this->metas as $meta_key => $meta_value ) {
 				// Do not update these keys.
-				if ( in_array( $meta_key, array( 'keys', 'rates', 'average_rate' ) ) ) {
+				$skip_keys = apply_filters( 'wp_idea_stream_meta_key_skip_save', array( 'keys', 'rates', 'average_rate' ) );
+				if ( in_array( $meta_key, $skip_keys ) ) {
 					continue;
 				}
 
@@ -793,7 +794,10 @@ class WP_Idea_Stream_Idea_Metas {
 
 		check_admin_referer( 'admin-ideastream-metas', '_admin_ideastream_metas' );
 
-		$the_metas = $_POST['wp_idea_stream']['_the_metas'];
+		$the_metas = array();
+		if ( ! empty( $_POST['wp_idea_stream']['_the_metas'] ) ) {
+			$the_metas = $_POST['wp_idea_stream']['_the_metas'];
+		}
 
 		$meta_keys = explode( ',', $_POST['wp_idea_stream']['meta_keys'] );
 		$meta_keys = array_map( 'sanitize_key', (array) $meta_keys );

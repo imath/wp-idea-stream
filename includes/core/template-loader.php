@@ -382,6 +382,10 @@ function wp_idea_stream_set_template( $template = '' ) {
 					$template_args['template_name'] = 'form';
 					$template_args['context']       = 'new-idea';
 
+				} else if ( wp_idea_stream_is_signup() ) {
+					$template_args['template_slug'] = 'signup';
+					$template_args['context']       = 'signup';
+
 				// Allow plugins to add custom action
 				} else if ( has_filter( 'wp_idea_stream_template_args' ) ) {
 					/**

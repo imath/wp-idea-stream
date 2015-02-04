@@ -78,6 +78,9 @@ class WP_Idea_Stream_BuddyPress extends BP_Component {
 		// Let BuddyPress take the lead on user's profile link in ideas post type comments
 		remove_filter( 'comments_array', 'wp_idea_stream_comments_append_profile_url',  11, 2 );
 
+		// Remove the signup override of ideastream
+		remove_action( 'login_form_register', 'wp_idea_stream_user_signup_redirect' );
+
 		// Filter the user domains once ideastream nav is set
 		add_action( 'bp_' . $this->id .'_setup_nav', array( $this, 'filter_user_domains' ) );
 	}
@@ -289,7 +292,9 @@ class WP_Idea_Stream_BuddyPress extends BP_Component {
 	public function filter_user_domains() {
 		// When on a BuddyPress profile / ideastream screen, the current nav item is not IdeaStream
 		if ( bp_is_user() || bp_is_group() ) {
-			remove_filter( 'wp_nav_menu_objects', 'wp_idea_stream_wp_nav', 10, 2 );
+			remove_filter( 'wp_nav_menu_objects', 'wp_idea_stream_wp_nav',       10, 2 );
+			remove_filter( 'wp_title_parts',      'wp_idea_stream_title',        10, 1 );
+			remove_filter( 'wp_title',            'wp_idea_stream_title_adjust', 20, 3 );
 		}
 
 		/* BuddyPress profile urls override */
@@ -323,7 +328,7 @@ function wp_idea_stream_buddypress() {
 	$bp_version = 0;
 
 	// Set the required version
-	$required_buddypress_version = '2.1';
+	$required_buddypress_version = '2.2-rc';
 
 	// Get main plugin instance
 	$wp_idea_stream = wp_idea_stream();

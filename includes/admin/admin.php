@@ -106,6 +106,7 @@ class WP_Idea_Stream_Admin {
 
 		$this->metaboxes          = array();
 		$this->is_plugin_settings = false;
+		$this->downloading_csv     = false;
 	}
 
 	/**
@@ -156,6 +157,9 @@ class WP_Idea_Stream_Admin {
 		// Build the submenus.
 		add_action( 'admin_menu', array( $this, 'admin_menus' ), 10 );
 
+		// Loading the ideas edit screen
+		add_action( 'load-edit.php', array( $this, 'load_edit_idea' ) );
+
 		// Make sure Editing a plugin's taxonomy highlights IdeaStream nav
 		add_action( 'load-edit-tags.php', array( $this, 'taxonomy_highlight' ) );
 
@@ -189,6 +193,9 @@ class WP_Idea_Stream_Admin {
 
 		// Redirect
 		add_filter( 'redirect_post_location', array( $this, 'redirect_idea_location' ), 10, 2 );
+
+		// Filter the WP_List_Table views to include custom views.
+		add_filter( "views_edit-{$this->post_type}", array( $this, 'idea_views' ), 10, 1 );
 
 		// temporarly remove bulk edit
 		add_filter( "bulk_actions-edit-{$this->post_type}", array( $this, 'idea_bulk_actions' ), 10, 1 );
@@ -305,6 +312,44 @@ class WP_Idea_Stream_Admin {
 			'credits-ideastream',
 			'wp_idea_stream_admin_credits'
 		);
+	}
+
+	/**
+	 * Hooks Admin edit screen load to eventually perform
+	 * actions before the WP_List_Table is generated.
+	 *
+	 * @package WP Idea Stream
+	 * @subpackage admin/admin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @uses   wp_idea_stream_is_admin() to make sure it's an IdeaStream admin screen
+	 * @uses   check_admin_referer() to check the request was made on the site
+	 * @uses   add_action() to perform a custom action
+	 * @uses   WP_Idea_Stream_Admin->csv_export() to export all ideas in an csv spreadsheet
+	 * @uses   do_action() call 'wp_idea_stream_load_edit_idea' to perform custom actions
+	 */
+	public function load_edit_idea() {
+		// Make sure it's an Idea Stream admin screen
+		if ( ! wp_idea_stream_is_admin() ) {
+			return;
+		}
+
+		if ( ! empty( $_GET['csv'] ) ) {
+
+			check_admin_referer( 'wp_idea_stream_is_csv' );
+
+			$this->downloading_csv = true;
+
+			// Add content row data
+			add_action( 'wp_idea_stream_admin_column_data', array( $this, 'idea_row_extra_data'), 10, 2 );
+
+			$this->csv_export();
+
+		// Other plugins can do stuff here
+		} else {
+			do_action( 'wp_idea_stream_load_edit_idea' );
+		}
 	}
 
 	/**
@@ -513,6 +558,53 @@ class WP_Idea_Stream_Admin {
 	}
 
 	/**
+	 * The idea views (Over the top of WP_List_Table)
+	 *
+	 * @package WP Idea Stream
+	 * @subpackage admin/admin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param  array  $views list of views for the edit ideas screen
+	 * @uses   apply_filters() call 'wp_idea_stream_admin_edit_ideas_views' to add/edit/remove views
+	 * @uses   add_query_arg() to add query vars to an url
+	 * @uses   admin_url() to build the new links
+	 * @uses   esc_url() to sanitize the url
+	 * @uses   wp_nonce_url() to add a security token to check upon once the link clicked
+	 * @return array         idea views
+	 */
+	public function idea_views( $views = array() ) {
+		/**
+		 * Add new views to edit ideas page
+		 * @param  array $view list of views
+		 */
+		$idea_views = apply_filters( 'wp_idea_stream_admin_edit_ideas_views', $views );
+
+		$csv_args = array(
+			'post_type' => $this->post_type,
+			'csv'       => 1,
+		);
+
+		if ( ! empty( $_GET['post_status'] ) ) {
+			$csv_args['post_status'] = $_GET['post_status'];
+		}
+
+		$csv_url = add_query_arg(
+			$csv_args,
+			admin_url( 'edit.php' )
+		);
+
+		$csv_link = sprintf( '<a href="%s" id="wp-idea-stream-csv" title="%s"><span class="dashicons dashicons-media-spreadsheet"></span></a>',
+			esc_url( wp_nonce_url( $csv_url, 'wp_idea_stream_is_csv' ) ),
+			esc_attr__( 'Download all ideas in a csv spreadsheet', 'wp-idea-stream' )
+		);
+
+		return array_merge( $idea_views, array(
+			'csv_ideas' => $csv_link
+		) );
+	}
+
+	/**
 	 * Displays IdeaStream notices if any
 	 *
 	 * @package WP Idea Stream
@@ -701,6 +793,24 @@ class WP_Idea_Stream_Admin {
 			return $actions;
 		}
 
+		// No row actions in case downloading ideas
+		if ( ! empty( $this->downloading_csv ) ) {
+			return array();
+		}
+
+		/**
+		 * I don't know yet if inline edit is well supported by the plugin, so if you
+		 * want to test, just return true to this filter
+		 * eg: add_filter( 'wp_idea_stream_admin_ideas_inline_edit', '__return_true' );
+		 *
+		 * @param  bool true to allow inline edit, false otherwise (default is false)
+		 */
+		$keep_inline_edit = apply_filters( 'wp_idea_stream_admin_ideas_inline_edit', false );
+
+		if ( ! empty( $keep_inline_edit ) ) {
+			return $actions;
+		}
+
 		if ( ! empty( $actions['inline hide-if-no-js'] ) ) {
 			unset( $actions['inline hide-if-no-js'] );
 		}
@@ -719,6 +829,7 @@ class WP_Idea_Stream_Admin {
 	 * @param  array  $columns the WP List Table columns
 	 * @uses   wp_idea_stream_is_rating_disabled() to check if ratings are available
 	 * @uses   apply_filters() call 'wp_idea_stream_admin_column_headers' to add/edit/remove IdeaStream columns
+	 * @uses                   call 'wp_idea_stream_admin_csv_column_headers' to add/edit/remove IdeaStream csv columns
 	 * @return array           the new columns
 	 */
 	public function column_headers( $columns = array() ) {
@@ -751,6 +862,37 @@ class WP_Idea_Stream_Admin {
 
 		// Merge
 		$columns = array_merge( $columns, $new_columns );
+
+
+		if ( ! empty( $this->downloading_csv ) ) {
+			unset( $columns['cb'], $columns['date'] );
+
+			if ( ! empty( $columns['title'] ) ) {
+				$csv_columns = array(
+					'title'        => $columns['title'],
+					'idea_content' => esc_html_x( 'Content', 'downloaded csv content header', 'wp-idea-stream' ),
+					'idea_link'    => esc_html_x( 'Link', 'downloaded csv link header', 'wp-idea-stream' ),
+				);
+			}
+
+			$columns = array_merge( $csv_columns, $columns );
+
+			// Replace dashicons to text
+			if ( ! empty( $columns['comments'] ) ) {
+				$columns['comments'] = esc_html_x( '# comments', 'downloaded csv comments num header', 'wp-idea-stream' );
+			}
+
+			if ( ! empty( $columns['rates'] ) ) {
+				$columns['rates'] = esc_html_x( 'Average rate', 'downloaded csv rates num header', 'wp-idea-stream' );
+			}
+
+			/**
+			 * User this filter to only add columns for the downloaded csv file
+			 *
+			 * @param array $columns the IdeaStream csv specific columns
+			 */
+			$columns = apply_filters( 'wp_idea_stream_admin_csv_column_headers', $columns );
+		}
 
 		return $columns;
 	}
@@ -837,6 +979,38 @@ class WP_Idea_Stream_Admin {
 	}
 
 	/**
+	 * Add extra info to downloaded csv file
+	 *
+	 * @package WP Idea Stream
+	 * @subpackage admin/admin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param  string $column_name the column name
+	 * @param  int    $idea_id     the ID of the idea (row)
+	 * @uses   the_content() to display the idea content
+	 * @uses   the_permalink() to display the permalink to the idea
+	 * @return string HTML Output
+	 */
+	public function idea_row_extra_data( $column_name = '', $idea_id = '' ) {
+		if ( 'idea_content' == $column_name ) {
+			// Temporarly remove filters
+			remove_filter( 'the_content', 'wptexturize'     );
+			remove_filter( 'the_content', 'convert_smilies' );
+			remove_filter( 'the_content', 'convert_chars'   );
+
+			the_content();
+
+			// Restore just in case
+			add_filter( 'the_content', 'wptexturize'     );
+			add_filter( 'the_content', 'convert_smilies' );
+			add_filter( 'the_content', 'convert_chars'   );
+		} else if ( 'idea_link' == $column_name ) {
+			the_permalink();
+		}
+	}
+
+	/**
 	 * Gets the IdeaStream sortable columns
 	 *
 	 * @package WP Idea Stream
@@ -848,6 +1022,11 @@ class WP_Idea_Stream_Admin {
 	 * @return array                   the new list
 	 */
 	public function sortable_columns( $sortable_columns = array() ) {
+		// No sortable columns if downloading ideas
+		if ( ! empty( $this->downloading_csv ) ) {
+			return array();
+		}
+
 		$sortable_columns['rates'] = array( 'rates_count', true );
 
 		return $sortable_columns;
@@ -1015,6 +1194,131 @@ class WP_Idea_Stream_Admin {
 		$messages[12] = esc_html__( 'Something went wrong while trying to delete the rate.', 'wp-idea-stream' );
 
 		return $messages;
+	}
+
+	/**
+	 * Forces the query to include all ideas
+	 * Used to "feed" the downloaded csv spreadsheet
+	 *
+	 * @package WP Idea Stream
+	 * @subpackage admin/admin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param  WP_Query $posts_query
+	 */
+	public function get_ideas_by_status( $posts_query = null ) {
+		if ( ! empty( $posts_query->query_vars['posts_per_page'] ) ) {
+			$posts_query->query_vars['posts_per_page'] = -1;
+		}
+
+		// Unset the post status if not registered
+		if ( ! empty( $_GET['post_status'] ) && ! get_post_status_object( $_GET['post_status'] ) ) {
+			unset( $posts_query->query_vars['post_status'] );
+		}
+	}
+
+	/**
+	 * Temporarly restrict all user caps to 2 idea caps
+	 * This is to avoid get_inline_data() to add extra html in title column
+	 *
+	 * @package WP Idea Stream
+	 * @subpackage admin/admin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param  array  $all_caps user's caps
+	 * @return array            restricted user's caps
+	 */
+	public function filter_has_cap( $all_caps = array() ) {
+		return array( 'read_private_ideas' => true, 'edit_others_ideas' => true );
+	}
+
+	/**
+	 * Buffer ideas list and outputs an csv file
+	 *
+	 * @package WP Idea Stream
+	 * @subpackage admin/admin
+	 *
+	 * @since 2.1.0
+	 *
+	 * @uses   remove_filter() to temporarly disable caps mapping
+	 * @uses   add_filter() to override some key vars
+	 * @uses   add_action() to perform custom actions at key points
+	 * @uses   _get_list_table() to include a specific WP_List_Table class
+	 * @uses   wp_kses() to only keep 'table' relative tags
+	 * @return String text/csv
+	 */
+	public function csv_export() {
+		// Strip edit inline extra html
+		remove_filter( 'map_meta_cap', 'wp_idea_stream_map_meta_caps', 10, 4 );
+		add_filter( 'user_has_cap', array( $this, 'filter_has_cap' ), 10, 1 );
+
+		// Get all ideas
+		add_action( 'wp_idea_stream_admin_request', array( $this, 'get_ideas_by_status' ), 10, 1 );
+
+		$html_list_table = _get_list_table( 'WP_Posts_List_Table' );
+		$html_list_table->prepare_items();
+		ob_start();
+		?>
+		<table>
+			<tr>
+				<?php $html_list_table->print_column_headers(); ?>
+			</tr>
+				<?php $html_list_table->display_rows_or_placeholder(); ?>
+			</tr>
+		</table>
+		<?php
+		$output = ob_get_clean();
+
+		// Keep only table tags
+		$allowed_html = array(
+			'table' => array(),
+			'tbody' => array(),
+			'td'    => array(),
+			'th'    => array(),
+			'tr'    => array()
+		);
+
+		$output = wp_kses( $output, $allowed_html );
+
+		$comma = ',';
+
+		// If some users are still using Microsoft ;)
+		if ( preg_match( "/Windows/i", $_SERVER['HTTP_USER_AGENT'] ) ) {
+			$comma = ';';
+			$output = utf8_decode( $output );
+		}
+
+		// $output to csv
+		$csv = array();
+		preg_match( '/<table(>| [^>]*>)(.*?)<\/table( |>)/is', $output, $b );
+		$table = $b[2];
+		preg_match_all( '/<tr(>| [^>]*>)(.*?)<\/tr( |>)/is', $table, $b );
+		$rows = $b[2];
+		foreach ( $rows as $row ) {
+			//cycle through each row
+			if ( preg_match( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row ) ) {
+				//match for table headers
+				preg_match_all( '/<th(>| [^>]*>)(.*?)<\/th( |>)/is', $row, $b );
+				$csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
+			} else if ( preg_match( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row ) ) {
+				//match for table cells
+				preg_match_all( '/<td(>| [^>]*>)(.*?)<\/td( |>)/is', $row, $b );
+				$csv[] = '"' . implode( '"' . $comma . '"', array_map( 'wp_idea_stream_generate_csv_content', $b[2] ) ) . '"';
+			}
+		}
+
+		$file = implode( "\n", $csv );
+
+		status_header( 200 );
+		header( 'Cache-Control: cache, must-revalidate' );
+		header( 'Pragma: public' );
+		header( 'Content-Description: File Transfer' );
+		header( 'Content-Disposition: attachment; filename=' . sprintf( '%s-%s.csv', esc_attr_x( 'ideas', 'prefix of the downloaded csv', 'wp-idea-stream' ), date('Y-m-d-his' ) ) );
+		header( 'Content-Type: text/csv;' );
+		print( $file );
+		exit();
 	}
 
 	/**
@@ -1314,10 +1618,7 @@ class WP_Idea_Stream_Admin {
 				color: #fff;
 			}
 
-			.about-wrap .wp-idea-stream-badge,
-			.buddy-badge.ideastream-credits,
-			.beebee-badge.ideastream-credits,
-			.doubleup-badge.ideastream-credits {
+			.about-wrap .wp-idea-stream-badge {
 				font: normal 150px/1 'dashicons' !important;
 				/* Better Font Rendering =========== */
 				-webkit-font-smoothing: antialiased;
@@ -1342,31 +1643,24 @@ class WP_Idea_Stream_Admin {
 					left: 0;
 				}
 
-			.buddy-badge.ideastream-credits,
-			.beebee-badge.ideastream-credits,
-			.doubleup-badge.ideastream-credits {
+			.ideastream-credits {
 				position:relative;
 				float:left;
 				margin-right:15px;
 			}
 
-			.buddy-badge.ideastream-credits:before {
-				content:"\f448";
-				color:#d84800;
-			}
-
-			.beebee-badge.ideastream-credits:before {
-				content:"\f477";
-				color:#009933;
-			}
-			.doubleup-badge.ideastream-credits:before {
-				content:"\f120";
-				color:#0074a2;
+			.ideastream-credits img.gravatar {
+				width:150px;
+				height:150px;
 			}
 
 			.dashboard_page_credits-ideastream .changelog {
 				clear:both;
 				overflow: hidden;
+			}
+
+			#wp-idea-stream-csv span.dashicons-media-spreadsheet {
+				vertical-align: text-bottom;
 			}
 
 			<?php if ( wp_idea_stream_is_admin() && ! wp_idea_stream_is_rating_disabled() ) : ?>

@@ -125,7 +125,7 @@ class WP_Idea_Stream_Admin_Sticky {
 		add_filter( 'display_post_states', array( $this, 'idea_states' ), 10, 2 );
 
 		// Filter the WP_List_Table views to include a sticky one.
-		add_filter( "views_edit-{$this->post_type}", array( $this, 'idea_views' ), 10, 1 );
+		add_filter( "wp_idea_stream_admin_edit_ideas_views", array( $this, 'idea_views' ), 10, 1 );
 
 		// Add sticky updated messages
 		add_filter( 'wp_idea_stream_admin_updated_messages', array( $this, 'updated_messages' ), 10, 1 );

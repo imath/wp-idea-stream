@@ -400,6 +400,51 @@ function wp_idea_stream_users_get_user_comments_url( $user_id = 0, $user_nicenam
 	return apply_filters( 'wp_idea_stream_users_get_user_comments_url', $url, $user_id, $user_nicename );
 }
 
+/**
+ * Gets the signup url
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.1.0
+ *
+ * @global  $wp_rewrite
+ * @return string signup url
+ */
+function wp_idea_stream_users_get_signup_url() {
+	global $wp_rewrite;
+
+	/**
+	 * Early filter to override form url before being built
+	 *
+	 * @param mixed false or url to override
+	 */
+	$early_signup_url = apply_filters( 'wp_idea_stream_users_pre_get_signup_url', false );
+
+	if ( ! empty( $early_signup_url ) ) {
+		return $early_signup_url;
+	}
+
+	// Pretty permalinks
+	if ( $wp_rewrite->using_permalinks() ) {
+		$signup_url = $wp_rewrite->root . wp_idea_stream_action_slug() . '/%' . wp_idea_stream_action_rewrite_id() . '%';
+
+		$signup_url = str_replace( '%' . wp_idea_stream_action_rewrite_id() . '%', wp_idea_stream_signup_slug(), $signup_url );
+		$signup_url = home_url( user_trailingslashit( $signup_url ) );
+
+	// Unpretty permalinks
+	} else {
+		$signup_url = add_query_arg( array( wp_idea_stream_action_rewrite_id() => wp_idea_stream_signup_slug() ), home_url( '/' ) );
+	}
+
+	/**
+	 * Filter to override form url after being built
+	 *
+	 * @param string url to override
+	 */
+	return apply_filters( 'wp_idea_stream_get_form_url', $signup_url );
+}
+
 /** Template functions ********************************************************/
 
 /**
@@ -731,4 +776,223 @@ function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
 	$query = apply_filters( 'wp_idea_stream_users_ideas_count_by_user_query', join( ' ', $sql ), $sql, $max );
 
 	return $wpdb->get_results( $query );
+}
+
+/**
+ * Signup a new user
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.1.0
+ *
+ * @uses check_admin_referer()
+ * @uses wp_idea_stream_get_redirect_url()
+ * @uses wp_idea_stream_add_message()
+ * @uses WP_Error()
+ * @uses register_new_user()
+ * @uses wp_update_user()
+ * @uses wp_safe_redirect();
+ * @uses apply_filters() Calls 'wp_idea_stream_users_is_signup_field_required' to force a contact method to be required
+ *                       Calls 'wp_idea_stream_users_signup_userdata' to override the user data to update
+ * @uses do_action() Calls 'wp_idea_stream_users_before_signup_field_required' to perform actions before required fields are checked
+ *                   Calls 'wp_idea_stream_users_before_signup_user' to perform actions before signup is registered
+ *                   Calls 'wp_idea_stream_users_after_signup_user' to perform actions after signup is registered
+ *                   Calls 'wp_idea_stream_users_signup_user_created' to perform actions once the user created has been edited
+ */
+function wp_idea_stream_users_signup_user() {
+	// Bail if not a post request
+	if ( 'POST' != strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
+		return;
+	}
+
+	// Bail if not a post idea request
+	if ( empty( $_POST['wp_idea_stream_signup'] ) || ! is_array( $_POST['wp_idea_stream_signup'] ) ) {
+		return;
+	}
+
+	// Check nonce
+	check_admin_referer( 'wp_idea_stream_signup' );
+
+	$redirect = wp_idea_stream_get_redirect_url();
+
+	/**
+	 * Before registering the user, check for required field
+	 */
+	$required_errors = new WP_Error();
+
+	$user_login = false;
+
+	// Force the login to exist and to be at least 4 characters long
+	if ( ! empty( $_POST['wp_idea_stream_signup']['user_login'] ) &&  4 <= mb_strlen( $_POST['wp_idea_stream_signup']['user_login'] ) ) {
+		$user_login = $_POST['wp_idea_stream_signup']['user_login'];
+	} else {
+		$required_errors->add( 'user_login_fourchars', __( 'Please choose a login having at least 4 characters.', 'wp-idea-stream' ) );
+	}
+
+	$user_email = false;
+	if ( ! empty( $_POST['wp_idea_stream_signup']['user_email'] ) ) {
+		$user_email = $_POST['wp_idea_stream_signup']['user_email'];
+	}
+
+	// Do we need to edit the user once created ?
+	$edit_user = array_diff_key(
+		$_POST['wp_idea_stream_signup'],
+		array(
+			'signup'     => 'signup',
+			'user_login' => 'user_login',
+			'user_email' => 'user_email',
+		)
+	);
+
+	/**
+	 * Perform actions before the required fields check
+	 *
+	 * @param  string $user_login the user login
+	 * @param  string $user_email the user email
+	 * @param  array  $edit_user  all extra user fields
+	 */
+	do_action( 'wp_idea_stream_users_before_signup_field_required', $user_login, $user_email, $edit_user );
+
+	foreach ( $edit_user as $key => $value ) {
+
+		if ( ! apply_filters( 'wp_idea_stream_users_is_signup_field_required', false, $key ) ) {
+			continue;
+		}
+
+		if ( empty( $value ) ) {
+			$required_errors->add( 'empty_required_field', __( 'Please fill all required fields.', 'wp-idea-stream' ) );
+		}
+	}
+
+	// Stop the process and ask to fill all fields.
+	if ( $required_errors->get_error_code() ) {
+		//Add feedback to the user
+		wp_idea_stream_add_message( array(
+			'type'    => 'error',
+			'content' => $required_errors->get_error_message(),
+		) );
+		return;
+	}
+
+	/**
+	 * Perform actions before the user is created
+	 *
+	 * @param  string $user_login the user login
+	 * @param  string $user_email the user email
+	 * @param  array  $edit_user  all extra user fields
+	 */
+	do_action( 'wp_idea_stream_users_before_signup_user', $user_login, $user_email, $edit_user );
+
+	// Register the user
+	$user = register_new_user( $user_login, $user_email );
+
+	/**
+	 * Perform actions after the user is created
+	 *
+	 * @param  string             $user_login the user login
+	 * @param  string             $user_email the user email
+	 * @param  array              $edit_user  all extra user fields
+	 * @param  mixed int|WP_Error $user the user id or an error
+	 */
+	do_action( 'wp_idea_stream_users_after_signup_user', $user_login, $user_email, $edit_user, $user );
+
+	if ( is_wp_error( $user ) ) {
+		//Add feedback to the user
+		wp_idea_stream_add_message( array(
+			'type'    => 'error',
+			'content' => join( ' ', array_map( 'strip_tags', $user->get_error_messages() ) ),
+		) );
+		return;
+
+	// User is created, now we need to eventually edit him
+	} else {
+
+		if ( ! empty( $edit_user ) )  {
+
+			$userdata = new stdClass();
+			$userdata = (object) $edit_user;
+			$userdata->ID = $user;
+
+			/**
+			 * Just before the user is updated, this will only be available
+			 * if custom fields/contact methods are used.
+			 *
+			 * @param object $userdata the userdata to update
+			 */
+			$userdata = apply_filters( 'wp_idea_stream_users_signup_userdata', $userdata );
+
+			// Edit the user
+			if ( wp_update_user( $userdata ) ) {
+				/**
+				 * Any extra field not using contact methods or WordPress built in user fields can hook here
+				 *
+				 * @param int $user the user id
+				 * @param array $edit_user the submitted user fields
+				 */
+				do_action( 'wp_idea_stream_users_signup_user_created', $user, $edit_user );
+			}
+		}
+
+		// Finally invite the user to check his email.
+		wp_idea_stream_add_message( array(
+			'type'    => 'success',
+			'content' => __( 'Registration complete. Please check your e-mail.', 'wp-idea-stream' ),
+		) );
+
+		wp_safe_redirect( $redirect );
+		exit();
+	}
+}
+
+function wp_idea_stream_user_get_fields( $type = 'signup' ) {
+	$fields = wp_get_user_contact_methods();
+
+	if ( 'signup' == $type ) {
+		$fields = array_merge(
+			apply_filters( 'wp_idea_stream_user_get_signup_fields', array(
+				'user_login' => __( 'Username',   'wp-idea-stream' ),
+				'user_email' => __( 'E-mail',     'wp-idea-stream' ),
+			) ),
+			$fields
+		);
+	}
+
+	return apply_filters( 'wp_idea_stream_user_get_fields', $fields, $type );
+}
+
+/**
+ * Redirect the loggedin user to its profile as already a member
+ * Or redirect WP (non multisite) register form to IdeaStream signup form
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.1.0
+ *
+ * @param  string $context the template context
+ */
+function wp_idea_stream_user_signup_redirect( $context = '' ) {
+	// Bail if signup is not allowed
+	if ( ! wp_idea_stream_is_signup_allowed() ) {
+		return;
+	}
+
+	if ( is_user_logged_in() && 'signup' == $context ) {
+		wp_safe_redirect( wp_idea_stream_users_get_logged_in_profile_url() );
+		return;
+	} else if ( ! empty( $_SERVER['SCRIPT_NAME'] ) && false !== strpos( $_SERVER['SCRIPT_NAME'], 'wp-login.php' ) && ! empty( $_REQUEST['action'] ) &&  'register' == $_REQUEST['action'] ) {
+		wp_safe_redirect( wp_idea_stream_users_get_signup_url() );
+		return;
+	} else {
+		if ( 'signup' == $context )  {
+			/**
+			 * If we are here the IdeaStream signup url has been requested
+			 * Before using it let plugins override it. Used internally to
+			 * let BuddyPress handle signups if needed
+			 */
+			do_action( 'wp_idea_stream_user_signup_override' );
+		}
+		return;
+	}
 }

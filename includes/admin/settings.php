@@ -219,6 +219,14 @@ function wp_idea_stream_get_settings_fields() {
 				'args'              => array()
 			),
 
+			// Signup slug
+			'_ideastream_signup_slug' => array(
+				'title'             => __( 'Sign-up slug', 'wp-idea-stream' ),
+				'callback'          => 'wp_idea_stream_signup_slug_setting_callback',
+				'sanitize_callback' => 'wp_idea_stream_sanitize_slug',
+				'args'              => array()
+			),
+
 			// Action slug (so far 1 action is available > add )
 			'_ideastream_action_slug' => array(
 				'title'             => __( 'Action slug', 'wp-idea-stream' ),
@@ -839,6 +847,26 @@ function wp_idea_stream_user_rates_slug_setting_callback() {
 	?>
 
 	<input name="_ideastream_user_rates_slug" id="_ideastream_user_rates_slug" type="text" class="regular-text code" value="<?php echo esc_attr( wp_idea_stream_user_rates_slug() ); ?>" />
+
+	<?php
+}
+
+/**
+ * Signup slug of the plugin
+ *
+ * @package WP Idea Stream
+ * @subpackage admin/settings
+ *
+ * @since 2.1.0
+ *
+ * @uses   esc_attr() to sanitize the attribute
+ * @uses  wp_idea_stream_signup_slug() to get the active slug
+ * @return string HTML output
+ */
+function wp_idea_stream_signup_slug_setting_callback() {
+	?>
+
+	<input name="_ideastream_signup_slug" id="_ideastream_signup_slug" type="text" class="regular-text code" value="<?php echo esc_attr( wp_idea_stream_signup_slug() ); ?>" />
 
 	<?php
 }

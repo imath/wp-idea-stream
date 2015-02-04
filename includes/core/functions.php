@@ -1116,6 +1116,34 @@ function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&he
 }
 
 /**
+ * Prepare the content to be output in a csv file
+ *
+ * @package WP Idea Stream
+ * @subpackage core/functions
+ *
+ * @since 2.1.0
+ *
+ * @param  string $content the content
+ * @uses   apply_filters() call 'wp_idea_stream_generate_csv_content' to add extra formatting stuff
+ * @return string          the content to be displayed in a csv file
+ */
+function wp_idea_stream_generate_csv_content( $content = '' ) {
+	// Avoid some chars
+	$content = str_replace( array( '&#8212;', '"' ), array( 0, "'" ), $content );
+
+	// Strip shortcodes
+	$content = strip_shortcodes( $content );
+
+	// Strip slashes
+	$content = wp_unslash( $content );
+
+	// Strip all tags
+	$content = wp_strip_all_tags( $content, true );
+
+	return apply_filters( 'wp_idea_stream_generate_csv_content', $content );
+}
+
+/**
  * Specific tag cloud count text callback
  *
  * By Default, WordPress uses "topic/s", This will
@@ -1177,7 +1205,9 @@ function wp_idea_stream_tag_cloud_args( $args = array() ) {
  * @return array           associative array containing the number of tags and the content of the cloud.
  */
 function wp_idea_stream_generate_tag_cloud( $number = 10, $args = array() ) {
-	$tags = get_terms( wp_idea_stream_get_tag(), array( 'number' => $number, 'orderby' => 'count', 'order' => 'DESC' ) );
+	$tags = get_terms( wp_idea_stream_get_tag(), apply_filters( 'wp_idea_stream_generate_tag_cloud_args',
+		array( 'number' => $number, 'orderby' => 'count', 'order' => 'DESC' )
+	) );
 
 	if ( empty( $tags ) ) {
 		return;
@@ -1291,4 +1321,23 @@ function wp_idea_stream_adminbar_menu( $wp_admin_bar = null ){
 			'href'   => $menu_url,
 		) );
 	}
+}
+
+/**
+ * Checks wether signups are allowed
+ *
+ * @package WP Idea Stream
+ * @subpackage core/functions
+ *
+ * @since 2.1.0
+ *
+ * @return bool true if signups are allowed and not on a multisite config, false otherwise
+ */
+function wp_idea_stream_is_signup_allowed() {
+	// First step will not include multisite configs
+	if ( is_multisite() ) {
+		return false;
+	}
+
+	return (bool) get_option( 'users_can_register', false );
 }
