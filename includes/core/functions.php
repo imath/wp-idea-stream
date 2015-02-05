@@ -1339,5 +1339,5 @@ function wp_idea_stream_is_signup_allowed() {
 		return false;
 	}
 
-	return (bool) get_option( 'users_can_register', false );
+	return (bool) apply_filters( 'wp_idea_stream_is_signup_allowed', get_option( 'users_can_register', false ) );
 }

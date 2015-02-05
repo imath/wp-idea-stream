@@ -29,6 +29,9 @@ Activate WP Idea Stream in the "Plugins" admin panel using the "Activate" link.
 = I'm not using BuddyPress, will it work without it ? =
 Of course! But try BuddyPress, it's awesome :)
 
+= I'm not using WordPress 4.1, is this plugin compatible with an older version ? =
+Since 2.1.0, plugin is requiring 4.1.
+
 = I'm not using WordPress 4.0, is this plugin compatible with an older version ? =
 Since 2.0.0, plugin is requiring 4.0.
 
