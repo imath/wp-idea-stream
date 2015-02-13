@@ -13,7 +13,8 @@ WP Idea Stream stylesheet
 7 - User profile
 8 - Forms
 9 - Widgets
-10 - Media Queries
+10 - Themes
+11 - Media Queries
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -737,7 +738,21 @@ body.single-ideas #comments .comment-reply-link:hover {
 }
 
 /*--------------------------------------------------------------
-10 - Media Queries
+10 - Themes
+--------------------------------------------------------------*/
+
+/* Theme Name: Twenty Fifteen
+Theme URI: https://wordpress.org/themes/twentyfifteen
+*/
+.ideastream.archive .pagination .prev,
+.ideastream.archive .pagination .next {
+	display: none;
+}
+
+
+
+/*--------------------------------------------------------------
+11 - Media Queries
 --------------------------------------------------------------*/
 
 @media only screen and (max-width: 480px ){
