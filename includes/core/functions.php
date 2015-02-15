@@ -1331,13 +1331,41 @@ function wp_idea_stream_adminbar_menu( $wp_admin_bar = null ){
  *
  * @since 2.1.0
  *
- * @return bool true if signups are allowed and not on a multisite config, false otherwise
+ * @return bool true if user signups are allowed, false otherwise
  */
 function wp_idea_stream_is_signup_allowed() {
-	// First step will not include multisite configs
+	// Default to single site option
+	$option = 'users_can_register';
+
+	// Multisite config is using the registration site meta
 	if ( is_multisite() ) {
-		return false;
+		$option = 'registration';
 	}
 
-	return (bool) apply_filters( 'wp_idea_stream_is_signup_allowed', get_option( 'users_can_register', false ) );
+	$registration_status = get_site_option( $option, 0 );
+
+	// On multisite config, just deal with user signups and avoid blog signups
+	$signup_allowed = ( 1 == $registration_status || 'user' == $registration_status );
+
+	return (bool) apply_filters( 'wp_idea_stream_is_signup_allowed', $signup_allowed );
+}
+
+/**
+ * Checks wether signups are allowed for current blog
+ *
+ * @package WP Idea Stream
+ * @subpackage core/functions
+ *
+ * @since 2.2.0
+ *
+ * @return bool true if signups are allowed for current site, false otherwise
+ */
+function wp_idea_stream_is_signup_allowed_for_current_blog() {
+	$signups_allowed = wp_idea_stream_is_signup_allowed();
+
+	if ( ! is_multisite() ) {
+		return $signups_allowed;
+	}
+
+	return apply_filters( 'wp_idea_stream_is_signup_allowed_for_current_blog', wp_idea_stream_allow_signups() );
 }

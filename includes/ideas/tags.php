@@ -1431,7 +1431,7 @@ function wp_idea_stream_ideas_not_loggedin() {
 
 	if ( ! is_user_logged_in() ) {
 
-		if ( wp_idea_stream_is_signup_allowed() ) {
+		if ( wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 			$output = sprintf(
 				__( 'Please <a href="%s" title="Log in">log in</a> or <a href="%s" title="Sign up">register</a> to this site to submit an idea.', 'wp-idea-stream' ),
 				esc_url( wp_login_url( wp_idea_stream_get_form_url() ) ),

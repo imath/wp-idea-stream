@@ -779,6 +779,87 @@ function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
 }
 
 /**
+ * Get the default role for a user (used in multisite configs)
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.2.0
+ */
+function wp_idea_stream_users_get_default_role() {
+	return apply_filters( 'wp_idea_stream_users_get_default_role', get_option( 'default_role', 'subscriber' ) );
+}
+
+/**
+ * Get the signup key if the user registered using IdeaStream
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.2.0
+ *
+ * @global $wpdb
+ * @param  string $user       user login
+ * @param  string $user_email user email
+ * @param  string $key        activation key
+ * @param  array  $meta       the signup's meta data
+ * @uses   wp_idea_stream_set_idea_var() to temporarly globalize the activation key
+ */
+function wp_idea_stream_users_intercept_activation_key( $user, $user_email = '', $key = '', $meta = array() ) {
+	if ( ! empty( $key ) && ! empty( $user_email ) ) {
+		wp_idea_stream_set_idea_var( 'activation_key', array( $user_email => $key ) );
+	}
+
+	return false;
+}
+
+/**
+ * Update the $wpdb->signups table in case of a multisite config
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.2.0
+ *
+ * @global $wpdb
+ * @param  array $signup the signup required data
+ * @param  int $user_id  the user ID
+ * @uses   wp_idea_stream_users_get_user_data() to get user data
+ */
+function wp_idea_stream_users_update_signups_table( $user_id = 0 ) {
+	global $wpdb;
+
+	if ( empty( $user_id ) ) {
+		return;
+	}
+
+	$user = wp_idea_stream_users_get_user_data( 'id', $user_id );
+
+	if ( empty( $user->user_login ) || empty( $user->user_email ) ) {
+		return;
+	}
+
+	add_filter( 'wpmu_signup_user_notification', 'wp_idea_stream_users_intercept_activation_key', 10, 4 );
+	wpmu_signup_user( $user->user_login, $user->user_email, array( 'add_to_blog' => get_current_blog_id(), 'new_role' => wp_idea_stream_users_get_default_role() ) );
+	remove_filter( 'wpmu_signup_user_notification', 'wp_idea_stream_users_intercept_activation_key', 10, 4 );
+
+	$key = wp_idea_stream_get_idea_var( 'activation_key' );
+
+	if ( empty( $key[ $user->user_email ] ) ) {
+		return;
+
+	// Reset the global
+	} else {
+		wp_idea_stream_set_idea_var( 'activation_key', array() );
+	}
+
+	$wpdb->update( $wpdb->signups,
+		array( 'active' => 1, 'activated' => current_time( 'mysql', true ) ),
+		array( 'activation_key' => $key[ $user->user_email ] )
+	);
+}
+
+/**
  * Signup a new user
  *
  * @package WP Idea Stream
@@ -823,10 +904,12 @@ function wp_idea_stream_users_signup_user() {
 
 	$user_login = false;
 
-	// Force the login to exist and to be at least 4 characters long
-	if ( ! empty( $_POST['wp_idea_stream_signup']['user_login'] ) &&  4 <= mb_strlen( $_POST['wp_idea_stream_signup']['user_login'] ) ) {
+	if ( ! empty( $_POST['wp_idea_stream_signup']['user_login'] ) ) {
 		$user_login = $_POST['wp_idea_stream_signup']['user_login'];
-	} else {
+	}
+
+	// Force the login to exist and to be at least 4 characters long
+	if ( 4 > mb_strlen( $user_login ) ) {
 		$required_errors->add( 'user_login_fourchars', __( 'Please choose a login having at least 4 characters.', 'wp-idea-stream' ) );
 	}
 
@@ -860,7 +943,7 @@ function wp_idea_stream_users_signup_user() {
 			continue;
 		}
 
-		if ( empty( $value ) ) {
+		if ( empty( $value ) && 'empty_required_field' != $required_errors->get_error_code() ) {
 			$required_errors->add( 'empty_required_field', __( 'Please fill all required fields.', 'wp-idea-stream' ) );
 		}
 	}
@@ -870,7 +953,7 @@ function wp_idea_stream_users_signup_user() {
 		//Add feedback to the user
 		wp_idea_stream_add_message( array(
 			'type'    => 'error',
-			'content' => $required_errors->get_error_message(),
+			'content' => join( ' ', array_map( 'strip_tags', $required_errors->get_error_messages() ) ),
 		) );
 		return;
 	}
@@ -884,8 +967,25 @@ function wp_idea_stream_users_signup_user() {
 	 */
 	do_action( 'wp_idea_stream_users_before_signup_user', $user_login, $user_email, $edit_user );
 
+	// Defaults to user name and user email
+	$signup_array = array( 'user_name' => $user_login, 'user_email' => $user_email );
+
+	// Sanitize the signup on multisite configs.
+	if ( is_multisite() ) {
+		$signup_array = wpmu_validate_user_signup( $user_login, $user_email );
+
+		if ( is_wp_error( $signup_array['errors'] ) && $signup_array['errors']->get_error_code() ) {
+			//Add feedback to the user
+			wp_idea_stream_add_message( array(
+				'type'    => 'error',
+				'content' => join( ' ', array_map( 'strip_tags', $signup_array['errors']->get_error_messages() ) ),
+			) );
+			return;
+		}
+	}
+
 	// Register the user
-	$user = register_new_user( $user_login, $user_email );
+	$user = register_new_user( $signup_array['user_name'], $signup_array['user_email'] );
 
 	/**
 	 * Perform actions after the user is created
@@ -934,6 +1034,11 @@ function wp_idea_stream_users_signup_user() {
 			}
 		}
 
+		// Make sure an entry is added to the $wpdb->signups table
+		if ( is_multisite() ) {
+			wp_idea_stream_users_update_signups_table( $user );
+		}
+
 		// Finally invite the user to check his email.
 		wp_idea_stream_add_message( array(
 			'type'    => 'success',
@@ -945,6 +1050,16 @@ function wp_idea_stream_users_signup_user() {
 	}
 }
 
+/**
+ * Get user fields
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.1.0
+ *
+ * @param  string $type whether we're on a signup form or not
+ */
 function wp_idea_stream_user_get_fields( $type = 'signup' ) {
 	$fields = wp_get_user_contact_methods();
 
@@ -974,16 +1089,16 @@ function wp_idea_stream_user_get_fields( $type = 'signup' ) {
  */
 function wp_idea_stream_user_signup_redirect( $context = '' ) {
 	// Bail if signup is not allowed
-	if ( ! wp_idea_stream_is_signup_allowed() ) {
+	if ( ! wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 		return;
 	}
 
 	if ( is_user_logged_in() && 'signup' == $context ) {
 		wp_safe_redirect( wp_idea_stream_users_get_logged_in_profile_url() );
-		return;
+		exit();
 	} else if ( ! empty( $_SERVER['SCRIPT_NAME'] ) && false !== strpos( $_SERVER['SCRIPT_NAME'], 'wp-login.php' ) && ! empty( $_REQUEST['action'] ) &&  'register' == $_REQUEST['action'] ) {
 		wp_safe_redirect( wp_idea_stream_users_get_signup_url() );
-		return;
+		exit();
 	} else {
 		if ( 'signup' == $context )  {
 			/**
@@ -996,3 +1111,26 @@ function wp_idea_stream_user_signup_redirect( $context = '' ) {
 		return;
 	}
 }
+
+/**
+ * Set a role on the site of the network if needed
+ *
+ * @package WP Idea Stream
+ * @subpackage users/functions
+ *
+ * @since 2.2.0
+ */
+function wp_idea_stream_maybe_set_current_user_role() {
+	if ( ! is_multisite() || is_super_admin() ) {
+		return;
+	}
+
+	$current_user = wp_idea_stream()->current_user;
+
+	if ( empty( $current_user->ID ) || ! empty( $current_user->roles ) || ! wp_idea_stream_user_new_idea_set_role() ) {
+		return;
+	}
+
+	$current_user->set_role( wp_idea_stream_users_get_default_role() );
+}
+add_action( 'wp_idea_stream_ideas_before_idea_save', 'wp_idea_stream_maybe_set_current_user_role', 1 );

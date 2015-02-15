@@ -69,6 +69,14 @@ function wp_idea_stream_get_default_options() {
 		) );
 	}
 
+	// Multisite options
+	if ( is_multisite() ) {
+		$default_options = array_merge( $default_options, array(
+			'_ideastream_allow_signups'          => 0,
+			'_ideastream_user_new_idea_set_role' => 0,
+		) );
+	}
+
 	/**
 	 * Used internally to merge options of the previous verions
 	 * of the plugin with new ones during upgrade routine.
@@ -586,4 +594,38 @@ function wp_idea_stream_signup_slug( $default = 'sign-up' ) {
  */
 function wp_idea_stream_cpage_slug( $default = 'cpage' ) {
 	return apply_filters( 'wp_idea_stream_cpage_slug', get_option( '_ideastream_cpage_slug', $default ) );
+}
+
+/**
+ * Should new users have the default role of the Site ?
+ *
+ * @package WP Idea Stream
+ * @subpackage core/options
+ *
+ * @since 2.2.0
+ *
+ * @param  int $default default value
+ * @uses   apply_filters() call 'wp_idea_stream_new_user_default_role' to override default or customized value
+ * @uses   get_option() to get customized value
+ * @return bool         True if enabled, false otherwise
+ */
+function wp_idea_stream_allow_signups( $default = 0 ) {
+	return (bool) apply_filters( 'wp_idea_stream_allow_signups', (bool) get_option( '_ideastream_allow_signups', $default ) );
+}
+
+/**
+ * Should we make sure the user posting an idea on the site has the default role ?
+ *
+ * @package WP Idea Stream
+ * @subpackage core/options
+ *
+ * @since 2.2.0
+ *
+ * @param  int $default default value
+ * @uses   apply_filters() call 'wp_idea_stream_user_new_idea_set_role' to override default or customized value
+ * @uses   get_option() to get customized value
+ * @return bool         True if enabled, false otherwise
+ */
+function wp_idea_stream_user_new_idea_set_role( $default = 0 ) {
+	return (bool) apply_filters( 'wp_idea_stream_user_new_idea_set_role', (bool) get_option( '_ideastream_user_new_idea_set_role', $default ) );
 }

@@ -194,8 +194,8 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			// Yes so set the corresponding var
 			wp_idea_stream_set_idea_var( 'is_edit', true );
 
-		// Signup support for non multisite config
-		} else if ( wp_idea_stream_signup_slug() == $action && wp_idea_stream_is_signup_allowed() ) {
+		// Signup support
+		} else if ( wp_idea_stream_signup_slug() == $action && wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 			// Set the signup global var
 			wp_idea_stream_set_idea_var( 'is_signup', true );
 
@@ -854,13 +854,13 @@ function wp_idea_stream_title( $title_array = array() ) {
 /**
  * Remove the site description from title.
  * @todo we should make sure $wp_query->is_home is false in a future release
- * 
+ *
  * @since 2.1.0
- * 
+ *
  * @param  string $new_title the filtered title
  * @param  string $sep
  * @param  string $seplocation
- */ 
+ */
 function wp_idea_stream_title_adjust( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	if ( ! wp_idea_stream_is_ideastream() ) {
 		return $title;

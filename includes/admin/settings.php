@@ -42,6 +42,14 @@ function wp_idea_stream_get_settings_sections() {
 		);
 	}
 
+	if ( is_multisite() ) {
+		$settings_sections['ideastream_settings_multisite'] = array(
+			'title'    => __( 'Network users settings', 'wp-idea-stream' ),
+			'callback' => 'wp_idea_stream_settings_multisite_section_callback',
+			'page'     => 'ideastream',
+		);
+	}
+
 	/**
 	 * Used internally to add the BuddyPress settings
 	 * @see  buddypress/settings for an example of use.
@@ -152,7 +160,7 @@ function wp_idea_stream_get_settings_fields() {
 	);
 
 	if ( wp_idea_stream_is_pretty_links() ) {
-		/** Rewrite Section ******************************************************/
+		/** Rewrite Section ***********************************************************/
 		$setting_fields['ideastream_settings_rewrite'] = array(
 
 			// Root slug
@@ -250,6 +258,27 @@ function wp_idea_stream_get_settings_fields() {
 				'sanitize_callback' => 'wp_idea_stream_sanitize_slug',
 				'args'              => array()
 			),
+		);
+	}
+
+	if ( is_multisite() ) {
+		/** Multisite Section *********************************************************/
+		$setting_fields['ideastream_settings_multisite'] = array();
+
+		if ( wp_idea_stream_is_signup_allowed() ) {
+			$setting_fields['ideastream_settings_multisite']['_ideastream_allow_signups'] = array(
+				'title'             => __( 'Sign-ups', 'wp-idea-stream' ),
+				'callback'          => 'wp_idea_stream_allow_signups_setting_callback',
+				'sanitize_callback' => 'absint',
+				'args'              => array()
+			);
+		}
+
+		$setting_fields['ideastream_settings_multisite']['_ideastream_user_new_idea_set_role'] = array(
+			'title'             => __( 'Default role for network users', 'wp-idea-stream' ),
+			'callback'          => 'wp_idea_stream_user_new_idea_set_role_setting_callback',
+			'sanitize_callback' => 'absint',
+			'args'              => array()
 		);
 	}
 
@@ -927,6 +956,66 @@ function wp_idea_stream_edit_slug_setting_callback() {
 	?>
 
 	<input name="_ideastream_edit_slug" id="_ideastream_edit_slug" type="text" class="regular-text code" value="<?php echo esc_attr( wp_idea_stream_edit_slug() ); ?>" />
+
+	<?php
+}
+
+/**
+ * Some text to introduce the multisite settings section
+ *
+ * @package WP Idea Stream
+ * @subpackage admin/settings
+ *
+ * @since 2.2.0
+ *
+ * @return string HTML output
+ */
+function wp_idea_stream_settings_multisite_section_callback() {
+	?>
+
+	<p><?php esc_html_e( 'Define your preferences about network users', 'wp-idea-stream' ); ?></p>
+
+	<?php
+}
+
+/**
+ * Default role for new users callback
+ *
+ * @package WP Idea Stream
+ * @subpackage admin/settings
+ *
+ * @since 2.2.0
+ *
+ * @uses   checked() to add a checked attribute if needed
+ * @uses   wp_idea_stream_new_user_default_role() to get the active option
+ * @return string HTML output
+ */
+function wp_idea_stream_allow_signups_setting_callback() {
+	?>
+
+	<input name="_ideastream_allow_signups" id="_ideastream_allow_signups" type="checkbox" value="1" <?php checked( wp_idea_stream_allow_signups() ); ?> />
+	<label for="_ideastream_allow_signups"><?php esc_html_e( 'Allow IdeaStream to manage signups for your site', 'wp-idea-stream' ); ?></label>
+
+	<?php
+}
+
+/**
+ * Default role for users posting an idea on this site callback
+ *
+ * @package WP Idea Stream
+ * @subpackage admin/settings
+ *
+ * @since 2.2.0
+ *
+ * @uses   checked() to add a checked attribute if needed
+ * @uses   wp_idea_stream_user_new_idea_set_role() to get the active option
+ * @return string HTML output
+ */
+function wp_idea_stream_user_new_idea_set_role_setting_callback() {
+	?>
+
+	<input name="_ideastream_user_new_idea_set_role" id="_ideastream_user_new_idea_set_role" type="checkbox" value="1" <?php checked( wp_idea_stream_user_new_idea_set_role() ); ?> />
+	<label for="_ideastream_user_new_idea_set_role"><?php esc_html_e( 'Automatically set this site&#39;s default role for users posting a new idea and having no role on this site.', 'wp-idea-stream' ); ?></label>
 
 	<?php
 }
