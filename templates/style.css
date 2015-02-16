@@ -744,8 +744,8 @@ body.single-ideas #comments .comment-reply-link:hover {
 /* Theme Name: Twenty Fifteen
 Theme URI: https://wordpress.org/themes/twentyfifteen
 */
-.ideastream.archive .pagination .prev,
-.ideastream.archive .pagination .next {
+#wp-idea-stream .pagination-links .prev.page-numbers,
+#wp-idea-stream .pagination-links .next.page-numbers {
 	display: none;
 }
 
