@@ -744,12 +744,16 @@ body.single-ideas #comments .comment-reply-link:hover {
 /* Theme Name: Twenty Fifteen
 Theme URI: https://wordpress.org/themes/twentyfifteen
 */
-#wp-idea-stream .pagination-links .prev.page-numbers,
-#wp-idea-stream .pagination-links .next.page-numbers {
-	display: none;
+
+#wp-idea-stream .pagination .prev,
+#wp-idea-stream .pagination .next {
+	height: 0;
+	width: 0;
 }
 
-
+#wp-idea-stream .pagination .page-numbers {
+	line-height: 0;
+}
 
 /*--------------------------------------------------------------
 11 - Media Queries
