@@ -55,6 +55,7 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 
 = 2.1.1 =
 * Fixes potential security issues
+* Fixes a problem with BP Default based themes (ideas in groups)
 
 = 2.1.0 =
 * Sign-up form
