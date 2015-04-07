@@ -856,7 +856,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		add_action( 'wp_idea_stream_set_single_template', array( $this, 'maybe_redirect_to_group' ), 10, 1 );
 
 		// Set the IdeaStream template to use
-		add_action( 'bp_screens', array( $this, 'maybe_set_ideastream' ),  10 );
+		add_action( 'bp_screens', array( $this, 'maybe_set_ideastream' ), 1 );
 
 		// Set the title of the group's IdeaStream screen
 		add_action( 'wp_idea_stream_before_archive_main_nav', array( $this, 'display_screen_title' ) );
