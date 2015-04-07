@@ -575,6 +575,16 @@ function wp_idea_stream_users_profile_description_update() {
 
 	$user_id = wp_idea_stream_users_displayed_user_id();
 
+	// Capbility checks
+	if ( ! is_user_logged_in() ) {
+		return;
+	}
+
+	// Capbility checks
+	if ( (int) get_current_user_id() !== (int) $user_id ) {
+		return;
+	}
+
 	$redirect = wp_idea_stream_users_get_user_profile_url( $user_id, wp_idea_stream_users_get_displayed_user_username() );
 
 	$user_description = str_replace( array( '<div>', '</div>'), "\n", $_POST['wp_idea_stream_profile']['description'] );
@@ -590,9 +600,8 @@ function wp_idea_stream_users_profile_description_update() {
 		exit();
 	}
 
-
-	$allowed_html = wp_kses_allowed_html( 'user_description' );
-	$user_description = wp_kses( $user_description, $allowed_html );
+	// Remove all html tags
+	$user_description = wp_kses( wp_specialchars_decode( $user_description ), array() );
 
 	if ( ! update_user_meta( $user_id, 'description', $user_description ) ) {
 		wp_idea_stream_add_message( array(

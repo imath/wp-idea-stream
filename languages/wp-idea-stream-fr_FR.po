@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Idea Stream 2.0.0-beta4\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-idea-stream\n"
-"POT-Creation-Date: 2015-02-04 01:47:45+00:00\n"
-"PO-Revision-Date: 2015-02-04 02:48+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-idea-stream\n"
+"POT-Creation-Date: 2015-04-07 21:24:04+00:00\n"
+"PO-Revision-Date: 2015-04-07 23:26+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -1079,8 +1079,8 @@ msgstr "%1$s a écrit une nouvelle %2$s"
 
 #: includes/buddypress/activity.php:565
 msgctxt "idea commented activity action"
-msgid "%1$s replyed to this %2$s"
-msgstr "%1$s a répondu à cette %2$s"
+msgid "%1$s replied to this %2$s"
+msgstr "﻿%1$ s a répondu à cette %2$ s"
 
 #: includes/buddypress/activity.php:1329
 msgid "Repair IdeaStream activities."
@@ -1262,7 +1262,7 @@ msgstr "%1$s a publié une nouvelle %2$s dans le groupe %3$s"
 
 #: includes/buddypress/groups.php:2900
 msgctxt "idea commented group activity action"
-msgid "%1$s replyed to this %2$s posted in the group %3$s"
+msgid "%1$s replied to this %2$s posted in the group %3$s"
 msgstr "%1$s a répondu à cette %2$s postée dans le groupe %3$s"
 
 #: includes/buddypress/groups.php:3040
@@ -2043,21 +2043,21 @@ msgstr ""
 "Taper votre mot clé, puis appuyer sur la touche entrée ou espace pour l&#39;"
 "ajouter"
 
-#: includes/ideas/tags.php:1808
+#: includes/ideas/tags.php:1811
 msgid "Choose the most used tag"
 msgid_plural "Choose from the %d most used tags"
 msgstr[0] "Sélectionnez le mot clé le plus utilisé"
 msgstr[1] "Sélectionner parmi les mots clés les plus utilisés"
 
-#: includes/ideas/tags.php:1896 includes/users/tags.php:322
+#: includes/ideas/tags.php:1899 includes/users/tags.php:322
 msgid "Reset"
 msgstr "Annuler"
 
-#: includes/ideas/tags.php:1897
+#: includes/ideas/tags.php:1900
 msgid "Submit"
 msgstr "Déposer"
 
-#: includes/ideas/tags.php:1902
+#: includes/ideas/tags.php:1905
 msgid "Update"
 msgstr "Mettre à jour"
 
@@ -2106,37 +2106,37 @@ msgstr "Commentées"
 msgid "Rated"
 msgstr "Evaluées"
 
-#: includes/users/functions.php:586
+#: includes/users/functions.php:596
 msgid "Please, enter some content in your description"
 msgstr "Merci de bien vouloir saisir un contenu dans votre présentation"
 
-#: includes/users/functions.php:600
+#: includes/users/functions.php:609
 msgid "Something went wrong while trying to update your description."
 msgstr "Une erreur est survenue lors de la sauvegarde de votre présentation"
 
-#: includes/users/functions.php:608
+#: includes/users/functions.php:617
 msgid "Description updated."
 msgstr "Présentation mise à jour."
 
-#: includes/users/functions.php:830
+#: includes/users/functions.php:839
 msgid "Please choose a login having at least 4 characters."
 msgstr ""
 "Merci de choisir un nom d&#39;utilisateur contenant au moins quatre "
 "caractères."
 
-#: includes/users/functions.php:864
+#: includes/users/functions.php:873
 msgid "Please fill all required fields."
 msgstr "Veuillez remplir tous les champs."
 
-#: includes/users/functions.php:940
+#: includes/users/functions.php:949
 msgid "Registration complete. Please check your e-mail."
 msgstr "Inscription terminée. Merci de vérifier votre messagerie électronique."
 
-#: includes/users/functions.php:954
+#: includes/users/functions.php:963
 msgid "Username"
 msgstr "Identifiant"
 
-#: includes/users/functions.php:955
+#: includes/users/functions.php:964
 msgid "E-mail"
 msgstr "Courriel"
 

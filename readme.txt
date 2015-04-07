@@ -3,8 +3,8 @@ Contributors: imath, aglekis
 Donate link: http://imathi.eu/donations/
 Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
 Requires at least: 4.1
-Tested up to: 4.1
-Stable tag: 2.1.0
+Tested up to: 4.2
+Stable tag: 2.1.1
 License: GNU/GPL 2
 
 Share ideas, great ones will rise to the top!
@@ -52,6 +52,10 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 5. Ideas archive page
 
 == Changelog ==
+
+= 2.1.1 =
+* Fixes potential security issues
+* Fixes a problem with BP Default based themes (ideas in groups)
 
 = 2.1.0 =
 * Sign-up form
@@ -116,6 +120,12 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 * Plugin birth..
 
 == Upgrade Notice ==
+
+= 2.1.0 =
+
+Please be sure to use at least WordPress 4.1 before upgrading/downloading this plugin.
+If you are using BuddyPress, make sure to upgrade to version 2.2 before upgrading to WP Idea Stream 2.1.1.
+Back up your database and files (in case you want to roll back to previous version).
 
 = 2.1.0 =
 Please be sure to use at least WordPress 4.1 before upgrading/downloading this plugin.

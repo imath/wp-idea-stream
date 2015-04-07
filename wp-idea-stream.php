@@ -5,7 +5,7 @@ Plugin URI: http://imathi.eu/tag/ideastream/
 Description: Share ideas, great ones will rise to the top!
 Version: 2.2.0-alpha
 Requires at least: 4.1
-Tested up to: 4.1
+Tested up to: 4.2
 License: GNU/GPL 2
 Author: imath
 Author URI: http://imathi.eu/

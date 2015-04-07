@@ -76,6 +76,8 @@
 			'tags-input-name'      : 'wp_idea_stream[_the_tags]',
 			'edit-on-delete'       : false,
 			'tag-char'             : '',
+			'forbidden-chars'      : [ '.', '_', '?', '<', '>' ],
+			'forbidden-words'      : ['script'],
 			'no-duplicate-text'    : wp_idea_stream_vars.duplicate_tag,
 			'forbidden-chars-text' : wp_idea_stream_vars.forbidden_chars,
 			'forbidden-words-text' : wp_idea_stream_vars.forbidden_words

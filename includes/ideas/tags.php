@@ -1508,7 +1508,7 @@ function wp_idea_stream_ideas_the_title_edit() {
 		/**
 		 * @param  string $edit_title the title field
 		 */
-		echo apply_filters( 'wp_idea_stream_ideas_get_title_edit', $edit_title );
+		echo apply_filters( 'wp_idea_stream_ideas_get_title_edit', esc_attr( $edit_title ) );
 	}
 
 /**
@@ -1760,7 +1760,7 @@ function wp_idea_stream_ideas_the_tags_edit() {
 
 		// Did the user submitted tags ?
 		if ( ! empty( $_POST['wp_idea_stream']['_the_tags'] ) ) {
-			$edit_tags = $_POST['wp_idea_stream']['_the_tags'];
+			$edit_tags = (array) $_POST['wp_idea_stream']['_the_tags'];
 
 		// Are we editing tags ?
 		} else if ( ! empty( $wp_idea_stream->query_loop->idea->ID ) ) {
@@ -1770,6 +1770,9 @@ function wp_idea_stream_ideas_the_tags_edit() {
 		} else {
 			$edit_tags = array();
 		}
+
+		// Sanitize tags
+		$edit_tags = array_map( 'esc_html', $edit_tags );
 
 		/**
 		 * @param  string the tags list output

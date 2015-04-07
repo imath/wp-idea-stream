@@ -856,7 +856,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		add_action( 'wp_idea_stream_set_single_template', array( $this, 'maybe_redirect_to_group' ), 10, 1 );
 
 		// Set the IdeaStream template to use
-		add_action( 'bp_screens', array( $this, 'maybe_set_ideastream' ),  10 );
+		add_action( 'bp_screens', array( $this, 'maybe_set_ideastream' ), 1 );
 
 		// Set the title of the group's IdeaStream screen
 		add_action( 'wp_idea_stream_before_archive_main_nav', array( $this, 'display_screen_title' ) );
@@ -2897,7 +2897,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		$group_link = '<a href="' . esc_url( bp_get_group_permalink( $group ) ) . '">' . esc_html( $group->name ) . '</a>';
 
 		$action = sprintf(
-			_x( '%1$s replyed to this %2$s posted in the group %3$s', 'idea commented group activity action', 'wp-idea-stream' ),
+			_x( '%1$s replied to this %2$s posted in the group %3$s', 'idea commented group activity action', 'wp-idea-stream' ),
 			bp_core_get_userlink( $activity->user_id ),
 			'<a href="' . esc_url( $primary_link ) . '">' . esc_html( mb_strtolower( self::$post_type_object->labels->singular_name, 'UTF-8' ) ) . '</a>',
 			$group_link
