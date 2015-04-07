@@ -562,7 +562,7 @@ class WP_Idea_Stream_Activity {
 		}
 
 		$action = sprintf(
-			_x( '%1$s replyed to this %2$s', 'idea commented activity action', 'wp-idea-stream' ),
+			_x( '%1$s replied to this %2$s', 'idea commented activity action', 'wp-idea-stream' ),
 			bp_core_get_userlink( $activity->user_id ),
 			'<a href="' . esc_url( $primary_link ) . '">' . esc_html( mb_strtolower( $this->post_type_object->labels->singular_name, 'UTF-8' ) ) . '</a>'
 		);

@@ -303,8 +303,8 @@ function wp_idea_stream_users_the_signup_fields() {
 				$required_output = '<span class="required">*</span>';
 			}
 
-			$output .= '<label for="_wp_idea_stream_signup_' . $sanitized['key'] . '">' . $sanitized['label'] . ' ' . $required_output . '</label>';
-			$output .= '<input type="text" id="_wp_idea_stream_signup_' . $sanitized['key'] . '" name="wp_idea_stream_signup[' . $sanitized['key'] . ']" value="' . $sanitized['value'] . '"/>';
+			$output .= '<label for="_wp_idea_stream_signup_' . esc_attr( $sanitized['key'] ) . '">' . esc_html( $sanitized['label'] ) . ' ' . $required_output . '</label>';
+			$output .= '<input type="text" id="_wp_idea_stream_signup_' . esc_attr( $sanitized['key'] ) . '" name="wp_idea_stream_signup[' . esc_attr( $sanitized['key'] ) . ']" value="' . esc_attr( $sanitized['value'] ) . '"/>';
 
 			$output .= apply_filters( 'wp_idea_stream_users_after_signup_field', '', $sanitized );
 		}

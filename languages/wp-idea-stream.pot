@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WP Idea Stream package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Idea Stream 2.1.0-beta1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-idea-stream\n"
-"POT-Creation-Date: 2015-02-04 01:47:45+00:00\n"
+"Project-Id-Version: WP Idea Stream 2.1.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-idea-stream\n"
+"POT-Creation-Date: 2015-04-07 21:24:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -769,7 +769,7 @@ msgstr ""
 
 #: includes/buddypress/activity.php:565
 msgctxt "idea commented activity action"
-msgid "%1$s replyed to this %2$s"
+msgid "%1$s replied to this %2$s"
 msgstr ""
 
 #: includes/buddypress/activity.php:1329
@@ -939,7 +939,7 @@ msgstr ""
 
 #: includes/buddypress/groups.php:2900
 msgctxt "idea commented group activity action"
-msgid "%1$s replyed to this %2$s posted in the group %3$s"
+msgid "%1$s replied to this %2$s posted in the group %3$s"
 msgstr ""
 
 #: includes/buddypress/groups.php:3040
@@ -1629,21 +1629,21 @@ msgstr ""
 msgid "Type your tag, then hit the return or space key to add it"
 msgstr ""
 
-#: includes/ideas/tags.php:1808
+#: includes/ideas/tags.php:1811
 msgid "Choose the most used tag"
 msgid_plural "Choose from the %d most used tags"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/ideas/tags.php:1896 includes/users/tags.php:322
+#: includes/ideas/tags.php:1899 includes/users/tags.php:322
 msgid "Reset"
 msgstr ""
 
-#: includes/ideas/tags.php:1897
+#: includes/ideas/tags.php:1900
 msgid "Submit"
 msgstr ""
 
-#: includes/ideas/tags.php:1902
+#: includes/ideas/tags.php:1905
 msgid "Update"
 msgstr ""
 
@@ -1692,35 +1692,35 @@ msgstr ""
 msgid "Rated"
 msgstr ""
 
-#: includes/users/functions.php:586
+#: includes/users/functions.php:596
 msgid "Please, enter some content in your description"
 msgstr ""
 
-#: includes/users/functions.php:600
+#: includes/users/functions.php:609
 msgid "Something went wrong while trying to update your description."
 msgstr ""
 
-#: includes/users/functions.php:608
+#: includes/users/functions.php:617
 msgid "Description updated."
 msgstr ""
 
-#: includes/users/functions.php:830
+#: includes/users/functions.php:839
 msgid "Please choose a login having at least 4 characters."
 msgstr ""
 
-#: includes/users/functions.php:864
+#: includes/users/functions.php:873
 msgid "Please fill all required fields."
 msgstr ""
 
-#: includes/users/functions.php:940
+#: includes/users/functions.php:949
 msgid "Registration complete. Please check your e-mail."
 msgstr ""
 
-#: includes/users/functions.php:954
+#: includes/users/functions.php:963
 msgid "Username"
 msgstr ""
 
-#: includes/users/functions.php:955
+#: includes/users/functions.php:964
 msgid "E-mail"
 msgstr ""
 

@@ -2897,7 +2897,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		$group_link = '<a href="' . esc_url( bp_get_group_permalink( $group ) ) . '">' . esc_html( $group->name ) . '</a>';
 
 		$action = sprintf(
-			_x( '%1$s replyed to this %2$s posted in the group %3$s', 'idea commented group activity action', 'wp-idea-stream' ),
+			_x( '%1$s replied to this %2$s posted in the group %3$s', 'idea commented group activity action', 'wp-idea-stream' ),
 			bp_core_get_userlink( $activity->user_id ),
 			'<a href="' . esc_url( $primary_link ) . '">' . esc_html( mb_strtolower( self::$post_type_object->labels->singular_name, 'UTF-8' ) ) . '</a>',
 			$group_link

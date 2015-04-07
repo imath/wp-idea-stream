@@ -382,7 +382,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		) );
 
 		$expected = sprintf(
-			'%1$s replyed to this %2$s',
+			'%1$s replied to this %2$s',
 			$user_link,
 			'<a href="' . $comment_link . '">idea</a>'
 		);
@@ -428,7 +428,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		) );
 
 		$expected = sprintf(
-			'%1$s replyed to this %2$s posted in the group %3$s',
+			'%1$s replied to this %2$s posted in the group %3$s',
 			$user_link,
 			'<a href="' . $comment_link . '">idea</a>',
 			$group_link
