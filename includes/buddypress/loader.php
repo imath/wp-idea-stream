@@ -358,7 +358,7 @@ function wp_idea_stream_buddypress() {
 			wp_idea_stream_set_idea_var( 'feedback', array( 'admin_notices' => array(
 				sprintf( esc_html__( 'To benefit of WP Idea Stream in BuddyPress, version %s of BuddyPress is required. Please upgrade or deactivate %s.', 'wp-idea-stream' ),
 					$required_buddypress_version,
-					'<a href="' . add_query_arg( array( 'page' => 'ideastream' ), admin_url( 'options-general.php' ) ) . '#buddypress">"BuddyPress integration"</a>'
+					'<a href="' . esc_url( add_query_arg( array( 'page' => 'ideastream' ), admin_url( 'options-general.php' ) ) ) . '#buddypress">"BuddyPress integration"</a>'
 				)
 			) ) );
 

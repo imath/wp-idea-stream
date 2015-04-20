@@ -741,7 +741,7 @@ function wp_idea_stream_reset_post_title( $context = '' ) {
 		case 'archive' :
 			if ( wp_idea_stream_user_can( 'publish_ideas' ) ) {
 				$post_title =  '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
-				$post_title .= ' <a href="' . wp_idea_stream_get_form_url() .'" class="button wpis-title-button">' . esc_html__( 'Add new', 'wp-idea-stream' ) . '</a>';
+				$post_title .= ' <a href="' . esc_url( wp_idea_stream_get_form_url() ) .'" class="button wpis-title-button">' . esc_html__( 'Add new', 'wp-idea-stream' ) . '</a>';
 			}
 			break;
 
@@ -854,13 +854,13 @@ function wp_idea_stream_title( $title_array = array() ) {
 /**
  * Remove the site description from title.
  * @todo we should make sure $wp_query->is_home is false in a future release
- * 
+ *
  * @since 2.1.0
- * 
+ *
  * @param  string $new_title the filtered title
  * @param  string $sep
  * @param  string $seplocation
- */ 
+ */
 function wp_idea_stream_title_adjust( $title = '', $sep = '&raquo;', $seplocation = '' ) {
 	if ( ! wp_idea_stream_is_ideastream() ) {
 		return $title;

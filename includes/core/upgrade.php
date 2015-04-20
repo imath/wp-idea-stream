@@ -145,7 +145,7 @@ function wp_idea_stream_merge_legacy_options( $default_options = array() ) {
 
 	$notice = array( 'admin_notices' => array(
 		sprintf( esc_html__( 'Please take a few minutes to read the WP Idea Stream %s page: version 2.0.0 introduced some new features and stopped supporting some others.', 'wp-idea-stream' ),
-			'<a href="' . add_query_arg( array( 'page' => 'about-ideastream' ), admin_url( 'index.php' ) ) . '">' . esc_html__( 'About', 'wp-idea-stream' ) . '</a>'
+			'<a href="' . esc_url( add_query_arg( array( 'page' => 'about-ideastream' ), admin_url( 'index.php' ) ) ) . '">' . esc_html__( 'About', 'wp-idea-stream' ) . '</a>'
 		)
 	) );
 

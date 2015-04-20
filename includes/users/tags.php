@@ -265,7 +265,7 @@ function wp_idea_stream_users_the_user_idea_rating( $id = 0, $user_id = 0 ) {
 
 		$username = wp_idea_stream_users_get_displayed_user_username();
 
-		$output = '<a class="user-rating-link" href="' . wp_idea_stream_users_get_user_profile_url( $user_id, $username ) . '" title="' . $username . '">';
+		$output = '<a class="user-rating-link" href="' . esc_url( wp_idea_stream_users_get_user_profile_url( $user_id, $username ) ) . '" title="' . esc_attr( $username ) . '">';
 		$output .= get_avatar( $user_id, 20 ) . sprintf( _n( 'rated 1 star', 'rated %s stars', $user_rating, 'wp-idea-stream' ), $user_rating ) . '</a>';
 
 		/**

@@ -375,7 +375,7 @@ function wp_idea_stream_ideas_not_found() {
 		} else if ( wp_idea_stream_user_can( 'publish_ideas' ) ) {
 			$output = sprintf(
 				__( 'It looks like no idea has been submitted yet, <a href="%s" title="Submit your idea">add yours</a>', 'wp-idea-stream' ),
-				wp_idea_stream_get_form_url()
+				esc_url( wp_idea_stream_get_form_url() )
 			);
 		}
 
@@ -604,7 +604,7 @@ function wp_idea_stream_ideas_the_author_avatar() {
 		$idea   = wp_idea_stream()->query_loop->idea;
 		$author = $idea->post_author;
 		$avatar = get_avatar( $author );
-		$avatar_link = '<a href="' . wp_idea_stream_users_get_user_profile_url( $author ) . '" title="' . esc_attr__( 'User&#39;s profile', 'wp-idea-stream' ) . '">' . $avatar . '</a>';
+		$avatar_link = '<a href="' . esc_url( wp_idea_stream_users_get_user_profile_url( $author ) ) . '" title="' . esc_attr__( 'User&#39;s profile', 'wp-idea-stream' ) . '">' . $avatar . '</a>';
 
 		/**
 		 * @param  string  $avatar_link the avatar output
