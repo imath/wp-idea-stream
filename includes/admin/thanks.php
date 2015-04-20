@@ -46,7 +46,7 @@ function wp_idea_stream_admin_about() {
 		<div class="wp-idea-stream-badge"></div>
 
 		<h2 class="nav-tab-wrapper">
-			<a class="nav-tab nav-tab-active" href="<?php echo esc_url(  admin_url( add_query_arg( array( 'page' => 'about-ideastream' ), 'index.php' ) ) ); ?>">
+			<a class="nav-tab nav-tab-active" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'about-ideastream' ), 'index.php' ) ) ); ?>">
 				<?php esc_html_e( 'About', 'wp-idea-stream' ); ?>
 			</a>
 			<a class="nav-tab" href="<?php echo esc_url( admin_url( add_query_arg( array( 'page' => 'credits-ideastream' ), 'index.php' ) ) ); ?>">
@@ -93,7 +93,7 @@ function wp_idea_stream_admin_about() {
 
 		<div class="changelog">
 			<div class="return-to-dashboard">
-				<a href="<?php echo $settings_url;?>" title="<?php _e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php _e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
+				<a href="<?php echo esc_url( $settings_url );?>" title="<?php _e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php _e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
 			</div>
 		</div>
 
@@ -179,7 +179,7 @@ function wp_idea_stream_admin_credits() {
 
 		<div class="changelog">
 			<div class="return-to-dashboard">
-				<a href="<?php echo $settings_url;?>" title="<?php esc_html_e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php esc_html_e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
+				<a href="<?php echo esc_url( $settings_url );?>" title="<?php esc_html_e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php esc_html_e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
 			</div>
 		</div>
 

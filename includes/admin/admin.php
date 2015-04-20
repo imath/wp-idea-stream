@@ -1778,8 +1778,8 @@ class WP_Idea_Stream_Admin {
 
 		// Add a few links to the existing links array
 		return array_merge( $links, array(
-			'settings' => '<a href="' . add_query_arg( 'page', 'ideastream', admin_url( 'options-general.php' ) ) . '">' . esc_html__( 'Settings', 'wp-idea-stream' ) . '</a>',
-			'about'    => '<a href="' . add_query_arg( 'page', 'about-ideastream', admin_url( 'index.php'     ) ) . '">' . esc_html__( 'About',    'wp-idea-stream' ) . '</a>'
+			'settings' => '<a href="' . esc_url( add_query_arg( 'page', 'ideastream', admin_url( 'options-general.php' ) ) ) . '">' . esc_html__( 'Settings', 'wp-idea-stream' ) . '</a>',
+			'about'    => '<a href="' . esc_url( add_query_arg( 'page', 'about-ideastream', admin_url( 'index.php'     ) ) ) . '">' . esc_html__( 'About',    'wp-idea-stream' ) . '</a>'
 		) );
 	}
 }

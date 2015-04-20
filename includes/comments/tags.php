@@ -271,7 +271,7 @@ function wp_idea_stream_comments_the_comment_author_avatar() {
 	function wp_idea_stream_comments_get_comment_author_avatar() {
 		$author = wp_idea_stream()->comment_query_loop->comment->user_id;
 		$avatar = get_avatar( $author );
-		$avatar_link = '<a href="' . wp_idea_stream_users_get_user_profile_url( $author ) . '" title="' . esc_attr__( 'User&#39;s profile', 'wp-idea-stream' ) . '">' . $avatar . '</a>';
+		$avatar_link = '<a href="' . esc_url( wp_idea_stream_users_get_user_profile_url( $author ) ) . '" title="' . esc_attr__( 'User&#39;s profile', 'wp-idea-stream' ) . '">' . $avatar . '</a>';
 
 		/**
 		 * @param  string  $avatar_link the avatar output
@@ -348,7 +348,7 @@ function wp_idea_stream_comments_the_comment_permalink() {
 		 * @param  string  $comment_link the comment link
 		 * @param  object  $comment the comment object
 		 */
-		return apply_filters( 'wp_idea_stream_comments_get_comment_permalink', $comment_link, $comment );
+		return apply_filters( 'wp_idea_stream_comments_get_comment_permalink', esc_url( $comment_link ), $comment );
 	}
 
 /**
@@ -442,7 +442,7 @@ function wp_idea_stream_comments_the_comment_title() {
 		 * @param  string   the title of the idea, the comment is linked to
 		 * @param  object   $comment the comment object
 		 */
-		return apply_filters( 'wp_idea_stream_comments_get_comment_title', get_the_title( wp_idea_stream()->comment_query_loop->comment->comment_post_ID ), $comment );
+		return apply_filters( 'wp_idea_stream_comments_get_comment_title', esc_html( get_the_title( wp_idea_stream()->comment_query_loop->comment->comment_post_ID ) ), $comment );
 	}
 
 /**
