@@ -397,16 +397,12 @@ function wp_idea_stream_set_template( $template = '' ) {
 				}
 			}
 
-			// We'll handle the filters for this pages
-			remove_all_filters( 'the_content' );
-
 			// Reset WordPress $post global.
 			wp_idea_stream_reset_post( array(
 				'ID'             => 0,
 				'post_title'     => wp_idea_stream_reset_post_title( $template_args['context'] ),
 				'post_author'    => 0,
 				'post_date'      => 0,
-				'post_content'   => wp_idea_stream_buffer_template_part( $template_args['template_slug'], $template_args['template_name'], false ),
 				'post_type'      => 'ideas',
 				'post_status'    => 'publish',
 				'is_archive'     => $template_args['is_archive'],
@@ -421,7 +417,7 @@ function wp_idea_stream_set_template( $template = '' ) {
 			 *
 			 * @param  string $context to help choosing the best template to use
 			 */
-			do_action( 'wp_idea_stream_set_core_template', $template_args['context'] );
+			do_action( 'wp_idea_stream_set_core_template', $template_args['context'], $template_args );
 
 		} else {
 			$query_loop = new stdClass();
@@ -472,15 +468,17 @@ function wp_idea_stream_set_template( $template = '' ) {
 				// Inform the idea is to display in an edit form
 				$query_loop->idea->is_edit = true;
 
-				// We'll handle the filters for the edit form
-				remove_all_filters( 'the_content' );
+				$template_args = array(
+					'template_slug' => 'idea',
+					'template_name' => 'form',
+					'context'       => 'edit-idea',
+				);
 
 				$single_args = array(
 					'ID'             => 0,
-					'post_title'     => wp_idea_stream_reset_post_title( 'edit-idea' ),
+					'post_title'     => wp_idea_stream_reset_post_title( $template_args['context'] ),
 					'post_author'    => 0,
 					'post_date'      => 0,
-					'post_content'   => wp_idea_stream_buffer_template_part( 'idea', 'form', false ),
 					'post_type'      => 'ideas',
 					'post_status'    => 'publish',
 					'is_archive'     => false,
@@ -490,9 +488,9 @@ function wp_idea_stream_set_template( $template = '' ) {
 
 			// Or simply viewing one ?
 			} else {
+				$template_args = array( 'context' => 'single-idea' );
 				$single_args = array(
 					'is_single'    => true,
-					'post_content' => wp_idea_stream_buffer_single_idea( $wp_query->post->post_content ),
 				);
 			}
 
@@ -507,7 +505,7 @@ function wp_idea_stream_set_template( $template = '' ) {
 			 *
 			 * @param  WP_Post $query_loop->idea the idea to display
 			 */
-			do_action( 'wp_idea_stream_set_single_template', $query_loop->idea );
+			do_action( 'wp_idea_stream_set_single_template', $query_loop->idea, $template_args );
 		}
 	}
 
@@ -518,3 +516,40 @@ function wp_idea_stream_set_template( $template = '' ) {
 
 	return $template;
 }
+
+/**
+ * Replace the content when in an idea stream part
+ *
+ * @since  2.2.0
+ */
+class WP_Idea_Stream_Core_Screens {
+	public function __construct( $template_args = null ) {
+		if ( ! empty( $template_args ) ) {
+			$this->template_args = $template_args;
+		}
+
+		add_filter( 'the_content', array( $this, 'replace_the_content' ), 10, 1 );
+	}
+
+	public static function start( $context, $template_args ) {
+		$wp_idea_stream = wp_idea_stream();
+
+		if ( empty( $wp_idea_stream->screens ) ) {
+			$wp_idea_stream->screens = new self( $template_args );
+		}
+
+		return $wp_idea_stream->screens;
+	}
+
+	public function replace_the_content( $content ) {
+		if ( 'single-idea' === $this->template_args['context'] ) {
+			$content = wp_idea_stream_buffer_single_idea( $content );
+		} else {
+			$content = wp_idea_stream_buffer_template_part( $this->template_args['template_slug'], $this->template_args['template_name'], false );
+		}
+
+		return $content;
+	}
+}
+add_action( 'wp_idea_stream_set_core_template',   array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );
+add_action( 'wp_idea_stream_set_single_template', array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );

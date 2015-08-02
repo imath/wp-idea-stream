@@ -1271,6 +1271,26 @@ function wp_idea_stream_teeny_button_filter( $buttons = array() ) {
 }
 
 /**
+ * Since WP 4.3 _WP_Editors is now including the format_for_editor filter to sanitize
+ * the content to edit. As we were using format_to_edit to sanitize the editor content,
+ * it's then sanitized twice and tinymce fails to wysiwyg!
+ *
+ * So we just need to only apply format_to_edit if WP < 4.3!
+ *
+ * @since  2.2.0
+ *
+ * @param  string $text the editor content.
+ * @return string the sanitized text or the text without any changes
+ */
+function wp_idea_stream_format_to_edit( $text = '' ) {
+	if ( function_exists( 'format_for_editor' ) ) {
+		return $text;
+	}
+
+	return format_to_edit( $text );
+}
+
+/**
  * Adds wp_idea_stream to global cache groups
  *
  * Mainly used to cach comments about ideas count
@@ -1348,6 +1368,21 @@ function wp_idea_stream_is_signup_allowed() {
 	$signup_allowed = ( 1 == $registration_status || 'user' == $registration_status );
 
 	return (bool) apply_filters( 'wp_idea_stream_is_signup_allowed', $signup_allowed );
+}
+
+/**
+ * Disable signups managment by WP Idea Stream if BuddyPress is active
+ *
+ * There can be a situation when WP Idea Stream is not activated on
+ * the network while BuddyPress is.
+ *
+ * @since 2.2.0
+ *
+ * @param  bool $retval
+ * @return bool True if BuddyPress is not active, false otherwise
+ */
+function wp_idea_stream_buddypress_is_managing_signup( $retval = true ) {
+	return ! function_exists( 'buddypress' );
 }
 
 /**

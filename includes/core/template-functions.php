@@ -136,7 +136,7 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			$posts_query->set( 'meta_query', array(
 				array(
 					'key'     => '_ideastream_rates',
-					'value'   => ';i:' . $user->ID,
+					'value'   => ';i:' . $user->ID .';',
 					'compare' => 'LIKE'
 				)
 			) );

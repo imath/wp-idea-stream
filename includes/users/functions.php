@@ -723,7 +723,7 @@ function wp_idea_stream_users_delete_user_data( $user_id = 0 ) {
 			'per_page' => -1,
 			'meta_query' => array( array(
 				'key'     => '_ideastream_rates',
-				'value'   => ';i:' . $user_id,
+				'value'   => ';i:' . $user_id . ';',
 				'compare' => 'LIKE'
 			) ),
 		) );

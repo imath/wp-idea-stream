@@ -309,6 +309,10 @@ span.wp-idea-stream-group:before {
 	padding-bottom:10px;
 }
 
+body.single-ideas #wp-idea-stream div.idea-header {
+	margin-bottom: 1.4em;
+}
+
 #wp-idea-stream ul.idea-list li div.idea-excerpt p,
 #wp-idea-stream ul.idea-comments-list li div.idea-comment-excerpt p {
 	margin:5px 0;
@@ -708,7 +712,7 @@ body.single-ideas #comments .comment-reply-link {
 	background: #fff; /* Old browsers */
 	border: 1px solid #ccc;
 	color: #777;
-	font-size: .8rem;
+	font-size: small;
 	cursor: pointer;
 	outline: none;
 	padding: 4px 10px;
@@ -744,6 +748,12 @@ body.single-ideas #comments .comment-reply-link:hover {
 #wp-idea-stream #ideas-search-submit,
 #wp-idea-stream #ideas-order-submit {
 	font-size: 80%;
+}
+
+body.single-item.groups #buddypress #wp-idea-stream #buddydrive-btn {
+	float:none;
+	margin:1em 0;
+	display:inline-block;
 }
 
 /*--------------------------------------------------------------

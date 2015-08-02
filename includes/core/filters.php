@@ -64,10 +64,10 @@ add_filter( 'wp_idea_stream_ideas_get_content', 'wp_unslash',        5 );
 add_filter( 'wp_idea_stream_ideas_get_content', 'make_clickable',    9 );
 add_filter( 'wp_idea_stream_ideas_get_content', 'force_balance_tags'   );
 
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_unslash'  , 5 );
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_kses_post'    );
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wpautop'         );
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'format_to_edit'  );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_unslash'  , 5                );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_kses_post'                   );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wpautop'                        );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_idea_stream_format_to_edit'  );
 
 add_filter( 'wp_idea_stream_comments_get_comment_excerpt', 'strip_tags',        1 );
 add_filter( 'wp_idea_stream_comments_get_comment_excerpt', 'force_balance_tags'   );
@@ -79,3 +79,5 @@ add_filter( 'wp_idea_stream_comments_get_comment_excerpt', 'wp_unslash',        
 add_filter( 'wp_idea_stream_comments_get_comment_excerpt', 'make_clickable',    9 );
 
 add_filter( 'wp_idea_stream_users_get_user_profile_description', 'make_clickable', 9 );
+
+add_filter( 'wp_idea_stream_is_signup_allowed', 'wp_idea_stream_buddypress_is_managing_signup', 10, 1 );

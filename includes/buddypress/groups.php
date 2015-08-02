@@ -3731,6 +3731,26 @@ add_action( 'bp_init', 'wp_idea_stream_register_group_extension' );
  */
 add_filter( 'wp_idea_stream_buddypress_get_activity_actions', array( 'WP_Idea_Stream_Group', 'group_activity_context' ), 10, 1 );
 
+
+/**
+ * Add oembed support to ideas in groups.
+ *
+ * @package WP Idea Stream
+ * @subpackage buddypress/groups
+ *
+ * @since 2.2.0
+ * @uses BP_Embed
+ */
+function wp_idea_stream_group_oembed( $bp_oembed_class = null ) {
+	if ( ! bp_is_group() ) {
+		return;
+	}
+
+	add_filter( 'wp_idea_stream_ideas_get_content', array( &$bp_oembed_class, 'autoembed' ), 8 );
+	add_filter( 'wp_idea_stream_ideas_get_content', array( &$bp_oembed_class, 'run_shortcode' ), 7 );
+}
+add_action( 'bp_core_setup_oembed', 'wp_idea_stream_group_oembed', 10, 1 );
+
 /** Groups Suggestions Class **********************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Groups_Suggestions' ) && class_exists( 'BP_Suggestions' ) ) :
