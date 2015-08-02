@@ -1113,6 +1113,9 @@ function wp_idea_stream_sanitize_slug( $slug = '' ) {
 	// Remove accents
 	$value = remove_accents( $slug );
 
+	// Put every character in lowercase
+	$value = strtolower( $value );
+
 	// Don't allow multiple slashes in a row
 	$value = preg_replace( '#/+#', '/', str_replace( '#', '', $value ) );
 
