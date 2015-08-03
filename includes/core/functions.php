@@ -1371,18 +1371,22 @@ function wp_idea_stream_is_signup_allowed() {
 }
 
 /**
- * Disable signups managment by WP Idea Stream if BuddyPress is active
+ * Disable signups managment by WP Idea Stream if BuddyPress should manage them
  *
  * There can be a situation when WP Idea Stream is not activated on
  * the network while BuddyPress is.
  *
  * @since 2.2.0
  *
- * @param  bool $retval
- * @return bool True if BuddyPress is not active, false otherwise
+ * @param  bool $signup_allowed
+ * @return bool True if BuddyPress is not active on the current blog or the network, false otherwise
  */
-function wp_idea_stream_buddypress_is_managing_signup( $retval = true ) {
-	return ! function_exists( 'buddypress' );
+function wp_idea_stream_buddypress_is_managing_signup( $signup_allowed ) {
+	if ( true === $signup_allowed && function_exists( 'buddypress' ) ) {
+		$signup_allowed = ! bp_is_root_blog() && ! bp_is_network_activated() ;
+	}
+
+	return $signup_allowed;
 }
 
 /**
