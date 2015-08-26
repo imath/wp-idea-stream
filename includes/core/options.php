@@ -645,7 +645,7 @@ function wp_idea_stream_cpage_slug( $default = '' ) {
 }
 
 /**
- * Should new users have the default role of the Site ?
+ * Should IdeaStream manage signups for the blog ?
  *
  * @package WP Idea Stream
  * @subpackage core/options
@@ -653,12 +653,12 @@ function wp_idea_stream_cpage_slug( $default = '' ) {
  * @since 2.2.0
  *
  * @param  int $default default value
- * @uses   apply_filters() call 'wp_idea_stream_new_user_default_role' to override default or customized value
+ * @uses   apply_filters() call 'wp_idea_stream_allow_signups' to override default or customized value
  * @uses   get_option() to get customized value
  * @return bool         True if enabled, false otherwise
  */
 function wp_idea_stream_allow_signups( $default = 0 ) {
-	return (bool) apply_filters( 'wp_idea_stream_allow_signups', (bool) get_option( '_ideastream_allow_signups', $default ) );
+	return (bool) apply_filters( 'wp_idea_stream_allow_signups', get_option( '_ideastream_allow_signups', $default ) );
 }
 
 /**
@@ -675,5 +675,5 @@ function wp_idea_stream_allow_signups( $default = 0 ) {
  * @return bool         True if enabled, false otherwise
  */
 function wp_idea_stream_user_new_idea_set_role( $default = 0 ) {
-	return (bool) apply_filters( 'wp_idea_stream_user_new_idea_set_role', (bool) get_option( '_ideastream_user_new_idea_set_role', $default ) );
+	return (bool) apply_filters( 'wp_idea_stream_user_new_idea_set_role', get_option( '_ideastream_user_new_idea_set_role', $default ) );
 }

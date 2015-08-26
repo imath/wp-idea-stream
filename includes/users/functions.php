@@ -876,6 +876,7 @@ function wp_idea_stream_users_update_signups_table( $user_id = 0 ) {
  *
  * @since 2.1.0
  *
+ * @param bool $exit whether to exit or not
  * @uses check_admin_referer()
  * @uses wp_idea_stream_get_redirect_url()
  * @uses wp_idea_stream_add_message()
@@ -890,7 +891,7 @@ function wp_idea_stream_users_update_signups_table( $user_id = 0 ) {
  *                   Calls 'wp_idea_stream_users_after_signup_user' to perform actions after signup is registered
  *                   Calls 'wp_idea_stream_users_signup_user_created' to perform actions once the user created has been edited
  */
-function wp_idea_stream_users_signup_user() {
+function wp_idea_stream_users_signup_user( $exit = true ) {
 	// Bail if not a post request
 	if ( 'POST' != strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
 		return;
@@ -1064,7 +1065,10 @@ function wp_idea_stream_users_signup_user() {
 		) );
 
 		wp_safe_redirect( $redirect );
-		exit();
+
+		if ( $exit ) {
+			exit();
+		}
 	}
 }
 
@@ -1133,12 +1137,12 @@ function wp_idea_stream_user_signup_redirect( $context = '' ) {
 /**
  * Filter the user notification content to make sure the password
  * will be set on the Website he registered to
- * 
+ *
  * @since 2.2.0
- * 
+ *
  * @param array  $mail_attr
  * @return array $mail_attr
- */ 
+ */
 function wp_idea_stream_multisite_user_notification( $mail_attr = array() ) {
 	if ( ! did_action( 'retrieve_password_key' ) ) {
 		return $mail_attr;
@@ -1167,11 +1171,11 @@ function wp_idea_stream_multisite_user_notification( $mail_attr = array() ) {
 
 /**
  * Dynamically add a filter to network_site_url in case the user
- * is setting his password from the site's login form where the 
+ * is setting his password from the site's login form where the
  * plugin is activated
- * 
+ *
  * @since 2.2.0
- */ 
+ */
 function wp_idea_stream_user_setpassword_redirect() {
 	if ( ! is_multisite() || ! wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 		return;
@@ -1182,15 +1186,15 @@ function wp_idea_stream_user_setpassword_redirect() {
 
 /**
  * Temporarly filter network_site_url to use site_url instead
- * 
+ *
  * @since 2.2.0
- * 
+ *
  * @param  string $url      Required. the network site url.
  * @param  string $path     Optional. Path relative to the site url.
  * @param  string $scheme   Optional. Scheme to give the site url context.
  * @param  bool   $redirect whether to include a redirect to query arg to the url or not.
  * @return string Site url link.
- */ 
+ */
 function wp_idea_stream_add_filter_network_site_url( $site_url, $path = '', $scheme = null, $redirect = true ) {
 	if ( ! is_multisite() || ! wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 		return $site_url;
@@ -1213,9 +1217,9 @@ function wp_idea_stream_add_filter_network_site_url( $site_url, $path = '', $sch
 
 /**
  * Remove the filter on network_site_url
- * 
+ *
  * @since 2.2.0
- */ 
+ */
 function wp_idea_stream_remove_filter_network_site_url() {
 	if ( ! is_multisite() || ! wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 		return;
@@ -1227,9 +1231,9 @@ add_action( 'resetpass_form', 'wp_idea_stream_remove_filter_network_site_url' );
 
 /**
  * Add a filter 'login_url' to eventually set the 'redirect_to' query arg
- * 
+ *
  * @since 2.2.0
- */ 
+ */
 function wp_idea_stream_multisite_add_filter_login_url() {
 	if ( ! is_multisite() || ! wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 		return;
@@ -1241,9 +1245,9 @@ add_action( 'validate_password_reset', 'wp_idea_stream_multisite_add_filter_logi
 
 /**
  * Filter to add a 'redirect_to' query arg to login_url
- * 
+ *
  * @since 2.2.0
- */ 
+ */
 function wp_idea_stream_multisite_filter_login_url( $login_url ) {
 	if ( ! empty( $_GET['wp_idea_stream_redirect_to'] ) ) {
 		$login_url = add_query_arg( 'redirect_to', $_GET['wp_idea_stream_redirect_to'], $login_url );

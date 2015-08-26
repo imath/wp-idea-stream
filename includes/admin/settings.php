@@ -979,7 +979,7 @@ function wp_idea_stream_settings_multisite_section_callback() {
 }
 
 /**
- * Default role for new users callback
+ * Does the blog is allowing IdeaStream to manage signups
  *
  * @package WP Idea Stream
  * @subpackage admin/settings
@@ -987,7 +987,7 @@ function wp_idea_stream_settings_multisite_section_callback() {
  * @since 2.2.0
  *
  * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_new_user_default_role() to get the active option
+ * @uses   wp_idea_stream_allow_signups() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_allow_signups_setting_callback() {
