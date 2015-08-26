@@ -88,7 +88,7 @@ class WP_Idea_Stream_User_Functions_Tests extends WP_Idea_Stream_TestCase {
 	 * @group signup
 	 */
 	public function test_wp_idea_stream_users_signup_child_blog() {
-		if ( ! is_multisite() || function_exists( 'buddypress' ) ) {
+		if ( ! is_multisite() ) {
 			$this->markTestSkipped( __METHOD__ . ' is a multisite-only test.' );
 		}
 
