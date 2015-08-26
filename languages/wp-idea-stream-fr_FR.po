@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Idea Stream 2.0.0-beta4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-idea-stream\n"
-"POT-Creation-Date: 2015-08-25 09:02:48+00:00\n"
-"PO-Revision-Date: 2015-08-25 11:24+0100\n"
+"POT-Creation-Date: 2015-08-26 20:48:09+00:00\n"
+"PO-Revision-Date: 2015-08-26 22:59+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: includes/admin/admin.php:254 includes/admin/admin.php:255
@@ -621,7 +621,7 @@ msgstr ""
 "idée a reçues."
 
 #: includes/admin/admin.php:1782 includes/admin/thanks.php:50
-#: includes/admin/thanks.php:128 includes/core/upgrade.php:148
+#: includes/admin/thanks.php:143 includes/core/upgrade.php:148
 msgid "About"
 msgstr "A propos"
 
@@ -926,7 +926,7 @@ msgstr ""
 "Merci d&#39;avoir %1$s la dernière version de WP Idea Stream ! %2$s apporte "
 "des améliorations super sympas."
 
-#: includes/admin/thanks.php:53 includes/admin/thanks.php:131
+#: includes/admin/thanks.php:53 includes/admin/thanks.php:146
 msgid "Credits"
 msgstr "Crédits"
 
@@ -960,87 +960,126 @@ msgstr "Options de Partage (twitter ou email)"
 msgid "Disabling the built-in rating system."
 msgstr "La désactivation du composant d&#39;évaluation interne."
 
-#: includes/admin/thanks.php:79
-msgid "Some new features.."
-msgstr "Nouveautés"
+#: includes/admin/thanks.php:77
+msgid "Attach files to your ideas thanks to..."
+msgstr "Joignez des fichiers à vos idées grâce à ..."
 
-#: includes/admin/thanks.php:82
-msgid "About sign-ups"
-msgstr "A propos  des inscriptions"
-
-#: includes/admin/thanks.php:83
-msgid ""
-"%s now includes a sign-up page for regular configs. If you are using "
-"BuddyPress or a multisite config: their specific sign-ups page will be used."
-msgstr ""
-"la version %s propose désormais une page d&#39;inscription pour les "
-"configurations simples. Si vous avez activé BuddyPress ou une configuration "
-"multisite, leur page spécifique sera utilisée."
+#: includes/admin/thanks.php:80
+msgid "Attach files to your ideas"
+msgstr "Joignez des fichiers à vos idées"
 
 #: includes/admin/thanks.php:84
-msgid "Export ideas in a csv file"
-msgstr "Exporter les idées dans un fichier csv"
+msgid "... BuddyPress & BuddyDrive."
+msgstr "... BuddyPress & BuddyDrive."
 
 #: includes/admin/thanks.php:85
 msgid ""
-"From the Ideas Administration, you are now able to export all submitted ideas "
-"or the ones having the selected status from the last link above the list of "
-"ideas."
+"You are using the BuddyPress (2.3+) and BuddyDrive (1.3+) plugins? Very good "
+"choice! Your members can now attach public files to their ideas."
 msgstr ""
-"Depuis l&#39;administration des idées, vous pouvez exporter toutes les idées "
-"ou celles ayant le statut sélectionné depuis le dernier lien affiché au "
-"dessus de la liste des idées."
+"Vous utilisez les plugins BuddyPress (2.3+) et BuddyDrive (1.3+) ? Très bon "
+"choix ! Vos membres peuvent désormais joindre des fichiers à leurs idées."
 
-#: includes/admin/thanks.php:86
-msgid "BuddyPress activities"
-msgstr "Activités BuddyPress"
+#: includes/admin/thanks.php:92
+msgid "Some Improvements.."
+msgstr "Quelques améliorations.."
 
-#: includes/admin/thanks.php:87
+#: includes/admin/thanks.php:95
+msgid "About sign-ups"
+msgstr "A propos  des inscriptions"
+
+#: includes/admin/thanks.php:96
 msgid ""
-"WP Idea Stream now uses BuddyPress post types activities to record an "
-"activity when an idea is published. The BuddyPress blogs component must be "
-"activated to enable this feature."
+"%s now includes a sign-up page for regular configs & multisite ones when only "
+"user registration is enabled. If you are using BuddyPress or a multisite "
+"config for any other registration settings: their specific sign-ups page will "
+"be used."
 msgstr ""
-"WP Idea Stream utilise désormais la fonctionnalité des Post type activities "
-"de BuddyPress pour enregistrer une activité lorsqu&#39;une nouvelle idée est "
-"publiée. Le composant des blogs de BuddyPress doit être activé pour en "
-"profiter."
+"la version %s propose désormais une page d&#39;inscription pour les "
+"configurations simples ou multisites pour lesquelles les utilisateurs sont "
+"autorisés à s&#39;enregistrer. Si vous avez activé BuddyPress ou une "
+"configuration multisite utilisant d'autres réglages, leur page spécifique "
+"sera utilisée."
 
-#: includes/admin/thanks.php:96 includes/admin/thanks.php:182
+#: includes/admin/thanks.php:97
+msgid ""
+"About multisite configs having user registration enabled, the plugin will "
+"allow any child blog to have a specific registration management. New users "
+"will automatically be added as subscribers (or the chosen default role) to "
+"the child blog."
+msgstr ""
+"S&#39;agissant des configurations multisites pour lesquelles l&#39;"
+"inscription des utilisateurs est permise, le plugin permettra à tout blog du "
+"réseau de disposer d&#39;une gestion spécifique des inscriptions. Les "
+"nouveaux utilisateurs seront automatiquement ajoutés en tant qu&#39;abonnés "
+"(où le rôle par défaut choisi) au blog."
+
+#: includes/admin/thanks.php:98
+msgid "WP Idea Stream template parts loading"
+msgstr "Chargement des portions de template de WP Idea Stream"
+
+#: includes/admin/thanks.php:99
+msgid ""
+"The way the plugin&#39;s specific template parts are loaded has been improved."
+msgstr ""
+"La manière dont le plugin charge ses portions de template a été revue et "
+"améliorée."
+
+#: includes/admin/thanks.php:100
+msgid "About other small things..."
+msgstr "Au sujet d&#39;autres petites choses..."
+
+#: includes/admin/thanks.php:102
+msgid ""
+"Default slugs are now translatable: make sure to use regular characters with "
+"no spaces and lower cases when translating them in your language pack."
+msgstr ""
+"Les slugs par défaut sont désormais traduisibles : faites en sorte de vous "
+"assurer d&#39;utiliser des caractères classiques sans espace et en minuscules."
+
+#: includes/admin/thanks.php:103
+msgid ""
+"The style of WP Idea Stream template parts has been optimized for the "
+"Twentyfifteen theme."
+msgstr ""
+"L&#39;apparence des portions de template de WP Idea Stream a été optimisée "
+"pour le thème Twentyfifteen."
+
+#: includes/admin/thanks.php:111 includes/admin/thanks.php:197
 msgid "Configure WP Idea Stream"
 msgstr "Configurez WP Idea Stream"
 
-#: includes/admin/thanks.php:96 includes/admin/thanks.php:182
+#: includes/admin/thanks.php:111 includes/admin/thanks.php:197
 msgid "Go to the IdeaStream Settings page"
 msgstr "Affichez la page des réglages d&#39;IdeaStream"
 
-#: includes/admin/thanks.php:122
+#: includes/admin/thanks.php:137
 msgctxt "credit screen title"
 msgid "WP Idea Stream %s"
 msgstr "WP Idea Stream %s"
 
-#: includes/admin/thanks.php:123
+#: includes/admin/thanks.php:138
 msgid ""
 "%s version of WP Idea Stream was also successfully released thanks to them!"
 msgstr "La version %s de WP Idea Stream a également vu le jour grâce à eux !"
 
-#: includes/admin/thanks.php:136
+#: includes/admin/thanks.php:151
 msgid "The team!"
 msgstr "L&#39;équipe!"
 
-#: includes/admin/thanks.php:141
+#: includes/admin/thanks.php:156
 msgid "Creator"
 msgstr "Créateur"
 
-#: includes/admin/thanks.php:146
+#: includes/admin/thanks.php:161
 msgid "Contributor"
 msgstr "Contributeur"
 
-#: includes/admin/thanks.php:152
+#: includes/admin/thanks.php:167
 msgid "Special thanks."
 msgstr "Remerciements particuliers"
 
-#: includes/admin/thanks.php:156
+#: includes/admin/thanks.php:171
 msgid ""
 "WP Idea Stream was the choice of the WordCamp Paris 2015 organization team to "
 "manage their &quot;Call for Speakers&quot;. Some requested features were very "
@@ -1051,7 +1090,7 @@ msgstr ""
 "adaptations apportées étaient très spécifiques à leurs besoins et ont toutes "
 "été ajoutées en utilisant des hooks personnalisés ajoutés au fichier %s."
 
-#: includes/admin/thanks.php:157
+#: includes/admin/thanks.php:172
 msgid ""
 "The plugin was completely transformed to let the speakers submit their talks "
 "privately. The managing team was able to discuss together using private "
@@ -1063,20 +1102,15 @@ msgstr ""
 "des commentaires privés et évaluer chaque proposition grâce au système de "
 "notation intégré."
 
-#: includes/admin/thanks.php:158
+#: includes/admin/thanks.php:173
 msgid ""
-"Some other features such as a sign-up page and the ability to export all "
-"submitted talks in a csv file have been added to the current version (%s). "
 "Many thanks to WordCamp Paris organizers and speakers for this great "
 "experience."
 msgstr ""
-"D&#39;autres fonctionnalités telles que la page d&#39;inscription et la "
-"possibilité d&#39;exporter toutes les propositions d&#39;intervention dans un "
-"fichier csv ont été ajoutées à cette nouvelle version (%s). Enormes "
-"remerciements aux organisateurs et orateurs du WordCamp Paris pour cette "
-"superbe expérience."
+"Merci infiniment aux organisateurs et aux intervenants du WordCamp Paris pour "
+"cette expérience très intéressante."
 
-#: includes/admin/thanks.php:161
+#: includes/admin/thanks.php:176
 msgid "WP Idea Stream&#39;s external libraries and useful code"
 msgstr "Librairies externes et codes utiles"
 
@@ -2206,29 +2240,29 @@ msgstr "Une erreur est survenue lors de la sauvegarde de votre présentation"
 msgid "Description updated."
 msgstr "Présentation mise à jour."
 
-#: includes/users/functions.php:923
+#: includes/users/functions.php:924
 msgid "Please choose a login having at least 4 characters."
 msgstr ""
 "Merci de choisir un nom d&#39;utilisateur contenant au moins quatre "
 "caractères."
 
-#: includes/users/functions.php:957
+#: includes/users/functions.php:958
 msgid "Please fill all required fields."
 msgstr "Veuillez remplir tous les champs."
 
-#: includes/users/functions.php:1063
+#: includes/users/functions.php:1064
 msgid "Registration complete. Please check your e-mail."
 msgstr "Inscription terminée. Merci de vérifier votre messagerie électronique."
 
-#: includes/users/functions.php:1087
+#: includes/users/functions.php:1091
 msgid "Username"
 msgstr "Identifiant"
 
-#: includes/users/functions.php:1088
+#: includes/users/functions.php:1092
 msgid "E-mail"
 msgstr "Courriel"
 
-#: includes/users/functions.php:1149
+#: includes/users/functions.php:1153
 msgctxt "Use the same translation than WP Core"
 msgid "[%s] Your username and password info"
 msgstr "[%s] Votre identifiant et votre mot de passe"
@@ -2306,6 +2340,46 @@ msgstr "imath"
 #. Author URI of the plugin/theme
 msgid "http://imathi.eu/"
 msgstr "http://imathi.eu"
+
+#~ msgid "Some new features.."
+#~ msgstr "Nouveautés"
+
+#~ msgid "Export ideas in a csv file"
+#~ msgstr "Exporter les idées dans un fichier csv"
+
+#~ msgid ""
+#~ "From the Ideas Administration, you are now able to export all submitted "
+#~ "ideas or the ones having the selected status from the last link above the "
+#~ "list of ideas."
+#~ msgstr ""
+#~ "Depuis l&#39;administration des idées, vous pouvez exporter toutes les "
+#~ "idées ou celles ayant le statut sélectionné depuis le dernier lien affiché "
+#~ "au dessus de la liste des idées."
+
+#~ msgid "BuddyPress activities"
+#~ msgstr "Activités BuddyPress"
+
+#~ msgid ""
+#~ "WP Idea Stream now uses BuddyPress post types activities to record an "
+#~ "activity when an idea is published. The BuddyPress blogs component must be "
+#~ "activated to enable this feature."
+#~ msgstr ""
+#~ "WP Idea Stream utilise désormais la fonctionnalité des Post type "
+#~ "activities de BuddyPress pour enregistrer une activité lorsqu&#39;une "
+#~ "nouvelle idée est publiée. Le composant des blogs de BuddyPress doit être "
+#~ "activé pour en profiter."
+
+#~ msgid ""
+#~ "Some other features such as a sign-up page and the ability to export all "
+#~ "submitted talks in a csv file have been added to the current version (%s). "
+#~ "Many thanks to WordCamp Paris organizers and speakers for this great "
+#~ "experience."
+#~ msgstr ""
+#~ "D&#39;autres fonctionnalités telles que la page d&#39;inscription et la "
+#~ "possibilité d&#39;exporter toutes les propositions d&#39;intervention dans "
+#~ "un fichier csv ont été ajoutées à cette nouvelle version (%s). Enormes "
+#~ "remerciements aux organisateurs et orateurs du WordCamp Paris pour cette "
+#~ "superbe expérience."
 
 #~ msgid ""
 #~ "This release introduces some major changes: the plugin has been completely "
