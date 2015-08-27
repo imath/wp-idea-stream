@@ -136,7 +136,7 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			$posts_query->set( 'meta_query', array(
 				array(
 					'key'     => '_ideastream_rates',
-					'value'   => ';i:' . $user->ID,
+					'value'   => ';i:' . $user->ID .';',
 					'compare' => 'LIKE'
 				)
 			) );
@@ -194,8 +194,8 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			// Yes so set the corresponding var
 			wp_idea_stream_set_idea_var( 'is_edit', true );
 
-		// Signup support for non multisite config
-		} else if ( wp_idea_stream_signup_slug() == $action && wp_idea_stream_is_signup_allowed() ) {
+		// Signup support
+		} else if ( wp_idea_stream_signup_slug() == $action && wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 			// Set the signup global var
 			wp_idea_stream_set_idea_var( 'is_signup', true );
 
@@ -299,6 +299,11 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 	// Set the idea archive var if viewing ideas archive
 	if ( $posts_query->is_post_type_archive() ) {
 		wp_idea_stream_set_idea_var( 'is_idea_archive', true );
+	}
+
+	// Reset the pagination
+	if ( -1 !== $posts_query->get( 'p' ) ) {
+		$posts_query->set( 'posts_per_page', wp_idea_stream_ideas_per_page() );
 	}
 
 	/**

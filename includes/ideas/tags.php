@@ -1431,7 +1431,7 @@ function wp_idea_stream_ideas_not_loggedin() {
 
 	if ( ! is_user_logged_in() ) {
 
-		if ( wp_idea_stream_is_signup_allowed() ) {
+		if ( wp_idea_stream_is_signup_allowed_for_current_blog() ) {
 			$output = sprintf(
 				__( 'Please <a href="%s" title="Log in">log in</a> or <a href="%s" title="Sign up">register</a> to this site to submit an idea.', 'wp-idea-stream' ),
 				esc_url( wp_login_url( wp_idea_stream_get_form_url() ) ),
@@ -1546,6 +1546,7 @@ function wp_idea_stream_ideas_the_editor() {
 	<label for="wp_idea_stream_the_content"><?php esc_html_e( 'Description', 'wp-idea-stream' ) ;?> <span class="required">*</span></label>
 
 	<?php
+	do_action( 'wp_idea_stream_media_buttons' );
 	wp_editor( wp_idea_stream_ideas_get_editor_content(), 'wp_idea_stream_the_content', $args );
 
 	remove_filter( 'mce_buttons', 'wp_idea_stream_teeny_button_filter', 10, 1 );
@@ -1908,3 +1909,16 @@ function wp_idea_stream_ideas_the_form_submit() {
 
 	<?php
 }
+
+/**
+ * If BuddyDrive is activated, then use it to allow files
+ * to be added to ideas !
+ *
+ * @since  2.2.0
+ */
+function wp_idea_stream_buddydrive_button() {
+	if ( function_exists( 'buddydrive_editor' ) ) {
+		buddydrive_editor();
+	}
+}
+add_action( 'wp_idea_stream_media_buttons', 'wp_idea_stream_buddydrive_button' );

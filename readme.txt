@@ -2,9 +2,9 @@
 Contributors: imath, aglekis
 Donate link: http://imathi.eu/donations/
 Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
-Requires at least: 4.1
-Tested up to: 4.2
-Stable tag: 2.1.2
+Requires at least: 4.3
+Tested up to: 4.3
+Stable tag: 2.2.0
 License: GNU/GPL 2
 
 Share ideas, great ones will rise to the top!
@@ -26,18 +26,14 @@ Activate WP Idea Stream in the "Plugins" admin panel using the "Activate" link.
 
 == Frequently Asked Questions ==
 
+= Is it possible to attach files to an idea ? =
+Since 2.2.0, if you are using the BuddyPress (2.3+) and BuddyDrive (1.3+) plugins, then YES :)
+
 = I'm not using BuddyPress, will it work without it ? =
 Of course! But try BuddyPress, it's awesome :)
 
-= I'm not using WordPress 4.1, is this plugin compatible with an older version ? =
-Since 2.1.0, plugin is requiring 4.1.
-
-= I'm not using WordPress 4.0, is this plugin compatible with an older version ? =
-Since 2.0.0, plugin is requiring 4.0.
-
-= I'm not using WordPress 3.9, is this plugin compatible with an older version ? =
-Version 1.2 of the plugin requires WordPress 3.9, if you want to use this plugin with an earlier version of WordPress, you'll need to download a previous version of the plugin.
-I advise you to browse the [different versions](http://wordpress.org/extend/plugins/wp-idea-stream/developers/ "Other version") available and choose version 1.0.3 if you run a WordPress from 3.1 to 3.4.2 and 1.1 if you run a WordPress from 3.5.
+= I'm not using WordPress 4.3, is this plugin compatible with an older version ? =
+Since 2.2.0, plugin is requiring 4.3. You can use allways check the [different versions](http://wordpress.org/plugins/wp-idea-stream/developers/ "Other version") to find the one that best matches your config.
 
 = If you have any other questions =
 
@@ -53,8 +49,15 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 
 == Changelog ==
 
+= 2.2.0 =
+* BuddyDrive integration: users can now attach files to their ideas.
+* The sign-up form is now also available for multisite configs when user registration is activated on the network.
+* The way the plugin's specific template parts are loaded has been improved.
+* Default slugs are now translatable.
+* WP Idea Stream template parts has been optimized for the Twentyfifteen theme.
+
 = 2.1.2 =
-* Fixes potential security issues by making sure add_query_arg() urls are escaped
+* Fixes potential security issues by making sure add_query_arg() urls are escaped.
 
 = 2.1.1 =
 * Fixes potential security issues
@@ -123,6 +126,12 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 * Plugin birth..
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+
+Please be sure to use at least WordPress 4.3 before upgrading/downloading this plugin.
+If you are using BuddyPress, make sure to upgrade to version 2.3 before upgrading to WP Idea Stream 2.2.0.
+Back up your database and files (in case you want to roll back to previous version).
 
 = 2.1.2 =
 

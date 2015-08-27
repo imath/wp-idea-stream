@@ -77,8 +77,9 @@ add_action( 'wp_idea_stream_widgets_init', array( 'WP_Idea_Stream_Comments_Recen
 add_action( 'deleted_user', 'wp_idea_stream_users_delete_user_data', 10, 1 );
 
 // Signups
-add_action( 'wp_idea_stream_set_core_template', 'wp_idea_stream_user_signup_redirect', 10, 1 );
-add_action( 'login_form_register',              'wp_idea_stream_user_signup_redirect', 10    );
+add_action( 'wp_idea_stream_set_core_template', 'wp_idea_stream_user_signup_redirect',      10, 1 );
+add_action( 'login_form_register',              'wp_idea_stream_user_signup_redirect',      10    );
+add_action( 'login_form_rp',                    'wp_idea_stream_user_setpassword_redirect', 10    );
 
 // Admin Menu Bar
 add_action( 'admin_bar_menu', 'wp_idea_stream_adminbar_menu', 999 );

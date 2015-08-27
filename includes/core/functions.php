@@ -1271,6 +1271,26 @@ function wp_idea_stream_teeny_button_filter( $buttons = array() ) {
 }
 
 /**
+ * Since WP 4.3 _WP_Editors is now including the format_for_editor filter to sanitize
+ * the content to edit. As we were using format_to_edit to sanitize the editor content,
+ * it's then sanitized twice and tinymce fails to wysiwyg!
+ *
+ * So we just need to only apply format_to_edit if WP < 4.3!
+ *
+ * @since  2.2.0
+ *
+ * @param  string $text the editor content.
+ * @return string the sanitized text or the text without any changes
+ */
+function wp_idea_stream_format_to_edit( $text = '' ) {
+	if ( function_exists( 'format_for_editor' ) ) {
+		return $text;
+	}
+
+	return format_to_edit( $text );
+}
+
+/**
  * Adds wp_idea_stream to global cache groups
  *
  * Mainly used to cach comments about ideas count
@@ -1331,13 +1351,60 @@ function wp_idea_stream_adminbar_menu( $wp_admin_bar = null ){
  *
  * @since 2.1.0
  *
- * @return bool true if signups are allowed and not on a multisite config, false otherwise
+ * @return bool true if user signups are allowed, false otherwise
  */
 function wp_idea_stream_is_signup_allowed() {
-	// First step will not include multisite configs
+	// Default to single site option
+	$option = 'users_can_register';
+
+	// Multisite config is using the registration site meta
 	if ( is_multisite() ) {
-		return false;
+		$option = 'registration';
 	}
 
-	return (bool) apply_filters( 'wp_idea_stream_is_signup_allowed', get_option( 'users_can_register', false ) );
+	$registration_status = get_site_option( $option, 0 );
+
+	// On multisite config, just deal with user signups and avoid blog signups
+	$signup_allowed = ( 1 == $registration_status || 'user' == $registration_status );
+
+	return (bool) apply_filters( 'wp_idea_stream_is_signup_allowed', $signup_allowed );
+}
+
+/**
+ * Disable signups managment by WP Idea Stream if BuddyPress should manage them
+ *
+ * There can be a situation when WP Idea Stream is not activated on
+ * the network while BuddyPress is.
+ *
+ * @since 2.2.0
+ *
+ * @param  bool $signup_allowed
+ * @return bool True if BuddyPress is not active on the current blog or the network, false otherwise
+ */
+function wp_idea_stream_buddypress_is_managing_signup( $signup_allowed ) {
+	if ( true === $signup_allowed && function_exists( 'buddypress' ) ) {
+		$signup_allowed = ! bp_is_root_blog() && ! bp_is_network_activated() ;
+	}
+
+	return $signup_allowed;
+}
+
+/**
+ * Checks wether signups are allowed for current blog
+ *
+ * @package WP Idea Stream
+ * @subpackage core/functions
+ *
+ * @since 2.2.0
+ *
+ * @return bool true if signups are allowed for current site, false otherwise
+ */
+function wp_idea_stream_is_signup_allowed_for_current_blog() {
+	$signups_allowed = wp_idea_stream_is_signup_allowed();
+
+	if ( ! is_multisite() ) {
+		return $signups_allowed;
+	}
+
+	return apply_filters( 'wp_idea_stream_is_signup_allowed_for_current_blog', wp_idea_stream_allow_signups() );
 }

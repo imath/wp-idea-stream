@@ -292,7 +292,7 @@ class WP_Idea_Stream_Screens {
 			$this->user_args['meta_query'] = array(
 				array(
 					'key'     => '_ideastream_rates',
-					'value'   => ';i:' . $this->user_id,
+					'value'   => ';i:' . $this->user_id . ';',
 					'compare' => 'LIKE'
 				)
 			);

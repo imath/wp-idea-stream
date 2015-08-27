@@ -100,6 +100,7 @@ span.wp-idea-stream-group:before {
 --------------------------------------------------------------*/
 
 #wp-idea-stream div.pagination {
+	box-shadow: none;
 	background: transparent;
 	border: none;
 	color: #888;
@@ -123,6 +124,8 @@ span.wp-idea-stream-group:before {
 #wp-idea-stream div.pagination .pagination-links span,
 #wp-idea-stream div.pagination .pagination-links a {
 	font-size: 90%;
+	height: auto;
+	line-height: 1;
 	padding: 0 5px;
 	border: none;
 }
@@ -131,6 +134,28 @@ span.wp-idea-stream-group:before {
 }
 #wp-idea-stream div.pagination {
 	margin-bottom: 15px;
+}
+
+#wp-idea-stream div.pagination .pagination-links .prev,
+#wp-idea-stream div.pagination .pagination-links .next {
+	background-color: transparent;
+	color: inherit;
+	overflow: visible;
+	width: auto;
+}
+#wp-idea-stream div.pagination .pagination-links .prev:before,
+#wp-idea-stream div.pagination .pagination-links .next:before {
+	display: none;
+}
+
+#wp-idea-stream div.pagination .pagination-links .prev {
+	left: auto;
+	position: static;
+}
+
+#wp-idea-stream div.pagination .pagination-links .next {
+	position: static;
+	right: auto;
 }
 
 #wp-idea-stream div#pag-top {
@@ -284,6 +309,10 @@ span.wp-idea-stream-group:before {
 	padding-bottom:10px;
 }
 
+body.single-ideas #wp-idea-stream div.idea-header {
+	margin-bottom: 1.4em;
+}
+
 #wp-idea-stream ul.idea-list li div.idea-excerpt p,
 #wp-idea-stream ul.idea-comments-list li div.idea-comment-excerpt p {
 	margin:5px 0;
@@ -299,6 +328,7 @@ span.wp-idea-stream-group:before {
 #wp-idea-stream ul.idea-list li .user-rating-link img.avatar {
 	float:none;
 	margin: 0 5px 0 5px;
+	display:inline;
 }
 
 #wp-idea-stream .idea-comment-link,
@@ -341,6 +371,7 @@ span.wp-idea-stream-group:before {
 	float:none;
 	margin-right:5px;
 	vertical-align: middle;
+	display:inline;
 }
 
 #wp-idea-stream ul.idea-nav-single {
@@ -681,7 +712,7 @@ body.single-ideas #comments .comment-reply-link {
 	background: #fff; /* Old browsers */
 	border: 1px solid #ccc;
 	color: #777;
-	font-size: .8rem;
+	font-size: small;
 	cursor: pointer;
 	outline: none;
 	padding: 4px 10px;
@@ -717,6 +748,12 @@ body.single-ideas #comments .comment-reply-link:hover {
 #wp-idea-stream #ideas-search-submit,
 #wp-idea-stream #ideas-order-submit {
 	font-size: 80%;
+}
+
+body.single-item.groups #buddypress #wp-idea-stream #buddydrive-btn {
+	float:none;
+	margin:1em 0;
+	display:inline-block;
 }
 
 /*--------------------------------------------------------------

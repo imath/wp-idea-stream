@@ -54,18 +54,26 @@ function wp_idea_stream_get_default_options() {
 	// Pretty links customization
 	if ( wp_idea_stream_is_pretty_links() ) {
 		$default_options = array_merge( $default_options, array(
-			'_ideastream_root_slug'          => 'ideastream',
-			'_ideastream_idea_slug'          => 'idea',
-			'_ideastream_category_slug'      => 'category',
-			'_ideastream_tag_slug'           => 'tag',
-			'_ideastream_user_slug'          => 'user',
-			'_ideastream_user_comments_slug' => 'comments',
-			'_ideastream_user_rates_slug'    => 'rates',
-			'_ideastream_signup_slug'        => 'sign-up',
-			'_ideastream_action_slug'        => 'action',
-			'_ideastream_addnew_slug'        => 'add',
-			'_ideastream_edit_slug'          => 'edit',
-			'_ideastream_cpage_slug'         => 'cpage',
+			'_ideastream_root_slug'          => _x( 'ideastream', 'default root slug', 'wp-idea-stream' ),
+			'_ideastream_idea_slug'          => _x( 'idea', 'default idea slug', 'wp-idea-stream' ),
+			'_ideastream_category_slug'      => _x( 'category', 'default category slug', 'wp-idea-stream' ),
+			'_ideastream_tag_slug'           => _x( 'tag', 'default tag slug', 'wp-idea-stream' ),
+			'_ideastream_user_slug'          => _x( 'user', 'default user slug', 'wp-idea-stream' ),
+			'_ideastream_user_comments_slug' => _x( 'comments', 'default comments slug', 'wp-idea-stream' ),
+			'_ideastream_user_rates_slug'    => _x( 'rates', 'default rates slug', 'wp-idea-stream' ),
+			'_ideastream_signup_slug'        => _x( 'sign-up', 'default sign-up action slug', 'wp-idea-stream' ),
+			'_ideastream_action_slug'        => _x( 'action', 'default action slug', 'wp-idea-stream' ),
+			'_ideastream_addnew_slug'        => _x( 'add', 'default add idea action slug', 'wp-idea-stream' ),
+			'_ideastream_edit_slug'          => _x( 'edit', 'default edit idea action slug', 'wp-idea-stream' ),
+			'_ideastream_cpage_slug'         => _x( 'cpage', 'default comments pagination slug', 'wp-idea-stream' ),
+		) );
+	}
+
+	// Multisite options
+	if ( is_multisite() ) {
+		$default_options = array_merge( $default_options, array(
+			'_ideastream_allow_signups'          => 0,
+			'_ideastream_user_new_idea_set_role' => 0,
 		) );
 	}
 
@@ -312,7 +320,11 @@ function wp_idea_stream_is_comments_allowed( $default = 1 ) {
  * @uses   get_option() to get customized value
  * @return string       the root slug
  */
-function wp_idea_stream_root_slug( $default = 'ideastream' ) {
+function wp_idea_stream_root_slug( $default = '' ) {
+	if ( empty( $default ) ) {
+		$default = _x( 'ideastream', 'default root slug', 'wp-idea-stream' );
+	}
+
 	return apply_filters( 'wp_idea_stream_root_slug', get_option( '_ideastream_root_slug', $default ) );
 }
 
@@ -346,7 +358,11 @@ function wp_idea_stream_idea_slug() {
 	 * @uses   get_option() to get customized value
 	 * @return string       the idea slug
 	 */
-	function wp_idea_stream_idea_get_slug( $default = 'idea' ) {
+	function wp_idea_stream_idea_get_slug( $default = '' ) {
+		if ( empty( $default ) ) {
+			$default = _x( 'idea', 'default idea slug', 'wp-idea-stream' );
+		}
+
 		return apply_filters( 'wp_idea_stream_idea_get_slug', get_option( '_ideastream_idea_slug', $default ) );
 	}
 
@@ -380,7 +396,11 @@ function wp_idea_stream_category_slug() {
 	 * @uses   get_option() to get customized value
 	 * @return string       the category slug
 	 */
-	function wp_idea_stream_category_get_slug( $default = 'category' ) {
+	function wp_idea_stream_category_get_slug( $default = '' ) {
+		if ( empty( $default ) ) {
+			$default = _x( 'category', 'default category slug', 'wp-idea-stream' );
+		}
+
 		return apply_filters( 'wp_idea_stream_category_get_slug', get_option( '_ideastream_category_slug', $default ) );
 	}
 
@@ -414,7 +434,11 @@ function wp_idea_stream_tag_slug() {
 	 * @uses   get_option() to get customized value
 	 * @return string       the tag slug
 	 */
-	function wp_idea_stream_tag_get_slug( $default = 'tag' ) {
+	function wp_idea_stream_tag_get_slug( $default = '' ) {
+		if ( empty( $default ) ) {
+			$default = _x( 'tag', 'default tag slug', 'wp-idea-stream' );
+		}
+
 		return apply_filters( 'wp_idea_stream_tag_get_slug', get_option( '_ideastream_tag_slug', $default ) );
 	}
 
@@ -448,7 +472,11 @@ function wp_idea_stream_user_slug() {
 	 * @uses   get_option() to get customized value
 	 * @return string       the user slug
 	 */
-	function wp_idea_stream_user_get_slug( $default = 'user' ) {
+	function wp_idea_stream_user_get_slug( $default = '' ) {
+		if ( empty( $default ) ) {
+			$default = _x( 'user', 'default user slug', 'wp-idea-stream' );
+		}
+
 		return apply_filters( 'wp_idea_stream_user_get_slug', get_option( '_ideastream_user_slug', $default ) );
 	}
 
@@ -465,7 +493,11 @@ function wp_idea_stream_user_slug() {
  * @uses   get_option() to get customized value
  * @return string       the user's profile rates slug
  */
-function wp_idea_stream_user_rates_slug( $default = 'rates' ) {
+function wp_idea_stream_user_rates_slug( $default = '' ) {
+	if ( empty( $default ) ) {
+		$default = _x( 'rates', 'default rates slug', 'wp-idea-stream' );
+	}
+
 	return apply_filters( 'wp_idea_stream_user_rates_slug', get_option( '_ideastream_user_rates_slug', $default ) );
 }
 
@@ -482,7 +514,11 @@ function wp_idea_stream_user_rates_slug( $default = 'rates' ) {
  * @uses   get_option() to get customized value
  * @return string       the user's profile comments slug
  */
-function wp_idea_stream_user_comments_slug( $default = 'comments' ) {
+function wp_idea_stream_user_comments_slug( $default = '' ) {
+	if ( empty( $default ) ) {
+		$default = _x( 'comments', 'default comments slug', 'wp-idea-stream' );
+	}
+
 	return apply_filters( 'wp_idea_stream_user_comments_slug', get_option( '_ideastream_user_comments_slug', $default ) );
 }
 
@@ -516,7 +552,11 @@ function wp_idea_stream_action_slug() {
 	 * @uses   get_option() to get customized value
 	 * @return string       the action slug
 	 */
-	function wp_idea_stream_action_get_slug( $default = 'action' ) {
+	function wp_idea_stream_action_get_slug( $default = '' ) {
+		if ( empty( $default ) ) {
+			$default = _x( 'action', 'default action slug', 'wp-idea-stream' );
+		}
+
 		return apply_filters( 'wp_idea_stream_action_get_slug', get_option( '_ideastream_action_slug', $default ) );
 	}
 
@@ -533,7 +573,11 @@ function wp_idea_stream_action_slug() {
  * @uses   get_option() to get customized value
  * @return string       the add (action) slug
  */
-function wp_idea_stream_addnew_slug( $default = 'add' ) {
+function wp_idea_stream_addnew_slug( $default = '' ) {
+	if ( empty( $default ) ) {
+		$default = _x( 'add', 'default add idea action slug', 'wp-idea-stream' );
+	}
+
 	return apply_filters( 'wp_idea_stream_addnew_slug', get_option( '_ideastream_addnew_slug', $default ) );
 }
 
@@ -550,7 +594,11 @@ function wp_idea_stream_addnew_slug( $default = 'add' ) {
  * @uses   get_option() to get customized value
  * @return string       the add (action) slug
  */
-function wp_idea_stream_edit_slug( $default = 'edit' ) {
+function wp_idea_stream_edit_slug( $default = '' ) {
+	if ( empty( $default ) ) {
+		$default = _x( 'edit', 'default edit idea action slug', 'wp-idea-stream' );
+	}
+
 	return apply_filters( 'wp_idea_stream_edit_slug', get_option( '_ideastream_edit_slug', $default ) );
 }
 
@@ -567,7 +615,11 @@ function wp_idea_stream_edit_slug( $default = 'edit' ) {
  * @uses   wp_idea_stream_signup_get_slug() to get user slug
  * @return string       the user slug (prefixed by the root one)
  */
-function wp_idea_stream_signup_slug( $default = 'sign-up' ) {
+function wp_idea_stream_signup_slug( $default = '' ) {
+	if ( empty( $default ) ) {
+		$default = _x( 'sign-up', 'default sign-up action slug', 'wp-idea-stream' );
+	}
+
 	return apply_filters( 'wp_idea_stream_signup_slug', get_option( '_ideastream_signup_slug', $default ) );
 }
 
@@ -584,6 +636,44 @@ function wp_idea_stream_signup_slug( $default = 'sign-up' ) {
  * @uses   get_option() to get customized value
  * @return string       the comment pagination slug
  */
-function wp_idea_stream_cpage_slug( $default = 'cpage' ) {
+function wp_idea_stream_cpage_slug( $default = '' ) {
+	if ( empty( $default ) ) {
+		$default = _x( 'cpage', 'default comments pagination slug', 'wp-idea-stream' );
+	}
+
 	return apply_filters( 'wp_idea_stream_cpage_slug', get_option( '_ideastream_cpage_slug', $default ) );
+}
+
+/**
+ * Should IdeaStream manage signups for the blog ?
+ *
+ * @package WP Idea Stream
+ * @subpackage core/options
+ *
+ * @since 2.2.0
+ *
+ * @param  int $default default value
+ * @uses   apply_filters() call 'wp_idea_stream_allow_signups' to override default or customized value
+ * @uses   get_option() to get customized value
+ * @return bool         True if enabled, false otherwise
+ */
+function wp_idea_stream_allow_signups( $default = 0 ) {
+	return (bool) apply_filters( 'wp_idea_stream_allow_signups', get_option( '_ideastream_allow_signups', $default ) );
+}
+
+/**
+ * Should we make sure the user posting an idea on the site has the default role ?
+ *
+ * @package WP Idea Stream
+ * @subpackage core/options
+ *
+ * @since 2.2.0
+ *
+ * @param  int $default default value
+ * @uses   apply_filters() call 'wp_idea_stream_user_new_idea_set_role' to override default or customized value
+ * @uses   get_option() to get customized value
+ * @return bool         True if enabled, false otherwise
+ */
+function wp_idea_stream_user_new_idea_set_role( $default = 0 ) {
+	return (bool) apply_filters( 'wp_idea_stream_user_new_idea_set_role', get_option( '_ideastream_user_new_idea_set_role', $default ) );
 }

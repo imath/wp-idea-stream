@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WP Idea Stream package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Idea Stream 2.1.2\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/wp-idea-stream\n"
-"POT-Creation-Date: 2015-04-20 20:01:03+00:00\n"
+"Project-Id-Version: WP Idea Stream 2.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-idea-stream\n"
+"POT-Creation-Date: 2015-08-27 15:15:18+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -382,7 +382,7 @@ msgid "The Rates metabox allows you to manage the rates the idea received."
 msgstr ""
 
 #: includes/admin/admin.php:1782 includes/admin/thanks.php:50
-#: includes/admin/thanks.php:128 includes/core/upgrade.php:148
+#: includes/admin/thanks.php:143 includes/core/upgrade.php:148
 msgid "About"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgid "%1$s %2$s"
 msgstr ""
 
 #: includes/admin/comments.php:174 includes/admin/comments.php:187
-#: includes/admin/settings.php:146
+#: includes/admin/settings.php:154
 msgid "Comments"
 msgstr ""
 
@@ -400,178 +400,202 @@ msgstr ""
 msgid "IdeaStream"
 msgstr ""
 
-#: includes/admin/settings.php:74
-msgid "IdeaStream archive page"
+#: includes/admin/settings.php:47
+msgid "Network users settings"
 msgstr ""
 
 #: includes/admin/settings.php:82
-msgid "New ideas status"
+msgid "IdeaStream archive page"
 msgstr ""
 
 #: includes/admin/settings.php:90
-msgid "Images"
+msgid "New ideas status"
 msgstr ""
 
 #: includes/admin/settings.php:98
-msgid "Links"
+msgid "Images"
 msgstr ""
 
 #: includes/admin/settings.php:106
-msgid "Moderation message"
+msgid "Links"
 msgstr ""
 
 #: includes/admin/settings.php:114
-msgid "Not logged in message"
+msgid "Moderation message"
 msgstr ""
 
 #: includes/admin/settings.php:122
-msgid "Rating stars hover captions"
+msgid "Not logged in message"
 msgstr ""
 
 #: includes/admin/settings.php:130
-msgid "Sticky ideas"
+msgid "Rating stars hover captions"
 msgstr ""
 
 #: includes/admin/settings.php:138
+msgid "Sticky ideas"
+msgstr ""
+
+#: includes/admin/settings.php:146
 msgid "Idea comments"
 msgstr ""
 
-#: includes/admin/settings.php:160
+#: includes/admin/settings.php:168
 msgid "IdeaStream root slug"
 msgstr ""
 
-#: includes/admin/settings.php:168
+#: includes/admin/settings.php:176
 msgid "Single idea slug"
 msgstr ""
 
-#: includes/admin/settings.php:176
+#: includes/admin/settings.php:184
 msgid "Category slug"
 msgstr ""
 
-#: includes/admin/settings.php:184
+#: includes/admin/settings.php:192
 msgid "Tag slug"
 msgstr ""
 
-#: includes/admin/settings.php:192
+#: includes/admin/settings.php:200
 msgid "User slug"
 msgstr ""
 
-#: includes/admin/settings.php:200
+#: includes/admin/settings.php:208
 msgid "User comments slug"
 msgstr ""
 
-#: includes/admin/settings.php:208
+#: includes/admin/settings.php:216
 msgid "User comments paging slug"
 msgstr ""
 
-#: includes/admin/settings.php:216
+#: includes/admin/settings.php:224
 msgid "User ratings slug"
 msgstr ""
 
-#: includes/admin/settings.php:224
+#: includes/admin/settings.php:232
 msgid "Sign-up slug"
 msgstr ""
 
-#: includes/admin/settings.php:232
+#: includes/admin/settings.php:240
 msgid "Action slug"
 msgstr ""
 
-#: includes/admin/settings.php:240
+#: includes/admin/settings.php:248
 msgid "New form slug"
 msgstr ""
 
-#: includes/admin/settings.php:248
+#: includes/admin/settings.php:256
 msgid "Edit form slug"
 msgstr ""
 
-#: includes/admin/settings.php:378
+#: includes/admin/settings.php:270
+msgid "Sign-ups"
+msgstr ""
+
+#: includes/admin/settings.php:278
+msgid "Default role for network users"
+msgstr ""
+
+#: includes/admin/settings.php:407
 msgctxt "ideastream settings root slug conflict"
 msgid "this %s"
 msgstr ""
 
-#: includes/admin/settings.php:388
+#: includes/admin/settings.php:417
 msgctxt "bbPress possible conflict"
 msgid "bbPress forum root slug"
 msgstr ""
 
-#: includes/admin/settings.php:402
+#: includes/admin/settings.php:431
 msgctxt "Child blog possible conflict"
 msgid "child blog slug"
 msgstr ""
 
-#: includes/admin/settings.php:425
+#: includes/admin/settings.php:454
 msgid "Possible conflict with: %s"
 msgstr ""
 
-#: includes/admin/settings.php:447
+#: includes/admin/settings.php:476
 msgid "Customize IdeaStream features"
 msgstr ""
 
-#: includes/admin/settings.php:448
+#: includes/admin/settings.php:477
 msgid "Url of IdeaStream&#39;s main page: %s"
 msgstr ""
 
-#: includes/admin/settings.php:490
+#: includes/admin/settings.php:519
 msgid "Publish"
 msgstr ""
 
-#: includes/admin/settings.php:491
+#: includes/admin/settings.php:520
 msgid "Pending"
 msgstr ""
 
-#: includes/admin/settings.php:493
+#: includes/admin/settings.php:522
 msgid "is the default status for all ideas"
 msgstr ""
 
-#: includes/admin/settings.php:494
+#: includes/admin/settings.php:523
 msgid "Depending on this setting, the moderation message one will be available"
 msgstr ""
 
-#: includes/admin/settings.php:515
+#: includes/admin/settings.php:544
 msgid "Allow users to add images to their ideas"
 msgstr ""
 
-#: includes/admin/settings.php:536
+#: includes/admin/settings.php:565
 msgid "Allow users to add links to their ideas"
 msgstr ""
 
-#: includes/admin/settings.php:557
+#: includes/admin/settings.php:586
 msgid "In case Pending is the status for all ideas, you can customize the moderation message"
 msgstr ""
 
-#: includes/admin/settings.php:578
+#: includes/admin/settings.php:607
 msgid "You can customize the message shown to not logged in users on the new idea form"
 msgstr ""
 
-#: includes/admin/settings.php:601
+#: includes/admin/settings.php:630
 msgid "You can customize the hover captions used for stars by using a comma separated list of captions"
 msgstr ""
 
-#: includes/admin/settings.php:623
+#: includes/admin/settings.php:652
 msgid "Allow ideas to be sticked to top of IdeaStream first page"
 msgstr ""
 
-#: includes/admin/settings.php:644
+#: includes/admin/settings.php:673
 msgid "Separate comments made on ideas from the other post types."
 msgstr ""
 
-#: includes/admin/settings.php:665
+#: includes/admin/settings.php:694
 msgid "Allow users to add comments on ideas"
 msgstr ""
 
-#: includes/admin/settings.php:685
+#: includes/admin/settings.php:714
 msgid "Customize the slugs of IdeaStream urls"
 msgstr ""
 
-#: includes/admin/settings.php:829
+#: includes/admin/settings.php:858
 msgid "&#39;%s&#39; slug cannot be used here."
 msgstr ""
 
-#: includes/admin/settings.php:1086
+#: includes/admin/settings.php:976
+msgid "Define your preferences about network users"
+msgstr ""
+
+#: includes/admin/settings.php:997
+msgid "Allow IdeaStream to manage signups for your site"
+msgstr ""
+
+#: includes/admin/settings.php:1018
+msgid "Automatically set this site&#39;s default role for users posting a new idea and having no role on this site."
+msgstr ""
+
+#: includes/admin/settings.php:1178
 msgid "IdeaStream Settings"
 msgstr ""
 
-#: includes/admin/settings.php:1095
+#: includes/admin/settings.php:1187
 msgid "Save Changes"
 msgstr ""
 
@@ -636,7 +660,7 @@ msgstr ""
 msgid "Thank you for %1$s the latest version of WP Idea Stream! %2$s brings some cool improvements."
 msgstr ""
 
-#: includes/admin/thanks.php:53 includes/admin/thanks.php:131
+#: includes/admin/thanks.php:53 includes/admin/thanks.php:146
 msgid "Credits"
 msgstr ""
 
@@ -665,80 +689,104 @@ msgstr ""
 msgid "Disabling the built-in rating system."
 msgstr ""
 
-#: includes/admin/thanks.php:79
-msgid "Some new features.."
+#: includes/admin/thanks.php:77
+msgid "Attach files to your ideas thanks to..."
 msgstr ""
 
-#: includes/admin/thanks.php:82
-msgid "About sign-ups"
-msgstr ""
-
-#: includes/admin/thanks.php:83
-msgid "%s now includes a sign-up page for regular configs. If you are using BuddyPress or a multisite config: their specific sign-ups page will be used."
+#: includes/admin/thanks.php:80
+msgid "Attach files to your ideas"
 msgstr ""
 
 #: includes/admin/thanks.php:84
-msgid "Export ideas in a csv file"
+msgid "... BuddyPress & BuddyDrive."
 msgstr ""
 
 #: includes/admin/thanks.php:85
-msgid "From the Ideas Administration, you are now able to export all submitted ideas or the ones having the selected status from the last link above the list of ideas."
+msgid "You are using the BuddyPress (2.3+) and BuddyDrive (1.3+) plugins? Very good choice! Your members can now attach public files to their ideas."
 msgstr ""
 
-#: includes/admin/thanks.php:86
-msgid "BuddyPress activities"
+#: includes/admin/thanks.php:92
+msgid "Some Improvements.."
 msgstr ""
 
-#: includes/admin/thanks.php:87
-msgid "WP Idea Stream now uses BuddyPress post types activities to record an activity when an idea is published. The BuddyPress blogs component must be activated to enable this feature."
+#: includes/admin/thanks.php:95
+msgid "About sign-ups"
 msgstr ""
 
-#: includes/admin/thanks.php:96 includes/admin/thanks.php:182
+#: includes/admin/thanks.php:96
+msgid "%s now includes a sign-up page for regular configs & multisite ones when only user registration is enabled. If you are using BuddyPress or a multisite config for any other registration settings: their specific sign-ups page will be used."
+msgstr ""
+
+#: includes/admin/thanks.php:97
+msgid "About multisite configs having user registration enabled, the plugin will allow any child blog to have a specific registration management. New users will automatically be added as subscribers (or the chosen default role) to the child blog."
+msgstr ""
+
+#: includes/admin/thanks.php:98
+msgid "WP Idea Stream template parts loading"
+msgstr ""
+
+#: includes/admin/thanks.php:99
+msgid "The way the plugin&#39;s specific template parts are loaded has been improved."
+msgstr ""
+
+#: includes/admin/thanks.php:100
+msgid "About other small things..."
+msgstr ""
+
+#: includes/admin/thanks.php:102
+msgid "Default slugs are now translatable: make sure to use regular characters with no spaces and lower cases when translating them in your language pack."
+msgstr ""
+
+#: includes/admin/thanks.php:103
+msgid "The style of WP Idea Stream template parts has been optimized for the Twentyfifteen theme."
+msgstr ""
+
+#: includes/admin/thanks.php:111 includes/admin/thanks.php:197
 msgid "Configure WP Idea Stream"
 msgstr ""
 
-#: includes/admin/thanks.php:96 includes/admin/thanks.php:182
+#: includes/admin/thanks.php:111 includes/admin/thanks.php:197
 msgid "Go to the IdeaStream Settings page"
 msgstr ""
 
-#: includes/admin/thanks.php:122
+#: includes/admin/thanks.php:137
 msgctxt "credit screen title"
 msgid "WP Idea Stream %s"
 msgstr ""
 
-#: includes/admin/thanks.php:123
+#: includes/admin/thanks.php:138
 msgid "%s version of WP Idea Stream was also successfully released thanks to them!"
 msgstr ""
 
-#: includes/admin/thanks.php:136
+#: includes/admin/thanks.php:151
 msgid "The team!"
 msgstr ""
 
-#: includes/admin/thanks.php:141
+#: includes/admin/thanks.php:156
 msgid "Creator"
 msgstr ""
 
-#: includes/admin/thanks.php:146
+#: includes/admin/thanks.php:161
 msgid "Contributor"
 msgstr ""
 
-#: includes/admin/thanks.php:152
+#: includes/admin/thanks.php:167
 msgid "Special thanks."
 msgstr ""
 
-#: includes/admin/thanks.php:156
+#: includes/admin/thanks.php:171
 msgid "WP Idea Stream was the choice of the WordCamp Paris 2015 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file."
 msgstr ""
 
-#: includes/admin/thanks.php:157
+#: includes/admin/thanks.php:172
 msgid "The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system."
 msgstr ""
 
-#: includes/admin/thanks.php:158
-msgid "Some other features such as a sign-up page and the ability to export all submitted talks in a csv file have been added to the current version (%s). Many thanks to WordCamp Paris organizers and speakers for this great experience."
+#: includes/admin/thanks.php:173
+msgid "Many thanks to WordCamp Paris organizers and speakers for this great experience."
 msgstr ""
 
-#: includes/admin/thanks.php:161
+#: includes/admin/thanks.php:176
 msgid "WP Idea Stream&#39;s external libraries and useful code"
 msgstr ""
 
@@ -864,11 +912,11 @@ msgstr ""
 msgid "No idea was requested"
 msgstr ""
 
-#: includes/buddypress/groups.php:1914 includes/core/template-loader.php:452
+#: includes/buddypress/groups.php:1914 includes/core/template-loader.php:448
 msgid "The idea: &#34;%s&#34; is already being edited by another user."
 msgstr ""
 
-#: includes/buddypress/groups.php:1920 includes/core/template-loader.php:464
+#: includes/buddypress/groups.php:1920 includes/core/template-loader.php:460
 #: includes/ideas/functions.php:1226
 msgid "You are not allowed to edit this idea."
 msgstr ""
@@ -908,7 +956,7 @@ msgid "and posted from the group %s"
 msgstr ""
 
 #: includes/buddypress/groups.php:2316 includes/core/functions.php:329
-#: includes/core/template-functions.php:765 includes/ideas/tags.php:1376
+#: includes/core/template-functions.php:770 includes/ideas/tags.php:1376
 msgid "Edit Idea"
 msgstr ""
 
@@ -1155,7 +1203,7 @@ msgctxt "pagination next text"
 msgid "&rarr;"
 msgstr ""
 
-#: includes/core/functions.php:323 includes/core/template-functions.php:834
+#: includes/core/functions.php:323 includes/core/template-functions.php:839
 msgid "Ideas"
 msgstr ""
 
@@ -1171,7 +1219,7 @@ msgstr ""
 msgid "Add New Idea"
 msgstr ""
 
-#: includes/core/functions.php:330 includes/core/template-functions.php:760
+#: includes/core/functions.php:330 includes/core/template-functions.php:765
 msgid "New Idea"
 msgstr ""
 
@@ -1310,30 +1358,90 @@ msgid_plural "%s ideas"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/core/functions.php:1320
+#: includes/core/functions.php:1340
 msgctxt "Admin bar menu"
 msgid "IdeaStream"
 msgstr ""
 
-#: includes/core/template-functions.php:744
+#: includes/core/options.php:57 includes/core/options.php:325
+msgctxt "default root slug"
+msgid "ideastream"
+msgstr ""
+
+#: includes/core/options.php:58 includes/core/options.php:363
+msgctxt "default idea slug"
+msgid "idea"
+msgstr ""
+
+#: includes/core/options.php:59 includes/core/options.php:401
+msgctxt "default category slug"
+msgid "category"
+msgstr ""
+
+#: includes/core/options.php:60 includes/core/options.php:439
+msgctxt "default tag slug"
+msgid "tag"
+msgstr ""
+
+#: includes/core/options.php:61 includes/core/options.php:477
+msgctxt "default user slug"
+msgid "user"
+msgstr ""
+
+#: includes/core/options.php:62 includes/core/options.php:519
+msgctxt "default comments slug"
+msgid "comments"
+msgstr ""
+
+#: includes/core/options.php:63 includes/core/options.php:498
+msgctxt "default rates slug"
+msgid "rates"
+msgstr ""
+
+#: includes/core/options.php:64 includes/core/options.php:620
+msgctxt "default sign-up action slug"
+msgid "sign-up"
+msgstr ""
+
+#: includes/core/options.php:65 includes/core/options.php:557
+msgctxt "default action slug"
+msgid "action"
+msgstr ""
+
+#: includes/core/options.php:66 includes/core/options.php:578
+msgctxt "default add idea action slug"
+msgid "add"
+msgstr ""
+
+#: includes/core/options.php:67 includes/core/options.php:599
+msgctxt "default edit idea action slug"
+msgid "edit"
+msgstr ""
+
+#: includes/core/options.php:68 includes/core/options.php:641
+msgctxt "default comments pagination slug"
+msgid "cpage"
+msgstr ""
+
+#: includes/core/template-functions.php:749
 msgid "Add new"
 msgstr ""
 
-#: includes/core/template-functions.php:755
-#: includes/core/template-functions.php:817
+#: includes/core/template-functions.php:760
+#: includes/core/template-functions.php:822
 msgid "%s&#39;s profile"
 msgstr ""
 
-#: includes/core/template-functions.php:770
-#: includes/core/template-functions.php:832
+#: includes/core/template-functions.php:775
+#: includes/core/template-functions.php:837
 msgid "Create an account"
 msgstr ""
 
-#: includes/core/template-functions.php:813 includes/core/widgets.php:83
+#: includes/core/template-functions.php:818 includes/core/widgets.php:83
 msgid "New idea"
 msgstr ""
 
-#: includes/core/template-functions.php:815
+#: includes/core/template-functions.php:820
 msgid "Edit idea"
 msgstr ""
 
@@ -1613,37 +1721,37 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: includes/ideas/tags.php:1648
+#: includes/ideas/tags.php:1649
 msgid "Categories"
 msgstr ""
 
-#: includes/ideas/tags.php:1690
+#: includes/ideas/tags.php:1691
 msgid "No categories are available."
 msgstr ""
 
-#: includes/ideas/tags.php:1738
+#: includes/ideas/tags.php:1739
 msgid "Tags"
 msgstr ""
 
-#: includes/ideas/tags.php:1739
+#: includes/ideas/tags.php:1740
 msgid "Type your tag, then hit the return or space key to add it"
 msgstr ""
 
-#: includes/ideas/tags.php:1811
+#: includes/ideas/tags.php:1812
 msgid "Choose the most used tag"
 msgid_plural "Choose from the %d most used tags"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/ideas/tags.php:1899 includes/users/tags.php:322
+#: includes/ideas/tags.php:1900 includes/users/tags.php:322
 msgid "Reset"
 msgstr ""
 
-#: includes/ideas/tags.php:1900
+#: includes/ideas/tags.php:1901
 msgid "Submit"
 msgstr ""
 
-#: includes/ideas/tags.php:1905
+#: includes/ideas/tags.php:1906
 msgid "Update"
 msgstr ""
 
@@ -1704,24 +1812,29 @@ msgstr ""
 msgid "Description updated."
 msgstr ""
 
-#: includes/users/functions.php:839
+#: includes/users/functions.php:924
 msgid "Please choose a login having at least 4 characters."
 msgstr ""
 
-#: includes/users/functions.php:873
+#: includes/users/functions.php:958
 msgid "Please fill all required fields."
 msgstr ""
 
-#: includes/users/functions.php:949
+#: includes/users/functions.php:1064
 msgid "Registration complete. Please check your e-mail."
 msgstr ""
 
-#: includes/users/functions.php:963
+#: includes/users/functions.php:1091
 msgid "Username"
 msgstr ""
 
-#: includes/users/functions.php:964
+#: includes/users/functions.php:1092
 msgid "E-mail"
+msgstr ""
+
+#: includes/users/functions.php:1153
+msgctxt "Use the same translation than WP Core"
+msgid "[%s] Your username and password info"
 msgstr ""
 
 #: includes/users/tags.php:147
