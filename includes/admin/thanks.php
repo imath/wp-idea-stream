@@ -92,6 +92,12 @@ function wp_idea_stream_admin_about() {
 			<h2 class="about-headline-callout"><?php esc_html_e( 'Some Improvements..', 'wp-idea-stream' ); ?></h2>
 			<div class="feature-section col one-col">
 				<div class="col-1">
+					<h4><?php esc_html_e( 'About wp-idea-stream-custom.php', 'wp-idea-stream' ); ?></h4>
+					<p>
+						<?php esc_html_e( 'On multisite configs, you can now include custom features specific to each blog where the plugin is activated by using a wp-idea-stream-custom file including the blog id in its name, eg:', 'wp-idea-stream' ); ?>
+						&nbsp;<code>wp-idea-stream-custom-2.php</code>&nbsp;<?php esc_html_e( 'will only be loaded when the current blog has its ID == 2', 'wp-idea-stream' ); ?>&nbsp;
+						<a href="https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#on-multisite-configs-a-custom-file-for-each-blog"><?php esc_html_e( 'Learn more &rarr;', 'wp-idea-stream' ); ?></a>
+					</p>
 					<h4><?php esc_html_e( 'About sign-ups', 'wp-idea-stream' ); ?></h4>
 					<p><?php printf( esc_html__( '%s now includes a sign-up page for regular configs & multisite ones when only user registration is enabled. If you are using BuddyPress or a multisite config for any other registration settings: their specific sign-ups page will be used.', 'wp-idea-stream' ), $display_version ); ?></p>
 					<p><?php esc_html_e( 'About multisite configs having user registration enabled, the plugin will allow any child blog to have a specific registration management. New users will automatically be added as subscribers (or the chosen default role) to the child blog.', 'wp-idea-stream' ); ?></p>

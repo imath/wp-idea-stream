@@ -185,10 +185,23 @@ final class WP_Idea_Stream {
 		 * or extend WP Idea Stream from the plugin directory
 		 * instead of the functions.php of the active theme.
 		 *
-		 * @see billet de blog. (snippets).
+		 * @see https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#the-global-custom-file
 		 */
 		if ( file_exists( WP_PLUGIN_DIR . '/wp-idea-stream-custom.php' ) ) {
 			require( WP_PLUGIN_DIR . '/wp-idea-stream-custom.php' );
+		}
+
+		/**
+		 * On multisite configs, load current blog's specific custom file
+		 *
+		 * This will help you to have specific feature for each blog.
+		 *
+		 * @since  2.2.0
+		 *
+		 * @see https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#on-multisite-configs-a-custom-file-for-each-blog
+		 */
+		if ( is_multisite() && file_exists( WP_PLUGIN_DIR . '/wp-idea-stream-custom-' . get_current_blog_id() . '.php' ) ) {
+			require( WP_PLUGIN_DIR . '/wp-idea-stream-custom-' . get_current_blog_id() . '.php' );
 		}
 	}
 

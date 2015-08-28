@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Idea Stream 2.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-idea-stream\n"
-"POT-Creation-Date: 2015-08-27 15:15:18+00:00\n"
+"POT-Creation-Date: 2015-08-28 09:51:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -382,7 +382,7 @@ msgid "The Rates metabox allows you to manage the rates the idea received."
 msgstr ""
 
 #: includes/admin/admin.php:1782 includes/admin/thanks.php:50
-#: includes/admin/thanks.php:143 includes/core/upgrade.php:148
+#: includes/admin/thanks.php:149 includes/core/upgrade.php:148
 msgid "About"
 msgstr ""
 
@@ -660,7 +660,7 @@ msgstr ""
 msgid "Thank you for %1$s the latest version of WP Idea Stream! %2$s brings some cool improvements."
 msgstr ""
 
-#: includes/admin/thanks.php:53 includes/admin/thanks.php:146
+#: includes/admin/thanks.php:53 includes/admin/thanks.php:152
 msgid "Credits"
 msgstr ""
 
@@ -710,83 +710,99 @@ msgid "Some Improvements.."
 msgstr ""
 
 #: includes/admin/thanks.php:95
-msgid "About sign-ups"
-msgstr ""
-
-#: includes/admin/thanks.php:96
-msgid "%s now includes a sign-up page for regular configs & multisite ones when only user registration is enabled. If you are using BuddyPress or a multisite config for any other registration settings: their specific sign-ups page will be used."
+msgid "About wp-idea-stream-custom.php"
 msgstr ""
 
 #: includes/admin/thanks.php:97
-msgid "About multisite configs having user registration enabled, the plugin will allow any child blog to have a specific registration management. New users will automatically be added as subscribers (or the chosen default role) to the child blog."
+msgid "On multisite configs, you can now include custom features specific to each blog where the plugin is activated by using a wp-idea-stream-custom file including the blog id in its name, eg:"
 msgstr ""
 
 #: includes/admin/thanks.php:98
-msgid "WP Idea Stream template parts loading"
+msgid "will only be loaded when the current blog has its ID == 2"
 msgstr ""
 
 #: includes/admin/thanks.php:99
-msgid "The way the plugin&#39;s specific template parts are loaded has been improved."
+msgid "Learn more &rarr;"
 msgstr ""
 
-#: includes/admin/thanks.php:100
-msgid "About other small things..."
+#: includes/admin/thanks.php:101
+msgid "About sign-ups"
 msgstr ""
 
 #: includes/admin/thanks.php:102
-msgid "Default slugs are now translatable: make sure to use regular characters with no spaces and lower cases when translating them in your language pack."
+msgid "%s now includes a sign-up page for regular configs & multisite ones when only user registration is enabled. If you are using BuddyPress or a multisite config for any other registration settings: their specific sign-ups page will be used."
 msgstr ""
 
 #: includes/admin/thanks.php:103
+msgid "About multisite configs having user registration enabled, the plugin will allow any child blog to have a specific registration management. New users will automatically be added as subscribers (or the chosen default role) to the child blog."
+msgstr ""
+
+#: includes/admin/thanks.php:104
+msgid "WP Idea Stream template parts loading"
+msgstr ""
+
+#: includes/admin/thanks.php:105
+msgid "The way the plugin&#39;s specific template parts are loaded has been improved."
+msgstr ""
+
+#: includes/admin/thanks.php:106
+msgid "About other small things..."
+msgstr ""
+
+#: includes/admin/thanks.php:108
+msgid "Default slugs are now translatable: make sure to use regular characters with no spaces and lower cases when translating them in your language pack."
+msgstr ""
+
+#: includes/admin/thanks.php:109
 msgid "The style of WP Idea Stream template parts has been optimized for the Twentyfifteen theme."
 msgstr ""
 
-#: includes/admin/thanks.php:111 includes/admin/thanks.php:197
+#: includes/admin/thanks.php:117 includes/admin/thanks.php:203
 msgid "Configure WP Idea Stream"
 msgstr ""
 
-#: includes/admin/thanks.php:111 includes/admin/thanks.php:197
+#: includes/admin/thanks.php:117 includes/admin/thanks.php:203
 msgid "Go to the IdeaStream Settings page"
 msgstr ""
 
-#: includes/admin/thanks.php:137
+#: includes/admin/thanks.php:143
 msgctxt "credit screen title"
 msgid "WP Idea Stream %s"
 msgstr ""
 
-#: includes/admin/thanks.php:138
+#: includes/admin/thanks.php:144
 msgid "%s version of WP Idea Stream was also successfully released thanks to them!"
 msgstr ""
 
-#: includes/admin/thanks.php:151
+#: includes/admin/thanks.php:157
 msgid "The team!"
 msgstr ""
 
-#: includes/admin/thanks.php:156
+#: includes/admin/thanks.php:162
 msgid "Creator"
 msgstr ""
 
-#: includes/admin/thanks.php:161
+#: includes/admin/thanks.php:167
 msgid "Contributor"
 msgstr ""
 
-#: includes/admin/thanks.php:167
+#: includes/admin/thanks.php:173
 msgid "Special thanks."
 msgstr ""
 
-#: includes/admin/thanks.php:171
+#: includes/admin/thanks.php:177
 msgid "WP Idea Stream was the choice of the WordCamp Paris 2015 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file."
 msgstr ""
 
-#: includes/admin/thanks.php:172
+#: includes/admin/thanks.php:178
 msgid "The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system."
 msgstr ""
 
-#: includes/admin/thanks.php:173
+#: includes/admin/thanks.php:179
 msgid "Many thanks to WordCamp Paris organizers and speakers for this great experience."
 msgstr ""
 
-#: includes/admin/thanks.php:176
+#: includes/admin/thanks.php:182
 msgid "WP Idea Stream&#39;s external libraries and useful code"
 msgstr ""
 
