@@ -129,10 +129,7 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 
 = 2.2.0 =
 
-Please be sure to use at least WordPress 4.3 before upgrading/downloading this plugin.
-Now that default slugs are translatable, make sure to save the IdeaStream > Settings before upgrading the plugin if you never did.
-If you are using BuddyPress, make sure to upgrade to version 2.3 before upgrading to WP Idea Stream 2.2.0.
-Back up your database and files (in case you want to roll back to previous version).
+Please be sure to use at least WordPress 4.3. Now that default slugs are translatable, make sure to save the IdeaStream > Settings before upgrading the plugin if you never did. If you are using BuddyPress, required version is 2.3. Back up your database and files.
 
 = 2.1.2 =
 
