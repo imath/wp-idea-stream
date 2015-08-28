@@ -415,6 +415,21 @@ final class WP_Idea_Stream {
 		$mofile_local  = $this->lang_dir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/' . $this->domain . '/' . $mofile;
 
+		/**
+		 * Need to use custom language pack for a specific blog of the network ?
+		 *
+		 * Simply put your custom language pack in /wp-content/languages/wp-idea-stream/blog_id/
+		 * and it will be used instead of generic ones.
+		 *
+		 * @since  2.2.0
+		 */
+		if ( is_multisite() ) {
+			$mofile_current_blog = WP_LANG_DIR . '/' . $this->domain . '/' . get_current_blog_id() . '/' . $mofile;
+
+			// Look in global /wp-content/languages/wp-idea-stream/blog_id/ folder
+			load_textdomain( $this->domain, $mofile_current_blog );
+		}
+
 		// Look in global /wp-content/languages/wp-idea-stream folder
 		load_textdomain( $this->domain, $mofile_global );
 
