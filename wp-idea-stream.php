@@ -185,10 +185,23 @@ final class WP_Idea_Stream {
 		 * or extend WP Idea Stream from the plugin directory
 		 * instead of the functions.php of the active theme.
 		 *
-		 * @see billet de blog. (snippets).
+		 * @see https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#the-global-custom-file
 		 */
 		if ( file_exists( WP_PLUGIN_DIR . '/wp-idea-stream-custom.php' ) ) {
 			require( WP_PLUGIN_DIR . '/wp-idea-stream-custom.php' );
+		}
+
+		/**
+		 * On multisite configs, load current blog's specific custom file
+		 *
+		 * This will help you to have specific feature for each blog.
+		 *
+		 * @since  2.2.0
+		 *
+		 * @see https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#on-multisite-configs-a-custom-file-for-each-blog
+		 */
+		if ( is_multisite() && file_exists( WP_PLUGIN_DIR . '/wp-idea-stream-custom-' . get_current_blog_id() . '.php' ) ) {
+			require( WP_PLUGIN_DIR . '/wp-idea-stream-custom-' . get_current_blog_id() . '.php' );
 		}
 	}
 
@@ -401,6 +414,21 @@ final class WP_Idea_Stream {
 		// Setup paths to current locale file
 		$mofile_local  = $this->lang_dir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/' . $this->domain . '/' . $mofile;
+
+		/**
+		 * Need to use custom language pack for a specific blog of the network ?
+		 *
+		 * Simply put your custom language pack in /wp-content/languages/wp-idea-stream/blog_id/
+		 * and it will be used instead of generic ones.
+		 *
+		 * @since  2.2.0
+		 */
+		if ( is_multisite() ) {
+			$mofile_current_blog = WP_LANG_DIR . '/' . $this->domain . '/' . get_current_blog_id() . '/' . $mofile;
+
+			// Look in global /wp-content/languages/wp-idea-stream/blog_id/ folder
+			load_textdomain( $this->domain, $mofile_current_blog );
+		}
 
 		// Look in global /wp-content/languages/wp-idea-stream folder
 		load_textdomain( $this->domain, $mofile_global );
