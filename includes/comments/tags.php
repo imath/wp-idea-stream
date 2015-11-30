@@ -436,13 +436,22 @@ function wp_idea_stream_comments_the_comment_title() {
 	 */
 	function wp_idea_stream_comments_get_comment_title() {
 		$comment = wp_idea_stream()->comment_query_loop->comment;
-		$title = '';
+
+		/**
+		 * When the idea has a private status, we're applying a dashicon to a span
+		 * So we need to only allow this tag when sanitizing the output
+		 */
+		if ( isset( $comment->post_status ) && 'publish' !== $comment->post_status ) {
+			$title = wp_kses( get_the_title( $comment->comment_post_ID ), array( 'span' => array( 'class' => array() ) ) );
+		} else {
+			$title = esc_html( get_the_title( $comment->comment_post_ID ) );
+		}
 
 		/**
 		 * @param  string   the title of the idea, the comment is linked to
 		 * @param  object   $comment the comment object
 		 */
-		return apply_filters( 'wp_idea_stream_comments_get_comment_title', esc_html( get_the_title( wp_idea_stream()->comment_query_loop->comment->comment_post_ID ) ), $comment );
+		return apply_filters( 'wp_idea_stream_comments_get_comment_title', $title, $comment );
 	}
 
 /**
