@@ -968,11 +968,11 @@ function wp_idea_stream_add_rate( $idea = 0, $user_id = 0, $rate = 0 ) {
 	$rates = get_post_meta( $idea, '_ideastream_rates', true );
 
 	if ( empty( $rates ) ) {
-		$rates = array( $rate => array( 'user_ids' => array( $user_id ) ) );
+		$rates = array( $rate => array( 'user_ids' => array( 'user-' . $user_id => $user_id ) ) );
 	} else if ( ! empty( $rates[ $rate ] ) && ! in_array( $user_id, $rates[ $rate ]['user_ids'] ) ) {
-		$rates[ $rate ]['user_ids'] = array_merge( $rates[ $rate ]['user_ids'], array( $user_id ) );
+		$rates[ $rate ]['user_ids'] = array_merge( $rates[ $rate ]['user_ids'], array( 'user-' . $user_id => $user_id ) );
 	} else if ( empty( $rates[ $rate ] ) ) {
-		$rates = $rates + array( $rate => array( 'user_ids' => array( $user_id ) ) );
+		$rates = $rates + array( $rate => array( 'user_ids' => array( 'user-' . $user_id => $user_id ) ) );
 	} else {
 		return false;
 	}
