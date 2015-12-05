@@ -2,8 +2,8 @@
 Contributors: imath, aglekis
 Donate link: http://imathi.eu/donations/
 Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
-Requires at least: 4.3
-Tested up to: 4.3
+Requires at least: 4.4
+Tested up to: 4.4
 Stable tag: 2.2.0
 License: GNU/GPL 2
 

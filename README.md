@@ -10,7 +10,7 @@ Available in french and english.
 Configuration needed
 --------------------
 
-+ WordPress 4.3
++ WordPress 4.4
 + Loves BuddyPress 2.3 & BuddyDrive 1.3
 
 Installation

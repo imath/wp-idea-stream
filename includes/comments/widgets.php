@@ -46,10 +46,6 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 		if ( is_active_widget( false, false, $this->id_base ) ) {
 			add_action( 'wp_head', array( $this, 'recent_comments_style' ) );
 		}
-
-		add_action( 'comment_post',              array( $this, 'flush_widget_cache' ) );
-		add_action( 'edit_comment',              array( $this, 'flush_widget_cache' ) );
-		add_action( 'transition_comment_status', array( $this, 'flush_widget_cache' ) );
 	}
 
 	/**
@@ -119,15 +115,12 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 	 * @subpackage comments/widgets
 	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  WP_Widget_Recent_Comments->flush_widget_cache()
 	 * @uses  wp_cache_get()
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['number'] = absint( $new_instance['number'] );
-		$this->flush_widget_cache();
 
 		$alloptions = wp_cache_get( 'alloptions', 'options' );
 		if ( isset( $alloptions[ 'widget_ideas_recent_comments'] ) ) {
