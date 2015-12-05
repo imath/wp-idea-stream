@@ -816,13 +816,13 @@ function wp_idea_stream_title( $title_array = array() ) {
 
 	if ( wp_idea_stream_is_addnew() ) {
 		$new_title[] = esc_attr__( 'New idea', 'wp-idea-stream' );
-	} else if ( wp_idea_stream_is_edit() ) {
+	} elseif ( wp_idea_stream_is_edit() ) {
 		$new_title[] = esc_attr__( 'Edit idea', 'wp-idea-stream' );
-	} else if ( wp_idea_stream_is_user_profile() ) {
+	} elseif ( wp_idea_stream_is_user_profile() ) {
 		$new_title[] = sprintf( esc_html__( '%s&#39;s profile', 'wp-idea-stream' ), wp_idea_stream_users_get_displayed_user_displayname() );
-	} else if ( wp_idea_stream_is_single_idea() ) {
+	} elseif ( wp_idea_stream_is_single_idea() ) {
 		$new_title[] = single_post_title( '', false );
-	} else if ( is_tax() ) {
+	} elseif ( is_tax() ) {
 		$term = wp_idea_stream_get_current_term();
 		if ( $term ) {
 			$tax = get_taxonomy( $term->taxonomy );
@@ -833,7 +833,7 @@ function wp_idea_stream_title( $title_array = array() ) {
 			$new_title[] = single_term_title( '', false );
 			$new_title[] = $tax->labels->name;
 		}
-	} else if ( wp_idea_stream_is_signup() ) {
+	} elseif ( wp_idea_stream_is_signup() ) {
 		$new_title[] = esc_html__( 'Create an account', 'wp-idea-stream' );
 	} else {
 		$new_title[] = esc_html__( 'Ideas', 'wp-idea-stream' );
@@ -854,6 +854,72 @@ function wp_idea_stream_title( $title_array = array() ) {
 	 * @param  string $title the original title meta tag
 	 */
 	return apply_filters( 'wp_idea_stream_title', $new_title_array, $title_array, $new_title );
+}
+
+/**
+ * Set the document title for IdeaStream pages
+ *
+ * @since  2.2.1
+ *
+ * @param  array  $document_title The WordPress Document title
+ * @return array                  The IdeaStream Document title
+ */
+function wp_idea_stream_document_title_parts( $document_title = array() ) {
+	if ( ! wp_idea_stream_is_ideastream() ) {
+		return $document_title;
+	}
+
+	$new_document_title = $document_title;
+
+	// Reset the document title if needed
+	if ( ! wp_idea_stream_is_single_idea() ) {
+		$title = (array) wp_idea_stream_title();
+
+		// On user's profile, add some piece of info
+		if ( wp_idea_stream_is_user_profile() && count( $title ) === 1 ) {
+			// Seeing comments of the user
+			if ( wp_idea_stream_is_user_profile_comments() ) {
+				$title[] = __( 'Idea Comments', 'wp-idea-stream' );
+
+				// Get the pagination page
+				if ( get_query_var( wp_idea_stream_cpage_rewrite_id() ) ) {
+					$cpage = get_query_var( wp_idea_stream_cpage_rewrite_id() );
+
+				} elseif ( ! empty( $_GET[ wp_idea_stream_cpage_rewrite_id() ] ) ) {
+					$cpage = $_GET[ wp_idea_stream_cpage_rewrite_id() ];
+				}
+
+				if ( ! empty( $cpage ) ) {
+					$title['page'] = sprintf( __( 'Page %s', 'wp-idea-stream' ), (int) $cpage );
+				}
+
+			// Seeing Ratings for the user
+			} elseif( wp_idea_stream_is_user_profile_rates() ) {
+				$title[] = __( 'Idea Ratings', 'wp-idea-stream' );
+
+			// Seeing The root profile
+			} else {
+				$title[] = __( 'Ideas', 'wp-idea-stream' );
+			}
+		}
+
+		// Get WordPress Separator
+		$sep = apply_filters( 'document_title_separator', '-' );
+
+		$new_document_title['title'] = implode( " $sep ", array_filter( $title ) );;
+	}
+
+	// Set the site name if not already set.
+	if ( ! isset( $new_document_title['site'] ) ) {
+		$new_document_title['site'] = get_bloginfo( 'name', 'display' );
+	}
+
+	// Unset tagline for IdeaStream Pages
+	if ( isset( $new_document_title['tagline'] ) ) {
+		unset( $new_document_title['tagline'] );
+	}
+
+	return apply_filters( 'wp_idea_stream_document_title_parts', $new_document_title, $document_title );
 }
 
 /**
@@ -919,6 +985,28 @@ function wp_idea_stream_body_class( $wp_classes, $custom_classes = false ) {
 	 * @param array $custom_classes
 	 */
 	return apply_filters( 'wp_idea_stream_body_class', $classes, $ideastream_classes, $wp_classes, $custom_classes );
+}
+
+/**
+ * Adds a 'type-page' class as the page template is the the most commonly targetted
+ * as the root template.
+ *
+ * NB: TwentySixteen needs this to display the content on full available width
+ *
+ * @since  2.2.1
+ *
+ * @param  $wp_classes
+ * @param  $theme_class
+ * @return array Ideastream Post Classes
+ */
+function wp_idea_stream_post_class( $wp_classes, $theme_class ) {
+	if ( wp_idea_stream_is_ideastream() ) {
+		$classes = array_unique( array_merge( array( 'type-page' ), (array) $wp_classes ) );
+	} else {
+		$classes = $wp_classes;
+	}
+
+	return apply_filters( 'wp_idea_stream_body_class', $classes, $wp_classes, $theme_class );
 }
 
 /**
