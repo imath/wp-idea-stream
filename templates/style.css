@@ -289,9 +289,10 @@ span.wp-idea-stream-group:before {
 }
 
 #wp-idea-stream ul.idea-list li a.idea-group img.avatar {
-	float:none;
+	float: none;
 	margin: 0 5px 0 0;
-	vertical-align: bottom;
+	vertical-align: middle;
+	display: inline;
 }
 
 #wp-idea-stream ul.idea-list .idea-content,
@@ -353,6 +354,10 @@ body.single-ideas #wp-idea-stream div.idea-header {
 	font-size: 13px;
 	border: none;
 	box-shadow: none;
+}
+
+#buddypress #wp-idea-stream h1.idea-title {
+	margin: 1em 0;
 }
 
 
@@ -651,6 +656,7 @@ a.wpis-title-button {
 	font-weight: normal;
 	margin: 5px 0 0 0;
 }
+#buddypress #wp-idea-stream .standard-form input[type='text'],
 #wp-idea-stream .standard-form input[type=text] {
 	width: 90%;
 }
