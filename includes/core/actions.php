@@ -84,6 +84,10 @@ add_action( 'login_form_rp',                    'wp_idea_stream_user_setpassword
 // Admin Menu Bar
 add_action( 'admin_bar_menu', 'wp_idea_stream_adminbar_menu', 999 );
 
+// Embed Meta
+add_action( 'embed_content_meta', 'wp_idea_stream_ideas_embed_meta',  9 );
+add_action( 'embed_head',         'wp_idea_stream_ideas_embed_style', 20 );
+
 /**
  * Fire the 'wp_idea_stream_init' action.
  *

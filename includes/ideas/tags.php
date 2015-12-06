@@ -1922,3 +1922,77 @@ function wp_idea_stream_buddydrive_button() {
 	}
 }
 add_action( 'wp_idea_stream_media_buttons', 'wp_idea_stream_buddydrive_button' );
+
+/**
+ * Add inline style for the Embed Rating
+ *
+ * @since  2.2.1
+ *
+ * @return string style output
+ */
+function wp_idea_stream_ideas_embed_style() {
+	// Bail if not an idea
+	if ( wp_idea_stream_get_post_type() !== get_query_var( 'post_type' ) ) {
+		return;
+	}
+	?>
+	<style type="text/css">
+		.wp-idea-stream-embed-ratings {
+			display: inline;
+			margin-right: 10px;
+		}
+
+		.wp-idea-stream-embed-ratings a {
+			line-height: 25px;
+			display: inline-block;
+		}
+
+		.wp-idea-stream-embed-ratings .ideastream-star-filled {
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20d%3D%22M10%201l3%206%206%200.75-4.12%204.62%201.12%206.63-6-3-6%203%201.13-6.63-4.13-4.62%206-0.75z%22%20fill%3D%22%2382878c%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+			top: 2px;
+		}
+
+		.wp-idea-stream-embed-ratings a:hover .ideastream-star-filled {
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20d%3D%22M10%201l3%206%206%200.75-4.12%204.62%201.12%206.63-6-3-6%203%201.13-6.63-4.13-4.62%206-0.75z%22%20fill%3D%22%230073aa%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+		}
+	</style>
+	<?php
+}
+
+/**
+ * Output the Idea Ratings if needed into the Embedded idea
+ *
+ * @since  2.2.1
+ *
+ * @return string HTML output
+ */
+function wp_idea_stream_ideas_embed_meta() {
+	$idea = get_post();
+
+	if ( ! isset( $idea->post_type ) || wp_idea_stream_get_post_type() !== $idea->post_type ) {
+		return;
+	}
+
+	// Get the Average Rate
+	$average_rate = wp_idea_stream_ideas_get_average_rating( $idea->ID );
+
+	if ( ! $average_rate ) {
+		return;
+	}
+
+	// Get rating link
+	$rating_link = wp_idea_stream_ideas_get_idea_permalink( $idea ) . '#rate';
+	?>
+	<div class="wp-idea-stream-embed-ratings">
+		<a href="<?php echo esc_url( $rating_link ); ?>" target="_top">
+			<span class="dashicons ideastream-star-filled"></span>
+			<?php printf(
+				esc_html__( '%1$sAverage Rating:%2$s%3$s', 'wp-idea-stream' ),
+				'<span class="screen-reader-text">',
+				'</span>',
+				$average_rate
+			); ?>
+		</a>
+	</div>
+	<?php
+}
