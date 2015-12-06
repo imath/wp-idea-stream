@@ -219,7 +219,6 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		}
 	}
 
-
 	/** Ideas by category *********************************************************/
 
 	$category = $posts_query->get( wp_idea_stream_get_category() );
@@ -231,7 +230,6 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		// Define the current category
 		wp_idea_stream_set_idea_var( 'is_category', $category );
 	}
-
 
 	/** Ideas by tag **************************************************************/
 
@@ -301,17 +299,17 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		wp_idea_stream_set_idea_var( 'is_idea_archive', true );
 	}
 
-	// Reset the pagination
-	if ( -1 !== $posts_query->get( 'p' ) ) {
-		$posts_query->set( 'posts_per_page', wp_idea_stream_ideas_per_page() );
-	}
-
 	/**
 	 * Finally if post_type is ideas, then we're in IdeaStream's
 	 * territory so set this
 	 */
-	if ( $idea_post_type == $posts_query->get( 'post_type' ) ) {
+	if ( $idea_post_type === $posts_query->get( 'post_type' ) ) {
 		wp_idea_stream_set_idea_var( 'is_ideastream', true );
+
+		// Reset the pagination
+		if ( -1 !== $posts_query->get( 'p' ) ) {
+			$posts_query->set( 'posts_per_page', wp_idea_stream_ideas_per_page() );
+		}
 	}
 }
 
