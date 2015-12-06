@@ -1932,7 +1932,7 @@ add_action( 'wp_idea_stream_media_buttons', 'wp_idea_stream_buddydrive_button' )
  */
 function wp_idea_stream_ideas_embed_style() {
 	// Bail if not an idea
-	if ( wp_idea_stream_get_post_type() !== get_query_var( 'post_type' ) ) {
+	if ( wp_idea_stream_get_post_type() !== get_query_var( 'post_type' ) || wp_idea_stream_is_rating_disabled() ) {
 		return;
 	}
 	?>
@@ -1969,7 +1969,7 @@ function wp_idea_stream_ideas_embed_style() {
 function wp_idea_stream_ideas_embed_meta() {
 	$idea = get_post();
 
-	if ( ! isset( $idea->post_type ) || wp_idea_stream_get_post_type() !== $idea->post_type ) {
+	if ( ! isset( $idea->post_type ) || wp_idea_stream_get_post_type() !== $idea->post_type || wp_idea_stream_is_rating_disabled() ) {
 		return;
 	}
 
