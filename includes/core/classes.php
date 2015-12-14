@@ -153,8 +153,9 @@ class WP_Idea_Stream_Rewrites {
 		$priority  = 'top';
 		$root_rule = '/([^/]+)/?$';
 
-		$page_slug = wp_idea_stream_paged_slug();
-		$paged_rule   = '/([^/]+)/' . $page_slug . '/?([0-9]{1,})/?$';
+		$page_slug  = wp_idea_stream_paged_slug();
+		$paged_rule = '/([^/]+)/' . $page_slug . '/?([0-9]{1,})/?$';
+		$embed_rule = '/([^/]+)/embed/?$';
 
 		// User Rates
 		$user_rates_rule       = '/([^/]+)/' . $this->user_rates_slug . '/?$';
@@ -166,10 +167,11 @@ class WP_Idea_Stream_Rewrites {
 
 		// User rules
 		add_rewrite_rule( $this->user_slug . $user_comments_paged_rule, 'index.php?' . $this->user_rid . '=$matches[1]&' . $this->user_comments_rid . '=1&' . $this->cpage_rid . '=$matches[2]', $priority );
-		add_rewrite_rule( $this->user_slug . $user_comments_rule,       'index.php?' . $this->user_rid . '=$matches[1]&' . $this->user_comments_rid . '=1',                                                $priority );
-		add_rewrite_rule( $this->user_slug . $user_rates_paged_rule,    'index.php?' . $this->user_rid . '=$matches[1]&' . $this->user_rates_rid .    '=1&' . $this->page_rid . '=$matches[2]',                  $priority );
-		add_rewrite_rule( $this->user_slug . $user_rates_rule,          'index.php?' . $this->user_rid . '=$matches[1]&' . $this->user_rates_rid .    '=1',                                                $priority );
-		add_rewrite_rule( $this->user_slug . $root_rule,                'index.php?' . $this->user_rid . '=$matches[1]',                                                                            $priority );
+		add_rewrite_rule( $this->user_slug . $user_comments_rule,       'index.php?' . $this->user_rid . '=$matches[1]&' . $this->user_comments_rid . '=1',                                      $priority );
+		add_rewrite_rule( $this->user_slug . $user_rates_paged_rule,    'index.php?' . $this->user_rid . '=$matches[1]&' . $this->user_rates_rid .    '=1&' . $this->page_rid . '=$matches[2]',  $priority );
+		add_rewrite_rule( $this->user_slug . $user_rates_rule,          'index.php?' . $this->user_rid . '=$matches[1]&' . $this->user_rates_rid .    '=1',                                      $priority );
+		add_rewrite_rule( $this->user_slug . $embed_rule,               'index.php?' . $this->user_rid . '=$matches[1]&embed=true',                                                              $priority );
+		add_rewrite_rule( $this->user_slug . $root_rule,                'index.php?' . $this->user_rid . '=$matches[1]',                                                                         $priority );
 
 		// Action rules (only add a new idea right now)
 		add_rewrite_rule( $this->action_slug . $root_rule, 'index.php?' . $this->action_rid . '=$matches[1]', $priority );
@@ -412,14 +414,16 @@ class WP_Idea_Stream_Template_Loader {
 	 * @subpackage core/classes
 	 *
 	 * @since 2.0.0
+	 * @since 2.3.0 Added the $css parameter to eventually get any stylesheet and
+	 *              not only the style.css one.
 	 *
 	 * @uses   wp_idea_stream_get_plugin_dir() to get plugin's dir
 	 * @uses   content_url() to get WP Content url
 	 * @uses   wp_idea_stream_get_plugin_url() to get plugin's url
 	 * @return string
 	 */
-	public function get_stylesheet() {
-		$styles = $this->get_template_file_names( 'style', null, 'css' );
+	public function get_stylesheet( $css = 'style' ) {
+		$styles = $this->get_template_file_names( $css, null, 'css' );
 
 		$located = $this->locate_template( $styles );
 

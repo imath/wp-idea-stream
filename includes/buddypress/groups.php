@@ -898,6 +898,10 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		add_action( 'groups_ban_member',                           array( $this, 'user_removed_from_group' ), 10, 2 );
 		add_action( 'groups_remove_member',                        array( $this, 'user_removed_from_group' ), 10, 2 );
 		add_action( 'groups_leave_group',                          array( $this, 'user_removed_from_group' ), 10, 2 );
+
+		/** Ideas Featured images *****************************************************/
+
+		add_action( 'wp_idea_stream_idea_entry_before_header', array( $this, 'featured_image' ) );
 	}
 
 	/**
@@ -3703,6 +3707,33 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 			do_action( 'wp_idea_stream_buddypress_user_removed_from_group', $user_id, $ideas, $group_id );
 		}
 	}
+
+	/** Ideas Featured images *****************************************************/
+
+	/**
+	 * Display the Featured image for the current idea
+	 *
+	 * @since  2.3.0
+	 *
+	 * @return string HTML Output
+	 */
+	public function featured_image() {
+		if ( ! wp_idea_stream_featured_images_allowed() || ! current_theme_supports( 'post-thumbnails' ) || ! bp_is_group() || ! wp_idea_stream_is_single_idea() ) {
+			return;
+		}
+
+		$args = bp_parse_args( array(), array(
+			'size'            => 'post-thumbnail',
+			'attr'            => '',                // WordPress attributes
+			'container_class' => 'post-thumbnail',
+		), 'wp_idea_stream_featured_image' );
+
+		?>
+		<div class="<?php echo sanitize_html_class( $args['container_class'] ); ?>">
+			<?php echo get_the_post_thumbnail( wp_idea_stream_ideas_get_id(), $args['size'], $args['attr'] ); ?>
+		</div><!-- .post-thumbnail -->
+		<?php
+	}
 }
 
 endif;
@@ -3730,26 +3761,6 @@ add_action( 'bp_init', 'wp_idea_stream_register_group_extension' );
  * scope.
  */
 add_filter( 'wp_idea_stream_buddypress_get_activity_actions', array( 'WP_Idea_Stream_Group', 'group_activity_context' ), 10, 1 );
-
-
-/**
- * Add oembed support to ideas in groups.
- *
- * @package WP Idea Stream
- * @subpackage buddypress/groups
- *
- * @since 2.2.0
- * @uses BP_Embed
- */
-function wp_idea_stream_group_oembed( $bp_oembed_class = null ) {
-	if ( ! bp_is_group() ) {
-		return;
-	}
-
-	add_filter( 'wp_idea_stream_ideas_get_content', array( &$bp_oembed_class, 'autoembed' ), 8 );
-	add_filter( 'wp_idea_stream_ideas_get_content', array( &$bp_oembed_class, 'run_shortcode' ), 7 );
-}
-add_action( 'bp_core_setup_oembed', 'wp_idea_stream_group_oembed', 10, 1 );
 
 /** Groups Suggestions Class **********************************************************/
 

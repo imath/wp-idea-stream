@@ -4,7 +4,7 @@ Donate link: http://imathi.eu/donations/
 Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
 Requires at least: 4.4
 Tested up to: 4.4
-Stable tag: 2.2.0
+Stable tag: 2.3.0
 License: GNU/GPL 2
 
 Share ideas, great ones will rise to the top!
@@ -32,8 +32,8 @@ Since 2.2.0, if you are using the BuddyPress (2.3+) and BuddyDrive (1.3+) plugin
 = I'm not using BuddyPress, will it work without it ? =
 Of course! But try BuddyPress, it's awesome :)
 
-= I'm not using WordPress 4.3, is this plugin compatible with an older version ? =
-Since 2.2.0, plugin is requiring 4.3. You can use allways check the [different versions](http://wordpress.org/plugins/wp-idea-stream/developers/ "Other version") to find the one that best matches your config.
+= I'm not using WordPress 4.4, is this plugin compatible with an older version ? =
+Since 2.3.0, plugin is requiring 4.4. You can use allways check the [different versions](http://wordpress.org/plugins/wp-idea-stream/developers/ "Other version") to find the one that best matches your config.
 
 = If you have any other questions =
 
@@ -48,6 +48,17 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 5. Ideas archive page
 
 == Changelog ==
+
+= 2.3.0 =
+* Users profiles embeds.
+* Featured images for ideas.
+* Various embed improvements.
+* In users profiles, the issue with the title of commented private ideas is now fixed.
+* In users profiles, user rates are now consistent meaning only ideas the displayed user rated will be displayed.
+* WP Idea Stream style has been optimized for the TwentySixteen theme.
+* Spammed users on multisite configs or configs where BuddyPress is activated, will not be displayed anymore. Unless you unspam them :)
+* More links on archive pages are now using the link of the idea.
+* The Ideas pagination is now completely independant of the Posts one.
 
 = 2.2.0 =
 * BuddyDrive integration: users can now attach files to their ideas.
@@ -126,6 +137,10 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 * Plugin birth..
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+
+Please be sure to use at least WordPress 4.4. If you are using BuddyPress, required version is 2.4. Back up your database and files.
 
 = 2.2.0 =
 

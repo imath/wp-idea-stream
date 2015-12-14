@@ -137,12 +137,58 @@
 
     } );
 
-	if ( typeof wp_idea_stream_vars.profile_editing != 'undefined' ) {
-		$( '#wp_idea_stream_profile_description' ).show();
-		$( 'textarea[name="wp_idea_stream_profile[description]"]').hide();
+	if ( typeof wp_idea_stream_vars.is_profile !== 'undefined' ) {
 
-		$( '#wp_idea_stream_profile_form' ).on( 'submit', function(event) {
-			$( 'textarea[name="wp_idea_stream_profile[description]"]').val( $( '#wp_idea_stream_profile_description' ).html() );
+		// Specific to IdeaStream User profile
+		if ( typeof wp_idea_stream_vars.profile_editing !== 'undefined' ) {
+			$( '#wp_idea_stream_profile_description' ).show();
+			$( 'textarea[name="wp_idea_stream_profile[description]"]').hide();
+
+			$( '#wp_idea_stream_profile_form' ).on( 'submit', function(event) {
+				$( 'textarea[name="wp_idea_stream_profile[description]"]').val( $( '#wp_idea_stream_profile_description' ).html() );
+			} );
+
+			$( '#wp_idea_stream_profile_form input[type="submit"]' ).before( $( '.wp-embed-share' ).html() );
+			$( '.wp-embed-share' ).remove();
+		}
+
+		// Common to BuddyPress and IdeaStream User profile
+		var bp_reset_height = $( '#item-header-content' ).innerHeight() || 0;
+
+		$( '.wp-embed-share-input' ).on( 'click', function ( e ) {
+			e.target.select();
+		} );
+
+		$( '.wp-embed-share-dialog-open' ).on( 'click', function () {
+			$( '#item-header-content' ).css( {
+				'width'  : '600px',
+				'height' : '200px'
+			} );
+
+			$( '.wp-embed-share-dialog' ).removeClass( 'hidden' );
+			$( '.wp-embed-share-tab-button [aria-selected="true"]' ).focus();
+		} );
+
+		$( '.wp-embed-share-dialog-close' ).on( 'click', function () {
+			$( '.wp-embed-share-dialog' ).addClass( 'hidden' );
+			$( '.wp-embed-share-dialog-open' ).focus();
+
+			$( '#item-header-content' ).css( {
+				'width'  : 'auto',
+				'height' : bp_reset_height + 'px'
+			} );
+		} );
+
+		$( '.wp-embed-share-tab-button button' ).on( 'click', function( e ) {
+			var control = $( e.target ).attr( 'aria-controls' );
+
+			$( '.wp-embed-share-tab' ).each( function( t, tab ) {
+				if ( control === $( tab ).prop( 'id' ) ) {
+					$( tab ).attr( 'aria-hidden', 'false' );
+				} else {
+					$( tab ).attr( 'aria-hidden', 'true' );
+				}
+			} );
 		} );
 	}
 

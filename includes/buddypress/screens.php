@@ -143,6 +143,15 @@ class WP_Idea_Stream_Screens {
 		}
 
 		/**
+		 * Hook here to perform custom action before the IdeaStream single members parts
+		 * are loaded
+		 *
+		 * @since  2.3.0
+		 * @param  string $screen
+		 */
+		do_action( 'wp_idea_stream_buddypress_load_member_template', $screen );
+
+		/**
 		 * Filter here to use your own template.
 		 *
 		 * @param  string $template the template to use

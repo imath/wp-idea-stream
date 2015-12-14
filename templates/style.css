@@ -519,6 +519,90 @@ a.wpis-title-button {
 	border:none;
 }
 
+#wp-idea-stream .profile-header .wp-embed-share-dialog .dashicons-no:before,
+body.ideastream.bp-user .wp-embed-share-dialog .dashicons-no:before {
+	display: none;
+}
+
+#wp-idea-stream .profile-header .wp-embed-share .wp-embed-share-dialog-open:hover,
+#wp-idea-stream .profile-header .wp-embed-share .wp-embed-share-dialog-open:focus,
+#wp-idea-stream .profile-header .wp-embed-share-dialog-close:hover {
+	background: none;
+}
+
+#wp-idea-stream .profile-header .wp-embed-share-dialog-close:hover {
+	border: none;
+}
+
+#wp-idea-stream .profile-header .wp-embed-share,
+body.ideastream.bp-user .wp-embed-share {
+ 	margin: 9px 10px 0 0;
+ 	display: block;
+ 	float: left;
+}
+
+#wp-idea-stream .profile-header .wp-embed-share,
+#wp-idea-stream .profile-header form .wp-embed-share-dialog-open {
+	float: right;
+}
+
+#wp-idea-stream .profile-header form .wp-embed-share-dialog-open {
+	margin: 5px 0 0 10px;
+	height: auto;
+	width: auto;
+}
+
+body.ideastream.bp-user .wp-embed-share .wp-embed-share-dialog-open {
+	border-radius: 0;
+	margin: 0;
+}
+
+#wp-idea-stream .profile-header .wp-embed-share-dialog-open .dashicons,
+body.ideastream.bp-user .wp-embed-share-dialog-open .dashicons {
+	top: 0px;
+	padding: 0px;
+	font-size: inherit;
+	width: auto;
+	height: auto;
+	vertical-align: middle;
+}
+
+#wp-idea-stream .profile-header .wp-embed-share-dialog-open:focus .dashicons,
+#wp-idea-stream .profile-header .wp-embed-share-dialog-close:focus .dashicons,
+body.ideastream.bp-user .wp-embed-share-dialog-open:focus .dashicons,
+body.ideastream.bp-user .wp-embed-share-dialog-close:focus .dashicons {
+	box-shadow: none;
+}
+
+#wp-idea-stream .profile-header .wp-embed-share-dialog-close,
+body.ideastream.bp-user #buddypress button.wp-embed-share-dialog-close {
+	border: none;
+	background: none;
+}
+
+
+#wp-idea-stream .profile-header .wp-embed-share-dialog-open .dashicons-share,
+body.ideastream.bp-user .wp-embed-share-dialog-open .dashicons-share {
+	background-image: none;
+}
+
+#wp-idea-stream .profile-header,
+body.ideastream.bp-user #item-header-content {
+	position: relative;
+}
+
+body.ideastream.bp-user #item-body h3:empty {
+	display: none;
+}
+
+#buddypress div#item-header ul.wp-embed-share-tabs li {
+	float: none;
+}
+
+body.ideastream .wp-embed-share-dialog {
+	z-index: 3;
+}
+
 /*--------------------------------------------------------------
 8 - Forms
 --------------------------------------------------------------*/
@@ -775,6 +859,38 @@ body.single-item.groups #buddypress #wp-idea-stream #buddydrive-btn {
 	float:none;
 	margin:1em 0;
 	display:inline-block;
+}
+
+#wp-idea-stream .standard-form #idea-images-list.hidden {
+	display: none;
+}
+
+#wp-idea-stream .standard-form #idea-images-list ul {
+	overflow: hidden;
+	list-style: none;
+	clear:both;
+}
+
+#wp-idea-stream .standard-form #idea-images-list ul li {
+	position:relative;
+	overflow: hidden;
+	float: left;
+	width: 100px;
+	margin: 0 1em 1em 0;
+	height: 100px;
+	border: solid 1px #ccc;
+}
+
+#wp-idea-stream .standard-form #idea-images-list ul li img {
+	max-width: 100%;
+}
+
+#wp-idea-stream .standard-form #idea-images-list ul li .cb-container {
+	position: absolute;
+	bottom: 0;
+	background-color: #fff;
+	width: 100%;
+	text-align: center;
 }
 
 /*--------------------------------------------------------------

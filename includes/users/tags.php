@@ -81,6 +81,79 @@ function wp_idea_stream_users_the_user_nav() {
 	}
 
 /**
+ * Outputs user's embed profile stats
+ *
+ * @since 2.3.0
+ *
+ * @uses wp_idea_stream_users_get_user_nav() to get the nav
+ */
+function wp_idea_stream_users_embed_user_stats() {
+	echo wp_idea_stream_users_get_embed_user_stats();
+}
+
+	/**
+	 * Gets user's embed profile stats
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return string HTML Output
+	 */
+	function wp_idea_stream_users_get_embed_user_stats() {
+		// Get displayed user id.
+		$user_id = wp_idea_stream_users_displayed_user_id();
+
+		// If not set, we're not on a user's profile.
+		if ( empty( $user_id ) ) {
+			return;
+		}
+
+		// Get username.
+		$username = wp_idea_stream_users_get_displayed_user_username();
+
+		/**
+		 * Get nav items for the user displayed to build the user stats.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array $value the nav items that will be used for the embed stats
+		 */
+		$nav_items = apply_filters( 'wp_idea_stream_users_get_embed_user_stats', wp_idea_stream_users_get_profile_nav_items( $user_id, $username, true ) );
+
+		if ( empty( $nav_items ) ) {
+			return;
+		}
+
+		$user_stats = '<ul class="user-stats">';
+
+		foreach ( $nav_items as $key_nav => $nav_item ) {
+			$user_stats .= '<li class=' . sanitize_html_class( $key_nav ) . '>';
+			$stat_title  = sprintf( _x( '%s ideas', 'embed profile type of stat', 'wp-idea-stream' ), $nav_item['title'] );
+			$dashicon    = 'ideastream-' . esc_attr( $key_nav );
+
+			if ( 'comments' === $key_nav ) {
+				$dashicon = 'dashicons-admin-comments';
+			}
+
+			$user_stats .= '<div class="stat-label"><a href="' . esc_url( $nav_item['url'] ) . '" title="' . esc_attr( $stat_title ) . '"><span class="dashicons ' . $dashicon . '"></span><span class="screen-reader-text">' . esc_html( $stat_title ) . '</span></a></div>';
+			$user_stats .= '<div class="stat-value"><a href="' . esc_url( $nav_item['url'] ) . '" title="' . esc_attr( $stat_title ) . '">' . wp_idea_stream_users_get_stat_for( $key_nav, $user_id ) . '</a></span>';
+			$user_stats .= '</li>';
+		}
+
+		$user_stats .= '</ul>';
+
+		/**
+		 * Filter the embed stats output
+		 *
+		 * @since  2.3.0
+		 *
+		 * @param string $user_stats    User stats output
+		 * @param int    $user_id       the user ID
+		 * @param string $user_nicename the username
+		 */
+		return apply_filters( 'wp_idea_stream_users_get_embed_user_stats_output', $user_stats, $user_id, $username );
+	}
+
+/**
  * Outputs user's profile avatar
  *
  * @package WP Idea Stream
@@ -108,6 +181,68 @@ function wp_idea_stream_users_the_user_profile_avatar() {
 	 */
 	function wp_idea_stream_users_get_user_profile_avatar() {
 		return apply_filters( 'wp_idea_stream_users_get_user_profile_avatar', get_avatar( wp_idea_stream_users_displayed_user_id(), '150' ) );
+	}
+
+
+/**
+ * Outputs user's embed profile avatar
+ *
+ * @since 2.3.0
+ *
+ * @uses wp_idea_stream_users_get_embed_user_profile_avatar() to get the avatar
+ */
+function wp_idea_stream_users_embed_user_profile_avatar() {
+	echo wp_idea_stream_users_get_embed_user_profile_avatar();
+}
+
+	/**
+	 * Gets user's embed profile avatar
+	 *
+	 * @since 2.3.0
+	 */
+	function wp_idea_stream_users_get_embed_user_profile_avatar() {
+		return apply_filters( 'wp_idea_stream_users_get_embed_user_profile_avatar', get_avatar( wp_idea_stream_users_displayed_user_id(), '50' ) );
+	}
+
+/**
+ * Outputs user's embed profile display name
+ *
+ * @since 2.3.0
+ *
+ * @uses wp_idea_stream_users_get_embed_user_profile_display_name() to get the display name
+ */
+function wp_idea_stream_users_embed_user_profile_display_name() {
+	echo wp_idea_stream_users_get_embed_user_profile_display_name();
+}
+
+	/**
+	 * Gets user's embed profile display name
+	 *
+	 * @since 2.3.0
+	 */
+	function wp_idea_stream_users_get_embed_user_profile_display_name() {
+		return esc_html( apply_filters( 'wp_idea_stream_users_get_embed_user_profile_display_name', wp_idea_stream_users_get_displayed_user_displayname() ) );
+	}
+
+/**
+ * Outputs user's embed profile link
+ *
+ * @since 2.3.0
+ *
+ * @uses wp_idea_stream_users_get_embed_user_profile_link() to get the link
+ */
+function wp_idea_stream_users_embed_user_profile_link() {
+	echo esc_url( wp_idea_stream_users_get_embed_user_profile_link() );
+}
+
+	/**
+	 * Gets user's embed profile link
+	 *
+	 * @since 2.3.0
+	 */
+	function wp_idea_stream_users_get_embed_user_profile_link() {
+		$link = wp_idea_stream_users_get_user_profile_url( wp_idea_stream_users_displayed_user_id(), wp_idea_stream_users_get_displayed_user_username() );
+		return apply_filters( 'wp_idea_stream_users_get_embed_user_profile_display_name', $link );
 	}
 
 /**
@@ -200,6 +335,50 @@ function wp_idea_stream_users_the_user_profile_description() {
 		$output .= '</div>';
 
 		return $output;
+	}
+
+/**
+ * Does the user's embed profile has a description ?
+ *
+ * @since 2.3.0
+ *
+ * @return bool True if the embed profile has a description, False otherwise.
+ */
+function wp_idea_stream_users_has_embed_description() {
+	return (bool) wp_idea_stream_users_get_displayed_user_description();
+}
+
+/**
+ * Outputs user's embed profile description
+ *
+ * @since 2.3.0
+ *
+ * @uses wp_idea_stream_users_get_embed_user_profile_description() to get the description
+ */
+function wp_idea_stream_users_embed_user_profile_description() {
+	echo wp_idea_stream_users_get_embed_user_profile_description();
+}
+
+	/**
+	 * Get the user's embed profile description
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return string HTML Output
+	 */
+	function wp_idea_stream_users_get_embed_user_profile_description() {
+		$description = wp_idea_stream_users_get_displayed_user_description();
+
+		if ( ! empty( $description ) ) {
+			$more = ' &hellip; ' . sprintf( '<a href="%1$s" class="wp-embed-more" target="_top">%2$s</a>',
+				esc_url( wp_idea_stream_users_get_embed_user_profile_link() ),
+				sprintf( esc_html__( "View %s full profile", 'wp-idea-stream' ), '<span class="screen-reader-text">' . sprintf( _x( '%s&#39;s', 'Screen reader text for embed user display name for the more link', 'wp-idea-stream' ), wp_idea_stream_users_get_embed_user_profile_display_name() ) . '</span>' )
+			);
+
+			$description = wp_idea_stream_create_excerpt( $description, 20, $more, true );
+		}
+
+		return apply_filters( 'wp_idea_stream_users_get_embed_user_profile_description', $description );
 	}
 
 /**
@@ -323,3 +502,93 @@ function wp_idea_stream_users_the_signup_submit() {
 	<input type="submit" value="<?php esc_attr_e( 'Sign-up', 'wp-idea-stream' ) ;?>" name="wp_idea_stream_signup[signup]"/>
 	<?php
 }
+
+/**
+ * Displays the Sharing button inside a user's profile
+ *
+ * So that WordPress can build the sharing dialog and embed codes
+ * we need to temporarly set the Utility page as the current post
+ * for the displayed user's profile.
+ * Then, we intercept the permalink and the title of the utility page
+ * using filters and we override them with the ones of the displayed
+ * user profile. Tada!
+ *
+ * @since 2.3.0
+ *
+ * @global WP_Post $post
+ * @return bool False in case the Embed profile is disabled
+ */
+function wp_idea_stream_users_embed_content_meta() {
+	global $post;
+
+	$reset_post = get_post( wp_idea_stream_is_embed_profile() );
+
+	if ( ( ! empty( $post->ID ) && ! empty( $reset_post->ID ) && (int) $post->ID === (int) $reset_post->ID ) || empty( $reset_post->ID ) ) {
+		return false;
+	}
+
+	if ( ! empty( $reset_post->ID ) ) {
+		// Globalize the post
+		wp_idea_stream_set_idea_var( 'embed_reset_post', $post );
+
+		// Reset it to our utility page
+		$post = $reset_post;
+
+		// Globalize the user
+		wp_idea_stream_set_idea_var( 'embed_user_data', wp_idea_stream_users_get_user_data( 'id', wp_idea_stream_users_displayed_user_id() ) );
+
+		// Make sure the post link will be the one of the user's displayed profile
+		add_filter( 'post_type_link', 'wp_idea_stream_users_oembed_link',  10, 2 );
+		add_filter( 'the_title',      'wp_idea_stream_users_oembed_title', 10, 2 );
+
+		add_action( 'embed_footer', 'wp_idea_stream_users_embed_content_reset_post', 40 );
+
+		// Add WordPress Sharing Button
+		print_embed_sharing_button();
+	}
+}
+
+/**
+ * Make sure to play nice with WordPress by resetting the post global the way it was
+ * before overriding it with our utility page.
+ *
+ * @since 2.3.0
+ *
+ * @global WP_Post $post
+ */
+function wp_idea_stream_users_embed_content_reset_post() {
+	global $post;
+
+	// Reset post the way it was.
+	$post = wp_idea_stream_get_idea_var( 'embed_reset_post' );
+
+	// Reset the embed user & post
+	wp_idea_stream_set_idea_var( 'embed_user_data', null );
+	wp_idea_stream_set_idea_var( 'embed_reset_post', null );
+
+	// Stop filtering...
+	remove_filter( 'post_type_link', 'wp_idea_stream_users_oembed_link',  10, 2 );
+	remove_filter( 'the_title',      'wp_idea_stream_users_oembed_title', 10, 2 );
+}
+
+/**
+ * Displays the sharing dialog box on user's profile so
+ * that people can easily get the embed code.
+ *
+ * @since 2.3.0
+ */
+function wp_idea_stream_users_sharing_button() {
+	// No need to carry on.
+	if ( ! wp_idea_stream_is_embed_profile() ) {
+		return;
+	}
+
+	wp_idea_stream_users_embed_content_meta();
+
+	// Print the sharing dialog
+	print_embed_sharing_dialog();
+
+	// Reset the post
+	wp_idea_stream_users_embed_content_reset_post();
+}
+add_action( 'wp_idea_stream_user_profile_after_description', 'wp_idea_stream_users_sharing_button', 10 );

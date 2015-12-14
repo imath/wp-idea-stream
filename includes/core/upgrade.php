@@ -77,9 +77,13 @@ function wp_idea_stream_upgrade() {
 
 			wp_idea_stream_add_options();
 
-		} elseif ( version_compare( $db_version, '2.2.1', '<' ) ) {
-			wp_idea_stream_upgrade_to_2_2_1();
+		} elseif ( version_compare( $db_version, '2.3.0', '<' ) ) {
+			wp_idea_stream_upgrade_to_2_3();
 		}
+
+	// It's a new install
+	} else {
+		wp_idea_stream_install();
 	}
 
 	update_option( '_ideastream_version', wp_idea_stream_get_version() );
@@ -174,15 +178,54 @@ function wp_idea_stream_merge_legacy_options( $default_options = array() ) {
 }
 
 /**
+ * First install routine
+ *
+ * @since 2.3.0
+ */
+function wp_idea_stream_install() {
+	/**
+	 * Filter here if you need to init options in DB
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param array $value list of options to init on install
+	 */
+	$init_options = apply_filters( 'wp_idea_stream_install_init_options', array( '_ideastream_embed_profile' => 1 )  );
+
+	foreach ( $init_options as $key => $value ) {
+		add_option( $key, $value );
+	}
+
+	/**
+	 * Hook here if you need to perform actions when plugin
+	 * is installed for the first time
+	 *
+	 * @since 2.3.0
+	 */
+	do_action( 'wp_idea_stream_installed' );
+}
+
+/**
+ * Create the utility page for embed profile.
  * Loop through each rating to use non numeric keys for the list of User IDs
  *
  * See https://github.com/imath/wp-idea-stream/issues/35
  *
- * @since 2.2.1
+ * @since 2.3.0
  */
-function wp_idea_stream_upgrade_to_2_2_1() {
+function wp_idea_stream_upgrade_to_2_3() {
 	global $wpdb;
 
+	// First create the utility page
+	add_option( '_ideastream_embed_profile', 1 );
+
+	/**
+	 * Then init featured images setting, if image editor
+	 * is disabled, it will also disable featured images
+	 */
+	add_option( '_ideastream_featured_images', 1 );
+
+	// Then fix the user votes
 	$rates = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_ideastream_rates'" );
 
 	// No upgrade needed.
@@ -199,7 +242,7 @@ function wp_idea_stream_upgrade_to_2_2_1() {
 
 			// Rebuild the user ids so that non numeric keys are used
 			foreach ( $users['user_ids'] as $user_id ) {
-				$new_user_ids['user-' . $user_id] = $user_id;
+				$new_user_ids['u-' . $user_id] = $user_id;
 			}
 
 			$meta[ $vote ]['user_ids'] = $new_user_ids;

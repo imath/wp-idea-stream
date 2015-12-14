@@ -11,7 +11,7 @@ Configuration needed
 --------------------
 
 + WordPress 4.4
-+ Loves BuddyPress 2.3 & BuddyDrive 1.3
++ Loves BuddyPress 2.4 & BuddyDrive 1.3+
 
 Installation
 ------------

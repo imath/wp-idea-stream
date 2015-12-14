@@ -94,11 +94,11 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 	// Ideas post type for a later use
 	$idea_post_type = wp_idea_stream_get_post_type();
 
-
 	/** User's profile ************************************************************/
 
 	// Are we requesting the user-profile template ?
-	$user = $posts_query->get( wp_idea_stream_user_rewrite_id() );
+	$user       = $posts_query->get( wp_idea_stream_user_rewrite_id() );
+	$embed_page = wp_idea_stream_is_embed_profile();
 
 	if ( ! empty( $user ) ) {
 
@@ -111,8 +111,15 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		}
 
 		// No user id: no profile!
-		if ( empty( $user->ID ) ) {
+		if ( empty( $user->ID ) || true === apply_filters( 'wp_idea_stream_users_is_spammy', is_multisite() && is_user_spammy( $user ), $user ) ) {
 			$posts_query->set_404();
+
+			// Make sure the WordPress Embed Template will be used
+			if ( ( 'true' === get_query_var( 'embed' ) || true === get_query_var( 'embed' ) ) ) {
+				$posts_query->is_embed = true;
+				$posts_query->set( 'p', -1 );
+			}
+
 			return;
 		}
 
@@ -152,6 +159,18 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			$posts_query->set( 'p', -1 );
 
 		} else {
+			if ( ( 'true' === get_query_var( 'embed' ) || true === get_query_var( 'embed' ) ) ) {
+				$posts_query->is_embed = true;
+				$posts_query->set( 'p', -1 );
+
+				if ( $embed_page ) {
+					wp_idea_stream_set_idea_var( 'is_user_embed', true );
+				} else {
+					$posts_query->set_404();
+					return;
+				}
+			}
+
 			// Default to the ideas the user submitted
 			$posts_query->set( 'author', $user->ID  );
 		}
@@ -329,6 +348,32 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 function wp_idea_stream_enqueue_style() {
 	$style_deps = apply_filters( 'wp_idea_stream_style_deps', array( 'dashicons' ) );
 	wp_enqueue_style( 'wp-idea-stream-style', wp_idea_stream_get_stylesheet(), $style_deps, wp_idea_stream_get_version() );
+
+	$min = '.min';
+
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+		$min = '';
+	}
+
+	if ( wp_idea_stream_is_user_profile() && wp_idea_stream_is_embed_profile() ) {
+		wp_enqueue_style( 'wp-idea-stream-sharing-profile', includes_url( "css/wp-embed-template{$min}.css" ), array(), wp_idea_stream_get_version() );
+	}
+}
+
+/**
+ * Loads the embed stylesheet to be used inside
+ * WordPress & IdeaStream embed templates
+ *
+ * @since 2.3.0
+ */
+function wp_idea_stream_enqueue_embed_style() {
+	$min = '.min';
+
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+		$min = '';
+	}
+
+	wp_enqueue_style( 'wp-idea-stream-embed-style', wp_idea_stream_get_stylesheet( "embed-style{$min}" ), array(), wp_idea_stream_get_version() );
 }
 
 /** Conditional template tags *************************************************/
@@ -857,7 +902,7 @@ function wp_idea_stream_title( $title_array = array() ) {
 /**
  * Set the document title for IdeaStream pages
  *
- * @since  2.2.1
+ * @since  2.3.0
  *
  * @param  array  $document_title The WordPress Document title
  * @return array                  The IdeaStream Document title
@@ -991,7 +1036,7 @@ function wp_idea_stream_body_class( $wp_classes, $custom_classes = false ) {
  *
  * NB: TwentySixteen needs this to display the content on full available width
  *
- * @since  2.2.1
+ * @since  2.3.0
  *
  * @param  $wp_classes
  * @param  $theme_class
@@ -1100,4 +1145,47 @@ function wp_idea_stream_edit_post_link( $edit_link = '', $post_id = 0 ) {
 	}
 
 	return $edit_link;
+}
+
+/**
+ * Use the Embed Profile template when an Embed profile is requested
+ *
+ * @since 2.3.0
+ *
+ * @param  string $template The WordPress Embed template
+ * @return string           The appropriate template to use
+ */
+function wp_idea_stream_embed_profile( $template = '' ) {
+	if ( ! wp_idea_stream_get_idea_var( 'is_user_embed' ) || ! wp_idea_stream_get_idea_var( 'is_user' ) ) {
+		return $template;
+	}
+
+	return wp_idea_stream_get_template_part( 'embed', 'profile', false );
+}
+
+/**
+ * Adds oEmbed discovery links in the website <head> for the IdeaStream user's profile root page.
+ *
+ * @since 2.3.0
+ */
+function wp_idea_stream_oembed_add_discovery_links() {
+	if ( ! wp_idea_stream_is_user_profile_ideas() || ! wp_idea_stream_is_embed_profile() ) {
+		return;
+	}
+
+	$user_link = wp_idea_stream_users_get_user_profile_url( wp_idea_stream_users_displayed_user_id(), '', true );
+	$output = '<link rel="alternate" type="application/json+oembed" href="' . esc_url( get_oembed_endpoint_url( $user_link ) ) . '" />' . "\n";
+
+	if ( class_exists( 'SimpleXMLElement' ) ) {
+		$output .= '<link rel="alternate" type="text/xml+oembed" href="' . esc_url( get_oembed_endpoint_url( $user_link, 'xml' ) ) . '" />' . "\n";
+	}
+
+	/**
+	 * Filter the oEmbed discovery links HTML.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $output HTML of the discovery links.
+	 */
+	echo apply_filters( 'wp_idea_stream_users_oembed_add_discovery_links', $output );
 }

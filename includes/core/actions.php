@@ -18,6 +18,7 @@ add_action( 'init',                     'wp_idea_stream_init',                  
 add_action( 'parse_query',              'wp_idea_stream_parse_query',            2  );
 add_action( 'widgets_init',             'wp_idea_stream_widgets_init',           10 );
 add_action( 'wp_enqueue_scripts',       'wp_idea_stream_enqueue_scripts',        10 );
+add_action( 'enqueue_embed_scripts',    'wp_idea_stream_enqueue_embed_scripts',  10 );
 add_action( 'wp_head',                  'wp_idea_stream_head',                   10 );
 add_action( 'wp_footer',                'wp_idea_stream_footer',                 10 );
 add_action( 'set_current_user',         'wp_idea_stream_setup_current_user',     10 );
@@ -56,7 +57,11 @@ add_action( 'wp_idea_stream_actions',           'wp_idea_stream_ideas_post_idea'
 add_action( 'wp_idea_stream_actions',           'wp_idea_stream_ideas_update_idea'                      );
 add_action( 'wp_idea_stream_actions',           'wp_idea_stream_users_profile_description_update'       );
 add_action( 'wp_idea_stream_actions',           'wp_idea_stream_users_signup_user',               10, 0 );
-add_action( 'wp_ajax_wp_idea_stream_rate',      'wp_idea_stream_ajax_rate'                              );
+
+// Rates actions
+add_action( 'wp_ajax_wp_idea_stream_rate', 'wp_idea_stream_ajax_rate'                      );
+add_action( 'wp_idea_stream_added_rate',   'wp_idea_stream_clean_rates_count_cache', 10, 2 );
+add_action( 'wp_idea_stream_deleted_rate', 'wp_idea_stream_clean_rates_count_cache', 10, 2 );
 
 // Admin
 add_action( 'admin_init', 'wp_idea_stream_admin_init', 10 );
@@ -84,9 +89,11 @@ add_action( 'login_form_rp',                    'wp_idea_stream_user_setpassword
 // Admin Menu Bar
 add_action( 'admin_bar_menu', 'wp_idea_stream_adminbar_menu', 999 );
 
-// Embed Meta
-add_action( 'embed_content_meta', 'wp_idea_stream_ideas_embed_meta',  9 );
-add_action( 'embed_head',         'wp_idea_stream_ideas_embed_style', 20 );
+// Embeds
+add_action( 'embed_content_meta',                   'wp_idea_stream_ideas_embed_meta',         9 );
+add_action( 'wp_idea_stream_enqueue_embed_scripts', 'wp_idea_stream_enqueue_embed_style'         );
+add_action( 'wp_idea_stream_embed_content_meta',    'wp_idea_stream_users_embed_content_meta'    );
+add_action( 'wp_idea_stream_head',                  'wp_idea_stream_oembed_add_discovery_links'  );
 
 /**
  * Fire the 'wp_idea_stream_init' action.
@@ -138,6 +145,24 @@ function wp_idea_stream_widgets_init() {
  */
 function wp_idea_stream_enqueue_scripts() {
 	do_action( 'wp_idea_stream_enqueue_scripts' );
+}
+
+/**
+ * Fire the 'wp_idea_stream_enqueue_embed_scripts' action.
+ * But do it only if needed
+ *
+ * Used to register and enqueue custom scripts for the WordPress
+ * & IdeaStream embed templates
+ *
+ * @since 2.3.0
+ */
+function wp_idea_stream_enqueue_embed_scripts() {
+	// Bail if not an idea or not an embed profile
+	if ( ( wp_idea_stream_get_post_type() === get_query_var( 'post_type' ) && ! wp_idea_stream_is_rating_disabled() )
+		|| ( wp_idea_stream_get_idea_var( 'is_user_embed' ) && wp_idea_stream_is_embed_profile() )
+	) {
+		do_action( 'wp_idea_stream_enqueue_embed_scripts' );
+	}
 }
 
 /**
