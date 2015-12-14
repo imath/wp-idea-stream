@@ -101,6 +101,14 @@ function wp_idea_stream_get_settings_fields() {
 				'args'              => array()
 			),
 
+			// Can we add featured images to the idea ?
+			'_ideastream_featured_images' => array(
+				'title'             => __( 'Featured images', 'wp-idea-stream' ),
+				'callback'          => 'wp_idea_stream_editor_featured_images_setting_callback',
+				'sanitize_callback' => 'wp_idea_stream_editor_featured_images_sanitize',
+				'args'              => array()
+			),
+
 			// Can we add links to content ?
 			'_ideastream_editor_link' => array(
 				'title'             => __( 'Links', 'wp-idea-stream' ),
@@ -154,6 +162,14 @@ function wp_idea_stream_get_settings_fields() {
 				'title'             => __( 'Comments', 'wp-idea-stream' ),
 				'callback'          => 'wp_idea_stream_allow_comments_setting_callback',
 				'sanitize_callback' => 'absint',
+				'args'              => array()
+			),
+
+			// Are users profiles embeddable ?
+			'_ideastream_embed_profile' => array(
+				'title'             => __( 'Embed Profile', 'wp-idea-stream' ),
+				'callback'          => 'wp_idea_stream_embed_profile_setting_callback',
+				'sanitize_callback' => 'wp_idea_stream_sanitize_embed_profile',
 				'args'              => array()
 			),
 		)
@@ -542,6 +558,24 @@ function wp_idea_stream_editor_image_setting_callback() {
 
 	<input name="_ideastream_editor_image" id="_ideastream_editor_image" type="checkbox" value="1" <?php checked( wp_idea_stream_idea_editor_image() ); ?> />
 	<label for="_ideastream_editor_image"><?php esc_html_e( 'Allow users to add images to their ideas', 'wp-idea-stream' ); ?></label>
+	<p class="description"><?php esc_html_e( 'Depending on this setting, the featured images one will be available', 'wp-idea-stream' ); ?></p>
+
+
+	<?php
+}
+
+/**
+ * WP Editor's Featured images callback
+ *
+ * @since 2.3.0
+ *
+ * @return string HTML output
+ */
+function wp_idea_stream_editor_featured_images_setting_callback() {
+	?>
+
+	<input name="_ideastream_featured_images" id="_ideastream_featured_images" type="checkbox" value="1" <?php checked( wp_idea_stream_featured_images_allowed() ); ?> <?php disabled( wp_idea_stream_idea_editor_image(), false ); ?>/>
+	<label for="_ideastream_featured_images"><?php esc_html_e( 'If users can add images, you can allow them to choose the featured image for their ideas', 'wp-idea-stream' ); ?></label>
 
 	<?php
 }
@@ -692,6 +726,22 @@ function wp_idea_stream_allow_comments_setting_callback() {
 
 	<input name="_ideastream_allow_comments" id="_ideastream_allow_comments" type="checkbox" value="1" <?php checked( wp_idea_stream_is_comments_allowed() ); ?> />
 	<label for="_ideastream_allow_comments"><?php esc_html_e( 'Allow users to add comments on ideas', 'wp-idea-stream' ); ?></label>
+
+	<?php
+}
+
+/**
+ * Embed User Profiles callback
+ *
+ * @since 2.3.0
+ *
+ * @return string HTML output
+ */
+function wp_idea_stream_embed_profile_setting_callback() {
+	?>
+
+	<input name="_ideastream_embed_profile" id="_ideastream_embed_profile" type="checkbox" value="1" <?php checked( (bool) wp_idea_stream_is_embed_profile() ); ?> />
+	<label for="_ideastream_embed_profile"><?php esc_html_e( 'Allow users profiles to be embed', 'wp-idea-stream' ); ?></label>
 
 	<?php
 }
@@ -1088,6 +1138,62 @@ function wp_idea_stream_sanitize_hint_list( $option = '' ) {
 function wp_idea_stream_sticky_sanitize( $option = 0 ) {
 	if ( empty( $option ) ) {
 		delete_option( 'sticky_ideas' );
+	}
+
+	return absint( $option );
+}
+
+/**
+ * Sanitize the featured image option.
+ *
+ * @since 2.3.0
+ *
+ * @param  int $option the featured image setting
+ * @return int         the new featured image setting
+ */
+function wp_idea_stream_editor_featured_images_sanitize( $option = 0 ) {
+	// People need to insert image before selecting a featured one.
+	if ( ! wp_idea_stream_idea_editor_image() ) {
+		return 0;
+	}
+
+	return absint( $option );
+}
+
+/**
+ * Create the Utility page for embed profile if needed
+ *
+ * @since 2.3.0
+ *
+ * @param  int $option the embed profile setting
+ * @return int         the new embed profile setting
+ */
+function wp_idea_stream_sanitize_embed_profile( $option = 0 ) {
+	$utility_page_id = wp_idea_stream_is_embed_profile();
+
+	if ( $utility_page_id ) {
+		$utility_page = get_post( $utility_page_id );
+	}
+
+	if ( isset( $utility_page->post_type ) && 'ideastream_utility' !== $utility_page->post_type ) {
+		$utility_page = null;
+	}
+
+	if ( ! empty( $option ) ) {
+		if ( empty( $utility_page->ID ) ) {
+			$option = wp_insert_post( array(
+				'comment_status' => 'closed',
+				'ping_status'    => 'closed',
+				'post_status'    => 'publish',
+				'post_title'     => 'ideastream_user_page',
+				'post_type'      => 'ideastream_utility',
+			) );
+		} else {
+			$option = $utility_page->ID;
+		}
+
+	} elseif ( ! empty( $utility_page->ID ) ) {
+		wp_delete_post( $utility_page->ID, true );
 	}
 
 	return absint( $option );

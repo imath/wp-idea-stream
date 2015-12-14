@@ -1101,7 +1101,9 @@ function wp_idea_stream_ideas_the_excerpt() {
 	 * @subpackage ideas/tags
 	 *
 	 * @since 2.0.0
+	 * @since 2.3.0 Use the $post global to make sure Theme filtering the excerpt_more will display the right link
 	 *
+	 * @global  WP_Post $post the current post
 	 * @uses   wp_idea_stream() to get plugin's main instance
 	 * @uses   post_password_required() to check if the idea requires a password
 	 * @uses   wp_idea_stream_user_can() to check for user's capability
@@ -1111,6 +1113,8 @@ function wp_idea_stream_ideas_the_excerpt() {
 	 * @return string  output for the excerpt
 	 */
 	function wp_idea_stream_ideas_get_excerpt() {
+		global $post;
+		$reset_post = $post;
 		$idea = wp_idea_stream()->query_loop->idea;
 
 		// Password protected
@@ -1127,7 +1131,13 @@ function wp_idea_stream_ideas_the_excerpt() {
 		}
 
 		if ( empty( $excerpt ) ) {
+			// This is temporary!
+			$post = $idea;
+
 			$excerpt = wp_idea_stream_create_excerpt( $idea->post_content, 20 );
+
+			// Reset the post
+			$post = $reset_post;
 		} else {
 			/**
 			 * @param  string  $excerpt the excerpt to output
@@ -1160,7 +1170,9 @@ function wp_idea_stream_ideas_the_content() {
 	 * @subpackage ideas/tags
 	 *
 	 * @since 2.0.0
+	 * @since 2.3.0 Set the $post global with the Idea post type
 	 *
+	 * @global WP_Post $post
 	 * @uses   wp_idea_stream() to get plugin's main instance
 	 * @uses   post_password_required() to check if the idea requires a password
 	 * @uses   wp_idea_stream_user_can() to check for user's capability
@@ -1168,26 +1180,40 @@ function wp_idea_stream_ideas_the_content() {
 	 * @return string  output for the excerpt
 	 */
 	function wp_idea_stream_ideas_get_content() {
-		$idea = wp_idea_stream()->query_loop->idea;
+		global $post;
+		$reset_post = $post;
+
+		// Temporarly set the post to be the idea so that embeds works!
+		$post = wp_idea_stream()->query_loop->idea;
 
 		// Password protected
-		if ( post_password_required( $idea ) ) {
+		if ( post_password_required( $post ) ) {
 			$content = __( 'This idea is password protected, you will need it to view its content.', 'wp-idea-stream' );
 
 		// Private
-		} else if ( ! empty( $idea->post_status ) && 'private' == $idea->post_status && ! wp_idea_stream_user_can( 'read_idea', $idea->ID ) ) {
+		} else if ( ! empty( $post->post_status ) && 'private' == $post->post_status && ! wp_idea_stream_user_can( 'read_idea', $post->ID ) ) {
 			$content = __( 'This idea is private, you cannot view its content.', 'wp-idea-stream' );
 
 		// Public
 		} else {
-			$content = $idea->post_content;
+			$content = $post->post_content;
 		}
 
 		/**
 		 * @param  string  $content the content to output
-		 * @param  WP_Post $idea the idea object
+		 * @param  WP_Post $post the idea object
 		 */
-		return apply_filters( 'wp_idea_stream_ideas_get_content', do_shortcode( $content ), $idea );
+		$content = apply_filters( 'wp_idea_stream_ideas_get_content', $content, $post );
+
+		// Reset the post.
+		$post = $reset_post;
+
+		/**
+		 * shortcode_unautop filter fails in groups ??
+		 * So we're manually executing the shortcodes
+		 * before returning the content.
+		 */
+		return do_shortcode( $content );
 	}
 
 /**
@@ -1575,7 +1601,7 @@ function wp_idea_stream_ideas_the_editor() {
 
 		// Are we editing an idea ?
 		} else if ( ! empty( $wp_idea_stream->query_loop->idea->post_content ) ) {
-			$edit_content = $wp_idea_stream->query_loop->idea->post_content;
+			$edit_content = do_shortcode( $wp_idea_stream->query_loop->idea->post_content );
 
 		// Fallback to empty
 		} else {
@@ -1587,6 +1613,119 @@ function wp_idea_stream_ideas_the_editor() {
 		 */
 		return apply_filters( 'wp_idea_stream_ideas_get_editor_content', $edit_content );
 	}
+
+/**
+ * Displays the list of inserted images to let the user
+ * choose the one he wishes to use as the Idea Featured image
+ *
+ * @since 2.3.0
+ *
+ * @return string HTML Output
+ */
+function wp_idea_stream_ideas_the_images_list() {
+	if ( ! wp_idea_stream_featured_images_allowed() || ! current_theme_supports( 'post-thumbnails' ) ) {
+		return;
+	}
+
+	$selected       = false;
+	$content        = '';
+	$srcs           = array();
+	$wp_idea_stream = wp_idea_stream();
+	$class          = ' class="hidden"';
+
+	// There was an error eg: missing title
+	if( ! empty( $_POST['wp_idea_stream']['_the_content'] ) ) {
+		$content = wp_unslash( $_POST['wp_idea_stream']['_the_content'] );
+
+		// Did the user selected a featured image ?
+		if ( ! empty( $_POST['wp_idea_stream']['_the_thumbnail'] ) ) {
+			$selected = (array) $_POST['wp_idea_stream']['_the_thumbnail'];
+			$selected = reset( $selected );
+		}
+
+	// Are we editing an idea ?
+	} else if ( ! empty( $wp_idea_stream->query_loop->idea->post_content ) ) {
+		$idea    = $wp_idea_stream->query_loop->idea;
+		$content = $idea->post_content;
+
+		// Try to get the current featured image
+		$selected = (int) get_post_thumbnail_id( $idea );
+
+		if ( ! empty( $selected ) ) {
+			$original_url = get_post_meta( $selected, '_ideastream_original_src', true );
+
+			if ( empty( $original_url ) ) {
+				$original_url = wp_get_attachment_url( $selected );
+			}
+
+			$srcs = array( $original_url => $selected );
+		}
+
+		/**
+		 * Get all idea attachments (those who have an _ideastream_original_url meta)
+		 *
+		 * We need to do this in case the featured image was edited and for some reason the
+		 * user deleted one or more images from the content
+		 */
+		$srcs = array_replace( $srcs, WP_Idea_Stream_Ideas_Thumbnail::get_idea_attachments( $idea->ID ) );
+	}
+
+	// Find image into the content
+	if ( ! empty( $content ) ) {
+		$class = '';
+
+		if ( false !== stripos( $content, 'src=' ) ) {
+			preg_match_all( '#src=(["\'])([^"\']+)\1#i', $content, $img_srcs );
+			if ( ! empty( $img_srcs[2] ) ) {
+				// Avoid duplicates
+				$content_srcs = array_unique( $img_srcs[2] );
+
+				// Create a non numeric keys array
+				$content_srcs = array_combine( $content_srcs, $content_srcs );
+
+				/**
+				 * Make sure to use attachment ids if some were found earlier
+				 */
+				$srcs = array_replace( $content_srcs, $srcs );
+			}
+		}
+	}
+
+	// Can be an attachment ID
+	if ( ! empty( $selected ) ) {
+		if ( is_numeric( $selected ) ) {
+			$selected = (int) $selected;
+
+		// Or an url
+		} else {
+			$selected = esc_url( $selected );
+		}
+	}
+	?>
+	<div id="idea-images-list"<?php echo $class; ?>>
+		<label><?php esc_html_e( 'Select the featured image for your idea.', 'wp-idea-stream' );?></label>
+		<?php if ( ! empty( $srcs ) ) : ?>
+			<ul>
+			<?php foreach ( $srcs as $ksrc => $src )  : ?>
+				<li>
+					<img src="<?php echo esc_url( $ksrc ) ;?>"/>
+
+					<?php if ( is_numeric( $src ) ) {
+						$thumbnail = (int) $src;
+					} else {
+						$thumbnail = esc_url( $src );
+					};?>
+
+					<div class="cb-container">
+						<input type="checkbox" name="wp_idea_stream[_the_thumbnail][<?php echo esc_url_raw( $ksrc ) ;?>]" value="<?php echo $thumbnail ;?>" <?php checked( $selected, $thumbnail ); ?>/>
+					</div>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+		<?php endif ;?>
+	</div>
+	<?php
+}
 
 /**
  * Checks if the category taxonomy has terms
@@ -1922,3 +2061,41 @@ function wp_idea_stream_buddydrive_button() {
 	}
 }
 add_action( 'wp_idea_stream_media_buttons', 'wp_idea_stream_buddydrive_button' );
+
+/**
+ * Output the Idea Ratings if needed into the Embedded idea
+ *
+ * @since  2.3.0
+ *
+ * @return string HTML output
+ */
+function wp_idea_stream_ideas_embed_meta() {
+	$idea = get_post();
+
+	if ( ! isset( $idea->post_type ) || wp_idea_stream_get_post_type() !== $idea->post_type || wp_idea_stream_is_rating_disabled() ) {
+		return;
+	}
+
+	// Get the Average Rate
+	$average_rate = wp_idea_stream_ideas_get_average_rating( $idea->ID );
+
+	if ( ! $average_rate ) {
+		return;
+	}
+
+	// Get rating link
+	$rating_link = wp_idea_stream_ideas_get_idea_permalink( $idea ) . '#rate';
+	?>
+	<div class="wp-idea-stream-embed-ratings">
+		<a href="<?php echo esc_url( $rating_link ); ?>" target="_top">
+			<span class="dashicons ideastream-star-filled"></span>
+			<?php printf(
+				esc_html__( '%1$sAverage Rating:%2$s%3$s', 'wp-idea-stream' ),
+				'<span class="screen-reader-text">',
+				'</span>',
+				$average_rate
+			); ?>
+		</a>
+	</div>
+	<?php
+}

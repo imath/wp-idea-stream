@@ -15,8 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 add_filter( 'template_include',          'wp_idea_stream_set_template',                 10, 1 );
 add_filter( 'wp_title_parts',            'wp_idea_stream_title',                        10, 1 );
+add_filter( 'document_title_parts',      'wp_idea_stream_document_title_parts',         10, 1 );
 add_filter( 'wp_title',                  'wp_idea_stream_title_adjust',                 20, 3 );
 add_filter( 'body_class',                'wp_idea_stream_body_class',                   10, 2 );
+add_filter( 'post_class',                'wp_idea_stream_post_class',                   10, 2 );
 add_filter( 'map_meta_cap',              'wp_idea_stream_map_meta_caps',                10, 4 );
 add_filter( 'widget_tag_cloud_args',     'wp_idea_stream_tag_cloud_args',               10, 1 );
 add_filter( 'wp_nav_menu_objects',       'wp_idea_stream_wp_nav',                       10, 2 );
@@ -25,6 +27,7 @@ add_filter( 'get_edit_comment_link',     'wp_idea_stream_edit_comment_link',    
 add_filter( 'comments_open',             'wp_idea_stream_comments_open',                10, 2 );
 add_filter( 'heartbeat_received',        'wp_idea_stream_ideas_heartbeat_check_locked', 10, 2 );
 add_filter( 'heartbeat_nopriv_received', 'wp_idea_stream_ideas_heartbeat_check_locked', 10, 2 );
+add_filter( 'mce_external_plugins',      'wp_idea_stream_ideas_tiny_mce_plugins',       10, 1 );
 
 // Prefix idea's title in case of private/protected
 add_filter( 'private_title_format',   'wp_idea_stream_ideas_private_title_prefix',   10, 2 );
@@ -56,18 +59,19 @@ add_filter( 'wp_idea_stream_create_excerpt_text', 'wpautop'              );
 add_filter( 'wp_idea_stream_create_excerpt_text', 'wp_unslash',        5 );
 add_filter( 'wp_idea_stream_create_excerpt_text', 'make_clickable',    9 );
 
-add_filter( 'wp_idea_stream_ideas_get_content', 'wptexturize'          );
-add_filter( 'wp_idea_stream_ideas_get_content', 'convert_smilies'      );
-add_filter( 'wp_idea_stream_ideas_get_content', 'convert_chars'        );
-add_filter( 'wp_idea_stream_ideas_get_content', 'wpautop'              );
-add_filter( 'wp_idea_stream_ideas_get_content', 'wp_unslash',        5 );
-add_filter( 'wp_idea_stream_ideas_get_content', 'make_clickable',    9 );
-add_filter( 'wp_idea_stream_ideas_get_content', 'force_balance_tags'   );
+add_filter( 'wp_idea_stream_ideas_get_content', 'wptexturize'                );
+add_filter( 'wp_idea_stream_ideas_get_content', 'convert_smilies'            );
+add_filter( 'wp_idea_stream_ideas_get_content', 'convert_chars'              );
+add_filter( 'wp_idea_stream_ideas_get_content', 'wpautop'                    );
+add_filter( 'wp_idea_stream_ideas_get_content', 'wp_idea_stream_do_embed', 8 );
+add_filter( 'wp_idea_stream_ideas_get_content', 'wp_unslash',              5 );
+add_filter( 'wp_idea_stream_ideas_get_content', 'make_clickable',          9 );
+add_filter( 'wp_idea_stream_ideas_get_content', 'force_balance_tags'         );
 
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_unslash'  , 5                );
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_kses_post'                   );
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wpautop'                        );
-add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_idea_stream_format_to_edit'  );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_unslash'  , 5               );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_kses_post'                  );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wpautop'                       );
+add_filter( 'wp_idea_stream_ideas_get_editor_content', 'wp_idea_stream_format_to_edit' );
 
 add_filter( 'wp_idea_stream_comments_get_comment_excerpt', 'strip_tags',        1 );
 add_filter( 'wp_idea_stream_comments_get_comment_excerpt', 'force_balance_tags'   );
@@ -81,3 +85,5 @@ add_filter( 'wp_idea_stream_comments_get_comment_excerpt', 'make_clickable',    
 add_filter( 'wp_idea_stream_users_get_user_profile_description', 'make_clickable', 9 );
 
 add_filter( 'wp_idea_stream_is_signup_allowed', 'wp_idea_stream_buddypress_is_managing_signup', 10, 1 );
+
+add_filter( 'embed_template', 'wp_idea_stream_embed_profile', 10, 1 );

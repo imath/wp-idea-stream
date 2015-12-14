@@ -282,6 +282,12 @@ function wp_idea_stream_post_type() {
  * @return array the init arguments for the 'ideas' post type
  */
 function wp_idea_stream_post_type_register_args() {
+	$supports = array( 'title', 'editor', 'author', 'comments', 'revisions' );
+
+	if ( wp_idea_stream_featured_images_allowed() ) {
+		$supports[] = 'thumbnail';
+	}
+
 	return apply_filters( 'wp_idea_stream_post_type_register_args', array(
 		'public'              => true,
 		'query_var'           => wp_idea_stream_get_post_type(),
@@ -294,7 +300,7 @@ function wp_idea_stream_post_type_register_args() {
 		'show_in_nav_menus'   => false,
 		'show_in_admin_bar'   => wp_idea_stream_user_can( 'wp_idea_stream_ideas_admin' ),
 		'menu_icon'           => 'dashicons-lightbulb',
-		'supports'            => array( 'title', 'editor', 'author', 'comments', 'revisions' ),
+		'supports'            => $supports,
 		'taxonomies'          => array(
 			wp_idea_stream_get_category(),
 			wp_idea_stream_get_tag()
@@ -313,6 +319,7 @@ function wp_idea_stream_post_type_register_args() {
  * @subpackage core/functions
  *
  * @since 2.0.0
+ * @since 2.3.0 New labels added
  *
  * @uses   apply_filters() call 'wp_idea_stream_post_type_register_labels' to customize post type labels
  * @return array post type labels
@@ -320,18 +327,23 @@ function wp_idea_stream_post_type_register_args() {
 function wp_idea_stream_post_type_register_labels() {
 	return apply_filters( 'wp_idea_stream_post_type_register_labels', array(
 		'labels' => array(
-			'name'               => __( 'Ideas',                  'wp-idea-stream' ),
-			'menu_name'          => __( 'IdeaStream',             'wp-idea-stream' ),
-			'all_items'          => __( 'All Ideas',              'wp-idea-stream' ),
-			'singular_name'      => __( 'Idea',                   'wp-idea-stream' ),
-			'add_new'            => __( 'Add New Idea',           'wp-idea-stream' ),
-			'add_new_item'       => __( 'Add New Idea',           'wp-idea-stream' ),
-			'edit_item'          => __( 'Edit Idea',              'wp-idea-stream' ),
-			'new_item'           => __( 'New Idea',               'wp-idea-stream' ),
-			'view_item'          => __( 'View Idea',              'wp-idea-stream' ),
-			'search_items'       => __( 'Search Ideas',           'wp-idea-stream' ),
-			'not_found'          => __( 'No Ideas Found',         'wp-idea-stream' ),
-			'not_found_in_trash' => __( 'No Ideas Found in Trash','wp-idea-stream' )
+			'name'                  => __( 'Ideas',                   'wp-idea-stream' ),
+			'menu_name'             => __( 'IdeaStream',              'wp-idea-stream' ),
+			'all_items'             => __( 'All Ideas',               'wp-idea-stream' ),
+			'singular_name'         => __( 'Idea',                    'wp-idea-stream' ),
+			'add_new'               => __( 'Add New Idea',            'wp-idea-stream' ),
+			'add_new_item'          => __( 'Add New Idea',            'wp-idea-stream' ),
+			'edit_item'             => __( 'Edit Idea',               'wp-idea-stream' ),
+			'new_item'              => __( 'New Idea',                'wp-idea-stream' ),
+			'view_item'             => __( 'View Idea',               'wp-idea-stream' ),
+			'search_items'          => __( 'Search Ideas',            'wp-idea-stream' ),
+			'not_found'             => __( 'No Ideas Found',          'wp-idea-stream' ),
+			'not_found_in_trash'    => __( 'No Ideas Found in Trash', 'wp-idea-stream' ),
+			'insert_into_item'      => __( 'Insert into idea',        'wp-idea-stream' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this idea',   'wp-idea-stream' ),
+			'filter_items_list'     => __( 'Filter Ideas list',       'wp-idea-stream' ),
+			'items_list_navigation' => __( 'Ideas list navigation',   'wp-idea-stream' ),
+			'items_list'            => __( 'Ideas list',              'wp-idea-stream' ),
 		)
 	) );
 }
@@ -949,6 +961,9 @@ function wp_idea_stream_delete_rate( $idea = 0, $user_id = 0 ) {
  * @subpackage core/functions
  *
  * @since 2.0.0
+ * @since 2.3.0 Improve the way votes are saved into the DB by using
+ *              non numeric keys for the array in order to avoid this
+ *              bug: {@see https://github.com/imath/wp-idea-stream/issues/35}}
  *
  * @param  int $idea    the ID of the idea
  * @param  int $user_id the ID of the user
@@ -968,11 +983,11 @@ function wp_idea_stream_add_rate( $idea = 0, $user_id = 0, $rate = 0 ) {
 	$rates = get_post_meta( $idea, '_ideastream_rates', true );
 
 	if ( empty( $rates ) ) {
-		$rates = array( $rate => array( 'user_ids' => array( $user_id ) ) );
+		$rates = array( $rate => array( 'user_ids' => array( 'u-' . $user_id => $user_id ) ) );
 	} else if ( ! empty( $rates[ $rate ] ) && ! in_array( $user_id, $rates[ $rate ]['user_ids'] ) ) {
-		$rates[ $rate ]['user_ids'] = array_merge( $rates[ $rate ]['user_ids'], array( $user_id ) );
+		$rates[ $rate ]['user_ids'] = array_merge( $rates[ $rate ]['user_ids'], array( 'u-' . $user_id => $user_id ) );
 	} else if ( empty( $rates[ $rate ] ) ) {
-		$rates = $rates + array( $rate => array( 'user_ids' => array( $user_id ) ) );
+		$rates = $rates + array( $rate => array( 'user_ids' => array( 'u-' . $user_id => $user_id ) ) );
 	} else {
 		return false;
 	}
@@ -1068,6 +1083,58 @@ function wp_idea_stream_set_rates_count_orderby( $clauses = array(), $wp_query =
 	return $clauses;
 }
 
+/**
+ * Retrieve total rates for a user.
+ *
+ * @since 2.3.0
+ *
+ * @global $wpdb
+ * @param  int $user_id the User ID.
+ * @return int Rates count.
+ */
+function wp_idea_stream_count_user_rates( $user_id = 0 ) {
+	$count = 0;
+
+	if ( empty( $user_id ) ) {
+		return $count;
+	}
+
+	global $wpdb;
+	$user_id = (int) $user_id;
+
+	$count = wp_cache_get( "idea_rates_count_{$user_id}", 'wp_idea_stream' );
+
+	if ( false !== $count ) {
+		return $count;
+	}
+
+	$like  = '%' . $wpdb->esc_like( ';i:' . $user_id .';' ) . '%';
+	$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT( post_id ) FROM {$wpdb->postmeta} WHERE meta_key= %s AND meta_value LIKE %s", '_ideastream_rates', $like ) );
+
+	wp_cache_set( "idea_rates_count_{$user_id}", $count, 'wp_idea_stream' );
+
+	return $count;
+}
+
+/**
+ * Clean the user's rates count cache
+ *
+ * @since 2.3.0
+ *
+ * @param int $idea_id the idea ID
+ * @param int $user_id the user ID
+ */
+function wp_idea_stream_clean_rates_count_cache( $idea_id, $user_id = 0 ) {
+	// Bail if no user id
+	if ( empty( $user_id ) ) {
+		return;
+	}
+
+	$user_id = (int) $user_id;
+
+	wp_cache_delete( "idea_rates_count_{$user_id}", 'wp_idea_stream' );
+}
+
 /** Utilities *****************************************************************/
 
 /**
@@ -1077,6 +1144,7 @@ function wp_idea_stream_set_rates_count_orderby( $clauses = array(), $wp_query =
  * @subpackage core/functions
  *
  * @since 2.0.0
+ * @since 2.3.0 Added the $nofilter parameter
  *
  * @param  string  $text   the content to truncate
  * @param  integer $length the number of words
@@ -1086,7 +1154,7 @@ function wp_idea_stream_set_rates_count_orderby( $clauses = array(), $wp_query =
  * @uses   wp_trim_words()
  * @return string          the excerpt of an idea
  */
-function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&hellip;]' ) {
+function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&hellip;]', $nofilter = false ) {
 	if ( empty( $text ) ) {
 		return $text;
 	}
@@ -1103,14 +1171,19 @@ function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&he
 
 	$text = str_replace( ']]>', ']]&gt;', $text );
 
-	/**
-	 * Filter the number of words in an excerpt.
-	 */
-	$excerpt_length = apply_filters( 'excerpt_length', $length );
-	/**
-	 * Filter the string in the "more" link displayed after a trimmed excerpt.
-	 */
-	$excerpt_more = apply_filters( 'excerpt_more', $more );
+	if ( false === $nofilter ) {
+		/**
+		 * Filter the number of words in an excerpt.
+		 */
+		$excerpt_length = apply_filters( 'excerpt_length', $length );
+		/**
+		 * Filter the string in the "more" link displayed after a trimmed excerpt.
+		 */
+		$excerpt_more = apply_filters( 'excerpt_more', $more );
+	} else {
+		$excerpt_length = $length;
+		$excerpt_more   = $more;
+	}
 
 	return wp_trim_words( $text, $excerpt_length, $excerpt_more );
 }

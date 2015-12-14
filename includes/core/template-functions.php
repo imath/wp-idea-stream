@@ -94,11 +94,11 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 	// Ideas post type for a later use
 	$idea_post_type = wp_idea_stream_get_post_type();
 
-
 	/** User's profile ************************************************************/
 
 	// Are we requesting the user-profile template ?
-	$user = $posts_query->get( wp_idea_stream_user_rewrite_id() );
+	$user       = $posts_query->get( wp_idea_stream_user_rewrite_id() );
+	$embed_page = wp_idea_stream_is_embed_profile();
 
 	if ( ! empty( $user ) ) {
 
@@ -111,8 +111,15 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		}
 
 		// No user id: no profile!
-		if ( empty( $user->ID ) ) {
+		if ( empty( $user->ID ) || true === apply_filters( 'wp_idea_stream_users_is_spammy', is_multisite() && is_user_spammy( $user ), $user ) ) {
 			$posts_query->set_404();
+
+			// Make sure the WordPress Embed Template will be used
+			if ( ( 'true' === get_query_var( 'embed' ) || true === get_query_var( 'embed' ) ) ) {
+				$posts_query->is_embed = true;
+				$posts_query->set( 'p', -1 );
+			}
+
 			return;
 		}
 
@@ -152,6 +159,18 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			$posts_query->set( 'p', -1 );
 
 		} else {
+			if ( ( 'true' === get_query_var( 'embed' ) || true === get_query_var( 'embed' ) ) ) {
+				$posts_query->is_embed = true;
+				$posts_query->set( 'p', -1 );
+
+				if ( $embed_page ) {
+					wp_idea_stream_set_idea_var( 'is_user_embed', true );
+				} else {
+					$posts_query->set_404();
+					return;
+				}
+			}
+
 			// Default to the ideas the user submitted
 			$posts_query->set( 'author', $user->ID  );
 		}
@@ -219,7 +238,6 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		}
 	}
 
-
 	/** Ideas by category *********************************************************/
 
 	$category = $posts_query->get( wp_idea_stream_get_category() );
@@ -231,7 +249,6 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		// Define the current category
 		wp_idea_stream_set_idea_var( 'is_category', $category );
 	}
-
 
 	/** Ideas by tag **************************************************************/
 
@@ -301,17 +318,17 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		wp_idea_stream_set_idea_var( 'is_idea_archive', true );
 	}
 
-	// Reset the pagination
-	if ( -1 !== $posts_query->get( 'p' ) ) {
-		$posts_query->set( 'posts_per_page', wp_idea_stream_ideas_per_page() );
-	}
-
 	/**
 	 * Finally if post_type is ideas, then we're in IdeaStream's
 	 * territory so set this
 	 */
-	if ( $idea_post_type == $posts_query->get( 'post_type' ) ) {
+	if ( $idea_post_type === $posts_query->get( 'post_type' ) ) {
 		wp_idea_stream_set_idea_var( 'is_ideastream', true );
+
+		// Reset the pagination
+		if ( -1 !== $posts_query->get( 'p' ) ) {
+			$posts_query->set( 'posts_per_page', wp_idea_stream_ideas_per_page() );
+		}
 	}
 }
 
@@ -331,6 +348,32 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 function wp_idea_stream_enqueue_style() {
 	$style_deps = apply_filters( 'wp_idea_stream_style_deps', array( 'dashicons' ) );
 	wp_enqueue_style( 'wp-idea-stream-style', wp_idea_stream_get_stylesheet(), $style_deps, wp_idea_stream_get_version() );
+
+	$min = '.min';
+
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+		$min = '';
+	}
+
+	if ( wp_idea_stream_is_user_profile() && wp_idea_stream_is_embed_profile() ) {
+		wp_enqueue_style( 'wp-idea-stream-sharing-profile', includes_url( "css/wp-embed-template{$min}.css" ), array(), wp_idea_stream_get_version() );
+	}
+}
+
+/**
+ * Loads the embed stylesheet to be used inside
+ * WordPress & IdeaStream embed templates
+ *
+ * @since 2.3.0
+ */
+function wp_idea_stream_enqueue_embed_style() {
+	$min = '.min';
+
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+		$min = '';
+	}
+
+	wp_enqueue_style( 'wp-idea-stream-embed-style', wp_idea_stream_get_stylesheet( "embed-style{$min}" ), array(), wp_idea_stream_get_version() );
 }
 
 /** Conditional template tags *************************************************/
@@ -816,13 +859,13 @@ function wp_idea_stream_title( $title_array = array() ) {
 
 	if ( wp_idea_stream_is_addnew() ) {
 		$new_title[] = esc_attr__( 'New idea', 'wp-idea-stream' );
-	} else if ( wp_idea_stream_is_edit() ) {
+	} elseif ( wp_idea_stream_is_edit() ) {
 		$new_title[] = esc_attr__( 'Edit idea', 'wp-idea-stream' );
-	} else if ( wp_idea_stream_is_user_profile() ) {
+	} elseif ( wp_idea_stream_is_user_profile() ) {
 		$new_title[] = sprintf( esc_html__( '%s&#39;s profile', 'wp-idea-stream' ), wp_idea_stream_users_get_displayed_user_displayname() );
-	} else if ( wp_idea_stream_is_single_idea() ) {
+	} elseif ( wp_idea_stream_is_single_idea() ) {
 		$new_title[] = single_post_title( '', false );
-	} else if ( is_tax() ) {
+	} elseif ( is_tax() ) {
 		$term = wp_idea_stream_get_current_term();
 		if ( $term ) {
 			$tax = get_taxonomy( $term->taxonomy );
@@ -833,7 +876,7 @@ function wp_idea_stream_title( $title_array = array() ) {
 			$new_title[] = single_term_title( '', false );
 			$new_title[] = $tax->labels->name;
 		}
-	} else if ( wp_idea_stream_is_signup() ) {
+	} elseif ( wp_idea_stream_is_signup() ) {
 		$new_title[] = esc_html__( 'Create an account', 'wp-idea-stream' );
 	} else {
 		$new_title[] = esc_html__( 'Ideas', 'wp-idea-stream' );
@@ -854,6 +897,72 @@ function wp_idea_stream_title( $title_array = array() ) {
 	 * @param  string $title the original title meta tag
 	 */
 	return apply_filters( 'wp_idea_stream_title', $new_title_array, $title_array, $new_title );
+}
+
+/**
+ * Set the document title for IdeaStream pages
+ *
+ * @since  2.3.0
+ *
+ * @param  array  $document_title The WordPress Document title
+ * @return array                  The IdeaStream Document title
+ */
+function wp_idea_stream_document_title_parts( $document_title = array() ) {
+	if ( ! wp_idea_stream_is_ideastream() ) {
+		return $document_title;
+	}
+
+	$new_document_title = $document_title;
+
+	// Reset the document title if needed
+	if ( ! wp_idea_stream_is_single_idea() ) {
+		$title = (array) wp_idea_stream_title();
+
+		// On user's profile, add some piece of info
+		if ( wp_idea_stream_is_user_profile() && count( $title ) === 1 ) {
+			// Seeing comments of the user
+			if ( wp_idea_stream_is_user_profile_comments() ) {
+				$title[] = __( 'Idea Comments', 'wp-idea-stream' );
+
+				// Get the pagination page
+				if ( get_query_var( wp_idea_stream_cpage_rewrite_id() ) ) {
+					$cpage = get_query_var( wp_idea_stream_cpage_rewrite_id() );
+
+				} elseif ( ! empty( $_GET[ wp_idea_stream_cpage_rewrite_id() ] ) ) {
+					$cpage = $_GET[ wp_idea_stream_cpage_rewrite_id() ];
+				}
+
+				if ( ! empty( $cpage ) ) {
+					$title['page'] = sprintf( __( 'Page %s', 'wp-idea-stream' ), (int) $cpage );
+				}
+
+			// Seeing Ratings for the user
+			} elseif( wp_idea_stream_is_user_profile_rates() ) {
+				$title[] = __( 'Idea Ratings', 'wp-idea-stream' );
+
+			// Seeing The root profile
+			} else {
+				$title[] = __( 'Ideas', 'wp-idea-stream' );
+			}
+		}
+
+		// Get WordPress Separator
+		$sep = apply_filters( 'document_title_separator', '-' );
+
+		$new_document_title['title'] = implode( " $sep ", array_filter( $title ) );;
+	}
+
+	// Set the site name if not already set.
+	if ( ! isset( $new_document_title['site'] ) ) {
+		$new_document_title['site'] = get_bloginfo( 'name', 'display' );
+	}
+
+	// Unset tagline for IdeaStream Pages
+	if ( isset( $new_document_title['tagline'] ) ) {
+		unset( $new_document_title['tagline'] );
+	}
+
+	return apply_filters( 'wp_idea_stream_document_title_parts', $new_document_title, $document_title );
 }
 
 /**
@@ -919,6 +1028,28 @@ function wp_idea_stream_body_class( $wp_classes, $custom_classes = false ) {
 	 * @param array $custom_classes
 	 */
 	return apply_filters( 'wp_idea_stream_body_class', $classes, $ideastream_classes, $wp_classes, $custom_classes );
+}
+
+/**
+ * Adds a 'type-page' class as the page template is the the most commonly targetted
+ * as the root template.
+ *
+ * NB: TwentySixteen needs this to display the content on full available width
+ *
+ * @since  2.3.0
+ *
+ * @param  $wp_classes
+ * @param  $theme_class
+ * @return array Ideastream Post Classes
+ */
+function wp_idea_stream_post_class( $wp_classes, $theme_class ) {
+	if ( wp_idea_stream_is_ideastream() ) {
+		$classes = array_unique( array_merge( array( 'type-page' ), (array) $wp_classes ) );
+	} else {
+		$classes = $wp_classes;
+	}
+
+	return apply_filters( 'wp_idea_stream_body_class', $classes, $wp_classes, $theme_class );
 }
 
 /**
@@ -1014,4 +1145,47 @@ function wp_idea_stream_edit_post_link( $edit_link = '', $post_id = 0 ) {
 	}
 
 	return $edit_link;
+}
+
+/**
+ * Use the Embed Profile template when an Embed profile is requested
+ *
+ * @since 2.3.0
+ *
+ * @param  string $template The WordPress Embed template
+ * @return string           The appropriate template to use
+ */
+function wp_idea_stream_embed_profile( $template = '' ) {
+	if ( ! wp_idea_stream_get_idea_var( 'is_user_embed' ) || ! wp_idea_stream_get_idea_var( 'is_user' ) ) {
+		return $template;
+	}
+
+	return wp_idea_stream_get_template_part( 'embed', 'profile', false );
+}
+
+/**
+ * Adds oEmbed discovery links in the website <head> for the IdeaStream user's profile root page.
+ *
+ * @since 2.3.0
+ */
+function wp_idea_stream_oembed_add_discovery_links() {
+	if ( ! wp_idea_stream_is_user_profile_ideas() || ! wp_idea_stream_is_embed_profile() ) {
+		return;
+	}
+
+	$user_link = wp_idea_stream_users_get_user_profile_url( wp_idea_stream_users_displayed_user_id(), '', true );
+	$output = '<link rel="alternate" type="application/json+oembed" href="' . esc_url( get_oembed_endpoint_url( $user_link ) ) . '" />' . "\n";
+
+	if ( class_exists( 'SimpleXMLElement' ) ) {
+		$output .= '<link rel="alternate" type="text/xml+oembed" href="' . esc_url( get_oembed_endpoint_url( $user_link, 'xml' ) ) . '" />' . "\n";
+	}
+
+	/**
+	 * Filter the oEmbed discovery links HTML.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param string $output HTML of the discovery links.
+	 */
+	echo apply_filters( 'wp_idea_stream_users_oembed_add_discovery_links', $output );
 }

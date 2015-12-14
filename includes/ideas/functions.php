@@ -1121,33 +1121,43 @@ function wp_idea_stream_ideas_post_idea() {
 		wp_safe_redirect( wp_idea_stream_get_form_url() );
 		exit();
 	} else {
-		$idea = get_post( $id );
+		$idea             = get_post( $id );
+		$feedback_message = array();
+
+		if ( ! empty( $posted['_the_thumbnail'] ) ) {
+			$thumbnail = reset( $posted['_the_thumbnail'] );
+			$sideload = WP_Idea_Stream_Ideas_Thumbnail::start( $thumbnail, $id );
+
+			if ( is_wp_error( $sideload->result ) ) {
+				$feedback_message[] = __( 'There was a problem saving the featured image, sorry.', 'wp-idea-stream' );
+			}
+		}
 
 		if ( 'pending' == $idea->post_status ) {
 			// Build pending message.
-			$pending_message = __( 'Your idea is currently awaiting moderation.', 'wp-idea-stream' );
+			$feedback_message['pending'] = __( 'Your idea is currently awaiting moderation.', 'wp-idea-stream' );
 
 			// Check for a custom pending message
 			$custom_pending_message = wp_idea_stream_moderation_message();
 			if ( ! empty( $custom_pending_message ) ) {
-				$pending_message = $custom_pending_message;
+				$feedback_message['pending'] = $custom_pending_message;
 			}
 
+		// redirect to the idea
+		} else {
+			$redirect = wp_idea_stream_ideas_get_idea_permalink( $idea );
+		}
+
+		if ( ! empty( $feedback_message ) ) {
 			// Add feedback to the user
 			wp_idea_stream_add_message( array(
 				'type'    => 'info',
-				'content' => $pending_message,
+				'content' => join( ' ', $feedback_message ),
 			) );
-
-			// Redirect to main archive page
-			wp_safe_redirect( $redirect );
-			exit();
-
-		// Or directly redirect to the idea
-		} else {
-			wp_safe_redirect( wp_idea_stream_ideas_get_idea_permalink( $idea ) );
-			exit();
 		}
+
+		wp_safe_redirect( $redirect );
+		exit();
 	}
 }
 
@@ -1247,26 +1257,67 @@ function wp_idea_stream_ideas_update_idea() {
 
 	// Reset '_the_id' param to the ID of the idea found
 	$updated['_the_id'] = $idea->ID;
+	$feedback_message   = array();
+	$featured_error     = __( 'There was a problem saving the featured image, sorry.', 'wp-idea-stream' );
+	$featured_type      = 'info';
+
+	// Take care of the featured image
+	$thumbnail_id = (int) get_post_thumbnail_id( $idea );
+
+	if ( ! empty( $updated['_the_thumbnail'] ) ) {
+		$thumbnail_src = key( $updated['_the_thumbnail'] );
+		$thumbnail     = reset( $updated['_the_thumbnail'] );
+
+		// Update the Featured image
+		if ( ! is_numeric( $thumbnail ) || $thumbnail_id !== (int) $thumbnail ) {
+			if ( is_numeric( $thumbnail ) ) {
+				// validate the attachment
+				if ( ! get_post( $thumbnail ) ) {
+					$feedback_message[] = $featured_error;
+				// Set the new Featured image
+				} else {
+					set_post_thumbnail( $idea->ID, $thumbnail );
+				}
+			} else {
+				$sideload = WP_Idea_Stream_Ideas_Thumbnail::start( $thumbnail_src, $idea->ID );
+
+				if ( is_wp_error( $sideload->result ) ) {
+					$feedback_message[] = $featured_error;
+				}
+			}
+		}
+
+	// Delete the featured image
+	} elseif ( ! empty( $thumbnail_id ) ) {
+		delete_post_thumbnail( $idea );
+	}
 
 	// Update the idea
 	$id = wp_idea_stream_ideas_save_idea( $updated );
 
 	if ( empty( $id ) ) {
-		// Add feedback to the user
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'Something went wrong while trying to update your idea.', 'wp-idea-stream' ),
-		) );
+		// Set the feedback for the user
+		$featured_type    = 'error';
+		$feedback_message = __( 'Something went wrong while trying to update your idea.', 'wp-idea-stream' );
 
-		// Redirect to an empty form
-		wp_safe_redirect( wp_idea_stream_get_form_url( wp_idea_stream_edit_slug(), $idea_name ) );
-		exit();
+		// Redirect to the form
+		$redirect = wp_idea_stream_get_form_url( wp_idea_stream_edit_slug(), $idea_name );
 
 	// Redirect to the idea
 	} else {
-		wp_safe_redirect( wp_idea_stream_ideas_get_idea_permalink( $id ) );
-		exit();
+		$redirect = wp_idea_stream_ideas_get_idea_permalink( $id );
 	}
+
+	if ( ! empty( $feedback_message ) ) {
+		// Add feedback to the user
+		wp_idea_stream_add_message( array(
+			'type'    => $featured_type,
+			'content' => join( ' ', $feedback_message ),
+		) );
+	}
+
+	wp_safe_redirect( $redirect );
+	exit();
 }
 
 /** Sticky ideas **************************************************************/
@@ -1449,4 +1500,33 @@ function wp_idea_stream_ideas_admin_no_sticky( $idea = null ) {
 	 * @param  WP_Post $idea   the idea object
 	 */
 	return (bool) apply_filters( 'wp_idea_stream_ideas_admin_no_sticky', $no_sticky, $idea );
+}
+
+/** Featured images ***********************************************************/
+
+/**
+ * Simulate a tinymce plugin to intercept images once added to the
+ * WP Editor
+ *
+ * @since 2.3.0
+ *
+ * @param  array $tinymce_plugins Just what the name of the param says!
+ * @return array Tiny MCE plugins + IdeaStream one if needed
+ */
+function wp_idea_stream_ideas_tiny_mce_plugins( $tinymce_plugins = array() ) {
+	if ( ! wp_idea_stream_featured_images_allowed() || ! current_theme_supports( 'post-thumbnails' ) ) {
+		return $tinymce_plugins;
+	}
+
+	if ( ! wp_idea_stream_is_addnew() && ! wp_idea_stream_is_edit() ) {
+		return $tinymce_plugins;
+	}
+
+	return array_merge( $tinymce_plugins, array( 'wpIdeaStreamListImages' => wp_idea_stream_get_js_script( 'featured-images' ) ) );
+}
+
+function wp_idea_stream_do_embed( $content ) {
+	global $wp_embed;
+
+	return $wp_embed->autoembed( $content );
 }

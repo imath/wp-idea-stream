@@ -364,7 +364,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		$expected = sprintf(
 			'%1$s wrote a new %2$s',
 			$user_link,
-			'<a href="' . $post_url . '">idea</a>'
+			'<a href="' . esc_url( $post_url ) . '">idea</a>'
 		);
 
 		$a_obj = new BP_Activity_Activity( $a );
@@ -384,7 +384,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		$expected = sprintf(
 			'%1$s replied to this %2$s',
 			$user_link,
-			'<a href="' . $comment_link . '">idea</a>'
+			'<a href="' . esc_url( $comment_link ) . '">idea</a>'
 		);
 
 		$a_obj = new BP_Activity_Activity( $a );
@@ -409,7 +409,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		$expected = sprintf(
 			'%1$s wrote a new %2$s in the group %3$s',
 			$user_link,
-			'<a href="' . $post_url . '">idea</a>',
+			'<a href="' . esc_url( $post_url ) . '">idea</a>',
 			$group_link
 		);
 
@@ -430,7 +430,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		$expected = sprintf(
 			'%1$s replied to this %2$s posted in the group %3$s',
 			$user_link,
-			'<a href="' . $comment_link . '">idea</a>',
+			'<a href="' . esc_url( $comment_link ) . '">idea</a>',
 			$group_link
 		);
 

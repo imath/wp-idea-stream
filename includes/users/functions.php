@@ -199,6 +199,7 @@ function wp_idea_stream_users_get_logged_in_profile_url( $type = 'profile' ) {
  * @subpackage users/functions
  *
  * @since 2.0.0
+ * @since 2.3.0 Added the $nofilter parameter to skip included filters
  *
  * @global $wp_rewrite
  * @param  int $user_id User id
@@ -211,7 +212,7 @@ function wp_idea_stream_users_get_logged_in_profile_url( $type = 'profile' ) {
  * @uses   apply_filters() Calls 'wp_idea_stream_users_get_user_profile_url' to override the url
  * @return string User profile url
  */
-function wp_idea_stream_users_get_user_profile_url( $user_id = 0, $user_nicename = '' ) {
+function wp_idea_stream_users_get_user_profile_url( $user_id = 0, $user_nicename = '', $nofilter = false ) {
 	global $wp_rewrite;
 
 	// Bail if no user id provided
@@ -219,16 +220,18 @@ function wp_idea_stream_users_get_user_profile_url( $user_id = 0, $user_nicename
 		return false;
 	}
 
-	/**
-	 * Used internally to "early" override the profile Url by the one of BuddyPress profile
-	 * @see WP_Idea_Stream_BuddyPress->filter_user_domains in buddypress/loader
-	 *
-	 * @param int    $user_id       the user ID
-	 * @param string $user_nicename the username
-	 */
-	$early_profile_url = apply_filters( 'wp_idea_stream_users_pre_get_user_profile_url', (int) $user_id, $user_nicename );
-	if ( is_string( $early_profile_url ) ) {
-		return $early_profile_url;
+	if ( false === $nofilter ) {
+		/**
+		 * Used internally to "early" override the profile Url by the one of BuddyPress profile
+		 * @see WP_Idea_Stream_BuddyPress->filter_user_domains in buddypress/loader
+		 *
+		 * @param int    $user_id       the user ID
+		 * @param string $user_nicename the username
+		 */
+		$early_profile_url = apply_filters( 'wp_idea_stream_users_pre_get_user_profile_url', (int) $user_id, $user_nicename );
+		if ( is_string( $early_profile_url ) ) {
+			return $early_profile_url;
+		}
 	}
 
 	// Pretty permalinks
@@ -248,14 +251,18 @@ function wp_idea_stream_users_get_user_profile_url( $user_id = 0, $user_nicename
 		$url = add_query_arg( array( wp_idea_stream_user_rewrite_id() => $user_id ), home_url( '/' ) );
 	}
 
-	/**
-	 * Filter the user profile url once IdeaStream has built it
-	 *
-	 * @param string $url           Profile Url
-	 * @param int    $user_id       the user ID
-	 * @param string $user_nicename the username
-	 */
-	return apply_filters( 'wp_idea_stream_users_get_user_profile_url', $url, $user_id, $user_nicename );
+	if ( false === $nofilter ) {
+		/**
+		 * Filter the user profile url once IdeaStream has built it
+		 *
+		 * @param string $url           Profile Url
+		 * @param int    $user_id       the user ID
+		 * @param string $user_nicename the username
+		 */
+		return apply_filters( 'wp_idea_stream_users_get_user_profile_url', $url, $user_id, $user_nicename );
+	} else {
+		return $url;
+	}
 }
 
 /**
@@ -464,16 +471,25 @@ function wp_idea_stream_users_get_signup_url() {
  * @uses apply_filters() Calls 'wp_idea_stream_users_current_profile_script' to override/add new datas
  */
 function wp_idea_stream_users_enqueue_scripts() {
-	if ( ! wp_idea_stream_is_ideastream() ) {
+	if ( ! wp_idea_stream_is_user_profile() ) {
 		return;
 	}
 
-	if ( wp_idea_stream_is_current_user_profile() ) {
-		wp_enqueue_script( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), array( 'jquery' ), wp_idea_stream_get_version(), true );
-		wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_users_current_profile_script', array(
-			'profile_editing' => 1
-		) ) );
+	// Viewing another user's profile with no sharing dialog box doesn't need js.
+	if ( ! wp_idea_stream_is_current_user_profile() && ! wp_idea_stream_is_embed_profile() ) {
+		return;
 	}
+
+	$js_vars = array(
+		'is_profile' => 1,
+	);
+
+	if ( wp_idea_stream_is_current_user_profile() ) {
+		$js_vars['profile_editing'] = 1;
+	}
+
+	wp_enqueue_script ( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), array( 'jquery' ), wp_idea_stream_get_version(), true );
+	wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_users_current_profile_script', $js_vars ) );
 }
 
 /**
@@ -483,9 +499,11 @@ function wp_idea_stream_users_enqueue_scripts() {
  * @subpackage users/functions
  *
  * @since 2.0.0
+ * @since 2.3.0 Added the $nofilter parameter to skip filters
  *
  * @param  int $user_id User id
  * @param  string $user_nicename Optional. User nicename
+ * @param  bool $nofilter. Whether to fire filters or not.
  * @uses   wp_idea_stream_users_get_user_profile_url() to get user main profile url
  * @uses   wp_idea_stream_is_user_profile_ideas() to check whether main profile is currently displayed
  * @uses   sanitize_title() to sanitize the nav slug
@@ -499,7 +517,7 @@ function wp_idea_stream_users_enqueue_scripts() {
  * @uses   apply_filters() Calls 'wp_idea_stream_users_get_profile_nav_items' to override/add new datas
  * @return array the nav items organized in an associative array
  */
-function wp_idea_stream_users_get_profile_nav_items( $user_id = 0, $username ='' ) {
+function wp_idea_stream_users_get_profile_nav_items( $user_id = 0, $username ='', $nofilter = false ) {
 	// Bail if no id or username are provided.
 	if ( empty( $user_id ) || empty( $username ) ) {
 		return array();
@@ -529,14 +547,18 @@ function wp_idea_stream_users_get_profile_nav_items( $user_id = 0, $username =''
 		);
 	}
 
-	/**
-	 * Filter the available user's profile nav items
-	 *
-	 * @param array  $nav_items     the nav items
-	 * @param int    $user_id       the user ID
-	 * @param string $username the username
-	 */
-	return apply_filters( 'wp_idea_stream_users_get_profile_nav_items', $nav_items, $user_id, $username );
+	if ( false === $nofilter ) {
+		/**
+		 * Filter the available user's profile nav items
+		 *
+		 * @param array  $nav_items     the nav items
+		 * @param int    $user_id       the user ID
+		 * @param string $username the username
+		 */
+		return apply_filters( 'wp_idea_stream_users_get_profile_nav_items', $nav_items, $user_id, $username );
+	} else {
+		return $nav_items;
+	}
 }
 
 /** Handle User actions *******************************************************/
@@ -1278,3 +1300,210 @@ function wp_idea_stream_maybe_set_current_user_role() {
 	$current_user->set_role( wp_idea_stream_users_get_default_role() );
 }
 add_action( 'wp_idea_stream_ideas_before_idea_save', 'wp_idea_stream_maybe_set_current_user_role', 1 );
+
+/**
+ * Get the stat for the the requested type (number of ideas, comments or rates)
+ *
+ * @since 2.3.0
+ *
+ * @param string $type    the type of stat to get (eg: 'profile', 'comments', 'rates')
+ * @param int    $user_id the User ID to get the stat for
+ */
+function wp_idea_stream_users_get_stat_for( $type = '', $user_id = 0 ) {
+	$count = 0;
+
+	if ( empty( $type ) ) {
+		return $count;
+	}
+
+	if ( empty( $user_id ) ) {
+		$user_id = wp_idea_stream_users_displayed_user_id();
+	}
+
+	if ( empty( $user_id ) ) {
+		return $$count;
+	}
+
+	if ( 'profile' === $type ) {
+		$count = count_user_posts( $user_id, wp_idea_stream_get_post_type() );
+	} elseif ( 'comments' === $type ) {
+		$count = wp_idea_stream_comments_count_comments( $user_id );
+	} elseif ( 'rates' === $type ) {
+		$count = wp_idea_stream_count_user_rates( $user_id );
+	}
+
+	/**
+	 * Filter the user stats by type (number of ideas "profile", "comments" or "rates").
+	 *
+	 * @since 2.3.0
+	 *
+	 * @param  int    $count the stat for the requested type.
+	 * @param  string $type "profile", "comments" or "rates".
+	 * @param  int    $user_id The user ID.
+	 */
+	return (int) apply_filters( 'wp_idea_stream_users_get_stat_for', $count, $type, $user_id );
+}
+
+/**
+ * WordPress requires a post id to allow content to be Embed, As our users are not organized
+ * into a post type, we need to use an utility page to get a post ID, and then filter its permalink
+ * and title so that the ones of the user's profile will be used instead
+ *
+ * @since 2.3.0
+ *
+ * @global WP_Rewrite $wp_rewrite
+ * @param int    $post_id the requested post id (should be empty for our users profiles)
+ * @param string $url     the requested url which can contain an IdeaStream user's profile
+ */
+function wp_idea_stream_users_oembed_request_post_id( $post_id = 0, $url = '' ) {
+	// The post is not empty leave WordPress deal with it!
+	if ( ! empty( $post_id ) ) {
+		return $post_id;
+	}
+
+	$utility_page = wp_idea_stream_is_embed_profile();
+
+	// No utility page, stop!
+	if ( ! $utility_page ) {
+		return $post_id;
+	}
+
+	// Get the WP Rewrites
+	global $wp_rewrite;
+
+	$extra_rules = $wp_rewrite->extra_rules_top;
+
+	if ( empty( $extra_rules ) ) {
+		return $post_id;
+	}
+
+	// Parse the url
+	$parse_url = parse_url( $url );
+
+	// Pretty permalinks: Loop through each extra rules to find the username or user id
+	if ( $wp_rewrite->using_permalinks() && isset( $parse_url['path'] ) && false !== strpos( $parse_url['path'], wp_idea_stream_user_slug() ) ) {
+		// Loop through each extra rules to find the username or user id
+		foreach ( (array) $extra_rules as $match => $query ) {
+			if ( preg_match( "#^$match#", str_replace( trailingslashit( home_url() ), '', $url ), $matches ) ) {
+				if ( isset( $matches[1] ) ) {
+					$user = $matches[1];
+					break;
+				}
+			}
+		}
+
+	// Default permalinks: find the query var containing the user_id
+	} elseif ( isset( $parse_url['query'] ) ) {
+		// Parse the query string
+		parse_str( $parse_url['query'], $query_vars );
+
+		if ( ! empty( $query_vars[ wp_idea_stream_user_rewrite_id() ] ) ) {
+			$user = (int) $query_vars[ wp_idea_stream_user_rewrite_id() ];
+		}
+	}
+
+	// No username or user id found stop
+	if ( empty( $user ) ) {
+		return $post_id;
+	}
+
+	if ( ! is_numeric( $user ) ) {
+		// Get user by his username
+		$user = wp_idea_stream_users_get_user_data( 'slug', $user );
+	} else {
+		// Get user by his id
+		$user = wp_idea_stream_users_get_user_data( 'id', $user );
+	}
+
+	// A user was found globalize it for a latter use and init some filters
+	if ( is_a( $user, 'WP_User' ) ) {
+		// If the user is a spammer, do not allow his profile to be embed
+		if ( true === apply_filters( 'wp_idea_stream_users_is_spammy', is_multisite() && is_user_spammy( $user ), $user ) ) {
+			return $post_id;
+		}
+
+		// Set the utility page as the post id
+		$post_id = $utility_page;
+
+		wp_idea_stream_set_idea_var( 'embed_user_data', $user );
+
+		// Temporarly only!
+		add_filter( 'post_type_link', 'wp_idea_stream_users_oembed_link',  10, 2 );
+		add_filter( 'the_title',      'wp_idea_stream_users_oembed_title', 10, 2 );
+	}
+
+	return $post_id;
+}
+add_filter( 'oembed_request_post_id', 'wp_idea_stream_users_oembed_request_post_id', 10, 2 );
+
+/**
+ * In case a user's profile is embed, replace the Utility page permalink with
+ * the user's profile link
+ *
+ * @since 2.3.0
+ *
+ * @param  string  $permalink the link to the post
+ * @param  WP_Post $post      the post object relative to the permalink
+ * @return string  Unchanged link or the link to the user's profile if needed
+ */
+function wp_idea_stream_users_oembed_link( $permalink, $post ) {
+	if ( ! isset( $post->ID ) || wp_idea_stream_is_embed_profile() !== (int) $post->ID ) {
+		return $permalink;
+	}
+
+	$user = wp_idea_stream_get_idea_var( 'embed_user_data' );
+
+	if( ! is_a( $user, 'WP_User' ) ) {
+		return $permalink;
+	}
+
+	return wp_idea_stream_users_get_user_profile_url( $user->ID, $user->user_nicename, true );
+}
+
+/**
+ * In case a user's profile is embed, replace the Utility page title with
+ * the user's title
+ *
+ * @since 2.3.0
+ *
+ * @param  string  $title   the title of the post
+ * @param  int     $post_id the post ID relative to the title
+ * @return string  Unchanged link or the link to the user's title if needed
+ */
+function wp_idea_stream_users_oembed_title( $title, $post_id ) {
+	if ( ! isset( $post_id ) || wp_idea_stream_is_embed_profile() !== (int) $post_id ) {
+		return $title;
+	}
+
+	$user = wp_idea_stream_get_idea_var( 'embed_user_data' );
+
+	if( ! is_a( $user, 'WP_User' ) ) {
+		return $title;
+	}
+
+	return sprintf( esc_attr__( '%s&#39;s profile', 'wp-idea-stream' ), $user->display_name );
+}
+
+/**
+ * In case a user's profile is embed, we need to reset all the parts we've altered
+ * to make the user's embed profile works.
+ *
+ * @since 2.3.0
+ *
+ * @param  string  $output  the HTML output for the embed object
+ * @param  WP_Post $post    the post object relative to the output
+ * @return string  Unchanged the HTML output for the embed object
+ */
+function wp_idea_stream_embed_html( $output, $post ) {
+	if ( isset( $post->ID ) && wp_idea_stream_is_embed_profile() === (int) $post->ID ) {
+		// Remove temporarly filters
+		remove_filter( 'post_type_link', 'wp_idea_stream_users_oembed_link',  10, 2 );
+		remove_filter( 'the_title',      'wp_idea_stream_users_oembed_title', 10, 2 );
+
+		// Reset the globalized user.
+		wp_idea_stream_set_idea_var( 'embed_user_data', null );
+	}
+
+	return $output;
+}
+add_filter( 'embed_html', 'wp_idea_stream_embed_html', 10, 2 );

@@ -54,6 +54,7 @@ function wp_idea_stream_buffer_template_part( $slug, $name = null, $echo = true 
  * @subpackage core/template-loader
  *
  * @since 2.0.0
+ * @since 2.3.0 buffer feedback message to eventually display them on the single idea
  *
  * @param  string $content the content of the idea
  * @uses   wp_idea_stream_buffer_template_part() to direclty buffer template parts in single idea
@@ -61,6 +62,13 @@ function wp_idea_stream_buffer_template_part( $slug, $name = null, $echo = true 
  */
 function wp_idea_stream_buffer_single_idea( $content = '' ) {
 	$new_content  = '<div id="wp-idea-stream">';
+
+	// Eventually include some feedback messages
+	ob_start();
+
+	wp_idea_stream_user_feedback();
+
+	$new_content .= ob_get_clean();
 
 	// add a header
 	$new_content .= wp_idea_stream_buffer_template_part( 'idea', 'header', false );
@@ -123,14 +131,16 @@ function wp_idea_stream_template_part( $slug, $name = null, $require_once = fals
  * @subpackage core/template-loader
  *
  * @since 2.0.0
+ * @since 2.3.0 Added the $css parameter to be able to get any stylesheet
  *
+ * @param  string $css the name of the file to load
  * @uses   WP_Idea_Stream_Template_Loader->get_stylesheet() to locate the stylesheet
  * @return string the url to the stylesheet
  */
-function wp_idea_stream_get_stylesheet() {
+function wp_idea_stream_get_stylesheet( $css = 'style' ) {
 	$style = new WP_Idea_Stream_Template_Loader;
 
-	return $style->get_stylesheet();
+	return $style->get_stylesheet( $css );
 }
 
 /**

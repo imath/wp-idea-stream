@@ -29,9 +29,11 @@
 
 		<?php wp_idea_stream_users_the_user_profile_description(); ?>
 
-		<div class="clear"/>
+		<div class="clear"></div>
 
 		<?php do_action( 'wp_idea_stream_user_profile_after_description' ); ?>
+
+		<div class="clear"></div>
 
 	</div>
 

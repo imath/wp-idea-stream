@@ -6,6 +6,7 @@
  * @subpackage templates
  *
  * @since 2.0.0
+ * @since 2.3.0 Added the wp_idea_stream_ideas_the_images_list() template tag
  */
 ?>
 <div id="wp-idea-stream">
@@ -21,6 +22,8 @@
 			<?php wp_idea_stream_ideas_the_title_edit(); ?>
 
 			<?php wp_idea_stream_ideas_the_editor(); ?>
+
+			<?php wp_idea_stream_ideas_the_images_list() ;?>
 
 			<div class="category-list">
 

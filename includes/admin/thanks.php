@@ -39,10 +39,14 @@ function wp_idea_stream_admin_about() {
 		$upgraded = __( 'upgrading to', 'wp-idea-stream' );
 		delete_transient( '_ideastream_reactivated_upgrade' );
 	}
+
+	if ( wp_idea_stream_is_embed_profile() ) {
+		$admin_profile = wp_oembed_get( wp_idea_stream_users_get_user_profile_url( get_current_user_id(), '', true ) );
+	}
 	?>
 	<div class="wrap about-wrap">
 		<h1><?php printf( esc_html_x( 'WP Idea Stream %s', 'about screen title', 'wp-idea-stream' ), $display_version ); ?></h1>
-		<div class="about-text"><?php printf( esc_html__( 'Thank you for %1$s the latest version of WP Idea Stream! %2$s brings some cool improvements.', 'wp-idea-stream' ), $upgraded, $display_version ); ?></div>
+		<div class="about-text"><?php printf( esc_html__( 'Thank you for %1$s the latest version of WP Idea Stream! %2$s brings some really cool new features!', 'wp-idea-stream' ), $upgraded, $display_version ); ?></div>
 		<div class="wp-idea-stream-badge"></div>
 
 		<h2 class="nav-tab-wrapper">
@@ -73,40 +77,83 @@ function wp_idea_stream_admin_about() {
 			</div>
 		</div>
 
-		<div class="headline-feature">
-			<h3><?php esc_html_e( 'Attach files to your ideas thanks to...', 'wp-idea-stream' ); ?></h3>
+		<hr />
 
-			<div class="featured-image">
-				<img src="<?php echo esc_url( wp_idea_stream()->includes_url . 'admin/buddydrive-editor.gif' ); ?>" alt="<?php esc_attr_e( 'Attach files to your ideas', 'wp-idea-stream' ); ?>">
+		<div class="headline-feature">
+			<h2 style="text-align:center"><?php esc_html_e( 'Embed your users profiles', 'wp-idea-stream' ); ?></h2>
+
+			<?php if ( ! empty( $admin_profile ) ) :?>
+				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;margin:0 auto;max-height:228px!important;}</style>
+				<div class="embed-container" id="#embed-admin-profile">
+					<?php echo $admin_profile ; ?>
+				</div>
+			<?php else : ?>
+				<div class="feature-image" style="text-align:center">
+					<img src="https://cldup.com/4t2V1bvOMR.png" alt="<?php esc_attr_e( 'Embed profile', 'wp-idea-stream' ); ?>">
+				</div>
+			<?php endif ; ?>
+
+			<div class="feature-section" style="margin-top:1em">
+				<h3 style="text-align:center"><?php esc_html_e( 'Great ideas are found by awesome people!', 'wp-idea-stream' ); ?></h3>
+				<p><?php esc_html_e( 'Use the powerful WordPress Embeds provider feature introduced in WordPress 4.4 to let your users show off their lovely profile and statistics about their contributions.', 'wp-idea-stream' ); ?></p>
+				<p><?php esc_html_e( 'WP Idea Stream embed profiles are even greater when BuddyPress 2.4 is activated thanks to its new Cover Images feature, check this out!', 'wp-idea-stream' ); ?></p>
 			</div>
 
-			<div class="feature-section">
-				<h3><?php esc_html_e( '... BuddyPress & BuddyDrive.', 'wp-idea-stream' ); ?></h3>
-				<p><?php esc_html_e( 'You are using the BuddyPress (2.3+) and BuddyDrive (1.3+) plugins? Very good choice! Your members can now attach public files to their ideas.', 'wp-idea-stream' ); ?></p>
+			<div class="feature-image" style="padding-bottom:1.5em;width:600px;margin:0 auto">
+				<img src="https://cldup.com/liERrg_WJJ.png" alt="<?php esc_attr_e( 'Embed profile when BuddyPress is active', 'wp-idea-stream' ); ?>">
 			</div>
 
 			<div class="clear"></div>
 		</div>
 
+		<hr />
+
+		<div class="feature-section two-col">
+			<div class="col">
+				<div class="media-container">
+					<img src="https://cldup.com/QOitsGKqou.png" alt=""/>
+				</div>
+			</div>
+			<div class="col">
+				<h3><?php esc_html_e( 'Featured images for ideas.', 'wp-idea-stream' ); ?></h3>
+				<p><?php esc_html_e( 'When a user adds an image to the idea, it will now be listed into a list of inserted images from which he will be able to choose the one he wishes to use as featured image.', 'wp-idea-stream' ); ?></p>
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="feature-section two-col">
+			<div class="col">
+				<div class="media-container">
+					<img src="https://cldup.com/GglZMhKiLG.png" alt=""/>
+				</div>
+			</div>
+			<div class="col">
+				<h3><?php esc_html_e( 'Embeds, embeds, embeds!', 'wp-idea-stream' ); ?></h3>
+				<p>
+					<?php esc_html_e( 'You can share ideas into your WordPress posts, or anyone can do it from everywhere on the internet just like regular posts. Ideas will include one more information: the average rating they got!', 'wp-idea-stream' ); ?>
+				</p>
+				<p>
+					<?php esc_html_e( 'The way the plugin deal with embeds has been greatly improved and every embed code should be displayed just fine in every single view of ideas (including the one in BuddyPress Groups).', 'wp-idea-stream' ); ?>
+				</p>
+			</div>
+		</div>
+
 		<div class="changelog feature-list">
-			<h2 class="about-headline-callout"><?php esc_html_e( 'Some Improvements..', 'wp-idea-stream' ); ?></h2>
+			<h2 class="about-headline-callout"><?php esc_html_e( 'The finer points..', 'wp-idea-stream' ); ?></h2>
 			<div class="feature-section col one-col">
 				<div class="col-1">
-					<h4><?php esc_html_e( 'About wp-idea-stream-custom.php', 'wp-idea-stream' ); ?></h4>
+					<h4><?php esc_html_e( 'TwentySixteen', 'wp-idea-stream' ); ?></h4>
 					<p>
-						<?php esc_html_e( 'On multisite configs, you can now include custom features specific to each blog where the plugin is activated by using a wp-idea-stream-custom file including the blog id in its name, eg:', 'wp-idea-stream' ); ?>
-						&nbsp;<code>wp-idea-stream-custom-2.php</code>&nbsp;<?php esc_html_e( 'will only be loaded when the current blog has its ID == 2', 'wp-idea-stream' ); ?>&nbsp;
-						<a href="https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#on-multisite-configs-a-custom-file-for-each-blog"><?php esc_html_e( 'Learn more &rarr;', 'wp-idea-stream' ); ?></a>
+						<?php esc_html_e( 'WP Idea Stream will look really nice into the new WordPress default theme. Its style has been optimized for it.', 'wp-idea-stream' ); ?>
 					</p>
-					<h4><?php esc_html_e( 'About sign-ups', 'wp-idea-stream' ); ?></h4>
-					<p><?php printf( esc_html__( '%s now includes a sign-up page for regular configs & multisite ones when only user registration is enabled. If you are using BuddyPress or a multisite config for any other registration settings: their specific sign-ups page will be used.', 'wp-idea-stream' ), $display_version ); ?></p>
-					<p><?php esc_html_e( 'About multisite configs having user registration enabled, the plugin will allow any child blog to have a specific registration management. New users will automatically be added as subscribers (or the chosen default role) to the child blog.', 'wp-idea-stream' ); ?></p>
-					<h4><?php esc_html_e( 'WP Idea Stream template parts loading', 'wp-idea-stream' ); ?></h4>
-					<p><?php esc_html_e( 'The way the plugin&#39;s specific template parts are loaded has been improved.', 'wp-idea-stream' ); ?></p>
-					<h4><?php esc_html_e( 'About other small things...', 'wp-idea-stream' ); ?></h4>
+					<h4><?php esc_html_e( 'Bug fixes', 'wp-idea-stream' ); ?></h4>
 					<ul>
-						<li><?php esc_html_e( 'Default slugs are now translatable: make sure to use regular characters with no spaces and lower cases when translating them in your language pack.', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'The style of WP Idea Stream template parts has been optimized for the Twentyfifteen theme.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'In users profiles, the issue with the title of commented private ideas is now fixed.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'In users profiles, user rates are now consistent meaning only ideas the displayed user rated will be displayed.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'Spammed users on multisite configs or configs where BuddyPress is activated, will not be displayed anymore. Unless you unspam them :)', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'More links on archive pages are now using the link of the idea.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'The Ideas pagination is now completely independant of the Posts one.', 'wp-idea-stream' ); ?></li>
 					</ul>
 				</div>
 			</div>
@@ -172,11 +219,11 @@ function wp_idea_stream_admin_credits() {
 		<div class="changelog">
 			<h4 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h4>
 			<div class="ideastream-credits">
-				<a href="http://2015.paris.wordcamp.org/"><img src="http://2015.paris.wordcamp.org/files/2014/11/250-250.jpg" class="gravatar" alt="WordCamp Paris 2015" /></a>
+				<a href="https://paris.wordcamp.org/2016/"><img src="https://cldup.com/UoFilD4UGh.png" class="gravatar" alt="WordCamp Paris 2016" /></a>
 			</div>
-			<p><?php printf( esc_html__( 'WP Idea Stream was the choice of the WordCamp Paris 2015 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file.', 'wp-idea-stream' ), '<a href="https://github.com/imath/wc-talk">wp-idea-stream-custom.php</a>' ); ?></p>
+			<p><?php printf( esc_html__( 'WP Idea Stream was the choice of the WordCamp Paris 2016 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file.', 'wp-idea-stream' ), '<a href="https://github.com/imath/wc-talk">wp-idea-stream-custom.php</a>' ); ?></p>
 			<p><?php esc_html_e( 'The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system.', 'wp-idea-stream' ); ?></p>
-			<p><?php esc_html_e( 'Many thanks to WordCamp Paris organizers and speakers for this great experience.', 'wp-idea-stream' ); ?></p>
+			<p><?php esc_html_e( 'Many thanks to WordCamp Paris organizers and speakers for this great experience and for their contributions to the user rates bug report.', 'wp-idea-stream' ); ?></p>
 		</div>
 
 		<h4 class="wp-people-group"><?php esc_html_e( 'WP Idea Stream&#39;s external libraries and useful code', 'wp-idea-stream' ); ?></h4>

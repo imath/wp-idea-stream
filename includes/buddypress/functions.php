@@ -48,6 +48,11 @@ function wp_idea_stream_buddypress_get_user_profile_url( $user_id = 0, $user_nic
 		return false;
 	}
 
+	// Extra check to avoid overriding in case of an embed request
+	if ( is_a( wp_idea_stream_get_idea_var( 'embed_user_data' ), 'WP_User' ) ) {
+		return false;
+	}
+
 	$root_url = bp_core_get_user_domain( $user_id, $user_nicename );
 
 	return trailingslashit( $root_url . wp_idea_stream_root_slug() );
@@ -73,7 +78,12 @@ function wp_idea_stream_buddypress_get_user_comments_url( $user_id = 0, $user_ni
 	}
 
 	$root_url = bp_core_get_user_domain( $user_id, $user_nicename );
-	$comments_slug = buddypress()->ideastream->idea_nav['comments']['slug'];
+
+	if ( ! wp_idea_stream_get_idea_var( 'is_user_embed' ) ) {
+		$comments_slug = buddypress()->ideastream->idea_nav['comments']['slug'];
+	} else {
+		$comments_slug = wp_idea_stream_user_comments_slug();
+	}
 
 	return trailingslashit( $root_url . wp_idea_stream_root_slug() . '/' . $comments_slug );
 }
@@ -98,7 +108,12 @@ function wp_idea_stream_buddypress_get_user_rates_url( $user_id = 0, $user_nicen
 	}
 
 	$root_url = bp_core_get_user_domain( $user_id, $user_nicename );
-	$rates_slug = buddypress()->ideastream->idea_nav['rates']['slug'];
+
+	if ( ! wp_idea_stream_get_idea_var( 'is_user_embed' ) ) {
+		$rates_slug = buddypress()->ideastream->idea_nav['rates']['slug'];
+	} else {
+		$rates_slug = wp_idea_stream_user_rates_slug();
+	}
 
 	return trailingslashit( $root_url . wp_idea_stream_root_slug() . '/' . $rates_slug );
 }
@@ -160,7 +175,7 @@ add_filter( 'wp_idea_stream_users_get_displayed_user_displayname', 'wp_idea_stre
  * @uses   wp_idea_stream_buddypress_get_user_profile_url() to get the BuddyPressified user's profile
  */
 function wp_idea_stream_buddypress_profile_redirect( $context = '' ) {
-	if ( empty( $context ) || 'user-profile' != $context ) {
+	if ( empty( $context ) || 'user-profile' != $context || wp_idea_stream_get_idea_var( 'is_user_embed' ) ) {
 		return;
 	}
 
@@ -402,3 +417,131 @@ function wp_idea_stream_buddypress_spam_user( $user_id = 0 ) {
 	}
 }
 add_action( 'bp_make_spam_user', 'wp_idea_stream_buddypress_spam_user', 11, 1 );
+
+/**
+ * As BuddyPress brings a "spam user" feature to regular configs,
+ * let's use it!
+ *
+ * @since  2.3.0
+ *
+ * @param  bool    $is_spammer whether the user is a spammer or not
+ * @param  WP_User $user       the WordPress User Object
+ * @return bool    Whether the user is a spammer or not
+ */
+function wp_idea_stream_buddypress_is_spammy( $is_spammer, $user = null ) {
+	if ( empty( $user->ID ) ) {
+		return $is_spammer;
+	}
+
+	return bp_is_user_spammer( $user->ID );
+}
+add_action( 'wp_idea_stream_users_is_spammy', 'wp_idea_stream_buddypress_is_spammy', 10, 2 );
+
+/**
+ * Add the user's cover image to his embed profile
+ *
+ * @since  2.3.0
+ */
+function wp_idea_stream_buddypress_embed_inline_style() {
+	// Get displayed user id.
+	$user_id = wp_idea_stream_users_displayed_user_id();
+
+	// If not set, we're not on a user's profile.
+	if ( empty( $user_id ) || bp_disable_cover_image_uploads() ) {
+		return;
+	}
+
+	$cover_image = bp_attachments_get_attachment( 'url', array(
+		'object_dir' => 'members',
+		'item_id'    => $user_id,
+	) );
+
+	if ( ! $cover_image ) {
+		return;
+	}
+
+	wp_add_inline_style( 'wp-idea-stream-embed-style', '
+		#buddypress-cover-image {
+			display: block;
+			background-image: url(' . $cover_image . ');
+			background-position: center top;
+			background-repeat: no-repeat;
+			background-size: cover;
+			height: 100px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			z-index: 1;
+		}
+
+		#wp-idea-stream .profile-header {
+			z-index: 1;
+			position: relative;
+		}
+
+		#wp-idea-stream .wp-embed-excerpt {
+			margin-top: 1em;
+		}
+
+		#wp-idea-stream .profile-header .wp-embed-heading a {
+			color: #FFF;
+			text-rendering: optimizelegibility;
+			text-shadow: 0px 0px 3px rgba( 0, 0, 0, 0.8 );
+			height: 50px;
+			line-height: 50px;
+		}
+
+		#wp-idea-stream .profile-header .user-avatar img.avatar {
+			border: solid 2px #FFF;
+			background: rgba( 255, 255, 255, 0.8 );
+		}
+	' );
+}
+add_action( 'wp_idea_stream_enqueue_embed_scripts', 'wp_idea_stream_buddypress_embed_inline_style', 20 );
+
+/**
+ * Enqueue specific scripts and styles (if needed) to let any
+ * user get the displayed user's embed link
+ *
+ * @since  2.3.0
+ */
+function wp_idea_stream_buddypress_enqueue_profile_sharing_dialog_css() {
+	if ( ! wp_idea_stream_is_embed_profile() ) {
+		return;
+	}
+
+	wp_enqueue_script( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), array( 'jquery' ), wp_idea_stream_get_version(), true );
+	wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_users_current_profile_script', array(
+		'is_profile' => 1
+	) ) );
+
+	$min = '.min';
+
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+		$min = '';
+	}
+
+	wp_enqueue_style( 'wp-idea-stream-sharing-profile', includes_url( "css/wp-embed-template{$min}.css" ), array(), wp_idea_stream_get_version() );
+}
+add_action( 'wp_idea_stream_buddypress_load_member_template', 'wp_idea_stream_buddypress_enqueue_profile_sharing_dialog_css' );
+
+/**
+ * Add a new member-header button to open the embed profile dialog box
+ *
+ * @since  2.3.0
+ */
+function wp_idea_stream_buddypress_add_profile_sharing_dialog_button() {
+	if ( ! ( bp_is_user() && bp_is_current_component( 'ideastream' ) && wp_idea_stream_is_embed_profile() ) ) {
+		return;
+	}
+
+	// Temporarly map IdeaStream Displayed user with BuddyPress One
+	add_filter( 'wp_idea_stream_users_displayed_user_id', 'bp_displayed_user_id' );
+
+	wp_idea_stream_users_sharing_button();
+
+	// Stop mapping IdeaStream Displayed user with BuddyPress One
+	remove_filter( 'wp_idea_stream_users_displayed_user_id', 'bp_displayed_user_id' );
+}
+add_action( 'bp_member_header_actions', 'wp_idea_stream_buddypress_add_profile_sharing_dialog_button', 100 );
