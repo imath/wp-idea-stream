@@ -1399,7 +1399,7 @@ function wp_idea_stream_ideas_the_idea_footer() {
 		}
 
 		if ( ! empty( $edit_url ) ) {
-			$retarray['edit'] = '<a href="' . esc_url( $edit_url ) . '" title="' . esc_attr__( 'Edit Idea', 'wp-idea-stream' ) . '">' . esc_html__( 'Edit Idea', 'wp-idea-stream' ) . '</a>';
+			$retarray['edit'] = '<a class="edit-idea" href="' . esc_url( $edit_url ) . '" title="' . esc_attr__( 'Edit Idea', 'wp-idea-stream' ) . '">' . esc_html__( 'Edit Idea', 'wp-idea-stream' ) . '</a>';
 		}
 
 		/**
