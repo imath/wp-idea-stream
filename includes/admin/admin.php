@@ -513,7 +513,7 @@ class WP_Idea_Stream_Admin {
 
 		$bulk_messages[ $this->post_type ] = apply_filters( 'wp_idea_stream_admin_updated_bulk_messages', array(
 			'updated'   => _n( '%s idea updated.', '%s ideas updated.', $bulk_counts['updated'], 'wp-idea-stream' ),
-			'locked'    => _n( '%s idea not updated, somebody is editing it.', '%s ideas not updated, somebody is editing them.', $bulk_counts['locked'], 'wp-idea-stream' ),
+			'locked'    => _n( '%s idea not updated; somebody is editing it.', '%s ideas not updated; somebody is editing them.', $bulk_counts['locked'], 'wp-idea-stream' ),
 			'deleted'   => _n( '%s idea permanently deleted.', '%s ideas permanently deleted.', $bulk_counts['deleted'], 'wp-idea-stream' ),
 			'trashed'   => _n( '%s idea moved to the Trash.', '%s ideas moved to the Trash.', $bulk_counts['trashed'], 'wp-idea-stream' ),
 			'untrashed' => _n( '%s idea restored from the Trash.', '%s ideas restored from the Trash.', $bulk_counts['untrashed'], 'wp-idea-stream' ),
@@ -839,7 +839,7 @@ class WP_Idea_Stream_Admin {
 		);
 
 		if ( ! wp_idea_stream_is_rating_disabled() ) {
-			$new_columns['rates'] = '<span class="vers"><span title="' . esc_attr__( 'Average Rate', 'wp-idea-stream' ) .'" class="idea-rating-bubble"></span></span>';
+			$new_columns['rates'] = '<span class="vers"><span title="' . esc_attr__( 'Average Rating', 'wp-idea-stream' ) .'" class="idea-rating-bubble"></span></span>';
 		}
 
 		/**
@@ -883,7 +883,7 @@ class WP_Idea_Stream_Admin {
 			}
 
 			if ( ! empty( $columns['rates'] ) ) {
-				$columns['rates'] = esc_html_x( 'Average rate', 'downloaded csv rates num header', 'wp-idea-stream' );
+				$columns['rates'] = esc_html_x( 'Average rating', 'downloaded csv rates num header', 'wp-idea-stream' );
 			}
 
 			/**
@@ -1093,8 +1093,8 @@ class WP_Idea_Stream_Admin {
 			?>
 			<p class="description">
 				<?php echo esc_html( sprintf( _n(
-					'%1$s member rated the idea. Its Average rate is: %2$s',
-					'%1$s members rated the idea. Its Average rate is: %2$s',
+					'%1$s member rated the idea. Its Average rating is: %2$s',
+					'%1$s members rated the idea. Its Average rating is: %2$s',
 					$users_count,
 					'wp-idea-stream'
 				), number_format_i18n( $users_count ), number_format_i18n( $ratings_stats['average'], 1 ) ) ); ?>
@@ -1115,7 +1115,7 @@ class WP_Idea_Stream_Admin {
 
 								<?php $edit_user_link = wp_nonce_url( add_query_arg( 'remove_vote', $user_id, $edit_link ), 'idea_remove_vote_' . $user_id ); ?>
 
-								<a href="<?php echo esc_url( $edit_user_link ); ?>" class="del-rate" title="<?php esc_attr_e( 'Delete this rate', 'wp-idea-stream' );?>" data-userid="<?php echo $user_id; ?>">
+								<a href="<?php echo esc_url( $edit_user_link ); ?>" class="del-rate" title="<?php esc_attr_e( 'Delete this rating', 'wp-idea-stream' );?>" data-userid="<?php echo $user_id; ?>">
 									<div class="dashicons dashicons-trash"></div>
 								</a>
 							</span>
@@ -1190,8 +1190,8 @@ class WP_Idea_Stream_Admin {
 	 */
 	public function ratings_updated( $messages = array() ) {
 
-		$messages[11] = esc_html__( 'Rate successfully deleted', 'wp-idea-stream' );
-		$messages[12] = esc_html__( 'Something went wrong while trying to delete the rate.', 'wp-idea-stream' );
+		$messages[11] = esc_html__( 'Rating successfully deleted', 'wp-idea-stream' );
+		$messages[12] = esc_html__( 'Something went wrong while trying to delete the rating.', 'wp-idea-stream' );
 
 		return $messages;
 	}
@@ -1389,7 +1389,7 @@ class WP_Idea_Stream_Admin {
 							esc_html__( 'Clicking on specific column headers will sort the ideas list. You can sort the ideas alphabetically using the Title column header or by popularity:', 'wp-idea-stream' ),
 							array(
 								esc_html__( 'Click on the column header having a dialog buble icon to sort by number of comments.', 'wp-idea-stream' ),
-								esc_html__( 'Click on the column header having a star icon to sort by rates.', 'wp-idea-stream' ),
+								esc_html__( 'Click on the column header having a star icon to sort by rating.', 'wp-idea-stream' ),
 							),
 							esc_html__( 'Inside the rows, you can filter the ideas by categories or tags clicking on the corresponding terms.', 'wp-idea-stream' ),
 						),
@@ -1484,7 +1484,7 @@ class WP_Idea_Stream_Admin {
 				'content' => array(
 					esc_html__( 'The Pretty Links section allows you to control the permalink structure of the plugin by defining custom slugs.', 'wp-idea-stream' ),
 					esc_html__( 'The IdeaStream root slug is the most important one. Make sure the slug you chose is unique. Once saved, IdeaStream will check for an eventual slug collision with WordPress (Posts, Pages or subsites in case of a MultiSite Config), bbPress or BuddyPress, and will display a warning next to the option field.', 'wp-idea-stream' ),
-					esc_html__( 'In the case of a slug collision, i strongly advise you to change the IdeaStream root slug.', 'wp-idea-stream' ),
+					esc_html__( 'In the case of a slug collision, I strongly advise you to change the IdeaStream root slug.', 'wp-idea-stream' ),
 					esc_html__( 'Concerning the text you will enter in the slug fields, make sure it is all lowercase and contains only letters, numbers, and hyphens.', 'wp-idea-stream' ),
 				),
 			);
@@ -1532,7 +1532,7 @@ class WP_Idea_Stream_Admin {
 			$ideas_overview = array_search( 'ideas-overview', $ideas_help_tabs );
 
 			if ( isset( $help_tabs['ideas']['add_help_tab'][ $ideas_overview ]['content'] ) ) {
-				$help_tabs['ideas']['add_help_tab'][ $ideas_overview ]['content'][] = esc_html__( 'The Rates metabox allows you to manage the rates the idea received.', 'wp-idea-stream' );
+				$help_tabs['ideas']['add_help_tab'][ $ideas_overview ]['content'][] = esc_html__( 'The Ratings metabox allows you to manage the ratings the idea has received.', 'wp-idea-stream' );
 			}
 		}
 
