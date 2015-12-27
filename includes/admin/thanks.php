@@ -116,7 +116,7 @@ function wp_idea_stream_admin_about() {
 			</div>
 			<div class="col">
 				<h3><?php esc_html_e( 'Featured images for ideas.', 'wp-idea-stream' ); ?></h3>
-				<p><?php esc_html_e( 'When a user adds an image to the idea, it will now be listed into a list of inserted images from which he will be able to choose the one he wishes to use as featured image.', 'wp-idea-stream' ); ?></p>
+				<p><?php esc_html_e( 'When a user adds images to an idea, those images will be presented as a list, and can then be selected as the featured image for the idea.', 'wp-idea-stream' ); ?></p>
 			</div>
 		</div>
 
@@ -131,7 +131,7 @@ function wp_idea_stream_admin_about() {
 			<div class="col">
 				<h3><?php esc_html_e( 'Embeds, embeds, embeds!', 'wp-idea-stream' ); ?></h3>
 				<p>
-					<?php esc_html_e( 'You can share ideas into your WordPress posts, or anyone can do it from everywhere on the internet just like regular posts. Ideas will include one more information: the average rating they got!', 'wp-idea-stream' ); ?>
+					<?php esc_html_e( 'You can now share ideas within your WordPress posts, or anyone can embed them anywhere on the internet compatible with embed codes: just like regular posts. Ideas will include one more piece of information: the average rating they have received!', 'wp-idea-stream' ); ?>
 				</p>
 				<p>
 					<?php esc_html_e( 'The way the plugin deal with embeds has been greatly improved and every embed code should be displayed just fine in every single view of ideas (including the one in BuddyPress Groups).', 'wp-idea-stream' ); ?>
@@ -145,15 +145,15 @@ function wp_idea_stream_admin_about() {
 				<div class="col-1">
 					<h4><?php esc_html_e( 'TwentySixteen', 'wp-idea-stream' ); ?></h4>
 					<p>
-						<?php esc_html_e( 'WP Idea Stream will look really nice into the new WordPress default theme. Its style has been optimized for it.', 'wp-idea-stream' ); ?>
+						<?php esc_html_e( 'WP Idea Stream will look really nice when used with the new WordPress default theme. Its style has been optimized for it.', 'wp-idea-stream' ); ?>
 					</p>
 					<h4><?php esc_html_e( 'Bug fixes', 'wp-idea-stream' ); ?></h4>
 					<ul>
 						<li><?php esc_html_e( 'In users profiles, the issue with the title of commented private ideas is now fixed.', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'In users profiles, user rates are now consistent meaning only ideas the displayed user rated will be displayed.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'In users profiles, user ratings are now consistent, meaning only ideas the displayed user ranked will be displayed.', 'wp-idea-stream' ); ?></li>
 						<li><?php esc_html_e( 'Spammed users on multisite configs or configs where BuddyPress is activated, will not be displayed anymore. Unless you unspam them :)', 'wp-idea-stream' ); ?></li>
 						<li><?php esc_html_e( 'More links on archive pages are now using the link of the idea.', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'The Ideas pagination is now completely independant of the Posts one.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'The Ideas pagination is now completely independent of the Posts one.', 'wp-idea-stream' ); ?></li>
 					</ul>
 				</div>
 			</div>

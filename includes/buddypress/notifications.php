@@ -75,13 +75,13 @@ function wp_idea_stream_buddypress_format_notifications( $action = '', $item_id 
 		case 'new_' . wp_idea_stream_get_post_type() . '_rate' :
 			if ( (int) $total_items > 1 ) {
 				$url      = trailingslashit( bp_loggedin_user_domain() . $bp->ideastream->slug ) . '?notif=' . $total_items ;
-				$title    = __( 'New idea rates', 'wp-idea-stream' );
-				$text     = sprintf( __( '%d new idea rates', 'wp-idea-stream' ), (int) $total_items );
+				$title    = __( 'New idea rating', 'wp-idea-stream' );
+				$text     = sprintf( __( '%d new idea ratings', 'wp-idea-stream' ), (int) $total_items );
 				$filter   = "wp_idea_stream_buddypress_multiple_{$action}_notification";
 			} else {
 				$url      = wp_idea_stream_ideas_get_idea_permalink( $item_id ) . '?notif=1' ;
-				$title    = __( 'New idea rate', 'wp-idea-stream' );
-				$text     = __( 'New idea rate', 'wp-idea-stream' );
+				$title    = __( 'New idea rating', 'wp-idea-stream' );
+				$text     = __( 'New idea rating', 'wp-idea-stream' );
 
 				// Viewing notifications on user's notification screen will give a bit more infos.
 				if ( 'string' == $format ) {

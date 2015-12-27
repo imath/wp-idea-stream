@@ -352,7 +352,7 @@ function wp_idea_stream_ideas_not_found() {
 			// We're viewing the idea the user rated
 			} else {
 				$output = sprintf(
-					__( 'It looks like %s has not rated any idea yet', 'wp-idea-stream' ),
+					__( 'It looks like %s has not rated any ideas yet', 'wp-idea-stream' ),
 					wp_idea_stream_users_get_displayed_user_displayname()
 				);
 			}
@@ -364,17 +364,17 @@ function wp_idea_stream_ideas_not_found() {
 			$output = __( 'It looks like no idea has been marked with this tag yet', 'wp-idea-stream' );
 
 		} else if ( wp_idea_stream_is_search() ) {
-			$output = __( 'It looks like no idea match your search terms.', 'wp-idea-stream' );
+			$output = __( 'It looks like no idea matches your search terms.', 'wp-idea-stream' );
 
 		} else if ( wp_idea_stream_is_search() ) {
-			$output = __( 'It looks like no idea match your search terms.', 'wp-idea-stream' );
+			$output = __( 'It looks like no idea matches your search terms.', 'wp-idea-stream' );
 
 		} else if ( wp_idea_stream_is_orderby( 'rates_count' ) ) {
-			$output = __( 'It looks like no idea has been rated yet.', 'wp-idea-stream' );
+			$output = __( 'It looks like no ideas have been rated yet.', 'wp-idea-stream' );
 
 		} else if ( wp_idea_stream_user_can( 'publish_ideas' ) ) {
 			$output = sprintf(
-				__( 'It looks like no idea has been submitted yet, <a href="%s" title="Submit your idea">add yours</a>', 'wp-idea-stream' ),
+				__( 'It looks like no ideas has been submitted yet, <a href="%s" title="Submit your idea">add yours</a>', 'wp-idea-stream' ),
 				esc_url( wp_idea_stream_get_form_url() )
 			);
 		}
@@ -1037,7 +1037,7 @@ function wp_idea_stream_ideas_the_rating_link( $zero = false, $more = false, $cs
 			$zero = __( 'Not rated yet', 'wp-idea-stream' );
 		}
 		if ( false === $more ) {
-			$more = __( 'Average rate: %', 'wp-idea-stream' );
+			$more = __( 'Average rating: %', 'wp-idea-stream' );
 		}
 
 		$average = wp_idea_stream_ideas_get_average_rating( $idea->ID );
