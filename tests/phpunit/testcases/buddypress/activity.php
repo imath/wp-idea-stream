@@ -8,6 +8,11 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		// As the BuddyPress Activity Actions are reset before each test
+		// and we only run the following once at init, we need to make sure
+		// the ideas tracking args are set.
+		buddypress()->ideastream->activities->register_activity_actions();
+
 		add_filter( 'comment_flood_filter', '__return_false' );
 	}
 
