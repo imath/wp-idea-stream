@@ -3,8 +3,8 @@ Contributors: imath, aglekis
 Donate link: http://imathi.eu/donations/
 Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
 Requires at least: 4.4
-Tested up to: 4.4
-Stable tag: 2.3.0
+Tested up to: 4.4.2
+Stable tag: 2.3.1
 License: GNU/GPL 2
 
 Share ideas, great ones will rise to the top!
@@ -48,6 +48,11 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 5. Ideas archive page
 
 == Changelog ==
+
+= 2.3.1 =
+* Makes sure the idea header is output even if a plugin is using the content of the idea inside a meta tag (eg: JetPack)
+* Adapt to changes introduced about Post Types comments tracking into the Activity Stream by BuddyPress 2.5
+* Improve translation/wording/english grammar
 
 = 2.3.0 =
 * Users profiles embeds.
@@ -137,6 +142,9 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 * Plugin birth..
 
 == Upgrade Notice ==
+
+= 2.3.1 =
+Please be sure to use at least WordPress 4.4. If you are using BuddyPress, required version is 2.5. Back up your database and files.
 
 = 2.3.0 =
 

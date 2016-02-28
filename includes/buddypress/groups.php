@@ -2673,7 +2673,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 			$activity->component = buddypress()->groups->id;
 			$activity->item_id   = $group_id;
 
-			if ( 'new_blog_comment' == $activity->type ) {
+			if ( 'new_' . wp_idea_stream_get_post_type() . '_comment' === $activity->type ) {
 				$activity->type = 'new_group_comment';
 			} else {
 				$activity->type = 'new_group_idea';
@@ -2716,7 +2716,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 
 		$activity_type = $private_activity['type'];
 
-		if ( 'new_blog_comment' == $activity_type ) {
+		if ( 'new_' . wp_idea_stream_get_post_type() . '_comment' === $activity_type ) {
 			$activity_type = 'new_group_comment';
 		} else {
 			$activity_type = 'new_group_idea';
