@@ -1399,7 +1399,18 @@ function wp_idea_stream_ideas_the_idea_footer() {
 		}
 
 		if ( ! empty( $edit_url ) ) {
-			$retarray['edit'] = '<a href="' . esc_url( $edit_url ) . '" title="' . esc_attr__( 'Edit Idea', 'wp-idea-stream' ) . '">' . esc_html__( 'Edit Idea', 'wp-idea-stream' ) . '</a>';
+			$edit_class = 'edit-idea';
+			$edit_title = __( 'Edit Idea', 'wp-idea-stream' );
+
+			if ( 'ideas' !== $idea->post_type ) {
+				$post_type_labels = get_post_type_labels( get_post_type_object( $idea->post_type ) );
+				if ( ! empty( $post_type_labels->singular_name ) ) {
+					$edit_class = 'edit-' . strtolower( $post_type_labels->singular_name );
+					$edit_title = $post_type_labels->edit_item;
+				}
+			}
+
+			$retarray['edit'] = '<a class="' . sanitize_html_class( $edit_class ) . '" href="' . esc_url( $edit_url ) . '" title="' . esc_attr( $edit_title ) . '">' . esc_html( $edit_title ) . '</a>';
 		}
 
 		/**
