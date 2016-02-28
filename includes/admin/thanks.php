@@ -200,33 +200,46 @@ function wp_idea_stream_admin_credits() {
 			</a>
 		</h2>
 
-		<div class="changelog">
-			<h4 class="wp-people-group"><?php _e( 'The team!', 'wp-idea-stream' ); ?></h4>
-			<ul class="wp-people-group " id="wp-people-group-core-team">
-				<li class="wp-person" id="wp-person-imath">
-					<a href="http://profiles.wordpress.org/imath"><img src="http://0.gravatar.com/avatar/8b208ca408dad63888253ee1800d6a03?s=60" class="gravatar" alt="Mathieu Viet" /></a>
-					<a class="web" href="http://profiles.wordpress.org/imath">imath</a>
-					<span class="title"><?php _e( 'Creator', 'wp-idea-stream' ); ?></span>
-				</li>
-				<li class="wp-person" id="wp-person-aglekis">
-					<a href="http://profiles.wordpress.org/aglekis"><img src="http://0.gravatar.com/avatar/9aed4c3373374032e4ecdde02894d5fb?s=60" class="gravatar" alt="Grégoire Noyelle" /></a>
-					<a class="web" href="http://profiles.wordpress.org/aglekis">Grégoire Noyelle</a>
-					<span class="title"><?php _e( 'Contributor', 'wp-idea-stream' ); ?></span>
-				</li>
-			</ul>
-		</div>
+		<h3 class="wp-people-group"><?php _e( 'The team!', 'wp-idea-stream' ); ?></h3>
+		<ul class="wp-people-group" id="wp-people-group-core-team">
+			<li class="wp-person" id="wp-person-imath">
+				<a href="http://profiles.wordpress.org/imath"><img src="http://0.gravatar.com/avatar/8b208ca408dad63888253ee1800d6a03?s=60" class="gravatar" alt="Mathieu Viet" /></a>
+				<a class="web" href="http://profiles.wordpress.org/imath">imath</a>
+				<span class="title"><?php _e( 'Creator', 'wp-idea-stream' ); ?></span>
+			</li>
+			<li class="wp-person" id="wp-person-aglekis">
+				<a href="http://profiles.wordpress.org/aglekis"><img src="http://0.gravatar.com/avatar/9aed4c3373374032e4ecdde02894d5fb?s=60" class="gravatar" alt="Grégoire Noyelle" /></a>
+				<a class="web" href="http://profiles.wordpress.org/aglekis">Grégoire Noyelle</a>
+				<span class="title"><?php _e( 'Developer', 'wp-idea-stream' ); ?></span>
+			</li>
+		</ul>
 
-		<div class="changelog">
-			<h4 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h4>
-			<div class="ideastream-credits">
-				<a href="https://paris.wordcamp.org/2016/"><img src="https://cldup.com/UoFilD4UGh.png" class="gravatar" alt="WordCamp Paris 2016" /></a>
-			</div>
-			<p><?php printf( esc_html__( 'WP Idea Stream was the choice of the WordCamp Paris 2016 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file.', 'wp-idea-stream' ), '<a href="https://github.com/imath/wc-talk">wp-idea-stream-custom.php</a>' ); ?></p>
-			<p><?php esc_html_e( 'The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system.', 'wp-idea-stream' ); ?></p>
-			<p><?php esc_html_e( 'Many thanks to WordCamp Paris organizers and speakers for this great experience and for their contributions to the user rates bug report.', 'wp-idea-stream' ); ?></p>
-		</div>
+		<h3 class="wp-people-group"><?php _e( 'Rock Stars', 'wp-idea-stream' ); ?></h3>
+		<ul class="wp-people-group" id="wp-people-group-rock-stars">
+			<li class="wp-person" id="wp-person-jennybeaumont">
+				<a href="http://profiles.wordpress.org/jennybeaumont"><img src="http://0.gravatar.com/avatar/c5b883c76357aa309642c255edd51ee1?s=60" class="gravatar" alt="Jenny Beaumont" /></a>
+				<a class="web" href="http://profiles.wordpress.org/jennybeaumont">Jenny Beaumont</a>
+			</li>
+		</ul>
 
-		<h4 class="wp-people-group"><?php esc_html_e( 'WP Idea Stream&#39;s external libraries and useful code', 'wp-idea-stream' ); ?></h4>
+		<h3 class="wp-people-group"><?php printf( esc_html__( 'Contributors to %s', 'wp-idea-stream' ), $display_version ); ?></h3>
+		<p class="wp-credits-list">
+			<a href="https://profiles.wordpress.org/bowromir">Bowe Frankema</a>,
+			<a href="http://profiles.wordpress.org/imath">imath</a>,
+			<a href="http://profiles.wordpress.org/jennybeaumont">Jenny Beaumont</a>,
+			<a href="https://profiles.wordpress.org/slaffik">Slava Abakumov</a>,
+			<a href="https://profiles.wordpress.org/mrjarbenne">mrjarbenne</a>.
+		</p>
+
+		<h3 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h3>
+		<div class="ideastream-credits">
+			<a href="https://paris.wordcamp.org/2016/"><img src="https://cldup.com/UoFilD4UGh.png" class="gravatar" alt="WordCamp Paris 2016" /></a>
+		</div>
+		<p><?php printf( esc_html__( 'WP Idea Stream was the choice of the WordCamp Paris 2016 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file.', 'wp-idea-stream' ), '<a href="https://github.com/imath/wc-talk">wp-idea-stream-custom.php</a>' ); ?></p>
+		<p><?php esc_html_e( 'The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system.', 'wp-idea-stream' ); ?></p>
+		<p><?php esc_html_e( 'Many thanks to WordCamp Paris organizers and speakers for this great experience and for their contributions to the user rates bug report.', 'wp-idea-stream' ); ?></p>
+
+		<h3 class="wp-people-group"><?php esc_html_e( 'WP Idea Stream&#39;s external libraries and useful code', 'wp-idea-stream' ); ?></h3>
 		<ul class="wp-people-group " id="wp-people-group-project-leaders">
 			<li class="wp-person" id="wp-person-sniperwolf">
 				<a href="https://github.com/sniperwolf"><img src="https://avatars1.githubusercontent.com/u/741938?v=2&s=60" class="gravatar" alt="Fabrizio Fallico" /></a>
