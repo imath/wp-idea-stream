@@ -62,7 +62,7 @@ function wp_idea_stream_get_default_options() {
 			'_ideastream_tag_slug'           => _x( 'tag', 'default tag slug', 'wp-idea-stream' ),
 			'_ideastream_user_slug'          => _x( 'user', 'default user slug', 'wp-idea-stream' ),
 			'_ideastream_user_comments_slug' => _x( 'comments', 'default comments slug', 'wp-idea-stream' ),
-			'_ideastream_user_rates_slug'    => _x( 'rates', 'default rates slug', 'wp-idea-stream' ),
+			'_ideastream_user_rates_slug'    => _x( 'ratings', 'default ratings slug', 'wp-idea-stream' ),
 			'_ideastream_signup_slug'        => _x( 'sign-up', 'default sign-up action slug', 'wp-idea-stream' ),
 			'_ideastream_action_slug'        => _x( 'action', 'default action slug', 'wp-idea-stream' ),
 			'_ideastream_addnew_slug'        => _x( 'add', 'default add idea action slug', 'wp-idea-stream' ),
@@ -521,7 +521,7 @@ function wp_idea_stream_user_slug() {
  */
 function wp_idea_stream_user_rates_slug( $default = '' ) {
 	if ( empty( $default ) ) {
-		$default = _x( 'rates', 'default rates slug', 'wp-idea-stream' );
+		$default = _x( 'ratings', 'default ratings slug', 'wp-idea-stream' );
 	}
 
 	return apply_filters( 'wp_idea_stream_user_rates_slug', get_option( '_ideastream_user_rates_slug', $default ) );

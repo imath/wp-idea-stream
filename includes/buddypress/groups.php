@@ -250,7 +250,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 						?>
 						<label for="_group_ideastream_comments">
 							<input type="checkbox" id="_group_ideastream_comments" name="_group_ideastream_comments" value="1" <?php checked( self::group_get_option( $group_id, '_group_ideastream_comments', true ) )?>>
-								<?php esc_html_e( 'Allow members to comment ideas.', 'wp-idea-stream' );?>
+								<?php esc_html_e( 'Allow members to comment on ideas.', 'wp-idea-stream' );?>
 							</input>
 						</label>
 						<?php
@@ -1747,7 +1747,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 
 				if ( ! wp_idea_stream_user_can( 'remove_group_ideas' ) ) {
 					$feedback['type']    = 'error';
-					$feedback['content'] = __( 'Removing the idea failed, you do not have the capability to remove ideas.', 'wp-idea-stream' );
+					$feedback['content'] = __( 'Removing the idea failed. You do not have the capability to remove ideas.', 'wp-idea-stream' );
 					break;
 				}
 
@@ -1777,7 +1777,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 
 				if ( ! wp_idea_stream_user_can( 'spam_group_idea_comments' ) ) {
 					$feedback['type']    = 'error';
-					$feedback['content'] = __( 'Spamming the comment failed, you do not have the capability to spam comments.', 'wp-idea-stream' );
+					$feedback['content'] = __( 'Spamming the comment failed. You do not have the capability to spam comments.', 'wp-idea-stream' );
 					break;
 				}
 
@@ -1807,7 +1807,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 
 				if ( ! wp_idea_stream_user_can( 'trash_group_idea_comments' ) ) {
 					$feedback['type']    = 'error';
-					$feedback['content'] = __( 'Deleting the comment failed, you do not have the capability to delete comments.', 'wp-idea-stream' );
+					$feedback['content'] = __( 'Deleting the comment failed. You do not have the capability to delete comments.', 'wp-idea-stream' );
 					break;
 				}
 
@@ -3349,7 +3349,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 			$ideas_overview = array_search( 'ideas-overview', $ideas_help_tabs );
 
 			if ( isset( $help_tabs['ideas']['add_help_tab'][ $ideas_overview ]['content'] ) ) {
-				$help_tabs['ideas']['add_help_tab'][ $ideas_overview ]['content'][] = esc_html__( 'The Buddypress Group metabox allows you to select a group, the author is member of, to attach the idea to. Private or hidden groups will require the idea to have a status set to private.', 'wp-idea-stream' );
+				$help_tabs['ideas']['add_help_tab'][ $ideas_overview ]['content'][] = esc_html__( 'The Buddypress Group metabox allows you to select a group the author is member of, and attach the idea to that group. Private or hidden groups will require the idea to have the status set to private.', 'wp-idea-stream' );
 			}
 		}
 

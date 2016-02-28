@@ -123,7 +123,7 @@ function wp_idea_stream_comments_no_comment_found() {
 	 */
 	function wp_idea_stream_comments_get_no_comment_found() {
 		$output = sprintf(
-			__( 'It looks like %s has not commented any idea yet', 'wp-idea-stream' ),
+			__( 'It looks like %s has not commented on any ideas yet', 'wp-idea-stream' ),
 			wp_idea_stream_users_get_displayed_user_displayname()
 		);
 
@@ -495,11 +495,11 @@ function wp_idea_stream_comments_the_comment_excerpt() {
 		$idea = get_post( $idea );
 
 		if ( post_password_required( $idea ) ) {
-			$excerpt = __( 'The idea, the comment was posted on, is password protected, you will need it to view its content.', 'wp-idea-stream' );
+			$excerpt = __( 'The idea the comment was posted on is password protected: you will need the password to view its content.', 'wp-idea-stream' );
 
 		// Private
 		} else if ( ! empty( $idea->post_status ) && 'private' == $idea->post_status && ! wp_idea_stream_user_can( 'read_idea', $idea->ID ) ) {
-			$excerpt = __( 'The idea, the comment was posted on is private, you cannot view its content.', 'wp-idea-stream' );
+			$excerpt = __( 'The idea the comment was posted on is private: you cannot view its content.', 'wp-idea-stream' );
 
 		// Public
 		} else {
