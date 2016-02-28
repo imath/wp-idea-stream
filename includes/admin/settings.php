@@ -617,7 +617,7 @@ function wp_idea_stream_editor_link_setting_callback() {
 function wp_idea_stream_moderation_message_setting_callback() {
 	?>
 
-	<label for="_ideastream_moderation_message"><?php esc_html_e( 'In cases where "Pending" is the status for all ideas, you can customize the moderation message', 'wp-idea-stream' ); ?></label>
+	<label for="_ideastream_moderation_message"><?php esc_html_e( 'In cases where &#34;Pending&#34; is the status for all ideas, you can customize the moderation message', 'wp-idea-stream' ); ?></label>
 	<textarea name="_ideastream_moderation_message" id="_ideastream_moderation_message" rows="10" cols="50" class="large-text code" <?php wp_idea_stream_setting_disabled( 'wp_idea_stream_default_idea_status', 'publish' ); ?>><?php echo esc_textarea( wp_idea_stream_moderation_message() );?></textarea>
 
 	<?php
@@ -683,7 +683,7 @@ function wp_idea_stream_sticky_ideas_setting_callback() {
 	?>
 
 	<input name="_ideastream_sticky_ideas" id="_ideastream_sticky_ideas" type="checkbox" value="1" <?php checked( wp_idea_stream_is_sticky_enabled() ); ?> />
-	<label for="_ideastream_sticky_ideas"><?php esc_html_e( 'Allow ideas to be made "sticky" (they will stay at the top of IdeaStream first page)', 'wp-idea-stream' ); ?></label>
+	<label for="_ideastream_sticky_ideas"><?php esc_html_e( 'Allow ideas to be made &#34;sticky&#34; (they will stay at the top of IdeaStream first page)', 'wp-idea-stream' ); ?></label>
 
 	<?php
 }
