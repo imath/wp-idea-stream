@@ -118,17 +118,17 @@ function wp_idea_stream_buddypress_settings_help_tab( $help_tabs = array() ) {
 			'id'      => 'settings-buddypress',
 			'title'   => esc_html__( 'BuddyPress Integration Settings', 'wp-idea-stream' ),
 			'content' => array(
-				esc_html__( 'Sharing Ideas in a BuddyPress powered community will improve user interactions about the ideas posted on your site.', 'wp-idea-stream' ),
-				esc_html__( 'If the setting &#34;Activate BuddyPress integration&#34; is activated and you are using at least version 2.1 of BuddyPress, some nice new functionalities will be available depending on the BuddyPress components you activated:', 'wp-idea-stream' ),
+				esc_html__( 'Sharing Ideas in a BuddyPress powered community will improve user interactions with the ideas posted on your site.', 'wp-idea-stream' ),
+				esc_html__( 'If the setting &#34;Activate BuddyPress integration&#34; is activated and you are using at least version 2.1 of BuddyPress, some nice new functionalities will be available depending on the BuddyPress components you have activated:', 'wp-idea-stream' ),
 				array(
 					esc_html__( 'the plugin&#39;s user profile becomes a new navigation in the BuddyPress member page.', 'wp-idea-stream' ),
 					esc_html__( 'Groups component is activated?', 'wp-idea-stream' ) . ' '
-					. esc_html__( 'Nice, it’s now possible to share ideas within these micro-communities ensuring their members that the group&#39;s visibility is transposed to the status of their ideas.', 'wp-idea-stream' ) . ' '
-					. esc_html__( 'But you can also prefer to disable IdeaStream&#39;s Group integration, this is possible by deactivating the &#34;BuddyPress Groups setting&#34;.', 'wp-idea-stream' ),
+					. esc_html__( 'Nice! It’s now possible to share ideas within these micro-communities ensuring their members that the group&#39;s visibility is transposed to the status of their ideas.', 'wp-idea-stream' ) . ' '
+					. esc_html__( 'You may prefer to disable IdeaStream&#39;s Group integration. This is possible by deactivating the &#34;BuddyPress Groups setting&#34;.', 'wp-idea-stream' ),
 					esc_html__( 'Site Tracking and Activity components are activated?', 'wp-idea-stream' ) . ' '
-					. esc_html__( 'Great, each time a new idea or a new comment about an idea will be posted, an activity will be generated to inform the members of your community.', 'wp-idea-stream' ),
+					. esc_html__( 'Great! Each time a new idea or a new comment about an idea is posted, the members of your community will be informed through an activity update.', 'wp-idea-stream' ),
 					esc_html__( 'Notifications component is activated?', 'wp-idea-stream' ) . ' '
-					. esc_html__( 'Awesome, your members will receive a screen notification when their ideas has been commented or rated.', 'wp-idea-stream' ),
+					. esc_html__( 'Awesome! Your members will receive a screen notification when their ideas has been rated or commented upon.', 'wp-idea-stream' ),
 				)
 			),
 		);

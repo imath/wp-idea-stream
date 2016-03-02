@@ -870,13 +870,13 @@ function wp_idea_stream_ideas_enqueue_scripts() {
 		$js_vars = array(
 			'raty_loaded'  => 1,
 			'ajaxurl'      => admin_url( 'admin-ajax.php', 'relative' ),
-			'wait_msg'     => esc_html__( 'Saving your rating, please wait', 'wp-idea-stream' ),
-			'success_msg'  => esc_html__( 'Thanks, the average rating is now:', 'wp-idea-stream' ),
-			'error_msg'    => esc_html__( 'OOps, something went wrong', 'wp-idea-stream' ),
+			'wait_msg'     => esc_html__( 'Saving your rating; please wait', 'wp-idea-stream' ),
+			'success_msg'  => esc_html__( 'Thanks! The average rating is now:', 'wp-idea-stream' ),
+			'error_msg'    => esc_html__( 'Oops! Something went wrong', 'wp-idea-stream' ),
 			'average_rate' => $ratings['average'],
 			'rate_nb'      => $users_nb,
-			'one_rate'     => esc_html__( 'One rate', 'wp-idea-stream' ),
-			'x_rate'       => esc_html__( '% rates', 'wp-idea-stream' ),
+			'one_rate'     => esc_html__( 'One rating', 'wp-idea-stream' ),
+			'x_rate'       => esc_html__( '% ratings', 'wp-idea-stream' ),
 			'readonly'     => true,
 			'can_rate'     => wp_idea_stream_user_can( 'rate_ideas' ),
 			'not_rated'    => esc_html__( 'Not rated yet', 'wp-idea-stream' ),
@@ -976,7 +976,7 @@ function wp_idea_stream_ideas_get_order_options() {
 
 	// Only if not disabled.
 	if ( ! wp_idea_stream_is_rating_disabled() ) {
-		$order_options['rates_count'] = __( 'Best rated', 'wp-idea-stream' );
+		$order_options['rates_count'] = __( 'Highest Rating', 'wp-idea-stream' );
 	}
 
 	/**

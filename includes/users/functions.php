@@ -615,7 +615,7 @@ function wp_idea_stream_users_profile_description_update() {
 	if ( empty( $user_description ) ) {
 		wp_idea_stream_add_message( array(
 			'type'    => 'error',
-			'content' => __( 'Please, enter some content in your description', 'wp-idea-stream' ),
+			'content' => __( 'Please enter some content in your description', 'wp-idea-stream' ),
 		) );
 
 		wp_safe_redirect( $redirect );
@@ -1172,7 +1172,7 @@ function wp_idea_stream_multisite_user_notification( $mail_attr = array() ) {
 
 	$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 
-	if ( empty( $mail_attr['subject'] ) || sprintf( _x( '[%s] Your username and password info', 'Use the same translation than WP Core', 'wp-idea-stream' ), $blogname ) !== $mail_attr['subject'] ) {
+	if ( empty( $mail_attr['subject'] ) || sprintf( _x( '[%s] Your username and password info', 'Use the same translation as WP Core', 'wp-idea-stream' ), $blogname ) !== $mail_attr['subject'] ) {
 		return $mail_attr;
 	}
 

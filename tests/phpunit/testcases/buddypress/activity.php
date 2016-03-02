@@ -8,6 +8,11 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		// As the BuddyPress Activity Actions are reset before each test
+		// and we only run the following once at init, we need to make sure
+		// the ideas tracking args are set.
+		buddypress()->ideastream->activities->register_activity_actions();
+
 		add_filter( 'comment_flood_filter', '__return_false' );
 	}
 
@@ -331,7 +336,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 	 * @group activity_action
 	 */
 	public function test_wp_idea_stream_idea_activity_actions() {
-		bp_activity_get_actions();
+		add_filter( 'bp_is_current_component', array( $this, 'is_activity_stream' ), 10, 2 );
 
 		$u = $this->factory->user->create();
 		$i = $this->factory->idea->create( array(
@@ -394,7 +399,7 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		/** Group */
 
 		$g = $this->factory->group->create();
-		$a = $this->factory->activity->create( array(
+		$b = $this->factory->activity->create( array(
 			'component' => buddypress()->groups->id,
 			'type' => 'new_ideas',
 			'user_id' => $u,
@@ -413,13 +418,13 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 			$group_link
 		);
 
-		$a_obj = new BP_Activity_Activity( $a );
+		$b_obj = new BP_Activity_Activity( $b );
 
-		$this->assertSame( $expected, $a_obj->action );
+		$this->assertSame( $expected, $b_obj->action );
 
 		// Comment
 
-		$a = $this->factory->activity->create( array(
+		$cb = $this->factory->activity->create( array(
 			'component' => buddypress()->groups->id,
 			'type' => 'new_ideas_comment',
 			'user_id' => $u,
@@ -434,9 +439,11 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 			$group_link
 		);
 
-		$a_obj = new BP_Activity_Activity( $a );
+		$cb_obj = new BP_Activity_Activity( $cb );
 
-		$this->assertSame( $expected, $a_obj->action );
+		$this->assertSame( $expected, $cb_obj->action );
+
+		remove_filter( 'bp_is_current_component', array( $this, 'is_activity_stream' ), 10, 2 );
 	}
 
 	/**
@@ -605,6 +612,18 @@ class WP_Idea_Stream_Activity_Tests extends WP_Idea_Stream_TestCase {
 		) );
 
 		$this->assertEmpty( $trashed_activities['activities'], 'Trashed ideas have no activities' );
+	}
+
+	/**
+	 * This is to make sure WP_Idea_Stream_Activity->dropdown_filters
+	 * will do the job we expect it to do.
+	 */
+	public function is_activity_stream( $retval, $component ) {
+		if ( 'activity' === $component ) {
+			$retval = true;
+		}
+
+		return $retval;
 	}
 }
 

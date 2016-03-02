@@ -192,7 +192,7 @@ class WP_Idea_Stream_Admin_Sticky {
 			?>
 
 			<p>
-				<label class="screen-reader-text" for="wp_idea_stream_sticky"><?php esc_html_e( 'Select whether to stick or not the idea.', 'wp-idea-stream' ); ?></label>
+				<label class="screen-reader-text" for="wp_idea_stream_sticky"><?php esc_html_e( 'Select whether or not to make the idea sticky.', 'wp-idea-stream' ); ?></label>
 				<input type="checkbox" name="wp_idea_stream_sticky" id="wp_idea_stream_sticky" value="1" <?php checked( true, $is_sticky ) ;?>/> <strong class="label"><?php esc_html_e( 'Mark as sticky', 'wp-idea-stream' ); ?></strong>
 			</p>
 

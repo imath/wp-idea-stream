@@ -165,6 +165,8 @@ class WP_Idea_Stream_Activity {
 		add_action( 'wp_idea_stream_buddypress_remove_from_group', array( $this, 'reset_activity_item_id' ), 10, 3 );
 
 		// Manage comment transition, before BuddyPress
+		add_action( 'comment_post',              array( $this, 'allow_private_comments'  ), 9, 2 );
+		add_action( 'edit_comment',              array( $this, 'allow_private_comments'  ), 9    );
 		add_action( 'transition_comment_status', array( $this, 'manage_comment_activity' ), 9, 3 );
 
 		// Make sure spammed/deleted user has no activities
@@ -182,15 +184,12 @@ class WP_Idea_Stream_Activity {
 	 * @uses   add_filter() to override some key vars
 	 */
 	public function setup_filters() {
-		// Add post type to BuddyPress built in post tracking
-		add_filter( 'bp_blogs_record_comment_post_types', array( $this, 'record_post_type' ), 10, 1 );
-
 		// Fake post new post types action to populate the dropdowns
 		add_filter( 'bp_activity_get_post_types_tracking_args', array( $this, 'dropdown_filters' ), 10, 1 );
 
 		// Intercept the post/comment to see if it's an idea/comment about an idea
 		add_filter( "bp_activity_{$this->post_type}_pre_publish", array( $this, 'catch_idea'         ), 10, 4 );
-		add_filter( 'bp_blogs_activity_new_comment_content',      array( $this, 'catch_idea_comment' ), 10, 3 );
+		add_filter( "bp_activity_{$this->post_type}_pre_comment", array( $this, 'catch_idea_comment' ), 10, 5 );
 
 		// Make sure the comment will generate an activity
 		add_filter( 'bp_disable_blogforum_comments', array( $this, 'force_activity_add' ), 10, 1 );
@@ -238,7 +237,7 @@ class WP_Idea_Stream_Activity {
 				'front_caption'     => sprintf( _x( '%s', 'activity front dropdown caption', 'wp-idea-stream' ), $this->post_type_object->labels->name ),
 				'contexts'          => array( 'activity', 'member' ),
 			),
-			'new_blog_comment' => (object) array(
+			'new_' . $this->post_type . '_comment' => (object) array(
 				'component'         => buddypress()->blogs->id,
 				'type'              => 'new_' . $this->post_type . '_comment',
 				'admin_caption'     => sprintf( _x( 'New %s comment posted', 'activity comment admin dropdown caption', 'wp-idea-stream' ), mb_strtolower( $this->post_type_object->labels->singular_name, 'UTF-8' ) ),
@@ -251,17 +250,22 @@ class WP_Idea_Stream_Activity {
 		// Only add the new idea to BuddyPress tracked post types
 		add_post_type_support( $this->post_type, 'buddypress-activity' );
 
-		$tracking_args = $this->activity_actions['new_' . $this->post_type];
+		$tracking_args     = $this->activity_actions['new_' . $this->post_type];
+		$comments_tracking = $this->activity_actions['new_' . $this->post_type . '_comment'];
 
 		bp_activity_set_post_type_tracking_args( $this->post_type, array(
-			'component_id'             => $tracking_args->component,
-			'action_id'                => $tracking_args->type,
-			'bp_activity_admin_filter' => $tracking_args->admin_caption,
-			'bp_activity_front_filter' => $tracking_args->front_caption,
-			'contexts'                 => $tracking_args->contexts,
-			'activity_comment'         => false,
-			'format_callback'          => $tracking_args->action_callback,
-			'position'                 => 50,
+			'component_id'                      => $tracking_args->component,
+			'action_id'                         => $tracking_args->type,
+			'bp_activity_admin_filter'          => $tracking_args->admin_caption,
+			'bp_activity_front_filter'          => $tracking_args->front_caption,
+			'contexts'                          => $tracking_args->contexts,
+			'activity_comment'                  => false,
+			'format_callback'                   => $tracking_args->action_callback,
+			'position'                          => 50,
+			'comment_action_id'                 => $comments_tracking->type,
+			'comment_format_callback'           => $comments_tracking->action_callback,
+			'bp_activity_comments_admin_filter' => $comments_tracking->admin_caption,
+			'bp_activity_comments_front_filter' => $comments_tracking->front_caption,
 		) );
 	}
 
@@ -282,7 +286,7 @@ class WP_Idea_Stream_Activity {
 	 */
 	public function dropdown_filters( $tracking_args ) {
 		if ( ! isset( $tracking_args[ 'new_' . $this->post_type ] ) ) {
-			return;
+			return $tracking_args;
 		}
 
 		if ( is_admin() && function_exists( 'get_current_screen' ) ) {
@@ -293,7 +297,7 @@ class WP_Idea_Stream_Activity {
 			}
 		}
 
-		if ( empty( $component ) && ! bp_is_activity_directory() && ! bp_is_user_activity() && ! bp_is_group_home() ) {
+		if ( empty( $component ) && ! bp_is_activity_directory() && ! bp_is_user_activity() && ! bp_is_group_activity() ) {
 			return $tracking_args;
 		}
 
@@ -343,21 +347,6 @@ class WP_Idea_Stream_Activity {
 	 */
 
 	/**
-	 * 1/ Force BuddyPress to listen to posted comments about ideas
-	 *
-	 * @package WP Idea Stream
-	 * @subpackage buddypress/activity
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param  array  $post_types list of post types the blogs component is listening to
-	 * @return array              the post types with the ideas one included
-	 */
-	public function record_post_type( $post_types = array() ) {
-		return array_merge( $post_types, array( $this->post_type ) );
-	}
-
-	/**
 	 * 2/ Catch the idea in order to use it just before the activity is saved
 	 * @see  $this->adjust_activity_args();
 	 *
@@ -401,14 +390,19 @@ class WP_Idea_Stream_Activity {
 	 * @uses   bp_activity_delete()      to delete an activity
 	 * @return string                    the activity content unchanged
 	 */
-	public function catch_idea_comment( $activity_content = '', $post = null, $post_permalink = '' ) {
-		// If it's a comment, BuddyPress is attaching it into the post var of the comment object
-		if ( empty( $post->post->post_type ) || $this->post_type != $post->post->post_type ) {
-			return $activity_content;
+	public function catch_idea_comment( $retval = true, $blog_id, $post_id, $user_id, $comment_id ) {
+		// First remove the filter if needed!
+		if ( ! empty( $this->allowed_private_comment ) ) {
+			unset( $this->allowed_private_comment );
+			remove_filter( 'bp_activity_post_type_is_post_status_allowed', '__return_false' );
 		}
 
-		$this->idea              = $post->post;
-		$this->secondary_item_id = $post->comment_ID;
+		if ( empty( $post_id ) || empty( $comment_id ) ) {
+			return $retval;
+		}
+
+		$this->idea              = get_post( $post_id );
+		$this->secondary_item_id = $comment_id;
 
 		/**
 		 * For this particular case, we need to check for a previous entry to delete it
@@ -427,7 +421,7 @@ class WP_Idea_Stream_Activity {
 		}
 
 		// return without editing.
-		return $activity_content;
+		return $retval;
 	}
 
 	/**
@@ -490,7 +484,7 @@ class WP_Idea_Stream_Activity {
 		 * - is not generating an activity for private posts
 		 * - is generating an activity for comments made on a private post
 		 */
-		if ( 'publish' != $this->idea->post_status ) {
+		if ( 'publish' !== $this->idea->post_status ) {
 			$activity->hide_sitewide = true;
 		}
 
@@ -942,7 +936,7 @@ class WP_Idea_Stream_Activity {
 				}
 
 				// Delete the private to avoid duplicates
-				bp_activity_delete( array( 'id' => $this->private_activities[ $idea_id ][0] ) );
+				bp_activity_delete( array( 'id' => reset( $this->private_activities[ $idea_id ] ) ) );
 			}
 
 			// Reset edited activities
@@ -1099,6 +1093,28 @@ class WP_Idea_Stream_Activity {
 	}
 
 	/**
+	 * Allow private comments about Ideas
+	 *
+	 * @since  2.3.1
+	 *
+	 * @param  integer $comment_id  The comment ID
+	 * @param  boolean $is_approved Whether the comment is approved or not
+	 */
+	public function allow_private_comments( $comment_id = 0, $is_approved = true ) {
+		if ( empty( $comment_id ) ) {
+			return;
+		}
+
+		$comment   = get_comment( $comment_id );
+		$post      = get_post( $comment->comment_post_ID );
+
+		if ( $this->post_type === $post->post_type && 'private' === $post->post_status ) {
+			$this->allowed_private_comment = true;
+			add_filter( 'bp_activity_post_type_is_post_status_allowed', '__return_false' );
+		}
+	}
+
+	/**
 	 * Manage activities about idea comments
 	 *
 	 * @package WP Idea Stream
@@ -1126,7 +1142,7 @@ class WP_Idea_Stream_Activity {
 		}
 
 		// Avoid BuddyPress to manage transtion status, we'll manage idea comments ourselves
-		remove_action( 'transition_comment_status', 'bp_blogs_transition_activity_status' );
+		remove_action( 'transition_comment_status', 'bp_activity_transition_post_type_comment_status' );
 
 		/**
 		 * If the new status is approved, and we already created the activity bail, it should be
@@ -1146,10 +1162,18 @@ class WP_Idea_Stream_Activity {
 			'per_page'     => false,
 		) );
 
+		$activity_post_object = bp_activity_get_post_type_tracking_args( $this->post_type );
+
 		// No activities and status is approved.
 		if ( empty( $activity_comments['activities'] ) && 'approved' == $new_status ) {
+			// Allow comments on private ideas
+			add_filter( 'bp_activity_post_type_is_post_status_allowed', '__return_false' );
+
 			// Record an activity
-			bp_blogs_record_comment( $comment->comment_ID, true );
+			bp_activity_post_type_comment( $comment->comment_ID, true, $activity_post_object );
+
+			// Remove the temporary filter
+			remove_filter( 'bp_activity_post_type_is_post_status_allowed', '__return_false' );
 
 		/**
 		 * Else status should be 'delete', 'hold', 'trash', 'spam', 'unapproved'

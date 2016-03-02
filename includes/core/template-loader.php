@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 function wp_idea_stream_buffer_template_part( $slug, $name = null, $echo = true ) {
 	ob_start();
 
-	wp_idea_stream_get_template_part( $slug, $name );
+	wp_idea_stream_template_part( $slug, $name );
 
 	// Get the output buffer contents
 	$output = ob_get_clean();
@@ -553,6 +553,11 @@ class WP_Idea_Stream_Core_Screens {
 
 	public function replace_the_content( $content ) {
 		if ( 'single-idea' === $this->template_args['context'] ) {
+			// Do not filter the content inside the document header
+			if ( doing_action( 'wp_head' ) ) {
+				return $content;
+			}
+
 			$content = wp_idea_stream_buffer_single_idea( $content );
 		} else {
 			$content = wp_idea_stream_buffer_template_part( $this->template_args['template_slug'], $this->template_args['template_name'], false );
