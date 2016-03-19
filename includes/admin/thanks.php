@@ -83,7 +83,7 @@ function wp_idea_stream_admin_about() {
 			<h2 style="text-align:center"><?php esc_html_e( 'Embed your users profiles', 'wp-idea-stream' ); ?></h2>
 
 			<?php if ( ! empty( $admin_profile ) ) :?>
-				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;margin:0 auto;max-height:228px!important;}</style>
+				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;clip:auto!important;position:relative!important;margin:0 auto;max-height:228px!important;}</style>
 				<div class="embed-container" id="#embed-admin-profile">
 					<?php echo $admin_profile ; ?>
 				</div>
