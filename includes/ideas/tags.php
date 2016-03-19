@@ -765,9 +765,9 @@ function wp_idea_stream_ideas_the_title_attribute() {
 		$title = '';
 
 		if ( ! empty( $idea->post_password ) ) {
-			$title = _x( 'Protected :', 'idea permalink title protected attribute', 'wp-idea-stream' ) . ' ';
+			$title = _x( 'Protected:', 'idea permalink title protected attribute', 'wp-idea-stream' ) . ' ';
 		} else if ( ! empty( $idea->post_status ) && 'private' == $idea->post_status ) {
-			$title = _x( 'Private :', 'idea permalink title private attribute', 'wp-idea-stream' ) . ' ';
+			$title = _x( 'Private:', 'idea permalink title private attribute', 'wp-idea-stream' ) . ' ';
 		}
 
 		$title .= $idea->post_title;
