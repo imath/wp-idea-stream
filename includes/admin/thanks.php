@@ -59,7 +59,7 @@ function wp_idea_stream_admin_about() {
 		</h2>
 
 		<div class="headline-feature">
-			<h2 style="text-align:center"><?php echo esc_html_x( 'Share ideas, great ones will rise to the top!', 'IdeaStream Headline', 'wp-idea-stream' ); ?></h2>
+			<h2 style="text-align:center"><?php echo esc_html_x( 'Share ideas, great ones will rise to the top!', 'WP Idea Stream Headline', 'wp-idea-stream' ); ?></h2>
 
 			<div class="feature-section">
 				<p>
@@ -161,7 +161,7 @@ function wp_idea_stream_admin_about() {
 
 		<div class="changelog">
 			<div class="return-to-dashboard">
-				<a href="<?php echo esc_url( $settings_url );?>" title="<?php _e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php _e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
+				<a href="<?php echo esc_url( $settings_url );?>" title="<?php _e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php _e( 'Go to the WP Idea Stream Settings page', 'wp-idea-stream' );?></a>
 			</div>
 		</div>
 
@@ -260,7 +260,7 @@ function wp_idea_stream_admin_credits() {
 
 		<div class="changelog">
 			<div class="return-to-dashboard">
-				<a href="<?php echo esc_url( $settings_url );?>" title="<?php esc_html_e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php esc_html_e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
+				<a href="<?php echo esc_url( $settings_url );?>" title="<?php esc_html_e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php esc_html_e( 'Go to the WP Idea Stream Settings page', 'wp-idea-stream' );?></a>
 			</div>
 		</div>
 

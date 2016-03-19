@@ -39,7 +39,7 @@ class WP_Idea_Stream_Users_Top_Contributors extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array( 'description' => __( 'List the top idea contributors', 'wp-idea-stream' ) );
-		parent::__construct( false, $name = __( 'IdeaStream Tops', 'wp-idea-stream' ), $widget_ops );
+		parent::__construct( false, $name = __( 'WP Idea Stream Tops', 'wp-idea-stream' ), $widget_ops );
 
 		if ( is_active_widget( false, false, $this->id_base ) && ! is_admin() && ! is_network_admin() ) {
 			add_action( 'wp_idea_stream_enqueue_scripts', 'wp_idea_stream_enqueue_style' );

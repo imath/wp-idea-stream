@@ -41,7 +41,7 @@ if ( ! class_exists( 'WP_Idea_Stream_Ideas_Categories' ) ) :
 	 */
 	public function __construct() {
 		$widget_ops = array( 'description' => __( 'A list of Idea categories', 'wp-idea-stream' ) );
-		WP_Widget::__construct( false, $name = __( 'IdeaStream categories', 'wp-idea-stream' ), $widget_ops );
+		WP_Widget::__construct( false, $name = __( 'WP Idea Stream categories', 'wp-idea-stream' ), $widget_ops );
 	}
 
 	/**
@@ -161,7 +161,7 @@ if ( ! class_exists( 'WP_Idea_Stream_Ideas_Popular' ) ) :
 	 */
 	public function __construct() {
 		$widget_ops = array( 'description' => __( 'List the most popular ideas', 'wp-idea-stream' ) );
-		parent::__construct( false, $name = __( 'IdeaStream Popular Ideas', 'wp-idea-stream' ), $widget_ops );
+		parent::__construct( false, $name = __( 'WP Idea Stream Popular Ideas', 'wp-idea-stream' ), $widget_ops );
 	}
 
 	/**

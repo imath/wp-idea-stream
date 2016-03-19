@@ -39,7 +39,7 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 	 */
 	public function __construct() {
 		$widget_ops = array( 'classname' => 'widget_ideas_recent_comments', 'description' => __( 'Latest comments about ideas', 'wp-idea-stream' ) );
-		WP_Widget::__construct( 'idea-recent-comments', $name = __( 'IdeaStream latest comments', 'wp-idea-stream' ), $widget_ops );
+		WP_Widget::__construct( 'idea-recent-comments', $name = __( 'WP Idea Stream latest comments', 'wp-idea-stream' ), $widget_ops );
 
 		$this->alt_option_name = 'widget_ideas_recent_comments';
 

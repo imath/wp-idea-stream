@@ -79,7 +79,7 @@ function wp_idea_stream_get_settings_fields() {
 
 			// Post Type Archive page title
 			'_ideastream_archive_title' => array(
-				'title'             => __( 'IdeaStream archive page', 'wp-idea-stream' ),
+				'title'             => __( 'WP Idea Stream archive page', 'wp-idea-stream' ),
 				'callback'          => 'wp_idea_stream_archive_title_setting_callback',
 				'sanitize_callback' => 'sanitize_text_field',
 				'args'              => array()
@@ -181,7 +181,7 @@ function wp_idea_stream_get_settings_fields() {
 
 			// Root slug
 			'_ideastream_root_slug' => array(
-				'title'             => __( 'IdeaStream root slug', 'wp-idea-stream' ),
+				'title'             => __( 'WP Idea Stream root slug', 'wp-idea-stream' ),
 				'callback'          => 'wp_idea_stream_root_slug_setting_callback',
 				'sanitize_callback' => 'wp_idea_stream_sanitize_slug',
 				'args'              => array()
@@ -489,8 +489,8 @@ function wp_idea_stream_root_slug_conflict_check( $slug = 'ideastream' ) {
 function wp_idea_stream_settings_core_section_callback() {
 	?>
 
-	<p><?php _e( 'Customize IdeaStream features', 'wp-idea-stream' ); ?></p>
-	<p class="description"><?php printf( esc_html__( 'Url of IdeaStream&#39;s main page: %s', 'wp-idea-stream' ), '<code>' . wp_idea_stream_get_root_url() .'</code>' ) ;?></p>
+	<p><?php _e( 'Customize WP Idea Stream features', 'wp-idea-stream' ); ?></p>
+	<p class="description"><?php printf( esc_html__( 'Url of WP Idea Stream&#39;s main page: %s', 'wp-idea-stream' ), '<code>' . wp_idea_stream_get_root_url() .'</code>' ) ;?></p>
 
 	<?php
 }
@@ -683,7 +683,7 @@ function wp_idea_stream_sticky_ideas_setting_callback() {
 	?>
 
 	<input name="_ideastream_sticky_ideas" id="_ideastream_sticky_ideas" type="checkbox" value="1" <?php checked( wp_idea_stream_is_sticky_enabled() ); ?> />
-	<label for="_ideastream_sticky_ideas"><?php esc_html_e( 'Allow ideas to be made &#34;sticky&#34; (they will stay at the top of IdeaStream first page)', 'wp-idea-stream' ); ?></label>
+	<label for="_ideastream_sticky_ideas"><?php esc_html_e( 'Allow ideas to be made &#34;sticky&#34; (they will stay at the top of WP Idea Stream first page)', 'wp-idea-stream' ); ?></label>
 
 	<?php
 }
@@ -761,7 +761,7 @@ function wp_idea_stream_embed_profile_setting_callback() {
 function wp_idea_stream_settings_rewrite_section_callback() {
 	?>
 
-	<p><?php esc_html_e( 'Customize the slugs of IdeaStream urls', 'wp-idea-stream' ); ?></p>
+	<p><?php esc_html_e( 'Customize the slugs of WP Idea Stream urls', 'wp-idea-stream' ); ?></p>
 
 	<?php
 }
@@ -1044,7 +1044,7 @@ function wp_idea_stream_allow_signups_setting_callback() {
 	?>
 
 	<input name="_ideastream_allow_signups" id="_ideastream_allow_signups" type="checkbox" value="1" <?php checked( wp_idea_stream_allow_signups() ); ?> />
-	<label for="_ideastream_allow_signups"><?php esc_html_e( 'Allow IdeaStream to manage signups for your site', 'wp-idea-stream' ); ?></label>
+	<label for="_ideastream_allow_signups"><?php esc_html_e( 'Allow WP Idea Stream to manage signups for your site', 'wp-idea-stream' ); ?></label>
 
 	<?php
 }
@@ -1281,7 +1281,7 @@ function wp_idea_stream_settings() {
 	?>
 	<div class="wrap">
 
-		<h2><?php esc_html_e( 'IdeaStream Settings', 'wp-idea-stream' ) ?></h2>
+		<h2><?php esc_html_e( 'WP Idea Stream Settings', 'wp-idea-stream' ) ?></h2>
 
 		<form action="options.php" method="post">
 

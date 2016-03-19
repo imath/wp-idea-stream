@@ -35,8 +35,8 @@ if ( ! class_exists( 'WP_Idea_Stream_Navig' ) ) :
 	 * @uses add_action() to hook to plugin's action and set the nav items
 	 */
 	public function __construct() {
-		$widget_ops = array( 'description' => __( 'Add IdeaStream&#39;s nav to your sidebar.', 'wp-idea-stream' ) );
-		parent::__construct( false, $name = __( 'IdeaStream Nav', 'wp-idea-stream' ), $widget_ops );
+		$widget_ops = array( 'description' => __( 'Add WP Idea Stream&#39;s nav to your sidebar.', 'wp-idea-stream' ) );
+		parent::__construct( false, $name = __( 'WP Idea Stream Nav', 'wp-idea-stream' ), $widget_ops );
 
 		// We need to wait for the ideas post type to be registered
 		add_action( 'wp_idea_stream_init', array( $this, 'set_available_nav_items' ) );

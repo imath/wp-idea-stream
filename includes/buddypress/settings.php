@@ -124,7 +124,7 @@ function wp_idea_stream_buddypress_settings_help_tab( $help_tabs = array() ) {
 					esc_html__( 'the plugin&#39;s user profile becomes a new navigation in the BuddyPress member page.', 'wp-idea-stream' ),
 					esc_html__( 'Groups component is activated?', 'wp-idea-stream' ) . ' '
 					. esc_html__( 'Nice! It’s now possible to share ideas within these micro-communities ensuring their members that the group&#39;s visibility is transposed to the status of their ideas.', 'wp-idea-stream' ) . ' '
-					. esc_html__( 'You may prefer to disable IdeaStream&#39;s Group integration. This is possible by deactivating the &#34;BuddyPress Groups setting&#34;.', 'wp-idea-stream' ),
+					. esc_html__( 'You may prefer to disable WP Idea Stream&#39;s Group integration. This is possible by deactivating the &#34;BuddyPress Groups setting&#34;.', 'wp-idea-stream' ),
 					esc_html__( 'Site Tracking and Activity components are activated?', 'wp-idea-stream' ) . ' '
 					. esc_html__( 'Great! Each time a new idea or a new comment about an idea is posted, the members of your community will be informed through an activity update.', 'wp-idea-stream' ),
 					esc_html__( 'Notifications component is activated?', 'wp-idea-stream' ) . ' '

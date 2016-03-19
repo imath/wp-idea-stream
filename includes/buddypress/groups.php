@@ -1016,7 +1016,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		?>
 
 		<input name="_ideastream_groups_integration" id="_ideastream_groups_integration" type="checkbox" value="1" <?php checked( $active ); ?> />
-		<label for="_ideastream_groups_integration"><?php esc_html_e( 'Activate IdeaStream in Groups', 'wp-idea-stream' ); ?></label>
+		<label for="_ideastream_groups_integration"><?php esc_html_e( 'Activate WP Idea Stream in Groups', 'wp-idea-stream' ); ?></label>
 
 		<?php
 	}
@@ -3112,7 +3112,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 				<?php esc_html_e( 'Search in groups to select one:', 'wp-idea-stream' ); ?>
 			</strong>
 			<p class="description">
-				<?php esc_html_e( 'Only groups where IdeaStream is activated and where the author of this idea is a member of will show.', 'wp-idea-stream' ); ?>
+				<?php esc_html_e( 'Only groups where WP Idea Stream is activated and where the author of this idea is a member of will show.', 'wp-idea-stream' ); ?>
 			</p>
 			<p>
 				<input type="text" id="wp_idea_stream_buddypress_group"/>

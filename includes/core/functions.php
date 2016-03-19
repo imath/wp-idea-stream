@@ -327,23 +327,23 @@ function wp_idea_stream_post_type_register_args() {
 function wp_idea_stream_post_type_register_labels() {
 	return apply_filters( 'wp_idea_stream_post_type_register_labels', array(
 		'labels' => array(
-			'name'                  => __( 'Ideas',                   'wp-idea-stream' ),
-			'menu_name'             => __( 'IdeaStream',              'wp-idea-stream' ),
-			'all_items'             => __( 'All Ideas',               'wp-idea-stream' ),
-			'singular_name'         => __( 'Idea',                    'wp-idea-stream' ),
-			'add_new'               => __( 'Add New Idea',            'wp-idea-stream' ),
-			'add_new_item'          => __( 'Add New Idea',            'wp-idea-stream' ),
-			'edit_item'             => __( 'Edit Idea',               'wp-idea-stream' ),
-			'new_item'              => __( 'New Idea',                'wp-idea-stream' ),
-			'view_item'             => __( 'View Idea',               'wp-idea-stream' ),
-			'search_items'          => __( 'Search Ideas',            'wp-idea-stream' ),
-			'not_found'             => __( 'No Ideas Found',          'wp-idea-stream' ),
-			'not_found_in_trash'    => __( 'No Ideas Found in Trash', 'wp-idea-stream' ),
-			'insert_into_item'      => __( 'Insert into idea',        'wp-idea-stream' ),
-			'uploaded_to_this_item' => __( 'Uploaded to this idea',   'wp-idea-stream' ),
-			'filter_items_list'     => __( 'Filter Ideas list',       'wp-idea-stream' ),
-			'items_list_navigation' => __( 'Ideas list navigation',   'wp-idea-stream' ),
-			'items_list'            => __( 'Ideas list',              'wp-idea-stream' ),
+			'name'                  => __( 'Ideas',                     'wp-idea-stream' ),
+			'menu_name'             => _x( 'Ideas', 'Main Plugin menu', 'wp-idea-stream' ),
+			'all_items'             => __( 'All Ideas',                 'wp-idea-stream' ),
+			'singular_name'         => __( 'Idea',                      'wp-idea-stream' ),
+			'add_new'               => __( 'Add New Idea',              'wp-idea-stream' ),
+			'add_new_item'          => __( 'Add New Idea',              'wp-idea-stream' ),
+			'edit_item'             => __( 'Edit Idea',                 'wp-idea-stream' ),
+			'new_item'              => __( 'New Idea',                  'wp-idea-stream' ),
+			'view_item'             => __( 'View Idea',                 'wp-idea-stream' ),
+			'search_items'          => __( 'Search Ideas',              'wp-idea-stream' ),
+			'not_found'             => __( 'No Ideas Found',            'wp-idea-stream' ),
+			'not_found_in_trash'    => __( 'No Ideas Found in Trash',   'wp-idea-stream' ),
+			'insert_into_item'      => __( 'Insert into idea',          'wp-idea-stream' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this idea',     'wp-idea-stream' ),
+			'filter_items_list'     => __( 'Filter Ideas list',         'wp-idea-stream' ),
+			'items_list_navigation' => __( 'Ideas list navigation',     'wp-idea-stream' ),
+			'items_list'            => __( 'Ideas list',                'wp-idea-stream' ),
 		)
 	) );
 }
@@ -1410,7 +1410,7 @@ function wp_idea_stream_adminbar_menu( $wp_admin_bar = null ){
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'appearance',
 			'id'     => 'ideastream',
-			'title'  => _x( 'IdeaStream', 'Admin bar menu', 'wp-idea-stream' ),
+			'title'  => _x( 'WP Idea Stream', 'Admin bar menu', 'wp-idea-stream' ),
 			'href'   => $menu_url,
 		) );
 	}
