@@ -33,10 +33,10 @@ function wp_idea_stream_admin_about() {
 	$display_version = wp_idea_stream_get_version();
 	$settings_url = add_query_arg( 'page', 'ideastream', admin_url( 'options-general.php' ) );
 	$has_upgraded = get_transient( '_ideastream_reactivated_upgrade' );
-	$upgraded = __( 'activating', 'wp-idea-stream' );
+	$thanks_for = esc_html__( 'Thank you for activating the latest version of WP Idea Stream! %s brings some really cool new features!', 'wp-idea-stream' );
 
 	if ( ! empty( $has_upgraded ) ) {
-		$upgraded = __( 'upgrading to', 'wp-idea-stream' );
+		$thanks_for = esc_html__( 'Thank you for upgrading to the latest version of WP Idea Stream! %s brings some really cool new features!', 'wp-idea-stream' );
 		delete_transient( '_ideastream_reactivated_upgrade' );
 	}
 
@@ -46,7 +46,7 @@ function wp_idea_stream_admin_about() {
 	?>
 	<div class="wrap about-wrap">
 		<h1><?php printf( esc_html_x( 'WP Idea Stream %s', 'about screen title', 'wp-idea-stream' ), $display_version ); ?></h1>
-		<div class="about-text"><?php printf( esc_html__( 'Thank you for %1$s the latest version of WP Idea Stream! %2$s brings some really cool new features!', 'wp-idea-stream' ), $upgraded, $display_version ); ?></div>
+		<div class="about-text"><?php printf( $thanks_for, $display_version ); ?></div>
 		<div class="wp-idea-stream-badge"></div>
 
 		<h2 class="nav-tab-wrapper">

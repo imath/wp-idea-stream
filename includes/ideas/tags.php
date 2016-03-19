@@ -1343,47 +1343,75 @@ function wp_idea_stream_ideas_the_idea_footer() {
 	function wp_idea_stream_ideas_get_idea_footer() {
 		$idea = wp_idea_stream()->query_loop->idea;
 
-		$retarray = array(
-			'start' => __( 'This idea', 'wp-idea-stream' ),
-		);
+		$date = apply_filters( 'get_the_date', mysql2date( get_option( 'date_format' ), $idea->post_date ) );
+		$placeholders = array( 'date' => $date );
 
 		$category_list = wp_idea_stream_ideas_get_the_term_list( $idea->ID, wp_idea_stream_get_category() );
+		$tag_list      = wp_idea_stream_ideas_get_the_term_list( $idea->ID, wp_idea_stream_get_tag() );
+
+		// Translators: 1 is category, 2 is tag and 3 is the date.
+		$retarray = array(
+			'utility_text' => _x( 'This idea was posted on %3$s.', 'default idea footer utility text', 'wp-idea-stream' ),
+		);
 
 		if ( ! empty( $category_list ) ) {
-			$retarray['category'] = sprintf( _x( 'was posted in %s', 'idea categories comma separated list', 'wp-idea-stream' ), $category_list );
+			// Translators: 1 is category, 2 is tag and 3 is the date.
+			$retarray['utility_text'] = _x( 'This idea was posted in %1$s on %3$s.', 'idea attached to at least one category footer utility text', 'wp-idea-stream' );
+			$placeholders['category'] = $category_list;
 		}
-
-		$tag_list = wp_idea_stream_ideas_get_the_term_list( $idea->ID, wp_idea_stream_get_tag() );
 
 		if ( ! empty( $tag_list ) ) {
-			$in = _x( 'and tagged', 'idea tags join words','wp-idea-stream' );
+			// Translators: 1 is category, 2 is tag and 3 is the date.
+			$retarray['utility_text'] = _x( 'This idea was tagged %2$s on %3$s.', 'idea attached to at least one tag footer utility text', 'wp-idea-stream' );
+			$placeholders['tag'] = $tag_list;
 
-			if ( empty( $category_list ) ) {
-				$in = _x( 'was tagged', 'idea tags join words no category','wp-idea-stream' );
+			if ( ! empty( $category_list ) ) {
+				// Translators: 1 is category, 2 is tag and 3 is the date.
+				$retarray['utility_text'] =  _x( 'This idea was posted in %1$s and tagged %2$s on %3$s.', 'idea attached to at least one tag and one category footer utility text', 'wp-idea-stream' );
 			}
-
-			$retarray['tag'] = sprintf( _x( '%1$s %2$s', 'idea tags comma separated list', 'wp-idea-stream' ), $in, $tag_list );
 		}
 
-		if ( empty( $retarray['category'] ) && empty( $retarray['tag'] ) ) {
-			$retarray['posted'] = _x( 'was posted', 'idea footer empty tags and categories', 'wp-idea-stream' );
-		}
-
-		$date = apply_filters( 'get_the_date', mysql2date( get_option( 'date_format' ), $idea->post_date ) );
-
-		if ( ! wp_idea_stream_is_single_idea() ) {
-			// point at the end
-			$retarray['date'] = sprintf( _x( 'on %s.', 'idea date of publication point', 'wp-idea-stream' ), $date );
-
-		} else {
-			// no point at the end
-			$retarray['date'] = sprintf( _x( 'on %s', 'idea date of publication no point', 'wp-idea-stream' ), $date );
-
+		if ( wp_idea_stream_is_single_idea() ) {
 			$user = wp_idea_stream_users_get_user_data( 'id', $idea->post_author );
 			$user_link = '<a class="idea-author" href="' . esc_url( wp_idea_stream_users_get_user_profile_url( $idea->post_author, $user->user_nicename ) ) . '" title="' . esc_attr( $user->display_name ) . '">';
 			$user_link .= get_avatar( $idea->post_author, 20 ) . esc_html( $user->display_name ) . '</a>';
 
-			$retarray['author'] = sprintf( _x( 'by %s.', 'single idea author link', 'wp-idea-stream' ), $user_link );
+			// Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+			$retarray['utility_text']  = _x( 'This idea was posted on %3$s by %4$s.', 'default single idea footer utility text', 'wp-idea-stream' );
+			$placeholders['user_link'] = $user_link;
+
+			if ( ! empty( $category_list ) ) {
+				// Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+				$retarray['utility_text'] = _x( 'This idea was posted in %1$s on %3$s by %4$s.', 'single idea attached to at least one category footer utility text', 'wp-idea-stream' );
+			}
+
+			if ( ! empty( $tag_list ) ) {
+				// Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+				$retarray['utility_text'] = _x( 'This idea was tagged %2$s on %3$s by %4$s.', 'single idea attached to at least one tag footer utility text', 'wp-idea-stream' );
+
+				if ( ! empty( $category_list ) ) {
+					// Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+					$retarray['utility_text'] =  _x( 'This idea was posted in %1$s and tagged %2$s on %3$s by %4$s.', 'single idea attached to at least one tag and one category footer utility text', 'wp-idea-stream' );
+				}
+			}
+
+			// Print placeholders
+			$retarray['utility_text'] = sprintf(
+				$retarray['utility_text'],
+				$category_list,
+				$tag_list,
+				$date,
+				$user_link
+			);
+
+		} else {
+			// Print placeholders
+			$retarray['utility_text'] = sprintf(
+				$retarray['utility_text'],
+				$category_list,
+				$tag_list,
+				$date
+			);
 		}
 
 		// Init edit url
@@ -1414,11 +1442,16 @@ function wp_idea_stream_ideas_the_idea_footer() {
 		}
 
 		/**
+		 * Filter here to edit the idea footer utility text
+		 *
+		 * @since 2.3.2 Added the placeholders parameter
+		 *
 		 * @param  string  the footer to output
 		 * @param  array   $retarray the parts of the footer organized in an associative array
 		 * @param  WP_Post $idea the idea object
+		 * @param  array   $placeholders the placeholders for the footer utility text
 		 */
-		return apply_filters( 'wp_idea_stream_ideas_get_idea_footer', join( ' ', $retarray ), $retarray, $idea );
+		return apply_filters( 'wp_idea_stream_ideas_get_idea_footer', join( ' ', $retarray ), $retarray, $idea, $placeholders );
 	}
 
 /**

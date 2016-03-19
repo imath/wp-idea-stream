@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Idea Stream 2.3.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-idea-stream\n"
-"POT-Creation-Date: 2016-03-19 15:18:39+00:00\n"
+"POT-Creation-Date: 2016-03-19 17:29:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -549,7 +549,7 @@ msgid "Pending"
 msgstr ""
 
 #: includes/admin/settings.php:538
-msgid "is the default status for all ideas"
+msgid "Default status for all ideas."
 msgstr ""
 
 #: includes/admin/settings.php:539
@@ -673,20 +673,16 @@ msgid "The Sticky metabox allows you to stick a published idea (not password pro
 msgstr ""
 
 #: includes/admin/thanks.php:36
-msgid "activating"
+msgid "Thank you for activating the latest version of WP Idea Stream! %s brings some really cool new features!"
 msgstr ""
 
 #: includes/admin/thanks.php:39
-msgid "upgrading to"
+msgid "Thank you for upgrading to the latest version of WP Idea Stream! %s brings some really cool new features!"
 msgstr ""
 
 #: includes/admin/thanks.php:48
 msgctxt "about screen title"
 msgid "WP Idea Stream %s"
-msgstr ""
-
-#: includes/admin/thanks.php:49
-msgid "Thank you for %1$s the latest version of WP Idea Stream! %2$s brings some really cool new features!"
 msgstr ""
 
 #: includes/admin/thanks.php:57 includes/admin/thanks.php:199
@@ -855,22 +851,22 @@ msgstr ""
 msgid "WP Idea Stream&#39;s external libraries and useful code"
 msgstr ""
 
-#: includes/buddypress/activity.php:235 includes/buddypress/groups.php:2537
+#: includes/buddypress/activity.php:235 includes/buddypress/groups.php:2564
 msgctxt "activity admin dropdown caption"
 msgid "New %s published"
 msgstr ""
 
-#: includes/buddypress/activity.php:237 includes/buddypress/groups.php:2539
+#: includes/buddypress/activity.php:237 includes/buddypress/groups.php:2566
 msgctxt "activity front dropdown caption"
 msgid "%s"
 msgstr ""
 
-#: includes/buddypress/activity.php:243 includes/buddypress/groups.php:2545
+#: includes/buddypress/activity.php:243 includes/buddypress/groups.php:2572
 msgctxt "activity comment admin dropdown caption"
 msgid "New %s comment posted"
 msgstr ""
 
-#: includes/buddypress/activity.php:245 includes/buddypress/groups.php:2547
+#: includes/buddypress/activity.php:245 includes/buddypress/groups.php:2574
 msgctxt "activity comments front dropdown caption"
 msgid "%s comments"
 msgstr ""
@@ -1010,96 +1006,114 @@ msgstr ""
 msgid "You must be a member of the group to post ideas"
 msgstr ""
 
-#: includes/buddypress/groups.php:2299
-msgctxt "idea footer group of publication"
-msgid "from the group %s"
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+
+#: includes/buddypress/groups.php:2300
+msgctxt "group idea footer utility text"
+msgid "This idea was posted from the group %4$s on %3$s."
 msgstr ""
 
-#: includes/buddypress/groups.php:2306
-msgctxt "idea group of publication tag no-category"
-msgid "and posted from the group %s"
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+
+#: includes/buddypress/groups.php:2304
+msgctxt "group idea attached to at least one category footer utility text"
+msgid "This idea was posted in %1$s from the group %4$s on %3$s."
 msgstr ""
 
-#: includes/buddypress/groups.php:2320 includes/core/functions.php:336
-#: includes/core/template-functions.php:813 includes/ideas/tags.php:1403
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+
+#: includes/buddypress/groups.php:2312
+msgctxt "group idea attached to at least one tag footer utility text"
+msgid "This idea was tagged %2$s and posted from the group %4$s on %3$s."
+msgstr ""
+
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+
+#: includes/buddypress/groups.php:2317
+msgctxt "group idea attached to at least one tag and one category footer utility text"
+msgid "This idea was posted in %1$s from the group %4$s and tagged %2$s on %3$s."
+msgstr ""
+
+#: includes/buddypress/groups.php:2347 includes/core/functions.php:336
+#: includes/core/template-functions.php:813 includes/ideas/tags.php:1431
 msgid "Edit Idea"
 msgstr ""
 
-#: includes/buddypress/groups.php:2329
+#: includes/buddypress/groups.php:2356
 msgid "Remove Idea"
 msgstr ""
 
-#: includes/buddypress/groups.php:2406
+#: includes/buddypress/groups.php:2433
 msgid "Spam comment"
 msgstr ""
 
-#: includes/buddypress/groups.php:2406
+#: includes/buddypress/groups.php:2433
 msgid "Spam"
 msgstr ""
 
-#: includes/buddypress/groups.php:2411
+#: includes/buddypress/groups.php:2438
 msgid "Delete comment"
 msgstr ""
 
-#: includes/buddypress/groups.php:2411
+#: includes/buddypress/groups.php:2438
 msgid "Delete"
 msgstr ""
 
-#: includes/buddypress/groups.php:2849
+#: includes/buddypress/groups.php:2876
 msgctxt "idea posted group activity action"
 msgid "%1$s wrote a new %2$s in the group %3$s"
 msgstr ""
 
-#: includes/buddypress/groups.php:2904
+#: includes/buddypress/groups.php:2931
 msgctxt "idea commented group activity action"
 msgid "%1$s replied to this %2$s posted in the group %3$s"
 msgstr ""
 
-#: includes/buddypress/groups.php:3044
+#: includes/buddypress/groups.php:3071
 msgid "BuddyPress Group"
 msgstr ""
 
-#: includes/buddypress/groups.php:3065
+#: includes/buddypress/groups.php:3092
 msgid "The author of the idea needs to be a member of the group selected"
 msgstr ""
 
-#: includes/buddypress/groups.php:3066
+#: includes/buddypress/groups.php:3093
 msgid "Idea successfully removed from group"
 msgstr ""
 
-#: includes/buddypress/groups.php:3067
+#: includes/buddypress/groups.php:3094
 msgid "Idea successfully added to group"
 msgstr ""
 
-#: includes/buddypress/groups.php:3068
+#: includes/buddypress/groups.php:3095
 msgid "Status of the idea is not compatible with the group visibility"
 msgstr ""
 
-#: includes/buddypress/groups.php:3069
+#: includes/buddypress/groups.php:3096
 msgid "Group was not found."
 msgstr ""
 
-#: includes/buddypress/groups.php:3112
+#: includes/buddypress/groups.php:3139
 msgid "Search in groups to select one:"
 msgstr ""
 
-#: includes/buddypress/groups.php:3115
+#: includes/buddypress/groups.php:3142
 msgid "Only groups where WP Idea Stream is activated and where the author of this idea is a member of will show."
 msgstr ""
 
-#: includes/buddypress/groups.php:3128
+#: includes/buddypress/groups.php:3155
 msgid "This idea is not associated to any group"
 msgstr ""
 
-#: includes/buddypress/groups.php:3297
+#: includes/buddypress/groups.php:3324
 msgid "Groups"
 msgstr ""
 
-#: includes/buddypress/groups.php:3352
+#: includes/buddypress/groups.php:3379
 msgid "The Buddypress Group metabox allows you to select a group the author is member of, and attach the idea to that group. Private or hidden groups will require the idea to have the status set to private."
 msgstr ""
 
-#: includes/buddypress/groups.php:3408
+#: includes/buddypress/groups.php:3435
 msgctxt "ideas groups admin column header"
 msgid "# Ideas"
 msgstr ""
@@ -1164,7 +1178,7 @@ msgid "If the setting &#34;Activate BuddyPress integration&#34; is activated and
 msgstr ""
 
 #: includes/buddypress/settings.php:124
-msgid "the plugin&#39;s user profile becomes a new navigation in the BuddyPress member page."
+msgid "The plugin&#39;s user profile becomes a new navigation in the BuddyPress member page."
 msgstr ""
 
 #: includes/buddypress/settings.php:125
@@ -1270,7 +1284,7 @@ msgstr ""
 msgid "Ideas"
 msgstr ""
 
-#: includes/core/functions.php:332 includes/ideas/tags.php:1442
+#: includes/core/functions.php:332 includes/ideas/tags.php:1475
 msgid "All Ideas"
 msgstr ""
 
@@ -1750,119 +1764,131 @@ msgstr ""
 msgid "This idea is private, you cannot view its content."
 msgstr ""
 
-#: includes/ideas/tags.php:1347
-msgid "This idea"
+#. Translators: 1 is category, 2 is tag and 3 is the date.
+
+#: includes/ideas/tags.php:1354
+msgctxt "default idea footer utility text"
+msgid "This idea was posted on %3$s."
 msgstr ""
 
-#: includes/ideas/tags.php:1353
-msgctxt "idea categories comma separated list"
-msgid "was posted in %s"
-msgstr ""
+#. Translators: 1 is category, 2 is tag and 3 is the date.
 
 #: includes/ideas/tags.php:1359
-msgctxt "idea tags join words"
-msgid "and tagged"
+msgctxt "idea attached to at least one category footer utility text"
+msgid "This idea was posted in %1$s on %3$s."
 msgstr ""
 
-#: includes/ideas/tags.php:1362
-msgctxt "idea tags join words no category"
-msgid "was tagged"
-msgstr ""
+#. Translators: 1 is category, 2 is tag and 3 is the date.
 
 #: includes/ideas/tags.php:1365
-msgctxt "idea tags comma separated list"
-msgid "%1$s %2$s"
+msgctxt "idea attached to at least one tag footer utility text"
+msgid "This idea was tagged %2$s on %3$s."
 msgstr ""
 
-#: includes/ideas/tags.php:1369
-msgctxt "idea footer empty tags and categories"
-msgid "was posted"
+#. Translators: 1 is category, 2 is tag and 3 is the date.
+
+#: includes/ideas/tags.php:1370
+msgctxt "idea attached to at least one tag and one category footer utility text"
+msgid "This idea was posted in %1$s and tagged %2$s on %3$s."
 msgstr ""
 
-#: includes/ideas/tags.php:1376
-msgctxt "idea date of publication point"
-msgid "on %s."
-msgstr ""
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
 
 #: includes/ideas/tags.php:1380
-msgctxt "idea date of publication no point"
-msgid "on %s"
+msgctxt "default single idea footer utility text"
+msgid "This idea was posted on %3$s by %4$s."
 msgstr ""
 
-#: includes/ideas/tags.php:1386
-msgctxt "single idea author link"
-msgid "by %s."
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+
+#: includes/ideas/tags.php:1385
+msgctxt "single idea attached to at least one category footer utility text"
+msgid "This idea was posted in %1$s on %3$s by %4$s."
 msgstr ""
 
-#: includes/ideas/tags.php:1441
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+
+#: includes/ideas/tags.php:1390
+msgctxt "single idea attached to at least one tag footer utility text"
+msgid "This idea was tagged %2$s on %3$s by %4$s."
+msgstr ""
+
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+
+#: includes/ideas/tags.php:1394
+msgctxt "single idea attached to at least one tag and one category footer utility text"
+msgid "This idea was posted in %1$s and tagged %2$s on %3$s by %4$s."
+msgstr ""
+
+#: includes/ideas/tags.php:1474
 msgctxt "Previous post link"
 msgid "&larr;"
 msgstr ""
 
-#: includes/ideas/tags.php:1443
+#: includes/ideas/tags.php:1476
 msgctxt "Next post link"
 msgid "&rarr;"
 msgstr ""
 
-#: includes/ideas/tags.php:1467
+#: includes/ideas/tags.php:1500
 msgid "You are not allowed to submit ideas"
 msgstr ""
 
-#: includes/ideas/tags.php:1473
+#: includes/ideas/tags.php:1506
 msgid "Please <a href=\"%s\" title=\"Log in\">log in</a> or <a href=\"%s\" title=\"Sign up\">register</a> to this site to submit an idea."
 msgstr ""
 
-#: includes/ideas/tags.php:1479
+#: includes/ideas/tags.php:1512
 msgid "Please <a href=\"%s\" title=\"Log in\">log in</a> to this site to submit an idea."
 msgstr ""
 
-#: includes/ideas/tags.php:1512
+#: includes/ideas/tags.php:1545
 msgid "Title"
 msgstr ""
 
-#: includes/ideas/tags.php:1583
+#: includes/ideas/tags.php:1616
 msgid "Description"
 msgstr ""
 
-#: includes/ideas/tags.php:1717
+#: includes/ideas/tags.php:1750
 msgid "Select the featured image for your idea."
 msgstr ""
 
-#: includes/ideas/tags.php:1799
+#: includes/ideas/tags.php:1832
 msgid "Categories"
 msgstr ""
 
-#: includes/ideas/tags.php:1841
+#: includes/ideas/tags.php:1874
 msgid "No categories are available."
 msgstr ""
 
-#: includes/ideas/tags.php:1889
+#: includes/ideas/tags.php:1922
 msgid "Tags"
 msgstr ""
 
-#: includes/ideas/tags.php:1890
+#: includes/ideas/tags.php:1923
 msgid "Type your tag, then hit the return or space key to add it"
 msgstr ""
 
-#: includes/ideas/tags.php:1962
+#: includes/ideas/tags.php:1995
 msgid "Choose the most used tag"
 msgid_plural "Choose from the %d most used tags"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/ideas/tags.php:2050 includes/users/tags.php:501
+#: includes/ideas/tags.php:2083 includes/users/tags.php:501
 msgid "Reset"
 msgstr ""
 
-#: includes/ideas/tags.php:2051
+#: includes/ideas/tags.php:2084
 msgid "Submit"
 msgstr ""
 
-#: includes/ideas/tags.php:2056
+#: includes/ideas/tags.php:2089
 msgid "Update"
 msgstr ""
 
-#: includes/ideas/tags.php:2104
+#: includes/ideas/tags.php:2137
 msgid "%1$sAverage Rating:%2$s%3$s"
 msgstr ""
 

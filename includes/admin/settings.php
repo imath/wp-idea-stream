@@ -535,7 +535,7 @@ function wp_idea_stream_submit_status_setting_callback() {
 		<option value="publish" <?php selected( $current_status, 'publish');?>><?php esc_html_e( 'Publish', 'wp-idea-stream' );?></option>
 		<option value="pending" <?php selected( $current_status, 'pending');?>><?php esc_html_e( 'Pending', 'wp-idea-stream' );?></option>
 	</select>
-	<label for="_ideastream_submit_status"><?php esc_html_e( 'is the default status for all ideas', 'wp-idea-stream' ); ?></label>
+	<label for="_ideastream_submit_status"><?php esc_html_e( 'Default status for all ideas.', 'wp-idea-stream' ); ?></label>
 	<p class="description"><?php esc_html_e( 'Depending on this setting, the moderation message one will be available', 'wp-idea-stream' ); ?></p>
 
 	<?php
