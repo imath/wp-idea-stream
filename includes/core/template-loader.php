@@ -311,7 +311,7 @@ function wp_idea_stream_set_template( $template = '' ) {
 		return $template;
 	}
 
-	if ( wp_idea_stream_get_idea_var( 'is_ideastream' ) && ! is_404() ) {
+	if ( wp_idea_stream_get_idea_var( 'is_ideastream' ) && ! is_404() && ! is_embed() ) {
 
 		// Try to see if the theme has a specific template for WP Idea Stream
 		$template = get_query_template( 'ideastream' );
