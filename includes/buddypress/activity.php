@@ -1348,7 +1348,7 @@ class WP_Idea_Stream_Activity {
 			return $repair_list;
 		}
 
-		$repair_list[100] = array(
+		$repair_list[2718] = array(
 			'ideastream-repair-groups-activities',
 			__( 'Repair IdeaStream activities.', 'wp-idea-stream' ),
 			array( $this, 'repair_activities' ),
