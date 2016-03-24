@@ -532,11 +532,10 @@ function wp_idea_stream_submit_status_setting_callback() {
 	$current_status = wp_idea_stream_default_idea_status();
 	?>
 	<select name="_ideastream_submit_status" id="_ideastream_submit_status" <?php wp_idea_stream_setting_disabled_option( '_ideastream_groups_integration' ); ?>>
-		<option value="publish" <?php selected( $current_status, 'publish');?>><?php esc_html_e( 'Publish', 'wp-idea-stream' );?></option>
-		<option value="pending" <?php selected( $current_status, 'pending');?>><?php esc_html_e( 'Pending', 'wp-idea-stream' );?></option>
+		<option value="publish" <?php selected( $current_status, 'publish' );?>><?php esc_html_e( 'Published', 'wp-idea-stream' );?></option>
+		<option value="pending" <?php selected( $current_status, 'pending' );?>><?php esc_html_e( 'Pending', 'wp-idea-stream' );?></option>
 	</select>
-	<label for="_ideastream_submit_status"><?php esc_html_e( 'Default status for all ideas.', 'wp-idea-stream' ); ?></label>
-	<p class="description"><?php esc_html_e( 'Depending on this setting, the moderation message one will be available', 'wp-idea-stream' ); ?></p>
+	<p class="description"><?php esc_html_e( 'The default status for all ideas. Depending on this setting, the moderation message setting will be available', 'wp-idea-stream' ); ?></p>
 
 	<?php
 }
@@ -558,8 +557,7 @@ function wp_idea_stream_editor_image_setting_callback() {
 
 	<input name="_ideastream_editor_image" id="_ideastream_editor_image" type="checkbox" value="1" <?php checked( wp_idea_stream_idea_editor_image() ); ?> />
 	<label for="_ideastream_editor_image"><?php esc_html_e( 'Allow users to add images to their ideas', 'wp-idea-stream' ); ?></label>
-	<p class="description"><?php esc_html_e( 'Depending on this setting, the featured images one will be available', 'wp-idea-stream' ); ?></p>
-
+	<p class="description"><?php esc_html_e( 'Depending on this setting, the featured images setting will be available', 'wp-idea-stream' ); ?></p>
 
 	<?php
 }
