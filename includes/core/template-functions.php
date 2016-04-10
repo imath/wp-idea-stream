@@ -346,8 +346,14 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
  * @uses wp_idea_stream_get_version() to get current plugin's version
  */
 function wp_idea_stream_enqueue_style() {
+	global $wp_version;
+
 	$style_deps = apply_filters( 'wp_idea_stream_style_deps', array( 'dashicons' ) );
 	wp_enqueue_style( 'wp-idea-stream-style', wp_idea_stream_get_stylesheet(), $style_deps, wp_idea_stream_get_version() );
+
+	if ( wp_idea_stream_idea_editor_link() && 4.5 <= (float) $wp_version && ( wp_idea_stream_is_addnew() || wp_idea_stream_is_edit() ) ) {
+		wp_idea_stream_add_wplink_inline_style();
+	}
 
 	$min = '.min';
 
@@ -374,6 +380,46 @@ function wp_idea_stream_enqueue_embed_style() {
 	}
 
 	wp_enqueue_style( 'wp-idea-stream-embed-style', wp_idea_stream_get_stylesheet( "embed-style{$min}" ), array(), wp_idea_stream_get_version() );
+}
+
+/**
+ * WordPress 4.5 modified the wpLink dialog UI but
+ * the autocomplete style is not enqueued on front-end as localized
+ * in wp-admin/css/forms.css....
+ *
+ * As Admins can disable the wpLink feature, we are using an inline style
+ * to only print it if the wpLink feature is enabled.
+ *
+ * @since  2.3.2
+ *
+ * @return string Text/Css
+ */
+function wp_idea_stream_add_wplink_inline_style() {
+	wp_add_inline_style( 'wp-idea-stream-style', apply_filters( 'wp_idea_stream_add_wplink_inline_style', '
+		.wplink-autocomplete {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			position: absolute;
+			z-index: 10000;
+			border: 1px solid #5b9dd9;
+			-webkit-box-shadow: 0 1px 2px rgba( 30, 140, 190, 0.8 );
+			box-shadow: 0 1px 2px rgba( 30, 140, 190, 0.8 );
+			background-color: #fff;
+		}
+
+		.wplink-autocomplete li {
+			margin-bottom: 0;
+			padding: 4px 10px;
+			white-space: nowrap;
+			text-align: left;
+		}
+
+		.wplink-autocomplete li.ui-state-focus {
+			background-color: #ddd;
+			cursor: pointer;
+		}
+	' ) );
 }
 
 /** Conditional template tags *************************************************/
