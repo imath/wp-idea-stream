@@ -224,11 +224,8 @@ function wp_idea_stream_admin_credits() {
 
 		<h3 class="wp-people-group"><?php printf( esc_html__( 'Contributors to %s', 'wp-idea-stream' ), $display_version ); ?></h3>
 		<p class="wp-credits-list">
-			<a href="https://profiles.wordpress.org/bowromir">Bowe Frankema</a>,
-			<a href="http://profiles.wordpress.org/imath">imath</a>,
-			<a href="http://profiles.wordpress.org/jennybeaumont">Jenny Beaumont</a>,
-			<a href="https://profiles.wordpress.org/slaffik">Slava Abakumov</a>,
-			<a href="https://profiles.wordpress.org/mrjarbenne">mrjarbenne</a>.
+			<a href="https://profiles.wordpress.org/imath">imath</a>,
+			<a href="https://github.com/naokomc">Naoko Takano</a>.
 		</p>
 
 		<h3 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h3>
