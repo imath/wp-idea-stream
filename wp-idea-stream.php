@@ -439,6 +439,8 @@ final class WP_Idea_Stream {
 		 * and it will be used instead of generic ones.
 		 *
 		 * @since  2.2.0
+		 * @since  2.3.3 Use load_plugin_textdomain() the right way to make sure "my" french translation will
+		 *               be loaded.
 		 */
 		if ( is_multisite() ) {
 			$mofile_current_blog = WP_LANG_DIR . '/' . $this->domain . '/' . get_current_blog_id() . '/' . $mofile;
@@ -450,11 +452,11 @@ final class WP_Idea_Stream {
 		// Look in global /wp-content/languages/wp-idea-stream folder
 		load_textdomain( $this->domain, $mofile_global );
 
-		// Look in local /wp-content/plugins/wp-idea-stream/languages/ folder
-		load_textdomain( $this->domain, $mofile_local );
-
-		// Look in global /wp-content/languages/plugins/
-		load_plugin_textdomain( $this->domain );
+		/**
+		 * First Look in /wp-content/plugins/wp-idea-stream/languages
+		 * and then try global /wp-content/languages/plugins/ if nothing found
+		 */
+		load_plugin_textdomain( $this->domain, false, trailingslashit( basename( $this->plugin_dir ) ) . 'languages' );
 	}
 }
 
