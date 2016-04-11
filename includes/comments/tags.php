@@ -310,7 +310,7 @@ function wp_idea_stream_comments_before_comment_title() {
 		/**
 		 * @param  string  the mention output
 		 */
-		return apply_filters( 'wp_idea_stream_comments_get_before_comment_title', esc_html__( 'In reply to :', 'wp-idea-stream' ) );
+		return apply_filters( 'wp_idea_stream_comments_get_before_comment_title', esc_html__( 'In reply to:', 'wp-idea-stream' ) );
 	}
 
 /**
@@ -392,9 +392,9 @@ function wp_idea_stream_comments_the_comment_title_attribute() {
 		$idea = get_post( $idea );
 
 		if ( ! empty( $idea->post_password ) ) {
-			$title = _x( 'Protected :', 'idea permalink title protected attribute', 'wp-idea-stream' ) . ' ';
+			$title = _x( 'Protected:', 'idea permalink title protected attribute', 'wp-idea-stream' ) . ' ';
 		} else if ( ! empty( $idea->post_status ) && 'private' == $idea->post_status ) {
-			$title = _x( 'Private :', 'idea permalink title private attribute', 'wp-idea-stream' ) . ' ';
+			$title = _x( 'Private:', 'idea permalink title private attribute', 'wp-idea-stream' ) . ' ';
 		}
 
 		$title .= $idea->post_title;

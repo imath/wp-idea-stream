@@ -33,10 +33,10 @@ function wp_idea_stream_admin_about() {
 	$display_version = wp_idea_stream_get_version();
 	$settings_url = add_query_arg( 'page', 'ideastream', admin_url( 'options-general.php' ) );
 	$has_upgraded = get_transient( '_ideastream_reactivated_upgrade' );
-	$upgraded = __( 'activating', 'wp-idea-stream' );
+	$thanks_for = esc_html__( 'Thank you for activating the latest version of WP Idea Stream! %s brings some really cool new features!', 'wp-idea-stream' );
 
 	if ( ! empty( $has_upgraded ) ) {
-		$upgraded = __( 'upgrading to', 'wp-idea-stream' );
+		$thanks_for = esc_html__( 'Thank you for upgrading to the latest version of WP Idea Stream! %s brings some really cool new features!', 'wp-idea-stream' );
 		delete_transient( '_ideastream_reactivated_upgrade' );
 	}
 
@@ -46,7 +46,7 @@ function wp_idea_stream_admin_about() {
 	?>
 	<div class="wrap about-wrap">
 		<h1><?php printf( esc_html_x( 'WP Idea Stream %s', 'about screen title', 'wp-idea-stream' ), $display_version ); ?></h1>
-		<div class="about-text"><?php printf( esc_html__( 'Thank you for %1$s the latest version of WP Idea Stream! %2$s brings some really cool new features!', 'wp-idea-stream' ), $upgraded, $display_version ); ?></div>
+		<div class="about-text"><?php printf( $thanks_for, $display_version ); ?></div>
 		<div class="wp-idea-stream-badge"></div>
 
 		<h2 class="nav-tab-wrapper">
@@ -59,7 +59,7 @@ function wp_idea_stream_admin_about() {
 		</h2>
 
 		<div class="headline-feature">
-			<h2 style="text-align:center"><?php echo esc_html_x( 'Share ideas, great ones will rise to the top!', 'IdeaStream Headline', 'wp-idea-stream' ); ?></h2>
+			<h2 style="text-align:center"><?php echo esc_html_x( 'Share ideas, great ones will rise to the top!', 'WP Idea Stream Headline', 'wp-idea-stream' ); ?></h2>
 
 			<div class="feature-section">
 				<p>
@@ -83,7 +83,7 @@ function wp_idea_stream_admin_about() {
 			<h2 style="text-align:center"><?php esc_html_e( 'Embed your users profiles', 'wp-idea-stream' ); ?></h2>
 
 			<?php if ( ! empty( $admin_profile ) ) :?>
-				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;margin:0 auto;max-height:228px!important;}</style>
+				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;clip:auto!important;position:relative!important;margin:0 auto;max-height:228px!important;}</style>
 				<div class="embed-container" id="#embed-admin-profile">
 					<?php echo $admin_profile ; ?>
 				</div>
@@ -161,7 +161,7 @@ function wp_idea_stream_admin_about() {
 
 		<div class="changelog">
 			<div class="return-to-dashboard">
-				<a href="<?php echo esc_url( $settings_url );?>" title="<?php _e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php _e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
+				<a href="<?php echo esc_url( $settings_url );?>" title="<?php _e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php _e( 'Go to the WP Idea Stream Settings page', 'wp-idea-stream' );?></a>
 			</div>
 		</div>
 
@@ -224,11 +224,8 @@ function wp_idea_stream_admin_credits() {
 
 		<h3 class="wp-people-group"><?php printf( esc_html__( 'Contributors to %s', 'wp-idea-stream' ), $display_version ); ?></h3>
 		<p class="wp-credits-list">
-			<a href="https://profiles.wordpress.org/bowromir">Bowe Frankema</a>,
-			<a href="http://profiles.wordpress.org/imath">imath</a>,
-			<a href="http://profiles.wordpress.org/jennybeaumont">Jenny Beaumont</a>,
-			<a href="https://profiles.wordpress.org/slaffik">Slava Abakumov</a>,
-			<a href="https://profiles.wordpress.org/mrjarbenne">mrjarbenne</a>.
+			<a href="https://profiles.wordpress.org/imath">imath</a>,
+			<a href="https://github.com/naokomc">Naoko Takano</a>.
 		</p>
 
 		<h3 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h3>
@@ -260,7 +257,7 @@ function wp_idea_stream_admin_credits() {
 
 		<div class="changelog">
 			<div class="return-to-dashboard">
-				<a href="<?php echo esc_url( $settings_url );?>" title="<?php esc_html_e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php esc_html_e( 'Go to the IdeaStream Settings page', 'wp-idea-stream' );?></a>
+				<a href="<?php echo esc_url( $settings_url );?>" title="<?php esc_html_e( 'Configure WP Idea Stream', 'wp-idea-stream' ); ?>"><?php esc_html_e( 'Go to the WP Idea Stream Settings page', 'wp-idea-stream' );?></a>
 			</div>
 		</div>
 

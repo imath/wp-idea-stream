@@ -950,7 +950,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		add_filter( 'bp_activity_maybe_load_mentions_scripts', array( $this, 'maybe_load_mentions_scripts' ), 10, 1 );
 
 		// Moderation links
-		add_filter( 'wp_idea_stream_ideas_get_idea_footer',    array( $this, 'group_idea_footer_links' ),       10, 3 );
+		add_filter( 'wp_idea_stream_ideas_get_idea_footer',    array( $this, 'group_idea_footer_links' ),       10, 4 );
 		add_filter( 'edit_comment_link',                       array( $this, 'group_moderate_comments_links' ), 10, 3 );
 
 		// Templating out of the group
@@ -1016,7 +1016,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 		?>
 
 		<input name="_ideastream_groups_integration" id="_ideastream_groups_integration" type="checkbox" value="1" <?php checked( $active ); ?> />
-		<label for="_ideastream_groups_integration"><?php esc_html_e( 'Activate IdeaStream in Groups', 'wp-idea-stream' ); ?></label>
+		<label for="_ideastream_groups_integration"><?php esc_html_e( 'Activate WP Idea Stream in Groups', 'wp-idea-stream' ); ?></label>
 
 		<?php
 	}
@@ -2274,9 +2274,10 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 	 *
 	 * @since  2.0.0
 	 *
-	 * @param  string  $footer   footer's output
-	 * @param  array   $retarray footer's part organized in an array
-	 * @param  WP_Post $idea     the idea object
+	 * @param  string  $footer       footer's output
+	 * @param  array   $retarray     footer's part organized in an array
+	 * @param  WP_Post $idea         the idea object
+	 * @param  array   $placeholders footer's placeholders for the utility text
 	 * @uses   WP_Idea_Stream_Group->group_get_avatar_link() to get the link to the group
 	 * @uses   wp_idea_stream_user_can() to check user's capability
 	 * @uses   esc_url() to sanitize the url
@@ -2285,7 +2286,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 	 * @uses   WP_Idea_Stream_Group->group_ideas_archive_url() to get the group's IdeaStream archive page
 	 * @return string            the footer adapted to group's context if needed
 	 */
-	public function group_idea_footer_links( $footer = '', $retarray = array(), $idea = null ) {
+	public function group_idea_footer_links( $footer = '', $retarray = array(), $idea = null, $placeholders = array() ) {
 		if ( empty( $retarray ) || empty( $idea->ID ) ) {
 			return $footer;
 		}
@@ -2295,18 +2296,44 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 			$avatar_link = $this->group_get_avatar_link( $idea->ID );
 
 			if ( ! empty( $avatar_link ) ) {
+				// Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+				$retarray['utility_text'] = _x( 'This idea was posted from the group %4$s on %3$s.', 'group idea footer utility text', 'wp-idea-stream' );
 
-				$default = ' ' . sprintf( _x( 'from the group %s', 'idea footer group of publication', 'wp-idea-stream' ), $avatar_link );
-
-				if ( ! empty( $retarray['posted'] ) ) {
-					$retarray['posted'] = $retarray['posted'] . $default;
-				} else if ( ! empty( $retarray['category'] ) ) {
-					$retarray['category'] = $retarray['category'] . $default;
-				} else if ( ! empty( $retarray['tag'] ) ) {
-					$retarray['tag'] = $retarray['tag'] . ' ' . sprintf( _x( 'and posted from the group %s', 'idea group of publication tag no-category', 'wp-idea-stream' ), $avatar_link );
+				if ( ! empty( $placeholders['category'] ) ) {
+					// Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+					$retarray['utility_text'] = _x( 'This idea was posted in %1$s from the group %4$s on %3$s.', 'group idea attached to at least one category footer utility text', 'wp-idea-stream' );
+					$category_list = $placeholders['category'];
 				} else {
-					$retarray['date'] = $retarray['date'] . $default;
+					$category_list = '';
 				}
+
+				if ( ! empty( $placeholders['tag'] ) ) {
+					// Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+					$retarray['utility_text'] = _x( 'This idea was tagged %2$s and posted from the group %4$s on %3$s.', 'group idea attached to at least one tag footer utility text', 'wp-idea-stream' );
+					$tag_list = $placeholders['tag'] ;
+
+					if ( ! empty( $placeholders['category'] ) ) {
+						// Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
+						$retarray['utility_text'] =  _x( 'This idea was posted in %1$s from the group %4$s and tagged %2$s on %3$s.', 'group idea attached to at least one tag and one category footer utility text', 'wp-idea-stream' );
+					}
+				} else {
+					$tag_list = '';
+				}
+
+				if ( ! empty( $placeholders['date'] ) ) {
+					$date = $placeholders['date'];
+				} else {
+					$date = apply_filters( 'get_the_date', mysql2date( get_option( 'date_format' ), $idea->post_date ) );
+				}
+
+				// Print placeholders
+				$retarray['utility_text'] = sprintf(
+					$retarray['utility_text'],
+					$category_list,
+					$tag_list,
+					$date,
+					$avatar_link
+				);
 
 				return join( ' ', $retarray );
 
@@ -3112,7 +3139,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 				<?php esc_html_e( 'Search in groups to select one:', 'wp-idea-stream' ); ?>
 			</strong>
 			<p class="description">
-				<?php esc_html_e( 'Only groups where IdeaStream is activated and where the author of this idea is a member of will show.', 'wp-idea-stream' ); ?>
+				<?php esc_html_e( 'Only groups where WP Idea Stream is activated and where the author of this idea is a member of will show.', 'wp-idea-stream' ); ?>
 			</p>
 			<p>
 				<input type="text" id="wp_idea_stream_buddypress_group"/>

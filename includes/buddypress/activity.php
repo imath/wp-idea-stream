@@ -1348,9 +1348,9 @@ class WP_Idea_Stream_Activity {
 			return $repair_list;
 		}
 
-		$repair_list[100] = array(
+		$repair_list[2718] = array(
 			'ideastream-repair-groups-activities',
-			__( 'Repair IdeaStream activities.', 'wp-idea-stream' ),
+			__( 'Repair WP Idea Stream activities.', 'wp-idea-stream' ),
 			array( $this, 'repair_activities' ),
 		);
 
@@ -1385,7 +1385,7 @@ class WP_Idea_Stream_Activity {
 		$blog_id = get_current_blog_id();
 
 		// Description of this tool, displayed to the user
-		$statement = __( 'Making sure IdeaStream activities are consistent: %s', 'wp-idea-stream' );
+		$statement = __( 'Making sure WP Idea Stream activities are consistent: %s', 'wp-idea-stream' );
 
 		// Default to failure text
 		$result    = __( 'No activity needs to be repaired.', 'wp-idea-stream' );

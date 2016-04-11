@@ -217,7 +217,7 @@ class WP_Idea_Stream_Admin_Comments {
 	public function admin_head() {
  		global $menu, $submenu, $parent_file, $submenu_file;
 
- 		$menu_title = __( 'IdeaStream', 'wp-idea-stream' );
+ 		$menu_title = _x( 'Ideas', 'Main Plugin menu', 'wp-idea-stream' );
 
  		// Eventually add a bubble in IdeaStream Menu
  		foreach ( $menu as $position => $data ) {

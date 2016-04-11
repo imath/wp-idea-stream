@@ -1371,7 +1371,7 @@ class WP_Idea_Stream_Admin {
 							array(
 								esc_html__( 'Edit takes you to the editing screen for that idea. You can also reach that screen by clicking on the idea title.', 'wp-idea-stream' ),
 								esc_html__( 'Trash removes the idea from this list and places it in the trash, from which you can permanently delete it.', 'wp-idea-stream' ),
-								esc_html__( 'View opens the idea in the IdeaStream&#39;s part of your site.', 'wp-idea-stream' ),
+								esc_html__( 'View opens the idea in the WP Idea Stream&#39;s part of your site.', 'wp-idea-stream' ),
 							),
 						),
 					),
@@ -1413,7 +1413,7 @@ class WP_Idea_Stream_Admin {
 						'id'      => 'settings-overview',
 						'title'   => esc_html__( 'Overview', 'wp-idea-stream' ),
 						'content' => array(
-							esc_html__( 'This is the place where you can customize the behavior of IdeaStream.', 'wp-idea-stream' ),
+							esc_html__( 'This is the place where you can customize the behavior of WP Idea Stream.', 'wp-idea-stream' ),
 							esc_html__( 'Please see the additional help tabs for more information on each individual section.', 'wp-idea-stream' ),
 						),
 					),
@@ -1422,18 +1422,18 @@ class WP_Idea_Stream_Admin {
 						'title'   => esc_html__( 'Main Settings', 'wp-idea-stream' ),
 						'content' => array(
 							sprintf( esc_html__( 'Just before the first option, you will find the link to the main archive page of the plugin. If you wish, you can use it to define a new custom link %1$smenu item%2$s.', 'wp-idea-stream' ), $nav_menu_page, '</a>' ),
-							sprintf( esc_html__( 'If you do so, do not forget to update the link in case you change your permalink settings. Another possible option is to use the %1$sIdeaStream Navigation%2$s widget in one of your dynamic sidebars.', 'wp-idea-stream' ), $widgets_page, '</a>' ),
+							sprintf( esc_html__( 'If you do so, do not forget to update the link in case you change your permalink settings. Another possible option is to use the %1$sWP Idea Stream Navigation%2$s widget in one of your dynamic sidebars.', 'wp-idea-stream' ), $widgets_page, '</a>' ),
 							esc_html__( 'In the Main Settings you have a number of options:', 'wp-idea-stream' ),
 							array(
-								esc_html__( 'IdeaStream archive page: you can customize the title of this page. It will appear on every IdeaStream&#39;s page, except the single idea one.', 'wp-idea-stream' ),
+								esc_html__( 'WP Idea Stream archive page: you can customize the title of this page. It will appear on every WP Idea Stream&#39;s page, except the single idea one.', 'wp-idea-stream' ),
 								esc_html__( 'New ideas status: this is the default status to apply to the ideas submitted by the user. If this setting is set to &#34;Pending&#34;, it will be possible to edit the moderation message once this setting has been saved.', 'wp-idea-stream' ),
-								esc_html__( 'Images & Links are settings about the IdeaStream&#39;s editor. If you wish to disable the image or link buttons, you can disable the corresponding setting.', 'wp-idea-stream' ),
+								esc_html__( 'Images & Links are settings about the WP Idea Stream&#39;s editor. If you wish to disable the image or link buttons, you can disable the corresponding setting.', 'wp-idea-stream' ),
 								esc_html__( 'Featured images is a setting that requires the Editor Images button to be active. It allows your users to select an image they inserted and set it as the featured image for the idea. You must know this image will be uploaded inside your WordPress site.', 'wp-idea-stream' ),
 								esc_html__( 'Moderation message: if New ideas status is defined to Pending, it is the place to customize the awaiting moderation message the user will see once he submited his idea.', 'wp-idea-stream' ),
-								esc_html__( 'Not logged in message: if a user reaches the IdeaStream&#39;s front end submit form without being logged in, a message will invite him to do so. If you wish to use a custom message, use this setting.', 'wp-idea-stream' ),
+								esc_html__( 'Not logged in message: if a user reaches the WP Idea Stream&#39;s front end submit form without being logged in, a message will invite him to do so. If you wish to use a custom message, use this setting.', 'wp-idea-stream' ),
 								esc_html__( 'Rating stars hover captions: fill a comma separated list of captions to replace default one. On front end, the number of rating stars will depend on the number of comma separated captions you defined in this setting.', 'wp-idea-stream' ),
-								esc_html__( 'Sticky ideas: choose whether to allow or not Administrators to stick ideas to the top of the IdeaStream&#39;s archive first page.', 'wp-idea-stream' ),
-								esc_html__( 'Idea comments: if on, comments about ideas will be separated from other post types comments and you will be able to moderate comments about ideas from the comments submenu of the IdeaStream&#39;s main Administration menu. If you uncheck this setting, ideas comments will be mixed up with other post types comments into the main Comments Administration menu', 'wp-idea-stream' ),
+								esc_html__( 'Sticky ideas: choose whether to allow or not Administrators to stick ideas to the top of the WP Idea Stream&#39;s archive first page.', 'wp-idea-stream' ),
+								esc_html__( 'Idea comments: if on, comments about ideas will be separated from other post types comments and you will be able to moderate comments about ideas from the comments submenu of the WP Idea Stream&#39;s main Administration menu. If you uncheck this setting, ideas comments will be mixed up with other post types comments into the main Comments Administration menu', 'wp-idea-stream' ),
 								esc_html__( 'Comments: you can completely disable commenting about ideas by activating this option', 'wp-idea-stream' ),
 								esc_html__( 'Embed profile: if this setting is active, your users profiles will include a sharing button to let your visitors copy the embed code and share it into their website.', 'wp-idea-stream' ),
 							),
@@ -1449,7 +1449,7 @@ class WP_Idea_Stream_Admin {
 						'content' => array(
 							esc_html__( 'Idea Categories can only be created by the site Administrator. To add a new idea category please fill the following fields:', 'wp-idea-stream' ),
 							array(
-								esc_html__( 'Name - The name is how it appears on your site (in the category checkboxes of the idea front end submit form, in the idea&#39;s footer part or in the title of IdeaStream&#39;s category archive pages).', 'wp-idea-stream' ),
+								esc_html__( 'Name - The name is how it appears on your site (in the category checkboxes of the idea front end submit form, in the idea&#39;s footer part or in the title of WP Idea Stream&#39;s category archive pages).', 'wp-idea-stream' ),
 								esc_html__( 'Slug - The &#34;slug&#34; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'wp-idea-stream' ),
 								esc_html__( 'Description - If you set a description for your category, it will be displayed over the list of ideas in the category archive page.', 'wp-idea-stream' ),
 							),
@@ -1466,7 +1466,7 @@ class WP_Idea_Stream_Admin {
 						'content' => array(
 							esc_html__( 'Idea Tags can be created by any logged in user of the site from the idea front end submit form. From this screen, to add a new idea tag please fill the following fields:', 'wp-idea-stream' ),
 							array(
-								esc_html__( 'Name - The name is how it appears on your site (in the tag cloud, in the tags editor of the idea front end submit form, in the idea&#39;s footer part or in the title of IdeaStream&#39;s tag archive pages).', 'wp-idea-stream' ),
+								esc_html__( 'Name - The name is how it appears on your site (in the tag cloud, in the tags editor of the idea front end submit form, in the idea&#39;s footer part or in the title of WP Idea Stream&#39;s tag archive pages).', 'wp-idea-stream' ),
 								esc_html__( 'Slug - The &#34;slug&#34; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'wp-idea-stream' ),
 								esc_html__( 'Description - If you set a description for your tag, it will be displayed over the list of ideas in the tag archive page.', 'wp-idea-stream' ),
 							),
@@ -1483,8 +1483,8 @@ class WP_Idea_Stream_Admin {
 				'title'   => esc_html__( 'Pretty Links', 'wp-idea-stream' ),
 				'content' => array(
 					esc_html__( 'The Pretty Links section allows you to control the permalink structure of the plugin by defining custom slugs.', 'wp-idea-stream' ),
-					esc_html__( 'The IdeaStream root slug is the most important one. Make sure the slug you chose is unique. Once saved, IdeaStream will check for an eventual slug collision with WordPress (Posts, Pages or subsites in case of a MultiSite Config), bbPress or BuddyPress, and will display a warning next to the option field.', 'wp-idea-stream' ),
-					esc_html__( 'In the case of a slug collision, I strongly advise you to change the IdeaStream root slug.', 'wp-idea-stream' ),
+					esc_html__( 'The WP Idea Stream root slug is the most important one. Make sure the slug you chose is unique. Once saved, WP Idea Stream will check for an eventual slug collision with WordPress (Posts, Pages or subsites in case of a MultiSite Config), bbPress or BuddyPress, and will display a warning next to the option field.', 'wp-idea-stream' ),
+					esc_html__( 'In the case of a slug collision, I strongly advise you to change the WP Idea Stream root slug.', 'wp-idea-stream' ),
 					esc_html__( 'Concerning the text you will enter in the slug fields, make sure it is all lowercase and contains only letters, numbers, and hyphens.', 'wp-idea-stream' ),
 				),
 			);
@@ -1505,7 +1505,7 @@ class WP_Idea_Stream_Admin {
 						'strong'   => esc_html__( 'For more information:', 'wp-idea-stream' ),
 						'content' => array(
 							sprintf( esc_html_x( '%1$sSupport Forums (en)%2$s', 'help tab links', 'wp-idea-stream'   ), $plugin_forum,          '</a>' ),
-							sprintf( esc_html_x( '%1$sIdeaStream posts (fr)%2$s', 'help tab links', 'wp-idea-stream' ), $plugin_posts_archive,  '</a>' ),
+							sprintf( esc_html_x( '%1$sWP Idea Stream posts (fr)%2$s', 'help tab links', 'wp-idea-stream' ), $plugin_posts_archive,  '</a>' ),
 						),
 					),
 				),
