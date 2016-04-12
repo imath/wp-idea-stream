@@ -8,7 +8,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-04-12 17:03-0300\n"
+"PO-Revision-Date: 2016-04-12 17:13-0300\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -117,12 +117,12 @@ msgstr ""
 
 #: includes/admin/admin.php:842
 msgid "Average Rating"
-msgstr ""
+msgstr "Classificação média"
 
 #: includes/admin/admin.php:873
 msgctxt "downloaded csv content header"
 msgid "Content"
-msgstr ""
+msgstr "Conteúdo"
 
 #: includes/admin/admin.php:874
 msgctxt "downloaded csv link header"
@@ -132,12 +132,12 @@ msgstr ""
 #: includes/admin/admin.php:882
 msgctxt "downloaded csv comments num header"
 msgid "# comments"
-msgstr ""
+msgstr "# comentários"
 
 #: includes/admin/admin.php:886
 msgctxt "downloaded csv rates num header"
 msgid "Average rating"
-msgstr ""
+msgstr "Classificação média"
 
 #: includes/admin/admin.php:968
 msgid ", "
@@ -1138,15 +1138,15 @@ msgstr "Novo comentário sobre a ideia: %s"
 #: includes/buddypress/notifications.php:83
 #: includes/buddypress/notifications.php:84
 msgid "New idea rating"
-msgstr "Nova ideia avaliada"
+msgstr "Nova ideia classificada"
 
 #: includes/buddypress/notifications.php:79
 msgid "%d new idea ratings"
-msgstr "%d nova idea avaliada"
+msgstr "%d nova idea classificada"
 
 #: includes/buddypress/notifications.php:89
 msgid "%s rated the idea: %s"
-msgstr "%s avaliadas as ideias: %s"
+msgstr "%s classificadas as ideias: %s"
 
 #: includes/buddypress/settings.php:29 includes/buddypress/settings.php:119
 msgid "BuddyPress Integration Settings"
@@ -1202,7 +1202,7 @@ msgstr "O componente de notificações estão ativados?"
 
 #: includes/buddypress/settings.php:131
 msgid "Awesome! Your members will receive a screen notification when their ideas has been rated or commented upon."
-msgstr "Fantástico! Seus membros vão receber uma notificação quando ideias forem avaliadas ou comentadas."
+msgstr "Fantástico! Seus membros vão receber uma notificação quando ideias forem classificadas ou comentadas."
 
 #: includes/comments/classes.php:367
 msgid "New comment on your idea \"%s\""
@@ -1737,11 +1737,11 @@ msgstr ""
 
 #: includes/ideas/tags.php:1040 templates/idea-header.php:13
 msgid "Average rating: %"
-msgstr ""
+msgstr "Classificação méida: %"
 
 #: includes/ideas/tags.php:1048
 msgid "Rate %s"
-msgstr ""
+msgstr "Classificação"
 
 #: includes/ideas/tags.php:1052
 msgctxt "idea rating not logged in message"
@@ -1874,7 +1874,7 @@ msgstr "Atualizar"
 
 #: includes/ideas/tags.php:2137
 msgid "%1$sAverage Rating:%2$s%3$s"
-msgstr "%1$sAvaliação Média:%2$s%3$s"
+msgstr "%1$sClassificação Média:%2$s%3$s"
 
 #: includes/ideas/widgets.php:43
 msgid "A list of Idea categories"
