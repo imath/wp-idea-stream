@@ -473,7 +473,7 @@ class WP_Idea_Stream_Comments {
 		$count = $wpdb->get_results( $query, ARRAY_A );
 
 		$total = 0;
-		$approved = array('0' => 'moderated', '1' => 'approved', 'spam' => 'spam', 'trash' => 'trash', 'post-trashed' => 'post-trashed');
+		$approved = array('0' => 'moderated', '1' => 'approved', 'spam' => 'spam', 'trash' => 'trash', 'post-trashed' => 'post-trashed' );
 		foreach ( (array) $count as $row ) {
 			// Don't count post-trashed toward totals
 			if ( 'post-trashed' != $row['comment_approved'] && 'trash' != $row['comment_approved'] ) {
@@ -485,6 +485,8 @@ class WP_Idea_Stream_Comments {
 		}
 
 		$stats['total_comments'] = $total;
+		$stats['all']            = $total;
+
 		foreach ( $approved as $key ) {
 			if ( empty( $stats[$key] ) ) {
 				$stats[$key] = 0;

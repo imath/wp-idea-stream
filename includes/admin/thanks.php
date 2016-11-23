@@ -83,7 +83,7 @@ function wp_idea_stream_admin_about() {
 			<h2 style="text-align:center"><?php esc_html_e( 'Embed your users profiles', 'wp-idea-stream' ); ?></h2>
 
 			<?php if ( ! empty( $admin_profile ) ) :?>
-				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;clip:auto!important;position:relative!important;margin:0 auto;max-height:228px!important;}</style>
+				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;clip:auto!important;position:relative!important;margin:0 auto;max-height:228px!important;min-width:600px}</style>
 				<div class="embed-container" id="#embed-admin-profile">
 					<?php echo $admin_profile ; ?>
 				</div>
@@ -143,17 +143,13 @@ function wp_idea_stream_admin_about() {
 			<h2 class="about-headline-callout"><?php esc_html_e( 'The finer points..', 'wp-idea-stream' ); ?></h2>
 			<div class="feature-section col one-col">
 				<div class="col-1">
-					<h4><?php esc_html_e( 'TwentySixteen', 'wp-idea-stream' ); ?></h4>
-					<p>
-						<?php esc_html_e( 'WP Idea Stream will look really nice when used with the new WordPress default theme. Its style has been optimized for it.', 'wp-idea-stream' ); ?>
-					</p>
+					<h4><?php esc_html_e( 'TwentySeventeen', 'wp-idea-stream' ); ?></h4>
+					<ul>
+						<li><?php esc_html_e( 'WP Idea Stream will look pretty nice when used with the next WordPress default theme. Its style has been optimized for it.', 'wp-idea-stream' ); ?></li>
+					</ul>
 					<h4><?php esc_html_e( 'Bug fixes', 'wp-idea-stream' ); ?></h4>
 					<ul>
-						<li><?php esc_html_e( 'In users profiles, the issue with the title of commented private ideas is now fixed.', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'In users profiles, user ratings are now consistent, meaning only ideas the displayed user ranked will be displayed.', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'Spammed users on multisite configs or configs where BuddyPress is activated, will not be displayed anymore. Unless you unspam them :)', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'More links on archive pages are now using the link of the idea.', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'The Ideas pagination is now completely independent of the Posts one.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'Fix comments &quot;All&quot; count on Comments Administration screens views.', 'wp-idea-stream' ); ?></li>
 					</ul>
 				</div>
 			</div>
@@ -224,8 +220,7 @@ function wp_idea_stream_admin_credits() {
 
 		<h3 class="wp-people-group"><?php printf( esc_html__( 'Contributors to %s', 'wp-idea-stream' ), $display_version ); ?></h3>
 		<p class="wp-credits-list">
-			<a href="https://profiles.wordpress.org/imath">imath</a>,
-			<a href="https://github.com/naokomc">Naoko Takano</a>.
+			<a href="https://profiles.wordpress.org/imath">imath</a>.
 		</p>
 
 		<h3 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h3>

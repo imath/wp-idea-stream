@@ -279,7 +279,7 @@ class WP_Idea_Stream_Admin_Comments {
 			if ( isset( $this->idea_comment_count->{$key} ) ) {
 				$prefix = $key;
 
-				if ( 'moderated' == $key ) {
+				if ( 'moderated' === $key ) {
 					$prefix = 'pending';
 				}
 

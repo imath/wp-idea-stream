@@ -17,7 +17,7 @@ add_filter( 'template_include',          'wp_idea_stream_set_template',         
 add_filter( 'wp_title_parts',            'wp_idea_stream_title',                        10, 1 );
 add_filter( 'document_title_parts',      'wp_idea_stream_document_title_parts',         10, 1 );
 add_filter( 'wp_title',                  'wp_idea_stream_title_adjust',                 20, 3 );
-add_filter( 'body_class',                'wp_idea_stream_body_class',                   10, 2 );
+add_filter( 'body_class',                'wp_idea_stream_body_class',                   20, 2 );
 add_filter( 'post_class',                'wp_idea_stream_post_class',                   10, 2 );
 add_filter( 'map_meta_cap',              'wp_idea_stream_map_meta_caps',                10, 4 );
 add_filter( 'widget_tag_cloud_args',     'wp_idea_stream_tag_cloud_args',               10, 1 );
