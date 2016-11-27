@@ -41,6 +41,7 @@ add_action( 'wp_idea_stream_loaded', array( 'WP_Idea_Stream_Comments', 'start' )
 // Comments actions
 add_action( 'wp_set_comment_status', 'wp_idea_stream_comments_clean_count_cache', 10, 2 );
 add_action( 'delete_comment',        'wp_idea_stream_comments_clean_count_cache', 10, 1 );
+add_action( 'wp_insert_comment',     'wp_idea_stream_comments_clean_count_cache', 10, 2 );
 
 // Actions hooking enqueue_scripts (tags, rates UI)
 add_action( 'wp_idea_stream_enqueue_scripts', 'wp_idea_stream_ideas_enqueue_scripts', 10 );

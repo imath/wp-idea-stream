@@ -3,9 +3,9 @@
 Plugin Name: WP Idea Stream
 Plugin URI: http://imathi.eu/tag/ideastream/
 Description: Share ideas, great ones will rise to the top!
-Version: 2.3.2
+Version: 2.3.3
 Requires at least: 4.4
-Tested up to: 4.5
+Tested up to: 4.7
 License: GNU/GPL 2
 Author: imath
 Author URI: http://imathi.eu/
@@ -81,7 +81,7 @@ final class WP_Idea_Stream {
 	 */
 	private function setup_globals() {
 		// Version
-		$this->version = '2.3.2';
+		$this->version = '2.3.3';
 
 		// Domain
 		$this->domain = 'wp-idea-stream';
@@ -439,6 +439,8 @@ final class WP_Idea_Stream {
 		 * and it will be used instead of generic ones.
 		 *
 		 * @since  2.2.0
+		 * @since  2.3.3 Use load_plugin_textdomain() the right way to make sure "my" french translation will
+		 *               be loaded.
 		 */
 		if ( is_multisite() ) {
 			$mofile_current_blog = WP_LANG_DIR . '/' . $this->domain . '/' . get_current_blog_id() . '/' . $mofile;
@@ -450,11 +452,14 @@ final class WP_Idea_Stream {
 		// Look in global /wp-content/languages/wp-idea-stream folder
 		load_textdomain( $this->domain, $mofile_global );
 
-		// Look in local /wp-content/plugins/wp-idea-stream/languages/ folder
-		load_textdomain( $this->domain, $mofile_local );
+		// Always Look in /wp-content/plugins/wp-idea-stream/languages for the french translation. 
+		if ( 'fr_FR' === $locale ) {
+			load_textdomain( $this->domain, trailingslashit( $this->plugin_dir ) . 'languages/' . $mofile );
 
-		// Look in global /wp-content/languages/plugins/
-		load_plugin_textdomain( $this->domain );
+		// Rely on GlotPress for other languages
+		} else {
+			load_plugin_textdomain( $this->domain, false, trailingslashit( basename( $this->plugin_dir ) ) . 'languages' );
+		}
 	}
 }
 

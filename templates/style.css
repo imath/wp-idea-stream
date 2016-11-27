@@ -37,12 +37,23 @@ span.wp-idea-stream-group:before {
 	text-decoration: inherit;
 	font-weight: normal;
 	font-style: normal;
-	vertical-align: top;
+	vertical-align: text-bottom;
 	text-align: center;
 	-webkit-transition: color .1s ease-in 0;
 	transition: color .1s ease-in 0;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+body.single-ideas #wp-idea-stream .icon:before,
+body.single-ideas #wp-idea-stream #rate i:before,
+body.single-ideas span.sticky-idea:before,
+body.single-ideas span.private-idea:before,
+body.single-ideas span.protected-idea:before,
+body.single-ideas #wp-idea-stream .tag span:before,
+body.single-ideas .idea-title-sep:before,
+body.single-ideas span.wp-idea-stream-group:before {
+	vertical-align: text-top;
 }
 
 #wp-idea-stream .idea-comment-link:before {
@@ -317,7 +328,7 @@ span.wp-idea-stream-group:before {
 #wp-idea-stream ul.idea-list li div.idea-excerpt,
 #wp-idea-stream ul.idea-comments-list li div.idea-comment-excerpt {
 	margin:0;
-	padding-bottom:10px;
+	padding-bottom:1em;
 }
 
 body.single-ideas #wp-idea-stream div.idea-header {
@@ -340,6 +351,7 @@ body.single-ideas #wp-idea-stream div.idea-header {
 	float:none;
 	margin: 0 5px 0 5px;
 	display:inline;
+	vertical-align: bottom;
 }
 
 #wp-idea-stream .idea-comment-link,
@@ -350,16 +362,19 @@ body.single-ideas #wp-idea-stream div.idea-header {
 #wp-idea-stream .rating-info a {
 	text-decoration: none;
 	line-height: 1;
-	vertical-align: middle;
 	font-size: 13px;
 	border: none;
 	box-shadow: none;
+	width: auto;
 }
 
 #buddypress #wp-idea-stream h1.idea-title {
 	margin: 1em 0;
 }
 
+#wp-idea-stream .user-rating-link {
+	vertical-align: bottom;
+}
 
 /*--------------------------------------------------------------
 6 - Single Idea
@@ -823,7 +838,10 @@ body.single-ideas #comments .comment-reply-link {
 	padding: 4px 10px;
 	text-align: center;
 	text-decoration: none;
+	line-height: 1.5;
+	border-radius: 0;
 }
+
 #wp-idea-stream button:hover:not(.ed_button),
 #wp-idea-stream a.button:hover,
 #wp-idea-stream a.button:focus,

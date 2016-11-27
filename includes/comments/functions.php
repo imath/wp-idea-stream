@@ -109,6 +109,15 @@ function wp_idea_stream_comments_get_comments( $args = array() ) {
  * @uses   wp_cache_delete() to clean the cached count
  */
 function wp_idea_stream_comments_clean_count_cache( $comment_id = 0, $status = '' ) {
+	if ( 'wp_insert_comment' === current_action() && is_a( $status, 'WP_Comment' ) ) {
+		$status = $status->comment_approved;
+
+		// Bail if the comment is not approved
+		if ( 1 !== (int) $status ) {
+			return;
+		}
+	}
+
 	// Bail if no comment id or the status is delete
 	if ( empty( $comment_id ) || ( ! empty( $status ) && 'delete' == $status ) ) {
 		return;

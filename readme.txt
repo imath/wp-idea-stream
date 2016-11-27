@@ -3,8 +3,8 @@ Contributors: imath, aglekis
 Donate link: http://imathi.eu/donations/
 Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
 Requires at least: 4.4
-Tested up to: 4.5
-Stable tag: 2.3.2
+Tested up to: 4.7
+Stable tag: 2.3.3
 License: GNU/GPL 2
 
 Share ideas, great ones will rise to the top!
@@ -48,6 +48,11 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 5. Ideas archive page
 
 == Changelog ==
+
+= 2.3.3 =
+* WP Idea Stream style has been optimized for TwentySeventeen.
+* Fix an issue with comments count cache.
+* Fix displayed comments count on Comments Administration screens views.
 
 = 2.3.2 =
 * Adapts to Upstream embed improvements introduced in WordPress 4.5
@@ -147,6 +152,9 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 * Plugin birth..
 
 == Upgrade Notice ==
+
+= 2.3.3 =
+Please be sure to use at least WordPress 4.4. If you are using BuddyPress, required version is 2.5. Back up your database and files.
 
 = 2.3.2 =
 Please be sure to use at least WordPress 4.4. If you are using BuddyPress, required version is 2.5. Back up your database and files.
