@@ -149,6 +149,7 @@ function wp_idea_stream_admin_about() {
 					</ul>
 					<h4><?php esc_html_e( 'Bug fixes', 'wp-idea-stream' ); ?></h4>
 					<ul>
+						<li><?php esc_html_e( 'Fix an issue with comments count cache.', 'wp-idea-stream' ); ?></li>
 						<li><?php esc_html_e( 'Fix comments &quot;All&quot; count on Comments Administration screens views.', 'wp-idea-stream' ); ?></li>
 					</ul>
 				</div>

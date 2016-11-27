@@ -33,4 +33,41 @@ class WP_Idea_Stream_Comment_Functions_Tests extends WP_Idea_Stream_TestCase {
 		$h_comments = wp_idea_stream_comments_get_comments( array( 'status' => 'hold' ) );
 		$this->assertEquals( array( $comment_id_not_approved ), wp_list_pluck( $h_comments, 'comment_ID' ) );
 	}
+
+	public function test_wp_idea_stream_comments_count_comments() {
+		$count = wp_idea_stream_comments_count_comments();
+
+		$u       = $this->factory->user->create();
+		$user    = $this->factory->user->get_object_by_id( $u );
+		$count_u = wp_idea_stream_comments_count_comments( $u );
+
+		$c = $this->factory->comment->create( array(
+			'comment_post_ID'      => $this->idea_id,
+			'user_id'              => $u,
+			'comment_author_email' => $user->user_email,
+			'comment_approved'     => 1
+		) );
+
+		$count2 = wp_idea_stream_comments_count_comments();
+
+		$this->assertTrue( $count2->all      === $count->all + 1      );
+		$this->assertTrue( $count2->approved === $count->approved + 1 );
+
+		$count_u2 = wp_idea_stream_comments_count_comments( $u );
+
+		$this->assertTrue( $count_u2 === $count_u + 1 );
+
+		// Trash comment.
+		wp_trash_comment( $c );
+
+		$count3 = wp_idea_stream_comments_count_comments();
+
+		$this->assertTrue( $count3->all      === $count->all      );
+		$this->assertTrue( $count3->approved === $count->approved );
+		$this->assertTrue( $count3->trash    === $count->trash + 1 );
+
+		$count_u3 = wp_idea_stream_comments_count_comments( $u );
+
+		$this->assertTrue( $count_u3 === $count_u );
+	}
 }

@@ -174,19 +174,22 @@ class WP_Idea_Stream_Comments {
 	 * @return  array adjusted comment count stats
 	 */
 	public function adjust_comment_count( $stats = array() ) {
-		if( did_action( 'wp_idea_stream_cache_comments_count' ) ) {
+		if ( did_action( 'wp_idea_stream_cache_comments_count' ) ) {
 			$this->idea_comment_count = wp_idea_stream_comments_count_comments();
 
 			// Catch this count
 			wp_idea_stream_set_idea_var( 'idea_comment_count', $this->idea_comment_count );
 
 			if ( ! did_action( 'wp_idea_stream_comments_count_cached' ) ) {
+				$idea_comment_count = clone $this->idea_comment_count;
+
 				foreach ( $this->comment_count as $key => $count ) {
-					if ( empty( $this->idea_comment_count->{$key} ) ) {
+					if ( empty( $idea_comment_count->{$key} ) ) {
 						continue;
 					}
 
-					$this->comment_count->{$key} = $count - $this->idea_comment_count->{$key};
+					$this->comment_count->{$key} = $count - $idea_comment_count->{$key};
+					unset( $idea_comment_count->{$key} );
 				}
 
 				// For internal use only, please don't use this action.
@@ -195,6 +198,7 @@ class WP_Idea_Stream_Comments {
 
 			$stats = $this->comment_count;
 		}
+
 		return $stats;
 	}
 
@@ -479,6 +483,7 @@ class WP_Idea_Stream_Comments {
 			if ( 'post-trashed' != $row['comment_approved'] && 'trash' != $row['comment_approved'] ) {
 				$total += $row['num_comments'];
 			}
+
 			if ( isset( $approved[ $row['comment_approved'] ] ) ) {
 				$stats[ $approved[ $row['comment_approved'] ] ] = $row['num_comments'];
 			}
@@ -488,8 +493,10 @@ class WP_Idea_Stream_Comments {
 		$stats['all']            = $total;
 
 		foreach ( $approved as $key ) {
-			if ( empty( $stats[$key] ) ) {
-				$stats[$key] = 0;
+			if ( empty( $stats[ $key ] ) ) {
+				$stats[ $key ] = 0;
+			} else {
+				$stats[ $key ] = (int) $stats[ $key ];
 			}
 		}
 
