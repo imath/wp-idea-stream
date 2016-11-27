@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WP Idea Stream package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Idea Stream 2.3.2\n"
+"Project-Id-Version: WP Idea Stream 2.3.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-idea-stream\n"
-"POT-Creation-Date: 2016-04-11 16:41:16+00:00\n"
+"POT-Creation-Date: 2016-11-27 13:46:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -390,7 +390,7 @@ msgid "The Ratings metabox allows you to manage the ratings the idea has receive
 msgstr ""
 
 #: includes/admin/admin.php:1784 includes/admin/thanks.php:54
-#: includes/admin/thanks.php:196 includes/core/upgrade.php:157
+#: includes/admin/thanks.php:193 includes/core/upgrade.php:157
 msgid "About"
 msgstr ""
 
@@ -681,7 +681,7 @@ msgctxt "about screen title"
 msgid "WP Idea Stream %s"
 msgstr ""
 
-#: includes/admin/thanks.php:57 includes/admin/thanks.php:199
+#: includes/admin/thanks.php:57 includes/admin/thanks.php:196
 msgid "Credits"
 msgstr ""
 
@@ -759,11 +759,11 @@ msgid "The finer points.."
 msgstr ""
 
 #: includes/admin/thanks.php:146
-msgid "TwentySixteen"
+msgid "TwentySeventeen"
 msgstr ""
 
 #: includes/admin/thanks.php:148
-msgid "WP Idea Stream will look really nice when used with the new WordPress default theme. Its style has been optimized for it."
+msgid "WP Idea Stream will look pretty nice when used with the next WordPress default theme. Its style has been optimized for it."
 msgstr ""
 
 #: includes/admin/thanks.php:150
@@ -771,79 +771,67 @@ msgid "Bug fixes"
 msgstr ""
 
 #: includes/admin/thanks.php:152
-msgid "In users profiles, the issue with the title of commented private ideas is now fixed."
+msgid "Fix an issue with comments count cache."
 msgstr ""
 
 #: includes/admin/thanks.php:153
-msgid "In users profiles, user ratings are now consistent, meaning only ideas the displayed user ranked will be displayed."
+msgid "Fix comments &quot;All&quot; count on Comments Administration screens views."
 msgstr ""
 
-#: includes/admin/thanks.php:154
-msgid "Spammed users on multisite configs or configs where BuddyPress is activated, will not be displayed anymore. Unless you unspam them :)"
-msgstr ""
-
-#: includes/admin/thanks.php:155
-msgid "More links on archive pages are now using the link of the idea."
-msgstr ""
-
-#: includes/admin/thanks.php:156
-msgid "The Ideas pagination is now completely independent of the Posts one."
-msgstr ""
-
-#: includes/admin/thanks.php:164 includes/admin/thanks.php:260
+#: includes/admin/thanks.php:161 includes/admin/thanks.php:256
 msgid "Configure WP Idea Stream"
 msgstr ""
 
-#: includes/admin/thanks.php:164 includes/admin/thanks.php:260
+#: includes/admin/thanks.php:161 includes/admin/thanks.php:256
 msgid "Go to the WP Idea Stream Settings page"
 msgstr ""
 
-#: includes/admin/thanks.php:190
+#: includes/admin/thanks.php:187
 msgctxt "credit screen title"
 msgid "WP Idea Stream %s"
 msgstr ""
 
-#: includes/admin/thanks.php:191
+#: includes/admin/thanks.php:188
 msgid "%s version of WP Idea Stream was also successfully released thanks to them!"
 msgstr ""
 
-#: includes/admin/thanks.php:203
+#: includes/admin/thanks.php:200
 msgid "The team!"
 msgstr ""
 
-#: includes/admin/thanks.php:208
+#: includes/admin/thanks.php:205
 msgid "Creator"
 msgstr ""
 
-#: includes/admin/thanks.php:213
+#: includes/admin/thanks.php:210
 msgid "Developer"
 msgstr ""
 
-#: includes/admin/thanks.php:217
+#: includes/admin/thanks.php:214
 msgid "Rock Stars"
 msgstr ""
 
-#: includes/admin/thanks.php:225
+#: includes/admin/thanks.php:222
 msgid "Contributors to %s"
 msgstr ""
 
-#: includes/admin/thanks.php:231
+#: includes/admin/thanks.php:227
 msgid "Special thanks."
 msgstr ""
 
-#: includes/admin/thanks.php:235
+#: includes/admin/thanks.php:231
 msgid "WP Idea Stream was the choice of the WordCamp Paris 2016 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file."
 msgstr ""
 
-#: includes/admin/thanks.php:236
+#: includes/admin/thanks.php:232
 msgid "The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system."
 msgstr ""
 
-#: includes/admin/thanks.php:237
+#: includes/admin/thanks.php:233
 msgid "Many thanks to WordCamp Paris organizers and speakers for this great experience and for their contributions to the user rates bug report."
 msgstr ""
 
-#: includes/admin/thanks.php:239
+#: includes/admin/thanks.php:235
 msgid "WP Idea Stream&#39;s external libraries and useful code"
 msgstr ""
 
@@ -1205,15 +1193,15 @@ msgstr ""
 msgid "Awesome! Your members will receive a screen notification when their ideas has been rated or commented upon."
 msgstr ""
 
-#: includes/comments/classes.php:367
+#: includes/comments/classes.php:371
 msgid "New comment on your idea \"%s\""
 msgstr ""
 
-#: includes/comments/classes.php:368
+#: includes/comments/classes.php:372
 msgid "Comment: "
 msgstr ""
 
-#: includes/comments/classes.php:369
+#: includes/comments/classes.php:373
 msgid "Permalink to the comment: %s"
 msgstr ""
 
