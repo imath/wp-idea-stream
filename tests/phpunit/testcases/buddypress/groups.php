@@ -42,6 +42,16 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$bp->current_component = $this->current_component;
 	}
 
+	public function refresh_group( $group ) {
+		if ( ! empty( $group->id ) ) {
+			return $group;
+		}
+
+		return groups_get_group( array(
+			'group_id'        => $this->group_id,
+			'populate_extras' => true,
+		) );
+	}
 
 	/**
 	 * @group group_status
@@ -50,10 +60,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$bp = buddypress();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -75,6 +82,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$private_ideas = wp_filter_object_list( $ideas['ideas'], array( 'post_status' => 'private' ), 'and', 'ID' );
 
 		$this->assertEqualSets( array( $idea1, $idea2 ), $private_ideas, 'Switching from public to private should update the idea status to private' );
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -88,10 +98,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$group->save();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -115,6 +122,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$public_ideas = wp_filter_object_list( $ideas['ideas'], array( 'post_status' => 'publish' ), 'and', 'ID' );
 
 		$this->assertEqualSets( array( $idea1, $idea2 ), $public_ideas, 'Switching from hidden to public should update the idea status to publish' );
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -128,10 +138,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$group->save();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -155,6 +162,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$private_ideas = wp_filter_object_list( $ideas['ideas'], array( 'post_status' => 'private' ), 'and', 'ID' );
 
 		$this->assertEqualSets( array( $idea1, $idea2 ), $private_ideas, 'Switching from hidden to private should not update the idea status' );
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -164,10 +174,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$bp = buddypress();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -193,6 +200,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$public_ideas = wp_filter_object_list( $ideas['ideas'], array( 'post_status' => 'publish' ), 'and', 'ID' );
 
 		$this->assertEqualSets( array( $idea1, $idea2 ), $public_ideas, 'Ideas removed from a group should always be public' );
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -206,10 +216,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$group->save();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -237,6 +244,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$public_ideas = wp_filter_object_list( $ideas['ideas'], array( 'post_status' => 'publish' ), 'and', 'ID' );
 
 		$this->assertEqualSets( array( $idea1, $idea2 ), $public_ideas, 'Ideas removed from a group should always be public' );
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -250,10 +260,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$group->save();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -282,6 +289,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$public_ideas = wp_filter_object_list( $ideas['ideas'], array( 'post_status' => 'publish' ), 'and', 'ID' );
 
 		$this->assertEqualSets( array( $idea1, $idea2 ), $public_ideas, 'When a member leaves the group, ideas should always be public' );
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -291,10 +301,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$bp = buddypress();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -321,6 +328,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$public_ideas = wp_filter_object_list( $ideas['ideas'], array( 'post_status' => 'publish' ), 'and', 'ID' );
 
 		$this->assertEqualSets( array( $idea1, $idea2 ), $public_ideas, 'When a member leaves the group, ideas should always be public' );
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -334,10 +344,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$group->save();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -370,6 +377,9 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 
 		// Reset item admin
 		$bp->is_item_admin = false;
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 	}
 
 	/**
@@ -379,10 +389,7 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 		$bp = buddypress();
 
 		// Set current group
-		$bp->groups->current_group = groups_get_group( array(
-			'group_id'        => $this->group_id,
-			'populate_extras' => true,
-		) );
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
 
 		$u = $this->factory->user->create();
 		groups_join_group( $this->group_id, $u );
@@ -413,6 +420,82 @@ class WP_Idea_Stream_Groups_Tests extends WP_Idea_Stream_TestCase {
 
 		// Reset item admin
 		$bp->is_item_admin = false;
+
+		// remove filter
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
+	}
+
+	/**
+	 * @group comment
+	 */
+	public function test_wp_idea_stream_group_map_meta_caps_comment_on_private_ideas() {
+		$reset_REQUEST = $_REQUEST;
+
+		$group = new BP_Groups_Group( $this->group_id );
+		$group->status = 'private';
+		$group->save();
+
+		// Set current group
+		add_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
+		add_filter( 'comments_open', '__return_true' );
+		add_filter( 'comment_flood_filter', '__return_false' );
+
+		$u1 = $this->factory->user->create();
+		groups_join_group( $this->group_id, $u1 );
+
+		$u2 = $this->factory->user->create();
+		groups_join_group( $this->group_id, $u2 );
+
+		$this->set_current_user( $u1 );
+
+		$idea = $this->factory->idea->create( array(
+			'author' => $u1,
+			'metas'  => array( 'group_id' => $this->group_id ),
+			'status' => 'private',
+		) );
+
+		$this->set_current_user( $u2 );
+
+		$comment_args = array(
+			'user_id'         => get_current_user_id(),
+			'email'           => wp_get_current_user()->user_email,
+			'comment_post_ID' => $idea,
+			'comment'         => 'foo bar',
+		);
+
+		// The current group shouldn't be set anymore/
+		remove_filter( 'groups_get_current_group', array( $this, 'refresh_group' ), 10, 1 );
+
+		// Fake a request coming from the idea of the group
+		$_REQUEST['_wp_http_referer'] = wp_idea_stream_ideas_get_idea_permalink( $idea );
+
+		$comment = wp_handle_comment_submission( $comment_args );
+
+		// Members shouldn't get an error
+		$this->assertTrue( ! is_wp_error( $comment ) );
+		$this->assertTrue( is_a( $comment, 'WP_Comment' ) );
+
+		// Non members should get an error
+		$u3 = $this->factory->user->create();
+		$this->set_current_user( $u3 );
+
+		$comment_args = array(
+			'user_id'         => get_current_user_id(),
+			'email'           => wp_get_current_user()->user_email,
+			'comment_post_ID' => $idea,
+			'comment'         => 'bar foo',
+		);
+
+		$comment = wp_handle_comment_submission( $comment_args );
+
+		// Members shouldn't get an error
+		$this->assertTrue( is_wp_error( $comment ) );
+
+		remove_filter( 'comments_open', '__return_true' );
+		remove_filter( 'comment_flood_filter', '__return_false' );
+
+		// Reset post vars
+		$_REQUEST = $reset_REQUEST;
 	}
 }
 

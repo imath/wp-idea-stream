@@ -90,7 +90,6 @@ class WP_Idea_Stream_UnitTest_Factory_For_Idea_Comment extends WP_UnitTest_Facto
 	function create_object( $args ) {
 		$reset_server = $_SERVER;
 		$_SERVER['REMOTE_ADDR'] = '';
-		$_SERVER['SERVER_NAME'] = '';
 
 		$comment_id = wp_new_comment( $this->addslashes_deep( $args ) );
 
@@ -103,7 +102,6 @@ class WP_Idea_Stream_UnitTest_Factory_For_Idea_Comment extends WP_UnitTest_Facto
 	function update_object( $comment_id, $fields ) {
 		$reset_server = $_SERVER;
 		$_SERVER['REMOTE_ADDR'] = '';
-		$_SERVER['SERVER_NAME'] = '';
 
 		$fields['comment_ID'] = $comment_id;
 		$comment_id = wp_update_comment( $this->addslashes_deep( $fields ) );

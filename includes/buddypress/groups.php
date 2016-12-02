@@ -1128,20 +1128,40 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 	public function group_map_meta_caps( $caps = array(), $cap = '', $user_id = 0, $args = array() ) {
 		// Group meta caps territory is limited to groups
 		if ( ! bp_is_group() && ! self::is_group_admin() && ! wp_idea_stream_buddypress_is_delete_account() ) {
-			return $caps;
+			$is_group_referer = 0 === strpos( wp_get_referer(), bp_get_groups_directory_permalink() );
+
+			// Check if the post is an idea posted within a group.
+			if ( 'read_idea' === $cap && $is_group_referer && isset( $args[0] ) ) {
+				// Get the group ID.
+				$idea_meta = get_post_meta( (int) $args[0], '_ideastream_group_id', true );
+
+				// Try to get the group
+				$group = groups_get_group( array( 'group_id' => $idea_meta ) );
+
+				// It's not a group simply return the requested caps.
+				if ( ! is_a( $group, 'BP_GROUPS_GROUP' ) ) {
+					return $caps;
+				}
+
+			// Not enougth data to get the group.
+			} else {
+				return $caps;
+			}
+		}
+
+		if ( ! isset( $group ) ) {
+			// Let's Fallback on the current group.
+			$group = groups_get_current_group();
+		}
+
+		if ( empty( $group->id ) && ! empty( $this->group_delete ) ) {
+			$group = new StdClass();
+			$group->id = $this->group_delete;
 		}
 
 		// Not logged in user can't do anything in groups
 		if ( empty( $user_id ) ) {
 			return array( 'do_not_allow' );
-		}
-
-		// Let's get the current group (we'll have the status available)
-		$group = groups_get_current_group();
-
-		if ( empty( $group->id ) && ! empty( $this->group_delete ) ) {
-			$group = new StdClass();
-			$group->id = $this->group_delete;
 		}
 
 		switch ( $cap ) {
@@ -3554,7 +3574,7 @@ class WP_Idea_Stream_Group extends BP_Group_Extension {
 			// Let's try to avoid a request, on manage screen current group is set
 			$group = groups_get_current_group();
 
-			if ( empty( $group->id ) || $group_id != $group ) {
+			if ( empty( $group->id ) || (int) $group_id !== (int) $group->id ) {
 				$group = groups_get_group( array(
 					'group_id'        => $group_id,
 					'populate_extras' => false

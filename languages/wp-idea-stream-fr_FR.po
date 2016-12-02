@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Idea Stream 2.0.0-beta4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-idea-stream\n"
-"POT-Creation-Date: 2016-11-27 13:46:42+00:00\n"
-"PO-Revision-Date: 2016-11-27 14:49+0100\n"
+"POT-Creation-Date: 2016-12-02 23:39:16+00:00\n"
+"PO-Revision-Date: 2016-12-03 00:41+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -1200,22 +1200,22 @@ msgstr ""
 msgid "WP Idea Stream&#39;s external libraries and useful code"
 msgstr "Librairies externes et codes utiles"
 
-#: includes/buddypress/activity.php:235 includes/buddypress/groups.php:2564
+#: includes/buddypress/activity.php:235 includes/buddypress/groups.php:2584
 msgctxt "activity admin dropdown caption"
 msgid "New %s published"
 msgstr "Nouvelle %s publiée"
 
-#: includes/buddypress/activity.php:237 includes/buddypress/groups.php:2566
+#: includes/buddypress/activity.php:237 includes/buddypress/groups.php:2586
 msgctxt "activity front dropdown caption"
 msgid "%s"
 msgstr "%s"
 
-#: includes/buddypress/activity.php:243 includes/buddypress/groups.php:2572
+#: includes/buddypress/activity.php:243 includes/buddypress/groups.php:2592
 msgctxt "activity comment admin dropdown caption"
 msgid "New %s comment posted"
 msgstr "Nouveau commentaire d&#39;%s"
 
-#: includes/buddypress/activity.php:245 includes/buddypress/groups.php:2574
+#: includes/buddypress/activity.php:245 includes/buddypress/groups.php:2594
 msgctxt "activity comments front dropdown caption"
 msgid "%s comments"
 msgstr "Commentaires d&#39;%s"
@@ -1283,41 +1283,41 @@ msgstr "Groupes BuddyPress"
 msgid "Activate WP Idea Stream in Groups"
 msgstr "Activer WP Idea Stream pour les Groupes"
 
-#: includes/buddypress/groups.php:1742 includes/buddypress/groups.php:1756
+#: includes/buddypress/groups.php:1762 includes/buddypress/groups.php:1776
 msgid "Removing the idea failed."
 msgstr "La suppression de l&#39;idée a échouée"
 
-#: includes/buddypress/groups.php:1750
+#: includes/buddypress/groups.php:1770
 msgid ""
 "Removing the idea failed. You do not have the capability to remove ideas."
 msgstr ""
 "La suppression de l&#39;idée a échoué, vous n&#39;avez pas les droits "
 "suffisants."
 
-#: includes/buddypress/groups.php:1760
+#: includes/buddypress/groups.php:1780
 msgid "The idea was successfully removed."
 msgstr "L&#39;idée a été supprimée avec succès."
 
-#: includes/buddypress/groups.php:1772 includes/buddypress/groups.php:1786
+#: includes/buddypress/groups.php:1792 includes/buddypress/groups.php:1806
 msgid "Spamming the comment failed."
 msgstr "Le commentaire n&#39;a pu être spammé."
 
-#: includes/buddypress/groups.php:1780
+#: includes/buddypress/groups.php:1800
 msgid ""
 "Spamming the comment failed. You do not have the capability to spam comments."
 msgstr ""
 "Le commentaire n&#39;a pu être spammé, vous n&#39;avez pas les droits "
 "suffisants."
 
-#: includes/buddypress/groups.php:1789
+#: includes/buddypress/groups.php:1809
 msgid "The comment was successfully marked as spam."
 msgstr "Le commentaire a été spammé avec succès."
 
-#: includes/buddypress/groups.php:1802 includes/buddypress/groups.php:1816
+#: includes/buddypress/groups.php:1822 includes/buddypress/groups.php:1836
 msgid "Deleting the comment failed."
 msgstr "La suppression du commentaire a échoué."
 
-#: includes/buddypress/groups.php:1810
+#: includes/buddypress/groups.php:1830
 msgid ""
 "Deleting the comment failed. You do not have the capability to delete "
 "comments."
@@ -1325,70 +1325,70 @@ msgstr ""
 "La suppression du commentaire a échoué, vous n&#39;avez pas les droits "
 "suffisants."
 
-#: includes/buddypress/groups.php:1819
+#: includes/buddypress/groups.php:1839
 msgid "The comment was successfully deleted."
 msgstr "Le commentaire a été supprimé avec succès."
 
-#: includes/buddypress/groups.php:1908 includes/buddypress/groups.php:1958
+#: includes/buddypress/groups.php:1928 includes/buddypress/groups.php:1978
 msgid "No idea was requested"
 msgstr "Aucune idée n&#39;a été demandée."
 
-#: includes/buddypress/groups.php:1918 includes/core/template-loader.php:458
+#: includes/buddypress/groups.php:1938 includes/core/template-loader.php:458
 msgid "The idea: &#34;%s&#34; is already being edited by another user."
 msgstr ""
 "L&#39;idée: &#34;%s&#34; est déjà en cours de modification par un autre "
 "utilisateur."
 
-#: includes/buddypress/groups.php:1924 includes/core/template-loader.php:470
+#: includes/buddypress/groups.php:1944 includes/core/template-loader.php:470
 #: includes/ideas/functions.php:1236
 msgid "You are not allowed to edit this idea."
 msgstr "Vous ne pouvez pas modifier cette idée."
 
-#: includes/buddypress/groups.php:1946 includes/buddypress/groups.php:1976
+#: includes/buddypress/groups.php:1966 includes/buddypress/groups.php:1996
 msgid "The idea was not found in this group."
 msgstr "L&#39;idée est introuvable dans ce groupe."
 
-#: includes/buddypress/groups.php:1950
+#: includes/buddypress/groups.php:1970
 msgid "The action requested is not available"
 msgstr "L&#39;action demandée n&#39;est pas disponible"
 
-#: includes/buddypress/groups.php:1984
+#: includes/buddypress/groups.php:2004
 msgid "No %s was requested"
 msgstr "Aucun %s n&#39;a été demandé."
 
-#: includes/buddypress/groups.php:1990
+#: includes/buddypress/groups.php:2010
 msgid "This group does not support the %s feature."
 msgstr "Ce groupe ne supporte pas la fonctionnalité %s"
 
-#: includes/buddypress/groups.php:2022
+#: includes/buddypress/groups.php:2042
 msgid "The %s was not found"
 msgstr "%s introuvable."
 
-#: includes/buddypress/groups.php:2139
+#: includes/buddypress/groups.php:2159
 msgid "You must be a member of the group to post ideas"
 msgstr "Vous devez être membre de ce groupe pour y poster des idées."
 
 #. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2300
+#: includes/buddypress/groups.php:2320
 msgctxt "group idea footer utility text"
 msgid "This idea was posted from the group %4$s on %3$s."
 msgstr "Cette idée a été publiée depuis le groupe %4$s le %3$s."
 
 #. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2304
+#: includes/buddypress/groups.php:2324
 msgctxt "group idea attached to at least one category footer utility text"
 msgid "This idea was posted in %1$s from the group %4$s on %3$s."
 msgstr "Cette idée a été publiée dans %1$s depuis le groupe %4$s le %3$s."
 
 #. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2312
+#: includes/buddypress/groups.php:2332
 msgctxt "group idea attached to at least one tag footer utility text"
 msgid "This idea was tagged %2$s and posted from the group %4$s on %3$s."
 msgstr ""
 "Cette idée a été étiquetée %2$s et postée depuis le groupe %4$s le %3$s."
 
 #. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2317
+#: includes/buddypress/groups.php:2337
 msgctxt ""
 "group idea attached to at least one tag and one category footer utility text"
 msgid ""
@@ -1397,71 +1397,71 @@ msgstr ""
 "Cette idée a été publiée dans %1$s depuis le groupe %4$s et étiquetée %2$s le "
 "%3$s."
 
-#: includes/buddypress/groups.php:2347 includes/core/functions.php:336
+#: includes/buddypress/groups.php:2367 includes/core/functions.php:336
 #: includes/core/template-functions.php:813 includes/ideas/tags.php:1431
 msgid "Edit Idea"
 msgstr "Modifier Idée"
 
-#: includes/buddypress/groups.php:2356
+#: includes/buddypress/groups.php:2376
 msgid "Remove Idea"
 msgstr "Supprimer Idée"
 
-#: includes/buddypress/groups.php:2433
+#: includes/buddypress/groups.php:2453
 msgid "Spam comment"
 msgstr "Spammer le commentaire"
 
-#: includes/buddypress/groups.php:2433
+#: includes/buddypress/groups.php:2453
 msgid "Spam"
 msgstr "Spammer"
 
-#: includes/buddypress/groups.php:2438
+#: includes/buddypress/groups.php:2458
 msgid "Delete comment"
 msgstr "Supprimer le commentaire"
 
-#: includes/buddypress/groups.php:2438
+#: includes/buddypress/groups.php:2458
 msgid "Delete"
 msgstr "Supprimer"
 
-#: includes/buddypress/groups.php:2876
+#: includes/buddypress/groups.php:2896
 msgctxt "idea posted group activity action"
 msgid "%1$s wrote a new %2$s in the group %3$s"
 msgstr "%1$s a publié une nouvelle %2$s dans le groupe %3$s"
 
-#: includes/buddypress/groups.php:2931
+#: includes/buddypress/groups.php:2951
 msgctxt "idea commented group activity action"
 msgid "%1$s replied to this %2$s posted in the group %3$s"
 msgstr "%1$s a répondu à cette %2$s postée dans le groupe %3$s"
 
-#: includes/buddypress/groups.php:3071
+#: includes/buddypress/groups.php:3091
 msgid "BuddyPress Group"
 msgstr "Groupe BuddyPress"
 
-#: includes/buddypress/groups.php:3092
+#: includes/buddypress/groups.php:3112
 msgid "The author of the idea needs to be a member of the group selected"
 msgstr "L&#39;auteur de l&#39;idée doit être membre du groupe sélectionné"
 
-#: includes/buddypress/groups.php:3093
+#: includes/buddypress/groups.php:3113
 msgid "Idea successfully removed from group"
 msgstr "L&#39;idée a été supprimée du groupe"
 
-#: includes/buddypress/groups.php:3094
+#: includes/buddypress/groups.php:3114
 msgid "Idea successfully added to group"
 msgstr "Idée ajoutée au groupe avec succès"
 
-#: includes/buddypress/groups.php:3095
+#: includes/buddypress/groups.php:3115
 msgid "Status of the idea is not compatible with the group visibility"
 msgstr ""
 "Le statut de l&#39;idée n&#39;est pas compatible avec la visibilité du Groupe"
 
-#: includes/buddypress/groups.php:3096
+#: includes/buddypress/groups.php:3116
 msgid "Group was not found."
 msgstr "Groupe introuvable."
 
-#: includes/buddypress/groups.php:3139
+#: includes/buddypress/groups.php:3159
 msgid "Search in groups to select one:"
 msgstr "Rechercher un groupe :"
 
-#: includes/buddypress/groups.php:3142
+#: includes/buddypress/groups.php:3162
 msgid ""
 "Only groups where WP Idea Stream is activated and where the author of this "
 "idea is a member of will show."
@@ -1469,15 +1469,15 @@ msgstr ""
 "Seuls les groupes dans lesquels WP Idea Stream est activé et dont fait partie "
 "l&#39;auteur de l&#39;idée seront affichés."
 
-#: includes/buddypress/groups.php:3155
+#: includes/buddypress/groups.php:3175
 msgid "This idea is not associated to any group"
 msgstr "Cette idée n&#39;est associée à aucun groupe"
 
-#: includes/buddypress/groups.php:3324
+#: includes/buddypress/groups.php:3344
 msgid "Groups"
 msgstr "Groupes"
 
-#: includes/buddypress/groups.php:3379
+#: includes/buddypress/groups.php:3399
 msgid ""
 "The Buddypress Group metabox allows you to select a group the author is "
 "member of, and attach the idea to that group. Private or hidden groups will "
@@ -1487,7 +1487,7 @@ msgstr ""
 "auteur de l&#39;idée est membre, pour lui rattacher l&#39;idée. Les groupes "
 "privés ou masqués nécessitent que l&#39;idée aient un statut définit à privé."
 
-#: includes/buddypress/groups.php:3435
+#: includes/buddypress/groups.php:3455
 msgctxt "ideas groups admin column header"
 msgid "# Ideas"
 msgstr "# Idées"
