@@ -869,6 +869,8 @@ function wp_idea_stream_ideas_enqueue_scripts() {
 
 		$js_vars = array(
 			'raty_loaded'  => 1,
+			'root_url'     => esc_url_raw( rest_url( trailingslashit( 'wp/v2' ) ) ),
+			'nonce'        => wp_create_nonce( 'wp_rest' ),
 			'ajaxurl'      => admin_url( 'admin-ajax.php', 'relative' ),
 			'wait_msg'     => esc_html__( 'Saving your rating; please wait', 'wp-idea-stream' ),
 			'success_msg'  => esc_html__( 'Thanks! The average rating is now:', 'wp-idea-stream' ),

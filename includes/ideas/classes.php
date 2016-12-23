@@ -1036,3 +1036,77 @@ class WP_Idea_Stream_Ideas_Thumbnail {
 }
 
 endif;
+
+if ( ! class_exists( 'WP_Idea_Stream_REST_Controller' ) && class_exists( 'WP_REST_Posts_Controller' ) ) :
+
+class WP_Idea_Stream_REST_Controller extends WP_REST_Posts_Controller {
+
+	/**
+	 * Registers the routes for ideas.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 */
+	public function register_routes() {
+		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)/rate', array(
+			array(
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => array( $this, 'update_rate' ),
+				'permission_callback' => array( $this, 'update_rate_permissions_check' ),
+				'args'                =>  array(
+					'id' => array(
+						'validate_callback' => function( $param, $request, $key ) {
+							return is_numeric( $param );
+						}
+					),
+				),
+			),
+		) );
+	}
+
+	/**
+	 * Check the user can rate the idea.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param  WP_REST_Request $request The Rest request.
+	 * @return bool                     True if the user can vote. False otherwise.
+	 */
+	public function update_rate_permissions_check( WP_REST_Request $request ) {
+		return current_user_can( 'rate_ideas' );
+	}
+
+	/**
+	 * Save the user rating for the idea.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param  WP_REST_Request $request The Rest request.
+	 * @return array                    The Rest response.
+	 */
+	public function update_rate( WP_REST_Request $request ) {
+		$idea_id = (int) $request->get_param( 'id' );
+		$rating  = (int) $request->get_param( 'rating' );
+		$user_id = wp_idea_stream_users_current_user_id();
+
+		$response = array( 'success' => false );
+		if ( empty( $idea_id ) || empty( $rating ) || empty( $user_id ) ) {
+			return $response;
+		}
+
+		$average_rate = wp_idea_stream_add_rate( $idea_id, $user_id, $rating );
+
+		if ( ! $average_rate ) {
+			return $response;
+		}
+
+		return array(
+			'success'           => true,
+			'idea_average_rate' => $average_rate,
+		);
+	}
+}
+
+endif;

@@ -104,8 +104,9 @@ function wp_idea_stream_map_meta_caps( $caps = array(), $cap = '', $user_id = 0,
 	// What capability is being checked?
 	switch ( $cap ) {
 
-		case 'publish_ideas' :
-		case 'rate_ideas'    :
+		case 'publish_ideas'   :
+		case 'rate_ideas'      :
+		case 'read_idea_rates' :
 			if ( ! empty( $user_id ) ) {
 				$caps = array( 'exist' );
 			} else {

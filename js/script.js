@@ -3,7 +3,41 @@
  */
 
 ;
-(function($) {
+(function( $ ) {
+
+	/**
+	 * Ajax Class.
+	 * @type {Object}
+	 */
+	isAjax = {
+
+		request: function( endpoint, data, method ) {
+			data = data || {};
+
+			if ( ! endpoint || ! method ) {
+				return false;
+			}
+
+			this.ajaxRequest = $.ajax( {
+				url: wp_idea_stream_vars.root_url + endpoint,
+				method: method,
+				beforeSend: function( xhr ) {
+					xhr.setRequestHeader( 'X-WP-Nonce', wp_idea_stream_vars.nonce );
+				},
+				data: data
+			} );
+
+			return this.ajaxRequest;
+		},
+
+		get: function( endpoint, data ) {
+			return this.request( endpoint, data, 'GET' );
+		},
+
+		post: function( endpoint, data ) {
+			return this.request( endpoint, data, 'POST' );
+		}
+	};
 
 	// Only use raty if loaded
 	if ( typeof wp_idea_stream_vars.raty_loaded != 'undefined' ) {
@@ -36,16 +70,12 @@
 	function wpis_post_rating( score ) {
 		$( '.rating-info' ).html( wp_idea_stream_vars.wait_msg );
 
-		var data = {
-			action: 'wp_idea_stream_rate',
-			rate: score,
-			wpnonce: wp_idea_stream_vars.wpnonce,
-			idea:$('#rate').data('idea')
-		};
+		var endpoint = 'ideas/' + $( '#rate' ).data( 'idea' ) + '/rate';
 
-		$.post( wp_idea_stream_vars.ajaxurl, data, function( response ) {
-			if( response && response > 0  ){
-				$( '.rating-info' ).html( wp_idea_stream_vars.success_msg + ' ' + response ).fadeOut( 2000, function() {
+		isAjax.post( endpoint, { rating: score } ).done( function( response ) {
+			console.log( response );
+			if ( response.idea_average_rate ) {
+				$( '.rating-info' ).html( wp_idea_stream_vars.success_msg + ' ' + response.idea_average_rate ).fadeOut( 2000, function() {
 					wpis_update_rate_num( 1 );
 					$(this).show();
 				} );
@@ -53,7 +83,7 @@
 				$( '.rating-info' ).html( wp_idea_stream_vars.error_msg );
 				$.fn.raty( 'readOnly', false, '#rate' );
 			}
-		});
+		} );
 	}
 
 	function wpis_update_rate_num( rate ) {
@@ -209,4 +239,4 @@
 		} );
 	}
 
-})(jQuery);
+} )( jQuery );

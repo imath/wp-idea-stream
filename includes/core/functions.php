@@ -288,27 +288,34 @@ function wp_idea_stream_post_type_register_args() {
 		$supports[] = 'thumbnail';
 	}
 
+	// We need custom-fields support to "rest fetch" custom-fields
+	if ( ! is_admin() && ! wp_doing_ajax() ) {
+		$supports[] = 'custom-fields';
+	}
+
 	return apply_filters( 'wp_idea_stream_post_type_register_args', array(
-		'public'              => true,
-		'query_var'           => wp_idea_stream_get_post_type(),
-		'rewrite'             => array(
-			'slug'            => wp_idea_stream_idea_slug(),
-			'with_front'      => false
+		'public'                => true,
+		'query_var'             => wp_idea_stream_get_post_type(),
+		'rewrite'               => array(
+			'slug'              => wp_idea_stream_idea_slug(),
+			'with_front'        => false
 		),
-		'has_archive'         => wp_idea_stream_root_slug(),
-		'exclude_from_search' => true,
-		'show_in_nav_menus'   => false,
-		'show_in_admin_bar'   => wp_idea_stream_user_can( 'wp_idea_stream_ideas_admin' ),
-		'menu_icon'           => 'dashicons-lightbulb',
-		'supports'            => $supports,
-		'taxonomies'          => array(
+		'has_archive'           => wp_idea_stream_root_slug(),
+		'exclude_from_search'   => true,
+		'show_in_nav_menus'     => false,
+		'show_in_admin_bar'     => wp_idea_stream_user_can( 'wp_idea_stream_ideas_admin' ),
+		'menu_icon'             => 'dashicons-lightbulb',
+		'supports'              => $supports,
+		'taxonomies'            => array(
 			wp_idea_stream_get_category(),
 			wp_idea_stream_get_tag()
 		),
-		'capability_type'     => array( 'idea', 'ideas' ),
-		'capabilities'        => wp_idea_stream_get_post_type_caps(),
-		'delete_with_user'    => true,
-		'can_export'          => true,
+		'capability_type'       => array( 'idea', 'ideas' ),
+		'capabilities'          => wp_idea_stream_get_post_type_caps(),
+		'delete_with_user'      => true,
+		'can_export'            => true,
+		'show_in_rest'          => true,
+		'rest_controller_class' => 'WP_Idea_Stream_REST_Controller',
 	) );
 }
 
@@ -1017,6 +1024,7 @@ function wp_idea_stream_add_rate( $idea = 0, $user_id = 0, $rate = 0 ) {
  * @subpackage core/functions
  *
  * @since 2.0.0
+ * @deprecated 2.4.0 (Replaced by a Rest request)
  *
  * @uses   wp_idea_stream_user_can() to check if the user has the capability to rate the idea
  * @uses   wp_idea_stream_users_current_user_id() to get current user id
@@ -1025,6 +1033,8 @@ function wp_idea_stream_add_rate( $idea = 0, $user_id = 0, $rate = 0 ) {
  * @return mixed the average rate or 0
  */
 function wp_idea_stream_ajax_rate() {
+	_deprecated_function( __FUNCTION__, '2.4.0' );
+
 	if ( ! wp_idea_stream_user_can( 'rate_ideas' ) ) {
 		exit( '0' );
 	}
