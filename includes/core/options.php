@@ -51,6 +51,7 @@ function wp_idea_stream_get_default_options() {
 		'_ideastream_allow_comments'     => 1,
 		'_ideastream_embed_profile'      => 0,
 		'_ideastream_featured_images'    => 1,
+		'_ideastream_as_front_page'      => 0,
 	);
 
 	// Pretty links customization
@@ -315,7 +316,7 @@ function wp_idea_stream_is_comments_allowed( $default = 1 ) {
  * @since 2.3.0
  *
  * @param  bool $default default value
- * @return bool          The id of the Page Utility if enabled, 0 otherwise
+ * @return int           The id of the Page Utility if enabled, 0 otherwise
  */
 function wp_idea_stream_is_embed_profile( $default = 0 ) {
 	return (int) apply_filters( 'wp_idea_stream_is_embed_profile', get_option( '_ideastream_embed_profile', $default ) );
@@ -331,6 +332,18 @@ function wp_idea_stream_is_embed_profile( $default = 0 ) {
  */
 function wp_idea_stream_featured_images_allowed( $default = 1 ) {
 	return (bool) apply_filters( 'wp_idea_stream_featured_images_allowed', (bool) get_option( '_ideastream_featured_images', $default ) );
+}
+
+/**
+ * Should ideas be listed on the static front page ?
+ *
+ * @since 2.4.0
+ *
+ * @param  bool $default default value
+ * @return bool          True if enabled, false otherwise
+ */
+function wp_idea_stream_is_front_page( $default = false ) {
+	return (bool) apply_filters( 'wp_idea_stream_is_embed_profile', get_option( '_ideastream_as_front_page', $default ) );
 }
 
 /**

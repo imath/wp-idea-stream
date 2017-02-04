@@ -85,6 +85,14 @@ function wp_idea_stream_get_settings_fields() {
 				'args'              => array()
 			),
 
+			// Use the front page to list ideas.
+			'_ideastream_as_front_page' => array(
+				'title'             => __( 'List the ideas on the static front page.', 'wp-idea-stream' ),
+				'callback'          => 'wp_idea_stream_as_front_page_setting_callback',
+				'sanitize_callback' => 'absint',
+				'args'              => array(),
+			),
+
 			// Default post type status
 			'_ideastream_submit_status' => array(
 				'title'             => __( 'New ideas status', 'wp-idea-stream' ),
@@ -511,6 +519,23 @@ function wp_idea_stream_archive_title_setting_callback() {
 	?>
 
 	<input name="_ideastream_archive_title" id="_ideastream_archive_title" type="text" class="regular-text code" value="<?php echo esc_attr( wp_idea_stream_archive_title() ); ?>" />
+
+	<?php
+}
+
+/**
+ * List ideas on front page setting callback
+ *
+ * @since 2.4.0
+ *
+ * @return string HTML output
+ */
+function wp_idea_stream_as_front_page_setting_callback() {
+	$enabled = 'page' === get_option( 'show_on_front' ) && (bool) get_option( 'page_on_front' );
+	?>
+
+	<input name="_ideastream_as_front_page" id="_ideastream_as_front_page" type="checkbox" value="1" <?php checked( wp_idea_stream_is_front_page() ); ?> <?php disabled( ! $enabled, true ); ?> />
+	<p class="description"><?php esc_html_e( 'This setting is only available when the site\'s front page is set to a static page.', 'wp-idea-stream' ); ?></p>
 
 	<?php
 }

@@ -1493,3 +1493,19 @@ function wp_idea_stream_is_signup_allowed_for_current_blog() {
 
 	return apply_filters( 'wp_idea_stream_is_signup_allowed_for_current_blog', wp_idea_stream_allow_signups() );
 }
+
+/**
+ * Make sure to remove the front page setting if posts are listed on front page
+ *
+ * @since  2.4.0
+ *
+ * @param  string $oldvalue The option previous value.
+ * @param  string $value    The option new value.
+ */
+function wp_idea_stream_reset_ideas_as_front( $oldvalue = '', $value = '' ) {
+	if ( 'page' === $value ) {
+		return;
+	}
+
+	delete_option( '_ideastream_as_front_page' );
+}

@@ -1469,10 +1469,15 @@ function wp_idea_stream_ideas_the_idea_footer() {
  * @return string the bottom nav output
  */
 function wp_idea_stream_ideas_bottom_navigation() {
+	$idea_root = wp_idea_stream_get_root_url();
+	if ( wp_idea_stream_is_front_page() ) {
+		$idea_root = home_url();
+	}
+
 	?>
 	<ul class="idea-nav-single">
 		<li class="idea-nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'wp-idea-stream' ) . '</span> %title' ); ?></li>
-		<li class="idea-nav-all"><span class="meta-nav">&uarr;</span> <a href="<?php echo esc_url( wp_idea_stream_get_root_url() );?>" title="<?php esc_attr_e( 'All Ideas', 'wp-idea-stream') ;?>"><?php esc_html_e( 'All Ideas', 'wp-idea-stream') ;?></a></li>
+		<li class="idea-nav-all"><span class="meta-nav">&uarr;</span> <a href="<?php echo esc_url( $idea_root );?>" title="<?php esc_attr_e( 'All Ideas', 'wp-idea-stream') ;?>"><?php esc_html_e( 'All Ideas', 'wp-idea-stream') ;?></a></li>
 		<li class="idea-nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'wp-idea-stream' ) . '</span>' ); ?></li>
 	</ul>
 	<?php

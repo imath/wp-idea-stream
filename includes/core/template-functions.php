@@ -318,16 +318,25 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		wp_idea_stream_set_idea_var( 'is_idea_archive', true );
 	}
 
+	$is_front_ideas = false;
+	if ( wp_idea_stream_is_front_page() ) {
+		$is_front_ideas = $posts_query->is_page && (int) $posts_query->get( 'page_id' ) === (int) get_option( 'page_on_front' ) && 'page' === get_option( 'show_on_front' );
+	}
+
 	/**
 	 * Finally if post_type is ideas, then we're in IdeaStream's
 	 * territory so set this
 	 */
-	if ( $idea_post_type === $posts_query->get( 'post_type' ) ) {
+	if ( $idea_post_type === $posts_query->get( 'post_type' ) || $is_front_ideas ) {
 		wp_idea_stream_set_idea_var( 'is_ideastream', true );
 
 		// Reset the pagination
 		if ( -1 !== $posts_query->get( 'p' ) ) {
 			$posts_query->set( 'posts_per_page', wp_idea_stream_ideas_per_page() );
+		}
+
+		if ( $is_front_ideas ) {
+			wp_idea_stream_set_idea_var( 'is_front_ideas', true );
 		}
 	}
 }
@@ -785,36 +794,42 @@ function wp_idea_stream_is_current_user_profile() {
 function wp_idea_stream_reset_post_title( $context = '' ) {
 	$post_title = wp_idea_stream_archive_title();
 
+	$link = wp_idea_stream_get_root_url();
+	if ( wp_idea_stream_is_front_page() ) {
+		$link = home_url();
+	}
+
 	switch( $context ) {
 		case 'archive' :
+			$post_title =  '<a href="' . esc_url( $link ) . '">' . $post_title . '</a>';
+
 			if ( wp_idea_stream_user_can( 'publish_ideas' ) ) {
-				$post_title =  '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
 				$post_title .= ' <a href="' . esc_url( wp_idea_stream_get_form_url() ) .'" class="button wpis-title-button">' . esc_html__( 'Add new', 'wp-idea-stream' ) . '</a>';
 			}
 			break;
 
 		case 'taxonomy' :
-			$post_title = '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
+			$post_title = '<a href="' . esc_url( $link ) . '">' . $post_title . '</a>';
 			$post_title .= '<span class="idea-title-sep"></span>' . wp_idea_stream_get_term_name();
 			break;
 
 		case 'user-profile':
-			$post_title = '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
+			$post_title = '<a href="' . esc_url( $link ) . '">' . $post_title . '</a>';
 			$post_title .= '<span class="idea-title-sep"></span>' . sprintf( esc_html__( '%s&#39;s profile', 'wp-idea-stream' ), wp_idea_stream_users_get_displayed_user_displayname() );
 			break;
 
 		case 'new-idea' :
-			$post_title = '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
+			$post_title = '<a href="' . esc_url( $link ) . '">' . $post_title . '</a>';
 			$post_title .= '<span class="idea-title-sep"></span>' . __( 'New Idea', 'wp-idea-stream' );
 			break;
 
 		case 'edit-idea' :
-			$post_title = '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
+			$post_title = '<a href="' . esc_url( $link ) . '">' . $post_title . '</a>';
 			$post_title .= '<span class="idea-title-sep"></span>' . __( 'Edit Idea', 'wp-idea-stream' );
 			break;
 
 		case 'signup' :
-			$post_title = '<a href="' . esc_url( wp_idea_stream_get_root_url() ) . '">' . $post_title . '</a>';
+			$post_title = '<a href="' . esc_url( $link ) . '">' . $post_title . '</a>';
 			$post_title .= '<span class="idea-title-sep"></span>' . __( 'Create an account', 'wp-idea-stream' );
 			break;
 	}

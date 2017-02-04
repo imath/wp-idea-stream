@@ -539,6 +539,14 @@ class WP_Idea_Stream_Loop_Ideas extends WP_Idea_Stream_Loop {
 
 			$paginate_args['base']   = $base;
 			$paginate_args['format'] = wp_idea_stream_paged_slug() . '/%#%/';
+
+			if ( wp_idea_stream_is_front_page() && ( wp_idea_stream_is_idea_archive() || wp_idea_stream_get_idea_var( 'is_front_ideas' ) ) ) {
+				$base_url = home_url();
+
+				$paginate_args['base'] = trailingslashit( $base_url ) . '%_%';
+				$paginate_slug = trim( str_replace( $base_url, '', wp_idea_stream_get_root_url() ), '/' );
+				$paginate_args['format'] = trailingslashit( $paginate_slug ) . wp_idea_stream_paged_slug() . '/%#%/';
+			}
 		}
 
 		// Is this a search ?

@@ -334,22 +334,24 @@ function wp_idea_stream_set_template( $template = '' ) {
 		 * and build plugin's main_query var.
 		 */
 		if( ! wp_idea_stream_is_single_idea() ) {
-			wp_idea_stream_set_idea_var( 'main_query', array(
-				'ideas'      => $wp_query->posts,
-				'total'      => $wp_query->found_posts,
-				'query_vars' => array(
-					'author'     => $wp_query->query_vars['author'],
-					'per_page'   => $wp_query->query_vars['posts_per_page'],
-					'page'       => ! empty( $wp_query->query_vars['paged'] ) ? $wp_query->query_vars['paged'] : 1,
-					'search'     => $wp_query->query_vars['s'],
-					'exclude'    => $wp_query->query_vars['post__not_in'],
-					'include'    => $wp_query->query_vars['post__in'],
-					'orderby'    => ! empty( $wp_query->query_vars['orderby'] ) ? $wp_query->query_vars['orderby'] : 'date',
-					'order'      => $wp_query->query_vars['order'],
-					'meta_query' => $wp_query->meta_query->queries,
-					'tax_query'  => $wp_query->tax_query->queries,
-				)
-			) );
+			if ( ! wp_idea_stream_get_idea_var( 'is_front_ideas' ) ) {
+				wp_idea_stream_set_idea_var( 'main_query', array(
+					'ideas'      => $wp_query->posts,
+					'total'      => $wp_query->found_posts,
+					'query_vars' => array(
+						'author'     => $wp_query->query_vars['author'],
+						'per_page'   => $wp_query->query_vars['posts_per_page'],
+						'page'       => ! empty( $wp_query->query_vars['paged'] ) ? $wp_query->query_vars['paged'] : 1,
+						'search'     => $wp_query->query_vars['s'],
+						'exclude'    => $wp_query->query_vars['post__not_in'],
+						'include'    => $wp_query->query_vars['post__in'],
+						'orderby'    => ! empty( $wp_query->query_vars['orderby'] ) ? $wp_query->query_vars['orderby'] : 'date',
+						'order'      => $wp_query->query_vars['order'],
+						'meta_query' => $wp_query->meta_query->queries,
+						'tax_query'  => $wp_query->tax_query->queries,
+					)
+				) );
+			}
 
 			// Resetting the 's' query var now we got main query's result.
 			set_query_var( 's', '' );
@@ -366,7 +368,7 @@ function wp_idea_stream_set_template( $template = '' ) {
 			);
 
 			// Main plugin's archive page
-			if ( is_post_type_archive( wp_idea_stream_get_post_type() ) ) {
+			if ( is_post_type_archive( wp_idea_stream_get_post_type() ) || wp_idea_stream_get_idea_var( 'is_front_ideas' ) ) {
 				$template_args['context'] = 'archive';
 			}
 

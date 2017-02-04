@@ -96,6 +96,9 @@ add_action( 'wp_idea_stream_enqueue_embed_scripts', 'wp_idea_stream_enqueue_embe
 add_action( 'wp_idea_stream_embed_content_meta',    'wp_idea_stream_users_embed_content_meta'    );
 add_action( 'wp_idea_stream_head',                  'wp_idea_stream_oembed_add_discovery_links'  );
 
+// Ideas on front
+add_action( 'update_option_show_on_front', 'wp_idea_stream_reset_ideas_as_front', 10, 2 );
+
 /**
  * Fire the 'wp_idea_stream_init' action.
  *
