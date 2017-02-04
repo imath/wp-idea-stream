@@ -399,6 +399,7 @@ function wp_idea_stream_category_register_args() {
 		'show_in_nav_menus'     => false,
 		'public'                => true,
 		'show_tagcloud'         => false,
+		'show_in_rest'          => true,
 	) );
 }
 
@@ -474,6 +475,7 @@ function wp_idea_stream_tag_register_args() {
 		'show_in_nav_menus'     => false,
 		'public'                => true,
 		'show_tagcloud'         => true,
+		'show_in_rest'          => true,
 	) );
 }
 

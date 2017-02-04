@@ -1048,6 +1048,10 @@ class WP_Idea_Stream_REST_Controller extends WP_REST_Posts_Controller {
 	 * @access public
 	 */
 	public function register_routes() {
+		// Register regular routes.
+		parent::register_routes();
+
+		// Register the rate route.
 		register_rest_route( $this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)/rate', array(
 			array(
 				'methods'             => WP_REST_Server::EDITABLE,
@@ -1062,6 +1066,58 @@ class WP_Idea_Stream_REST_Controller extends WP_REST_Posts_Controller {
 				),
 			),
 		) );
+	}
+
+	/**
+	 * Returns a feedback to inform the method is not supported yet by WP Idea Stream.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param  string $method The Rest request.
+	 * @return WP_Error       The feedback for the method.
+	 */
+	public function not_supported( $method = 'CREATE' ) {
+		return new WP_Error( 'rest_not_supported', sprintf( __( 'The %s method for ideas is not supported yet.', 'wp-idea-stream' ), strtoupper( $method ) ), array( 'status' => 400 ) );
+	}
+
+	/**
+	 * Creates a single idea.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param  WP_REST_Request   $request Full details about the request.
+	 * @return WP_Error Response          WP_Error containing the not supported feedback.
+	 */
+	public function create_item( $request ) {
+		return $this->not_supported( WP_REST_Server::CREATABLE );
+	}
+
+	/**
+	 * Updates a single idea.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param  WP_REST_Request   $request Full details about the request.
+	 * @return WP_Error Response          WP_Error containing the not supported feedback.
+	 */
+	public function update_item( $request ) {
+		return $this->not_supported( WP_REST_Server::EDITABLE );
+	}
+
+	/**
+	 * Deletes a single idea.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param  WP_REST_Request   $request Full details about the request.
+	 * @return WP_Error Response          WP_Error containing the not supported feedback.
+	 */
+	public function delete_item( $request ) {
+		return $this->not_supported( WP_REST_Server::DELETABLE );
 	}
 
 	/**
