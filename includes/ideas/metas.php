@@ -45,9 +45,9 @@ function wp_idea_stream_metas_register_defaults() {
 
 	foreach ( $default_metas as $key_meta => $meta_args ) {
 		register_meta(
-			'post',    // We need to use post here.
-			$key_meta, // The meta key to register
-			$meta_args // The meta args
+			wp_idea_stream_get_post_type(), // Using the post type instead of 'post' prevents registering specific idea metas for regular posts
+			$key_meta,                      // The meta key to register
+			$meta_args                      // The meta args
 		);
 	}
 }

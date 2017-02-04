@@ -1082,6 +1082,74 @@ class WP_Idea_Stream_REST_Controller extends WP_REST_Posts_Controller {
 	}
 
 	/**
+	 * Temporarly Adds specific idea metas to the registered post metas.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 */
+	public function register_post_type_only_metas() {
+		$this->idea_fields = get_registered_meta_keys( $this->post_type );
+
+		foreach( $this->idea_fields as $k_field => $idea_field ) {
+			register_meta( 'post', $k_field, $idea_field );
+		}
+	}
+
+	/**
+	 * Removes specific idea metas from the registered post metas.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 */
+	public function unregister_post_type_only_metas() {
+		if ( empty( $this->idea_fields ) ) {
+			$this->idea_fields = get_registered_meta_keys( $this->post_type );
+		}
+
+		foreach( array_keys( $this->idea_fields ) as $idea_field ) {
+			unregister_meta_key( 'post', $idea_field );
+		}
+	}
+
+	/**
+	 * Retrieves a collection of ideas.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
+	 */
+	public function get_items( $request ) {
+		$this->register_post_type_only_metas();
+
+		$response = parent::get_items( $request );
+
+		$this->unregister_post_type_only_metas();
+
+		return $response;
+	}
+
+	/**
+	 * Retrieves a single idea.
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
+	 */
+	public function get_item( $request ) {
+		$this->register_post_type_only_metas();
+
+		$response = parent::get_item( $request );
+
+		$this->unregister_post_type_only_metas();
+
+		return $response;
+	}
+
+	/**
 	 * Creates a single idea.
 	 *
 	 * @since 2.4.0
