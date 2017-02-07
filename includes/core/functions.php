@@ -1225,6 +1225,11 @@ function wp_idea_stream_generate_csv_content( $content = '' ) {
 	// Strip all tags
 	$content = wp_strip_all_tags( $content, true );
 
+	// Make sure =, +, -, @ are not the first char of the field.
+	if ( in_array( mb_substr( $content, 0, 1 ), array( '=', '+', '-', '@' ), true ) ) {
+		$content = "'" . $content;
+	}
+
 	return apply_filters( 'wp_idea_stream_generate_csv_content', $content );
 }
 
