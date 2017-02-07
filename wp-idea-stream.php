@@ -220,6 +220,7 @@ final class WP_Idea_Stream {
 		// Main hooks
 		add_action( 'wp_idea_stream_loaded',              array( $this, 'load_textdomain'     ), 0 );
 		add_action( 'wp_idea_stream_register_post_types', array( $this, 'register_post_type'  )    );
+		add_action( 'wp_idea_stream_register_post_stati', array( $this, 'register_post_stati' )    );
 		add_action( 'wp_idea_stream_register_taxonomies', array( $this, 'register_taxonomies' )    );
 		add_action( 'wp_idea_stream_setup_current_user',  array( $this, 'setup_current_user'  )    );
 		add_action( 'wp_idea_stream_enqueue_scripts',     array( $this, 'enqueue_scripts'     ), 1 );
@@ -270,6 +271,24 @@ final class WP_Idea_Stream {
 				'hierarchical'       => true,
 			)
 		);
+	}
+
+	/**
+	 * Registers the ideas post stati
+	 *
+	 * @package WP Idea Stream
+	 *
+	 * @since 2.4.0
+	 */
+	public function register_post_stati() {
+		register_post_status( 'wpis_archive', array(
+			'label'                     => __( 'Archive', 'wp-idea-stream' ),
+			'label_count'               => _n_noop( 'Archived <span class="count">(%s)</span>', 'Archived <span class="count">(%s)</span>', 'wp-idea-stream' ),
+			'public'                    => false,
+			'show_in_admin_all_list'    => false,
+			'show_in_admin_status_list' => true,
+			'bulk_action_label'         => __( 'Archive selected ideas', 'wp-idea-stream' ),
+		) );
 	}
 
 	/**

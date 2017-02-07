@@ -197,8 +197,9 @@ class WP_Idea_Stream_Admin {
 		// Filter the WP_List_Table views to include custom views.
 		add_filter( "views_edit-{$this->post_type}", array( $this, 'idea_views' ), 10, 1 );
 
-		// temporarly remove bulk edit
-		add_filter( "bulk_actions-edit-{$this->post_type}", array( $this, 'idea_bulk_actions' ), 10, 1 );
+		// Customize bulk actions
+		add_filter( "bulk_actions-edit-{$this->post_type}",        array( $this, 'idea_bulk_actions' ),        10, 1 );
+		add_filter( "handle_bulk_actions-edit-{$this->post_type}", array( $this, 'idea_handle_bulk_actions' ), 10, 4 );
 
 		// Idea column headers.
 		add_filter( "manage_{$this->post_type}_posts_columns", array( $this, 'column_headers' ) );
@@ -519,6 +520,26 @@ class WP_Idea_Stream_Admin {
 			'untrashed' => _n( '%s idea restored from the Trash.', '%s ideas restored from the Trash.', $bulk_counts['untrashed'], 'wp-idea-stream' ),
 		) );
 
+		global $bulk_counts;
+
+		$bulk_counts = array_merge( $bulk_counts, array(
+			'archived'   => 0,
+			'unarchived' => 0,
+		) );
+
+		if ( isset( $_REQUEST['archived'] ) ) {
+			$bulk_counts['archived'] = absint( $_REQUEST['archived'] );
+		}
+
+		if ( isset( $_REQUEST['unarchived'] ) ) {
+			$bulk_counts['unarchived'] = absint( $_REQUEST['unarchived'] );
+		}
+
+		$bulk_messages[ $this->post_type ] = array_merge( $bulk_messages[ $this->post_type ], array(
+			'archived'   => _n( '%s idea archived.', '%s ideas archived.', $bulk_counts['archived'], 'wp-idea-stream' ),
+			'unarchived' => _n( '%s idea unarchived.', '%s ideas unarchived.', $bulk_counts['unarchived'], 'wp-idea-stream' ),
+		) );
+
 		return $bulk_messages;
 	}
 
@@ -774,7 +795,52 @@ class WP_Idea_Stream_Admin {
 		if ( in_array( 'edit', array_keys( $bulk_actions ) ) ) {
 			unset( $bulk_actions['edit'] );
 		}
+
+		$status = get_post_status_object( 'wpis_archive' );
+
+		if ( ! is_null( $status ) ) {
+			$bulk_actions[ $status->name ] = $status->bulk_action_label;
+		}
+
 		return $bulk_actions;
+	}
+
+	/**
+	 * Handle the Archive bulk actions.
+	 *
+	 * @since  2.4.0
+	 *
+	 * @param  string  $redirect The referer url.
+	 * @param  string  $action   The requested bulk action.
+	 * @param  array   $post_ids The list of post ids
+	 * @return string            The custom redirect url.
+	 */
+	public function idea_handle_bulk_actions( $redirect = '', $action = '', $post_ids = array() ) {
+		if ( 'wpis_archive' !== $action || empty( $post_ids ) ) {
+			return $redirect;
+		}
+
+		$idea_ids = array_filter( wp_parse_id_list( $post_ids ) );
+
+		if ( empty( $idea_ids ) ) {
+			return $redirect;
+		}
+
+		$result = array(
+			'post_type' => $this->post_type,
+			'archived'  => 0,
+		);
+
+		foreach ( $idea_ids as $idea_id ) {
+			if ( wp_update_post( array(
+				'ID'          => $idea_id,
+				'post_status' => $action,
+			) ) ) {
+				$result['archived'] += 1;
+			}
+		}
+
+		return add_query_arg( $result, admin_url( 'edit.php' ) );
 	}
 
 	/**

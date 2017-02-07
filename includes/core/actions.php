@@ -27,6 +27,7 @@ add_action( 'template_redirect',        'wp_idea_stream_template_redirect',     
 
 // Actions to register post_type, metas, taxonomies & rewrite stuff
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_register_post_types',            2 );
+add_action( 'wp_idea_stream_init', 'wp_idea_stream_register_post_stati',            3 );
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_register_taxonomies',            4 );
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_add_rewrite_tags',               6 );
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_add_rewrite_rules',              8 );
@@ -229,6 +230,17 @@ function wp_idea_stream_template_redirect() {
  */
 function wp_idea_stream_register_post_types() {
 	do_action( 'wp_idea_stream_register_post_types' );
+}
+
+/**
+ * Fire the 'wp_idea_stream_register_post_stati' action.
+ *
+ * @package WP Idea Stream
+ *
+ * @since 2.4.0
+ */
+function wp_idea_stream_register_post_stati() {
+	do_action( 'wp_idea_stream_register_post_stati' );
 }
 
 /**
