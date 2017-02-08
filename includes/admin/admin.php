@@ -106,7 +106,8 @@ class WP_Idea_Stream_Admin {
 
 		$this->metaboxes          = array();
 		$this->is_plugin_settings = false;
-		$this->downloading_csv     = false;
+		$this->downloading_csv    = false;
+		$this->current_view       = 'edit';
 	}
 
 	/**
@@ -347,6 +348,16 @@ class WP_Idea_Stream_Admin {
 
 			$this->csv_export();
 
+		// Is there an idea to unarchive ?
+		} elseif ( ! empty( $_GET['wpis_unarchive'] ) ) {
+			$idea_id = (int) $_GET['wpis_unarchive'];
+
+			$redirect = $this->idea_handle_bulk_actions( false, 'wpis_unarchive', array( $idea_id ) );
+
+			if ( $redirect ) {
+				wp_safe_redirect( $redirect );
+				exit();
+			}
 		// Other plugins can do stuff here
 		} else {
 			do_action( 'wp_idea_stream_load_edit_idea' );
@@ -367,6 +378,19 @@ class WP_Idea_Stream_Admin {
 	 * @uses  do_action() call 'wp_idea_stream_add_metaboxes' to perform custom actions
 	 */
 	public function add_metaboxes( $idea = null ) {
+		if ( 'wpis_archive' === get_post_status( $idea ) ) {
+			$this->metaboxes = array(
+				'unarchive' => array(
+					'id'            => 'wp_idea_stream_unarchive',
+					'title'         => __( 'Unarchive', 'wp-idea-stream' ),
+					'callback'      => array( $this, 'unarchive_do_metabox' ),
+					'context'       => 'side',
+					'priority'      => 'high'
+			) );
+
+			remove_meta_box( 'submitdiv', get_current_screen(), 'side' );
+		}
+
 		/**
 		 * @see  $this->ratings_metabox() for an example of use
 		 * @param array $metaboxes list of metaboxes to add
@@ -407,6 +431,42 @@ class WP_Idea_Stream_Admin {
 		 * @param WP_Post $idea the idea object
 		 */
 		do_action( 'wp_idea_stream_add_metaboxes', $idea );
+	}
+
+	/**
+	 * Output a metabox to unarchive ideas.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param WP_Post $idea the idea object
+	 * @return string HTML Output.
+	 */
+	public function unarchive_do_metabox( $idea = null ) {
+		if ( empty( $idea->ID ) ) {
+			return;
+		}
+
+		$status = get_post_meta( $idea->ID, '_wp_idea_stream_original_status', true );
+
+		if ( ! $status ) {
+			$status = 'private';
+		}
+		
+		$idea_status = get_post_status_object( $status );
+
+		$status_description = '';
+		if ( ! empty( $idea_status->label ) ) {
+			$status_description = sprintf( __( 'The status for the idea, once unarchived, will be: %s.', 'wp-idea-stream'), $idea_status->label );
+		}
+		
+		printf( '<p class="description">%1$s</p><div style="text-align: right"><a href="%2$s" class="button button-primary button-large">%3$s</a></div>',
+			esc_html( $status_description ),
+			esc_url( add_query_arg( array(
+				'post_type'      => wp_idea_stream_get_post_type(),
+				'wpis_unarchive' => $idea->ID,
+			), admin_url( 'edit.php' ) ) ),
+			esc_html__( 'Unarchive', 'wp-idea-stream' )
+		);
 	}
 
 	/**
@@ -607,7 +667,8 @@ class WP_Idea_Stream_Admin {
 		);
 
 		if ( ! empty( $_GET['post_status'] ) ) {
-			$csv_args['post_status'] = $_GET['post_status'];
+			$this->current_view      = sanitize_key( $_GET['post_status'] );
+			$csv_args['post_status'] = $this->current_view;
 		}
 
 		$csv_url = add_query_arg(
@@ -799,7 +860,11 @@ class WP_Idea_Stream_Admin {
 		$status = get_post_status_object( 'wpis_archive' );
 
 		if ( ! is_null( $status ) ) {
-			$bulk_actions[ $status->name ] = $status->bulk_action_label;
+			if ( 'wpis_archive' === $this->current_view ) {
+				$bulk_actions[ 'wpis_unarchive' ] = __( 'Unarchive selected ideas', 'wp-idea-stream' );
+			} else {
+				$bulk_actions[ $status->name ] = $status->bulk_action_label;
+			}
 		}
 
 		return $bulk_actions;
@@ -816,7 +881,7 @@ class WP_Idea_Stream_Admin {
 	 * @return string            The custom redirect url.
 	 */
 	public function idea_handle_bulk_actions( $redirect = '', $action = '', $post_ids = array() ) {
-		if ( 'wpis_archive' !== $action || empty( $post_ids ) ) {
+		if ( ( 'wpis_archive' !== $action && 'wpis_unarchive' !== $action ) || empty( $post_ids ) ) {
 			return $redirect;
 		}
 
@@ -826,17 +891,44 @@ class WP_Idea_Stream_Admin {
 			return $redirect;
 		}
 
+		
+		$key         = 'archived';
+		$idea_status = $action;
+
+		if ( 'wpis_unarchive' === $action ) {
+			$key = 'unarchived';
+		}
+
 		$result = array(
 			'post_type' => $this->post_type,
-			'archived'  => 0,
+			$key        => 0,
 		);
 
 		foreach ( $idea_ids as $idea_id ) {
+			if ( 'wpis_archive' === $action ) {
+				$status = get_post_status( $idea_id );
+			} else {
+				$status = get_post_meta( $idea_id, '_wp_idea_stream_original_status', true );
+
+				// Validate the post status.
+				if ( get_post_status_object( $status ) ) {
+					$idea_status = $status;
+				} else {
+					$idea_status = 'private';
+				}
+			}
+
 			if ( wp_update_post( array(
 				'ID'          => $idea_id,
-				'post_status' => $action,
+				'post_status' => $idea_status,
 			) ) ) {
-				$result['archived'] += 1;
+				$result[ $key ] += 1;
+
+				if ( 'wpis_archive' === $action ) {
+					update_post_meta( $idea_id, '_wp_idea_stream_original_status', $status );
+				} else {
+					delete_post_meta( $idea_id, '_wp_idea_stream_original_status' );
+				}
 			}
 		}
 
@@ -862,6 +954,16 @@ class WP_Idea_Stream_Admin {
 		// No row actions in case downloading ideas
 		if ( ! empty( $this->downloading_csv ) ) {
 			return array();
+		} elseif ( 'wpis_archive' === $this->current_view ) {
+			return array(
+				'unarchive' => sprintf( '<a href="%1$s">%2$s</a>',
+					esc_url( add_query_arg( array(
+						'post_type'      => wp_idea_stream_get_post_type(),
+						'wpis_unarchive' => $idea->ID,
+					), admin_url( 'edit.php' ) ) ),
+					esc_html__( 'Unarchive', 'wp-idea-stream' )
+				),
+			);
 		}
 
 		/**
