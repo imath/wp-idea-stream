@@ -26,28 +26,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @since 2.0.0
  *
  * @param WP_Query $posts_query The WP_Query instance
- * @uses  WP_Query->is_main_query() to check it's the main query
- * @uses  WP_Query->get() to get a query var
- * @uses  wp_idea_stream_is_admin() to check if in IdeaStream's Admin territory
- * @uses  wp_idea_stream_is_sticky_enabled() to check if sticky feature is available
- * @uses  WP_Query->set() to set a query var
- * @uses  wp_idea_stream_is_rating_disabled() to check if ratings feature are available
- * @uses  wp_idea_stream_set_idea_var() to globalize a var
- * @uses  is_admin() to check for WordPress administration
- * @uses  wp_idea_stream_get_post_type() to get the ideas post type identifier
- * @uses  wp_idea_stream_user_rewrite_id() to get the user rewrite id
- * @uses  wp_idea_stream_users_get_user_data() to get a specific user's data
- * @uses  WP_Query->set_404() to set a 404
- * @uses  wp_idea_stream_user_rates_rewrite_id() to get the user rates rewrite id
- * @uses  wp_idea_stream_user_comments_rewrite_id() to get the user comments rewrite id
- * @uses  wp_idea_stream_action_rewrite_id() to get the action rewrite id
- * @uses  wp_idea_stream_addnew_slug() to get the add new slug
- * @uses  wp_idea_stream_edit_slug() to get the edit slug
- * @uses  has_action() to check if the action 'wp_idea_stream_custom_action' is used by any plugins
- * @uses  do_action() Calls 'wp_idea_stream_custom_action' to perform actions relative to ideas
- * @uses  wp_idea_stream_get_category() to get the ideas category identifier
- * @uses  wp_idea_stream_get_tag() to get the ideas tag identifier
- * @uses  wp_idea_stream_search_rewrite_id() to get the search rewrite id
  */
 function wp_idea_stream_parse_query( $posts_query = null ) {
 	// Bail if $posts_query is not the main loop
@@ -185,7 +163,6 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		wp_idea_stream_set_idea_var( 'displayed_user', $user );
 	}
 
-
 	/** Actions (New Idea) ********************************************************/
 
 	$action = $posts_query->get( wp_idea_stream_action_rewrite_id() );
@@ -261,7 +238,6 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 		// Define the current tag
 		wp_idea_stream_set_idea_var( 'is_tag', $tag );
 	}
-
 
 	/** Searching ideas ***********************************************************/
 
@@ -339,6 +315,15 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 			wp_idea_stream_set_idea_var( 'is_front_ideas', true );
 		}
 	}
+
+	/**
+	 * Fires after WP Idea Stream has parsed the main query vars.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param WP_Query &$posts_query The WP_Query instance (passed by reference).
+	 */
+	do_action_ref_array( 'wp_idea_stream_parse_query', array( &$posts_query ) );
 }
 
 /**
