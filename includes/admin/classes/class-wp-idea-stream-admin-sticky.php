@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Idea Stream Admin Comments Class.
+ * WP Idea Stream Admin Sticky Class.
  *
  * @package WP Idea Stream\admin\classes
  *
