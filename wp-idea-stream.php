@@ -221,13 +221,6 @@ final class WP_Idea_Stream {
 		if ( is_admin() ) {
 			add_action( 'wp_idea_stream_loaded', array( 'WP_Idea_Stream_Admin', 'start' ), 5 );
 		}
-
-		/**
-		 * BuddyPress integration starts by hooking bp_include!
-		 * This way we make sure all BuddyPress functions are
-		 * available for the plugin.
-		 */
-		add_action( 'bp_include', array( $this, 'use_buddypress' ) );
 	}
 
 	/**
@@ -366,24 +359,6 @@ final class WP_Idea_Stream {
 		wp_register_script( 'tagging', wp_idea_stream_get_js_script( 'tagging' ), array( 'jquery' ), '1.3.1', true );
 
 		wp_idea_stream_enqueue_style();
-	}
-
-	/**
-	 * Includes the plugin's BuddyPress loader file
-	 *
-	 * @since 2.0.0
-	 */
-	public function use_buddypress() {
-		/**
-		 * Only Use BuddyPress if IdeaStream is activated on the same
-		 * blog than BuddyPress. This way, on multisite configurations
-		 * It will be possible to have independant IdeaStreams..
-		 */
-		if ( ! bp_is_root_blog() ) {
-			return;
-		}
-
-		require( $this->includes_dir . 'buddypress/loader.php' );
 	}
 
 	/**
