@@ -1195,3 +1195,14 @@ function wp_idea_stream_oembed_add_discovery_links() {
 	 */
 	echo apply_filters( 'wp_idea_stream_users_oembed_add_discovery_links', $output );
 }
+
+/**
+ * Get the search query.
+ *
+ * @since  2.4.0
+ *
+ * @return string The search query
+ */
+function wp_idea_stream_get_search_query() {
+	return get_query_var( wp_idea_stream_search_rewrite_id() );
+}

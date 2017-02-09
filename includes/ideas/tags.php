@@ -18,32 +18,14 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Displays the Ideas Search form
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   get_query_var() to get the search terms
- * @uses   wp_idea_stream_search_rewrite_id() to get the search rewrite id
- * @uses   esc_html() to sanitize output value
- * @uses   wp_idea_stream_is_pretty_links() to check if a custom permalink structure is set
- * @uses   wp_idea_stream_get_post_type() to get the post type identifier
- * @uses   wp_idea_stream_get_root_url() to get the main ideas archive page url
- * @uses   esc_url() to sanitize the url
- * @uses   esc_attr() to sanitize attributes
- * @uses   apply_filters() call 'wp_idea_stream_ideas_search_form_action_url' to override the base url
- *                         call 'wp_idea_stream_ideas_search_form' to override the search form output
  * @return string Output for the search form.
  */
 function wp_idea_stream_ideas_search_form() {
 	$placeholder = __( 'Search Ideas', 'wp-idea-stream' );
-	$search_value = get_query_var( wp_idea_stream_search_rewrite_id() );
 	$action = '';
 	$hidden = '';
-
-	if ( ! empty( $search_value ) ) {
-		$search_value = esc_html( $search_value );
-	}
 
 	if ( ! wp_idea_stream_is_pretty_links() ) {
 		$hidden = "\n" . '<input type="hidden" name="post_type" value="' . wp_idea_stream_get_post_type() . '"/>';
@@ -51,9 +33,55 @@ function wp_idea_stream_ideas_search_form() {
 		$action = apply_filters( 'wp_idea_stream_ideas_search_form_action_url', wp_idea_stream_get_root_url() );
 	}
 
-	$search_form_html = '<form action="' . esc_url( $action ) . '" method="get" id="ideas-search-form" class="nav-form">' . $hidden;
-	$search_form_html .= '<label><input type="text" name="' . wp_idea_stream_search_rewrite_id() . '" id="ideas-search-box" placeholder="'. esc_attr( $placeholder ) .'" value="' . $search_value . '" /></label>';
-	$search_form_html .= '<input type="submit" id="ideas-search-submit" value="'. esc_attr__( 'Search', 'wp-idea-stream' ) .'" /></form>';
+	// Init the output.
+	$search_form_html = '';
+
+	/**
+	 * Filter here by returning false to carry on using the good old search form.
+	 *
+	 * @since  2.4.0
+	 *
+	 * @param  bool $value True to use the Theme search form template. False otherwise.
+	 */
+	if ( true === apply_filters( 'wp_idea_stream_use_search_form_template', true ) ) {
+		add_filter( 'get_search_query', 'wp_idea_stream_get_search_query' );
+
+		$search_form_html = get_search_form( false );
+
+		remove_filter( 'get_search_query', 'wp_idea_stream_get_search_query' );
+
+		if ( ! empty( $action ) ) {
+			preg_match( '/action=["|\']([^"]*)["|\']/i', $search_form_html, $action_attr );
+
+			if ( ! empty( $action_attr[1] ) ) {
+				$a = str_replace( $action_attr[1], esc_url( $action ), $action_attr[0] );
+				$search_form_html = str_replace( $action_attr[0], $a, $search_form_html );
+			}
+		}
+
+		preg_match( '/name=["|\']s["|\']/i', $search_form_html, $name_attr );
+
+		if ( ! empty( $name_attr[0] ) ) {
+			$search_form_html = str_replace( $name_attr[0], 'name="' . wp_idea_stream_search_rewrite_id() . '"', $search_form_html );
+		}
+
+		if ( ! empty( $hidden ) ) {
+			$search_form_html = str_replace( '</form>', "{$hidden}\n</form>", $search_form_html );
+		}
+	}
+
+	// The good old search form!
+	if ( ! $search_form_html ) {
+		$search_value = wp_idea_stream_get_search_query();
+
+		if ( ! empty( $search_value ) ) {
+			$search_value = esc_html( $search_value );
+		}
+
+		$search_form_html = '<form action="' . esc_url( $action ) . '" method="get" id="ideas-search-form" class="nav-form">' . $hidden;
+		$search_form_html .= '<label><input type="text" name="' . wp_idea_stream_search_rewrite_id() . '" id="ideas-search-box" placeholder="'. esc_attr( $placeholder ) .'" value="' . $search_value . '" /></label>';
+		$search_form_html .= '<input type="submit" id="ideas-search-submit" value="'. esc_attr__( 'Search', 'wp-idea-stream' ) .'" /></form>';
+	}
 
 	echo apply_filters( 'wp_idea_stream_ideas_search_form', $search_form_html );
 }
@@ -61,26 +89,8 @@ function wp_idea_stream_ideas_search_form() {
 /**
  * Displays the Orderby form
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_ideas_get_order_options() to get available orders
- * @uses   get_query_var() to get the selected order
- * @uses   wp_idea_stream_get_category() to get ideas category rewrite id (which is also its identifier)
- * @uses   wp_idea_stream_get_tag() to get ideas tag rewrite id (which is also its identifier)
- * @uses   esc_html() to sanitize output value
- * @uses   wp_idea_stream_is_pretty_links() to check if a custom permalink structure is set
- * @uses   wp_idea_stream_get_post_type() to get the post type identifier
- * @uses   wp_idea_stream_get_tag_url() to get the url to the current tag
- * @uses   wp_idea_stream_get_category_url() to get the url to the current category
- * @uses   wp_idea_stream_get_root_url() to get the main ideas archive page url
- * @uses   esc_url() to sanitize the url
- * @uses   esc_attr() to sanitize attributes
- * @uses   selected() to add the selected attribute to the selected option
- * @uses   apply_filters() call 'wp_idea_stream_ideas_order_form_action_url' to override the base url
- *                         call 'wp_idea_stream_ideas_order_form' to override the orderby form output
  * @return string Output for the search form.
  */
 function wp_idea_stream_ideas_order_form() {
@@ -129,15 +139,26 @@ function wp_idea_stream_ideas_order_form() {
 		$action = apply_filters( 'wp_idea_stream_ideas_order_form_action_url', $action, $category, $tag );
 	}
 
-	$order_form_html = '<form action="' . esc_url( $action ) . '" method="get" id="ideas-order-form" class="nav-form">' . $hidden;
-	$order_form_html .= '<label><select name="orderby" id="ideas-order-box">';
-
+	$options_output = '';
 	foreach ( $order_options as $query_var => $label ) {
-		$order_form_html .= '<option value="' . esc_attr( $query_var ) . '" ' . selected( $order_value, $query_var, false ) . '>' . esc_html( $label) . '</option>';
+		$options_output .= '<option value="' . esc_attr( $query_var ) . '" ' . selected( $order_value, $query_var, false ) . '>' . esc_html( $label ) . '</option>';
 	}
 
-	$order_form_html .= '</select></label>';
-	$order_form_html .= '<input type="submit" id="ideas-order-submit" value="'. esc_attr__( 'Sort', 'wp-idea-stream' ) .'" /></form>';
+	$order_form_html = sprintf( '
+		<form action="%1$s" method="get" id="ideas-order-form" class="nav-form">%2$s
+			<label for="orderby">
+				<span class="screen-reader-text">%3$s</span>
+			</label>
+			<select name="orderby" id="ideas-order-box">
+				%4$s
+			</select>
+
+			<button type="submit" class="submit-sort">
+				<span class="dashicons dashicons-filter"></span>
+				<span class="screen-reader-text">%5$s</span>
+			</button>
+		</form>
+	', esc_url( $action ), $hidden, esc_attr__( 'Select the sort order', 'wp-idea-stream' ), $options_output, esc_attr__( 'Sort', 'wp-idea-stream' ) );
 
 	echo apply_filters( 'wp_idea_stream_ideas_order_form', $order_form_html );
 }
