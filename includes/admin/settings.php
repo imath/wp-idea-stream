@@ -15,13 +15,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * The IdeaStream settings sections
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_is_pretty_links() to check if the permalink structure is custom
- * @uses   apply_filters() call 'wp_idea_stream_get_settings_sections' to add/edit/remove sections
  * @return array the setting sections
  */
 function wp_idea_stream_get_settings_sections() {
@@ -64,13 +59,8 @@ function wp_idea_stream_get_settings_sections() {
 /**
  * The different fields for setting sections
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_is_pretty_links() to check if the permalink structure is custom
- * @uses   apply_filters() call 'wp_idea_stream_get_settings_fields' to add/edit/remove sections
  * @return array the settings fields
  */
 function wp_idea_stream_get_settings_fields() {
@@ -321,14 +311,9 @@ function wp_idea_stream_get_settings_fields() {
 /**
  * Gives the setting fields for section
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $section_id
- * @uses   wp_idea_stream_get_settings_fields() to get the setting fields
- * @uses   apply_filters() call 'wp_idea_stream_get_settings_fields' to add/edit/remove the matching fields
  * @return array  the fields for the requested section
  */
 function wp_idea_stream_get_settings_fields_for_section( $section_id = '' ) {
@@ -350,14 +335,10 @@ function wp_idea_stream_get_settings_fields_for_section( $section_id = '' ) {
 /**
  * Disable a settings field if its value rely on another setting field value
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $function function to get the option value
  * @param  string $option   the option value
- * @uses   disabled() to add a disabled attribute if needed
  * @return string HTML output
  */
 function wp_idea_stream_setting_disabled( $function = '', $option = '' ) {
@@ -373,13 +354,9 @@ function wp_idea_stream_setting_disabled( $function = '', $option = '' ) {
 /**
  * Disable a settings field if another option is set
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $option_key the option key
- * @uses   disabled() to add a disabled attribute if needed
  * @return string HTML output
  */
 function wp_idea_stream_setting_disabled_option( $option = '' ) {
@@ -393,26 +370,9 @@ function wp_idea_stream_setting_disabled_option( $option = '' ) {
 /**
  * Checks for rewrite conflicts, displays a warning if any
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $slug the plugin's root slug
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   get_posts() to look for a posts or a page having a post name like root slug
- * @uses   esc_url() to sanitize an url
- * @uses   get_edit_post_link() to get the edit link of the found post or page
- * @uses   bbp_get_root_slug() to get bbPress forums root slug
- * @uses   add_query_arg() to add query vars to an url
- * @uses   admin_url() to build a link inside the current blog's Administration
- * @uses   is_multisite() to check the WordPress config
- * @uses   get_id_from_blogname() to check if a blog exists having the same slug than the plugin's root slug
- * @uses   get_current_blog_id() to get the current blog ID
- * @uses   get_home_url() to get the blog's home page
- * @uses   is_super_admin() to check if the current user is a Super Administrator
- * @uses   network_admin_url() to build a link inside the network Administration
- * @uses   apply_filters() call 'wp_idea_stream_root_slug_conflict_check' to let plugins add their own warning messages
  * @return string HTML output
  */
 function wp_idea_stream_root_slug_conflict_check( $slug = 'ideastream' ) {
@@ -488,12 +448,8 @@ function wp_idea_stream_root_slug_conflict_check( $slug = 'ideastream' ) {
 /**
  * Some text to introduce the core settings section
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_root_url() to get the main IdeaStream archive page
  * @return string HTML output
  */
 function wp_idea_stream_settings_core_section_callback() {
@@ -507,13 +463,8 @@ function wp_idea_stream_settings_core_section_callback() {
 /**
  * Archive page title callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses  esc_attr() to sanitize the attribute
- * @uses  wp_idea_stream_archive_title() To get the archive page title
  * @return string HTML output
  */
 function wp_idea_stream_archive_title_setting_callback() {
@@ -544,14 +495,8 @@ function wp_idea_stream_as_front_page_setting_callback() {
 /**
  * Submit Status callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_default_idea_status() to get the active status
- * @uses   wp_idea_stream_setting_disabled_option() to disable the field if an option is set
- * @uses   selected() to activate the active option
  * @return string HTML output
  */
 function wp_idea_stream_submit_status_setting_callback() {
@@ -569,13 +514,8 @@ function wp_idea_stream_submit_status_setting_callback() {
 /**
  * WP Editor's image button callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_idea_editor_image() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_editor_image_setting_callback() {
@@ -607,13 +547,8 @@ function wp_idea_stream_editor_featured_images_setting_callback() {
 /**
  * WP Editor's link button callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_idea_editor_link() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_editor_link_setting_callback() {
@@ -628,14 +563,8 @@ function wp_idea_stream_editor_link_setting_callback() {
 /**
  * Custom moderation message callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_setting_disabled() to disable the field if an option has a specific value
- * @uses   esc_textarea() to sanitize a textarea element
- * @uses   wp_idea_stream_moderation_message() to get the active message
  * @return string HTML output
  */
 function wp_idea_stream_moderation_message_setting_callback() {
@@ -650,13 +579,8 @@ function wp_idea_stream_moderation_message_setting_callback() {
 /**
  * Custom login message callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_textarea() to sanitize a textarea element
- * @uses   wp_idea_stream_login_message() to get the active message
  * @return string HTML output
  */
 function wp_idea_stream_login_message_setting_callback() {
@@ -671,13 +595,8 @@ function wp_idea_stream_login_message_setting_callback() {
 /**
  * List of captions for the rating stars
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_hint_list() to get the active hint list
- * @uses   esc_attr() to sanitize the attribute
  * @return string HTML output
  */
 function wp_idea_stream_hint_list_setting_callback() {
@@ -694,13 +613,8 @@ function wp_idea_stream_hint_list_setting_callback() {
 /**
  * Sticky ideas callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_is_sticky_enabled() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_sticky_ideas_setting_callback() {
@@ -715,13 +629,8 @@ function wp_idea_stream_sticky_ideas_setting_callback() {
 /**
  * Disjoin idea comments callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_is_comments_disjoined() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_disjoin_comments_setting_callback() {
@@ -736,13 +645,8 @@ function wp_idea_stream_disjoin_comments_setting_callback() {
 /**
  * Global "opened" comments callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_is_comments_allowed() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_allow_comments_setting_callback() {
@@ -775,9 +679,6 @@ function wp_idea_stream_embed_profile_setting_callback() {
 /**
  * Some text to introduce the rewrite settings section
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @return string HTML output
@@ -794,14 +695,8 @@ function wp_idea_stream_settings_rewrite_section_callback() {
 /**
  * Root slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_root_slug() to get the active slug
- * @uses   wp_idea_stream_root_slug_conflict_check() to display a warning if a rewrite conflict was found
  * @return string HTML output
  */
 function wp_idea_stream_root_slug_setting_callback() {
@@ -816,13 +711,8 @@ function wp_idea_stream_root_slug_setting_callback() {
 /**
  * Idea slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_idea_get_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_idea_slug_setting_callback() {
@@ -836,13 +726,8 @@ function wp_idea_stream_idea_slug_setting_callback() {
 /**
  * Category slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_category_get_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_category_slug_setting_callback() {
@@ -856,13 +741,8 @@ function wp_idea_stream_category_slug_setting_callback() {
 /**
  * Tag slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_tag_get_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_tag_slug_setting_callback() {
@@ -876,13 +756,8 @@ function wp_idea_stream_tag_slug_setting_callback() {
 /**
  * User slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_user_get_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_user_slug_setting_callback() {
@@ -896,13 +771,8 @@ function wp_idea_stream_user_slug_setting_callback() {
 /**
  * User comments slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_user_comments_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_user_comments_slug_setting_callback() {
@@ -916,14 +786,8 @@ function wp_idea_stream_user_comments_slug_setting_callback() {
 /**
  * User comments pagination slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_cpage_slug() to get the active slug
- * @uses   wp_idea_stream_paged_slug() to get the default pagination slug
  * @return string HTML output
  */
 function wp_idea_stream_cpage_slug_setting_callback() {
@@ -938,13 +802,8 @@ function wp_idea_stream_cpage_slug_setting_callback() {
 /**
  * User rates slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_user_rates_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_user_rates_slug_setting_callback() {
@@ -958,13 +817,8 @@ function wp_idea_stream_user_rates_slug_setting_callback() {
 /**
  * Signup slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.1.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses  wp_idea_stream_signup_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_signup_slug_setting_callback() {
@@ -978,13 +832,8 @@ function wp_idea_stream_signup_slug_setting_callback() {
 /**
  * Action slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_action_get_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_action_slug_setting_callback() {
@@ -998,13 +847,8 @@ function wp_idea_stream_action_slug_setting_callback() {
 /**
  * New idea slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_addnew_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_addnew_slug_setting_callback() {
@@ -1018,13 +862,8 @@ function wp_idea_stream_addnew_slug_setting_callback() {
 /**
  * Edit idea slug of the plugin
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
- * @uses   esc_attr() to sanitize the attribute
- * @uses   wp_idea_stream_edit_slug() to get the active slug
  * @return string HTML output
  */
 function wp_idea_stream_edit_slug_setting_callback() {
@@ -1037,9 +876,6 @@ function wp_idea_stream_edit_slug_setting_callback() {
 
 /**
  * Some text to introduce the multisite settings section
- *
- * @package WP Idea Stream
- * @subpackage admin/settings
  *
  * @since 2.2.0
  *
@@ -1056,13 +892,8 @@ function wp_idea_stream_settings_multisite_section_callback() {
 /**
  * Does the blog is allowing IdeaStream to manage signups
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.2.0
  *
- * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_allow_signups() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_allow_signups_setting_callback() {
@@ -1077,13 +908,8 @@ function wp_idea_stream_allow_signups_setting_callback() {
 /**
  * Default role for users posting an idea on this site callback
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.2.0
  *
- * @uses   checked() to add a checked attribute if needed
- * @uses   wp_idea_stream_user_new_idea_set_role() to get the active option
  * @return string HTML output
  */
 function wp_idea_stream_user_new_idea_set_role_setting_callback() {
@@ -1100,14 +926,9 @@ function wp_idea_stream_user_new_idea_set_role_setting_callback() {
 /**
  * Sanitize the status setting
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $option the value choosed by the admin
- * @uses   sanitize_key() to sanitize the option
- * @uses   apply_filters() call 'wp_idea_stream_sanitize_status' to do extra sanitization
  * @return string         the sanitized value
  */
 function wp_idea_stream_sanitize_status( $option = '' ) {
@@ -1120,14 +941,9 @@ function wp_idea_stream_sanitize_status( $option = '' ) {
 /**
  * Sanitize the rating stars captions
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $option the comma separated values choosed by the admin
- * @uses   wp_unslash() to strip slashes
- * @uses   apply_filters() call 'wp_idea_stream_sanitize_hint_list' to do extra sanitization
  * @return string         the sanitized value
  */
 function wp_idea_stream_sanitize_hint_list( $option = '' ) {
@@ -1151,9 +967,6 @@ function wp_idea_stream_sanitize_hint_list( $option = '' ) {
 
 /**
  * Make sure sticky ideas are removed if the sticky setting is disabled
- *
- * @package WP Idea Stream
- * @subpackage admin/settings
  *
  * @since 2.0.0
  *
@@ -1229,15 +1042,9 @@ function wp_idea_stream_sanitize_embed_profile( $option = 0 ) {
  *
  * Inspired by bbPress's bbp_sanitize_slug() function
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $slug the slug choosed by the admin
- * @uses   remove_accents() to remove accents from the slug
- * @uses   esc_url_raw() to strip out unsafe or unusable chars
- * @uses   apply_filters() call 'wp_idea_stream_sanitize_slug' to do extra sanitization
  * @return string the sanitized slug
  */
 function wp_idea_stream_sanitize_slug( $slug = '' ) {
@@ -1273,14 +1080,9 @@ function wp_idea_stream_sanitize_slug( $slug = '' ) {
 /**
  * Sanitize the user comments pagination slug.
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
  *
  * @param  string $slug the slug choosed by the admin
- * @uses   wp_idea_stream_paged_slug() to check slug is not the same than the paged one
- * @uses   wp_idea_stream_sanitize_slug() to sanitize the slug
  * @return string the sanitized slug
  */
 function wp_idea_stream_sanitize_comments_page_slug( $slug = '' ) {
@@ -1294,13 +1096,7 @@ function wp_idea_stream_sanitize_comments_page_slug( $slug = '' ) {
 /**
  * Displays the settings page
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
- *
  * @since 2.0.0
- *
- * @uses settings_fields()
- * @uses do_settings_sections()
  */
 function wp_idea_stream_settings() {
 	$current_tab = 'core';
