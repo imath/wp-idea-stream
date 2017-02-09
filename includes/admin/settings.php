@@ -27,25 +27,28 @@ defined( 'ABSPATH' ) || exit;
 function wp_idea_stream_get_settings_sections() {
 	$settings_sections =  array(
 		'ideastream_settings_core' => array(
-			'title'    => __( 'Main Settings', 'wp-idea-stream' ),
-			'callback' => 'wp_idea_stream_settings_core_section_callback',
-			'page'     => 'ideastream',
+			'title'     => '', // Avoid the Heading to be output
+			'tab_title' => __( 'Main Settings', 'wp-idea-stream' ),
+			'callback'  => 'wp_idea_stream_settings_core_section_callback',
+			'page'      => 'ideastream-core',
 		),
 	);
 
 	if ( wp_idea_stream_is_pretty_links() ) {
 		$settings_sections['ideastream_settings_rewrite'] = array(
-			'title'    => __( 'Pretty Links', 'wp-idea-stream' ),
-			'callback' => 'wp_idea_stream_settings_rewrite_section_callback',
-			'page'     => 'ideastream',
+			'title'     => '', // Avoid the Heading to be output
+			'tab_title' => __( 'Pretty Links', 'wp-idea-stream' ),
+			'callback'  => 'wp_idea_stream_settings_rewrite_section_callback',
+			'page'      => 'ideastream-slugs',
 		);
 	}
 
 	if ( is_multisite() ) {
 		$settings_sections['ideastream_settings_multisite'] = array(
-			'title'    => __( 'Network users settings', 'wp-idea-stream' ),
-			'callback' => 'wp_idea_stream_settings_multisite_section_callback',
-			'page'     => 'ideastream',
+			'title'     => '', // Avoid the Heading to be output
+			'tab_title' => __( 'Network users settings', 'wp-idea-stream' ),
+			'callback'  => 'wp_idea_stream_settings_multisite_section_callback',
+			'page'      => 'ideastream-multisite',
 		);
 	}
 
@@ -497,7 +500,6 @@ function wp_idea_stream_settings_core_section_callback() {
 	?>
 
 	<p><?php _e( 'Customize WP Idea Stream features', 'wp-idea-stream' ); ?></p>
-	<p class="description"><?php printf( esc_html__( 'Url of WP Idea Stream&#39;s main page: %s', 'wp-idea-stream' ), '<code>' . wp_idea_stream_get_root_url() .'</code>' ) ;?></p>
 
 	<?php
 }
@@ -784,6 +786,7 @@ function wp_idea_stream_settings_rewrite_section_callback() {
 	?>
 
 	<p><?php esc_html_e( 'Customize the slugs of WP Idea Stream urls', 'wp-idea-stream' ); ?></p>
+	<p class="description"><?php printf( esc_html__( 'Url of WP Idea Stream&#39;s main page: %s', 'wp-idea-stream' ), '<code>' . wp_idea_stream_get_root_url() .'</code>' ) ;?></p>
 
 	<?php
 }
@@ -1300,16 +1303,52 @@ function wp_idea_stream_sanitize_comments_page_slug( $slug = '' ) {
  * @uses do_settings_sections()
  */
 function wp_idea_stream_settings() {
+	$current_tab = 'core';
+
+	if ( ! empty( $_GET['tab'] ) ) {
+		$current_tab = sanitize_key( $_GET['tab'] );
+	}
+
+	$form_url     = self_admin_url( 'options.php' );
+	$tab_base_url = add_query_arg( 'page', 'ideastream', self_admin_url( 'options-general.php' ) );
+	$sections     = wp_idea_stream_get_settings_sections();
 	?>
 	<div class="wrap">
 
-		<h2><?php esc_html_e( 'WP Idea Stream Settings', 'wp-idea-stream' ) ?></h2>
+		<h1><?php esc_html_e( 'WP Idea Stream Settings', 'wp-idea-stream' ) ?></h1>
 
-		<form action="options.php" method="post">
+		<?php if ( ! empty( $sections ) ) : ?>
+			<div class="wp-filter">
+				<ul class="filter-links">
 
-			<?php settings_fields( 'ideastream' ); ?>
+					<?php foreach ( $sections as $section ) :
+						$tab = str_replace( 'ideastream-', '', $section['page'] );
+						$url = add_query_arg( 'tab', $tab, $tab_base_url );
+						$class = '';
 
-			<?php do_settings_sections( 'ideastream' ); ?>
+						if ( $tab === $current_tab ) {
+							$class    = ' class="current"';
+						}
+
+						$tab_title = $section['tab_title'];
+						if ( ! empty( $section['tab_title'] ) ) {
+							$tab_title = $section['tab_title'];
+						}
+					?>
+						<li class="ideastream-<?php echo esc_attr( $tab ); ?>">
+							<a href="<?php echo esc_url( $url ); ?>"<?php echo $class; ?>><?php echo esc_html( $tab_title ); ?></a>
+						</li>
+					<?php endforeach ; ?>
+
+				</ul>
+			</div>
+		<?php endif ;?>
+
+		<form action="<?php echo esc_url( $form_url ); ?>" method="post">
+
+			<?php settings_fields( 'ideastream-' . $current_tab ); ?>
+
+			<?php do_settings_sections( 'ideastream-' . $current_tab ); ?>
 
 			<p class="submit">
 				<input type="submit" name="submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'wp-idea-stream' ); ?>" />
