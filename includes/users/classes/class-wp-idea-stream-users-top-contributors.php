@@ -1,25 +1,17 @@
 <?php
 /**
- * WP Idea Stream Users Widgets.
+ * WP Idea Stream Users Top contributors Widget Class.
  *
- * Collection of Users Widgets, for now
- * only one is available :)
+ * @package WP Idea Stream\users\classes
  *
- * @package WP Idea Stream
- * @subpackage users/widgets
- *
- * @since 2.0.0
+ * @since 2.4.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WP_Idea_Stream_Users_Top_Contributors' ) ) :
 /**
  * List the top contributors
- *
- * @package WP Idea Stream
- * @subpackage users/widgets
  *
  * @since 2.0.0
  */
@@ -28,14 +20,7 @@ class WP_Idea_Stream_Users_Top_Contributors extends WP_Widget {
  	/**
 	 * Constructor
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/widgets
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses WP_Widget::__construct()
-	 * @uses is_active_widget()
-	 * @uses wp_idea_stream_enqueue_style()
 	 */
 	public function __construct() {
 		$widget_ops = array( 'description' => __( 'List the top idea contributors', 'wp-idea-stream' ) );
@@ -49,12 +34,7 @@ class WP_Idea_Stream_Users_Top_Contributors extends WP_Widget {
 	/**
 	 * Register the widget
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/widgets
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses   register_widget() to register the widget
 	 */
 	public static function register_widget() {
 		register_widget( 'WP_Idea_Stream_Users_Top_Contributors' );
@@ -63,15 +43,7 @@ class WP_Idea_Stream_Users_Top_Contributors extends WP_Widget {
 	/**
 	 * Display the widget on front end
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/widgets
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  apply_filters() call 'widget_title' to allow the widget title to edited
-	 * @uses  wp_idea_stream_users_ideas_count_by_user() to get an ordered list of top contributors
-	 * @uses  wp_idea_stream_users_get_user_profile_url() to get url to user's profile
-	 * @uses  get_avatar() to get user's avatar
 	 */
 	public function widget( $args = array(), $instance = array() ) {
 
@@ -138,12 +110,7 @@ class WP_Idea_Stream_Users_Top_Contributors extends WP_Widget {
 	/**
 	 * Update widget preferences
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/widgets
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  wp_unslash()
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
@@ -166,13 +133,7 @@ class WP_Idea_Stream_Users_Top_Contributors extends WP_Widget {
 	/**
 	 * Display the form in Widgets Administration
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/widgets
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses WP_Widget->get_field_id()
-	 * @uses WP_Widget->get_field_name()
 	 */
 	public function form( $instance = array() ) {
 		// Default to nothing
@@ -204,5 +165,3 @@ class WP_Idea_Stream_Users_Top_Contributors extends WP_Widget {
 		<?php
 	}
 }
-
-endif;

@@ -38,8 +38,6 @@ final class WP_Idea_Stream {
 	/**
 	 * Initialize the plugin
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
 	 */
 	private function __construct() {
@@ -50,8 +48,6 @@ final class WP_Idea_Stream {
 
 	/**
 	 * Return an instance of this class.
-	 *
-	 * @package WP Idea Stream
 	 *
 	 * @since 2.0.0
 	 *
@@ -70,14 +66,7 @@ final class WP_Idea_Stream {
 	/**
 	 * Setups plugin's globals
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses plugin_basename() to get the plugin basename
-	 * @uses plugin_dir_path() to get the path to plugin's dir
-	 * @uses plugin_dir_url() to get the url to plugin's dir
-	 * @uses get_option() to get an option value based on name of option.
 	 */
 	private function setup_globals() {
 		// Version
@@ -135,48 +124,55 @@ final class WP_Idea_Stream {
 		$this->displayed_user   = new WP_User();
 		$this->current_user     = new WP_User();
 		$this->feedback         = array();
+
+		// Autoload
+		$this->autoload = false;
 	}
 
 	/**
 	 * Includes plugin's needed files
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  is_admin() to check for WordPress Administration
+	 * @since 2.4.0 Use Class autoload when possible.
 	 */
 	private function includes() {
+		if ( function_exists( 'spl_autoload_register' ) ) {
+			spl_autoload_register( array( $this, 'autoload' ) );
+			$this->autoload = true;
+		}
+
 		require( $this->includes_dir . 'core/options.php' );
 		require( $this->includes_dir . 'core/functions.php' );
 		require( $this->includes_dir . 'core/rewrites.php' );
-		require( $this->includes_dir . 'core/classes.php' );
 		require( $this->includes_dir . 'core/capabilities.php' );
 		require( $this->includes_dir . 'core/upgrade.php' );
 		require( $this->includes_dir . 'core/template-functions.php' );
 		require( $this->includes_dir . 'core/template-loader.php' );
-		require( $this->includes_dir . 'core/widgets.php' );
 
 		require( $this->includes_dir . 'comments/functions.php' );
-		require( $this->includes_dir . 'comments/classes.php' );
 		require( $this->includes_dir . 'comments/tags.php' );
-		require( $this->includes_dir . 'comments/widgets.php' );
 
 		require( $this->includes_dir . 'ideas/metas.php' );
 		require( $this->includes_dir . 'ideas/functions.php' );
-		require( $this->includes_dir . 'ideas/classes.php' );
 		require( $this->includes_dir . 'ideas/tags.php' );
-		require( $this->includes_dir . 'ideas/widgets.php' );
 
 		require( $this->includes_dir . 'users/functions.php' );
 		require( $this->includes_dir . 'users/tags.php' );
-		require( $this->includes_dir . 'users/widgets.php' );
+
+		if ( ! $this->autoload ) {
+			require( $this->includes_dir . 'core/classes.php' );
+			require( $this->includes_dir . 'comments/classes.php' );
+			require( $this->includes_dir . 'ideas/classes.php' );
+			require( $this->includes_dir . 'users/classes.php' );
+		}
 
 		require( $this->includes_dir . 'core/actions.php' );
 		require( $this->includes_dir . 'core/filters.php' );
 
 		if ( is_admin() ) {
-			require( $this->includes_dir . 'admin/admin.php' );
+			if ( ! $this->autoload ) {
+				require( $this->includes_dir . 'admin/admin.php' );
+			}
 		}
 
 		/**
@@ -210,11 +206,7 @@ final class WP_Idea_Stream {
 	 * Setups some hooks to register post type stuff, scripts, set
 	 * the current user & load plugin's BuddyPress integration
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  add_action() to perform custom actions at key points
 	 */
 	private function setup_hooks() {
 		// Main hooks
@@ -224,6 +216,11 @@ final class WP_Idea_Stream {
 		add_action( 'wp_idea_stream_register_taxonomies', array( $this, 'register_taxonomies' )    );
 		add_action( 'wp_idea_stream_setup_current_user',  array( $this, 'setup_current_user'  )    );
 		add_action( 'wp_idea_stream_enqueue_scripts',     array( $this, 'enqueue_scripts'     ), 1 );
+
+		// Boot the Admin
+		if ( is_admin() ) {
+			add_action( 'wp_idea_stream_loaded', array( 'WP_Idea_Stream_Admin', 'start' ), 5 );
+		}
 
 		/**
 		 * BuddyPress integration starts by hooking bp_include!
@@ -236,14 +233,7 @@ final class WP_Idea_Stream {
 	/**
 	 * Registers the ideas post type
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses register_post_type() to register the post type
-	 * @uses wp_idea_stream_get_post_type() to get the ideas post type identifier
-	 * @uses wp_idea_stream_post_type_register_labels() to the post type's labels
-	 * @uses wp_idea_stream_post_type_register_args() to get the post type's arguments
 	 */
 	public function register_post_type() {
 		//register the ideas post-type
@@ -276,8 +266,6 @@ final class WP_Idea_Stream {
 	/**
 	 * Registers the ideas post stati
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.4.0
 	 */
 	public function register_post_stati() {
@@ -294,18 +282,7 @@ final class WP_Idea_Stream {
 	/**
 	 * Registers the ideas taxonomies
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses register_taxonomy() to register the taxonomy
-	 * @uses wp_idea_stream_get_category() to get the category taxonomy identifier
-	 * @uses wp_idea_stream_get_post_type() to get the ideas post type identifier
-	 * @uses wp_idea_stream_category_register_labels() to the category taxonomy labels
-	 * @uses wp_idea_stream_category_register_args() to the category taxonomy arguments
-	 * @uses wp_idea_stream_get_tag() to get the tag taxonomy identifier
-	 * @uses wp_idea_stream_tag_register_labels() to the tag taxonomy labels
-	 * @uses wp_idea_stream_tag_register_args() to the tag taxonomy arguments
 	 */
 	public function register_taxonomies() {
 
@@ -333,11 +310,7 @@ final class WP_Idea_Stream {
 	/**
 	 * Setups the loggedin user
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses wp_get_current_user() to get the current user
 	 */
 	public function setup_current_user() {
 		$this->current_user = wp_get_current_user();
@@ -345,8 +318,6 @@ final class WP_Idea_Stream {
 
 	/**
 	 * Setups a globalized var for a later use
-	 *
-	 * @package WP Idea Stream
 	 *
 	 * @since 2.0.0
 	 *
@@ -363,8 +334,6 @@ final class WP_Idea_Stream {
 
 	/**
 	 * Gets a globalized var
-	 *
-	 * @package WP Idea Stream
 	 *
 	 * @since 2.0.0
 	 *
@@ -383,14 +352,7 @@ final class WP_Idea_Stream {
 	 * Registers external javascript libraries to be linked later
 	 * using the wp_enqueue_script() function, & adds the plugin's stylesheet
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  wp_idea_stream_is_ideastream() to check if it's plugin's territory
-	 * @uses  wp_register_script() to register the external library
-	 * @uses  wp_idea_stream_get_js_script() to get the javascript url
-	 * @uses  wp_idea_stream_enqueue_style() to add plugin's stylesheet to WordPress queue
 	 */
 	public function enqueue_scripts() {
 		if ( ! wp_idea_stream_is_ideastream() ) {
@@ -409,11 +371,7 @@ final class WP_Idea_Stream {
 	/**
 	 * Includes the plugin's BuddyPress loader file
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses bp_is_root_blog() to check current blog is the one where BuddyPress is activated
 	 */
 	public function use_buddypress() {
 		/**
@@ -431,16 +389,11 @@ final class WP_Idea_Stream {
 	/**
 	 * Loads the translation files
 	 *
-	 * @package WP Idea Stream
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses get_locale() to get the language of WordPress config
-	 * @uses load_texdomain() to load the translation if any is available for the language
 	 */
 	public function load_textdomain() {
 		// Traditional WordPress plugin locale filter
-		$locale        = apply_filters( 'plugin_locale', get_locale(), $this->domain );
+		$locale = apply_filters( 'plugin_locale', get_locale(), $this->domain );
 
 		if ( empty( $locale ) ) {
 			$mofile = $this->domain . '.mo';
@@ -481,6 +434,51 @@ final class WP_Idea_Stream {
 			load_plugin_textdomain( $this->domain, false, trailingslashit( basename( $this->plugin_dir ) ) . 'languages' );
 		}
 	}
+
+	/**
+	 * Class Autoload function
+	 *
+	 * @since  2.4.0
+	 *
+	 * @param  string $class The class name.
+	 */
+	public function autoload( $class ) {
+		$name = str_replace( '_', '-', strtolower( $class ) );
+
+		if ( false === strpos( $name, $this->domain ) ) {
+			return;
+		}
+
+		// Class Name => includes' folder
+		$map = array(
+			'wp-idea-stream-loop'            => 'core',
+			'wp-idea-stream-navig'           => 'core',
+			'wp-idea-stream-rewrites'        => 'core',
+			'wp-idea-stream-template-loader' => 'core',
+			'wp-idea-stream-loop-comments'   => 'comments',
+			'wp-idea-stream-idea'            => 'ideas',
+			'wp-idea-stream-loop-ideas'      => 'ideas',
+			'wp-idea-stream-idea-metas'      => 'ideas',
+		);
+
+		$folder = null;
+
+		if ( isset( $map[$name] ) ) {
+			$folder = $map[$name];
+		} else {
+			$parts = explode( '-', $name );
+			$folder = $parts[3];
+		}
+
+		$path = $this->includes_dir . "{$folder}/classes/class-{$name}.php";
+
+		// Sanity check.
+		if ( ! file_exists( $path ) ) {
+			return;
+		}
+
+		require $path;
+	}
 }
 
 endif;
@@ -492,11 +490,7 @@ endif;
  * Priority is less than 10, in order to be able to use the
  * bp_include BuddyPress hook to load BuddyPress integration.
  *
- * @package WP Idea Stream
- *
  * @since 2.0.0
- *
- * @uses WP_Idea_Stream
  */
 function wp_idea_stream() {
 	return WP_Idea_Stream::start();
@@ -510,11 +504,7 @@ add_action( 'plugins_loaded', 'wp_idea_stream', 8 );
  * welcome screen.
  * Database stuff are managed in core/upgrade.php function
  *
- * @package WP Idea Stream
- *
  * @since 2.0.0
- *
- * @uses set_transient() to set a transient
  */
 function wp_idea_stream_activation() {
 	// Add a transient to redirect after activation.

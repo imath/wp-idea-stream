@@ -4,14 +4,13 @@
  *
  * Administration / Settings
  *
- * @package WP Idea Stream
- * @subpackage admin/settings
+ * @package WP Idea Stream\admin
  *
  * @since 2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * The IdeaStream settings sections

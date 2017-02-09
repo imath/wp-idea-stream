@@ -1,28 +1,21 @@
 <?php
 /**
- * WP Idea Stream Comments Administration.
+ * WP Idea Stream Admin Comments Class.
  *
- * Comments Administration class
+ * @package WP Idea Stream\admin\classes
  *
- * @package WP Idea Stream
- * @subpackage admin/comments
- *
- * @since 2.0.0
+ * @since 2.4.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WP_Idea_Stream_Admin_Comments' ) ) :
 /**
  * Comments Administration class
  *
  * The goal of the class is to adapt the Comments
  * Administration interface so that comments about ideas
  * are disjoined and included in the main IdeaStream menu
- *
- * @package WP Idea Stream
- * @subpackage admin/comments
  *
  * @since 2.0.0
  *
@@ -47,9 +40,6 @@ class WP_Idea_Stream_Admin_Comments {
 	/**
 	 * The constuctor
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 */
 	public function __construct() {
@@ -60,13 +50,7 @@ class WP_Idea_Stream_Admin_Comments {
 	/**
 	 * Starts the class
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  is_admin() to make sure it's an Administration context
-	 * @uses  wp_idea_stream() to get the plugin's main instance
 	 */
 	public static function start() {
 		if ( ! is_admin() ) {
@@ -85,12 +69,7 @@ class WP_Idea_Stream_Admin_Comments {
 	/**
 	 * Sets some globals
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses wp_idea_stream_get_post_type() to get the ideas post type identifier
 	 */
 	private function setup_globals() {
 		$this->post_type          = wp_idea_stream_get_post_type();
@@ -100,13 +79,7 @@ class WP_Idea_Stream_Admin_Comments {
 	/**
 	 * Sets up the hooks to extend IdeaStream Administration
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses add_action() to perform custom actions at key points
-	 * @uses add_filter() to override some key vars
 	 */
 	private function hooks() {
 
@@ -135,15 +108,10 @@ class WP_Idea_Stream_Admin_Comments {
 	/**
 	 * Adds a bubble to menu title to show how many comments are pending
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  string  $menu_title the text for the menu
 	 * @param  int     $count      the number of comments
-	 * @uses   esc_attr() to sanitize an attibute
-	 * @uses   number_format_i18n() to format numbers
 	 * @return string              the title menu output
 	 */
 	public function bubbled_menu( $menu_title = '', $count = 0 ) {
@@ -157,16 +125,9 @@ class WP_Idea_Stream_Admin_Comments {
 	/**
 	 * Creates a comments submenu to the IdeaStream menu
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array  $menus list of menu items to add
-	 * @uses   wp_idea_stream_get_idea_var() to get a globalized value
-	 * @uses   wp_idea_stream_comments_count_comments() to build stats about idea comments
-	 * @uses   WP_Idea_Stream_Admin_Comments->bubbled_menu() to build the pending count bubble
-	 * @uses   add_query_arg() to build the parent slug
 	 * @return array         the new menu items
 	 */
 	public function comments_menu( $menus = array() ) {
@@ -202,17 +163,12 @@ class WP_Idea_Stream_Admin_Comments {
 	 * Adds a bubble to IdeaStream menu title and make sure it's the highlighted parent
 	 * when idea comments screens are displayed
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
 	 * @global $menu
 	 * @global $submenu
 	 * @global $parent_file
 	 * @global $submenu_file
-	 * @uses   get_current_screen() to get the current screen object
-	 * @uses   add_query_arg() to build menu item slugs
 	 */
 	public function admin_head() {
  		global $menu, $submenu, $parent_file, $submenu_file;
@@ -236,14 +192,9 @@ class WP_Idea_Stream_Admin_Comments {
 	 * Make the comments IdeaStream submenu is the highlighted submenu
 	 * if its content is displayed
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
 	 * @global $submenu_file
-	 * @uses   wp_idea_stream_is_admin() to check if on an IdeaStream Administration screen
-	 * @uses   add_query_arg() to build menu item slugs
 	 */
 	public function comments_menu_highlight() {
 		global $submenu_file;
@@ -259,13 +210,9 @@ class WP_Idea_Stream_Admin_Comments {
 	 * Replaces the comment count by the idea comments count in the screen views when
 	 * managing comments about ideas
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array  $status_links list of WP Liste Comments Table views
-	 * @uses   wp_idea_stream_is_admin() to check if on an IdeaStream Administration screen
 	 * @return array                list of views with a new count if needed
 	 */
 	public function adjust_comment_status_links( $status_links = array() ) {
@@ -305,14 +252,10 @@ class WP_Idea_Stream_Admin_Comments {
 	/**
 	 * Adds a post_type query var to the edit action link
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array  $actions the list of row actions
 	 * @param  object $comment the comment object
-	 * @uses   get_post_type() to get the post type
 	 * @return array           the list of row actions
 	 */
 	public function adjust_row_actions( $actions = array(), $comment = null ) {
@@ -355,14 +298,9 @@ class WP_Idea_Stream_Admin_Comments {
 	 * sure the typenow global and the post type attribute of the screen are set
 	 * to the ideas post type if needed.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
 	 * @global $typenow
-	 * @uses   get_post_type() to get the post type
-	 * @uses   get_current_screen() to get the current screen object
 	 */
 	function maybe_force_post_type() {
 		global $typenow;
@@ -399,13 +337,8 @@ class WP_Idea_Stream_Admin_Comments {
 	 * The goal here is to make sure the ajax bubbles count update
 	 * are dissociated between posts and ideas
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/comments
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream_is_admin() to check if on an IdeaStream Administration screen
-	 * @uses   get_current_screen() to get the current screen object
 	 * @return string JS output
 	 */
 	public function disjoin_post_bubbles() {
@@ -445,7 +378,3 @@ class WP_Idea_Stream_Admin_Comments {
 		<?php
 	}
 }
-
-endif;
-
-add_action( 'wp_idea_stream_loaded', array( 'WP_Idea_Stream_Admin_Comments', 'start' ), 6 );

@@ -315,7 +315,7 @@ function wp_idea_stream_post_type_register_args() {
 		'delete_with_user'      => true,
 		'can_export'            => true,
 		'show_in_rest'          => true,
-		'rest_controller_class' => 'WP_Idea_Stream_REST_Controller',
+		'rest_controller_class' => 'WP_Idea_Stream_Ideas_REST_Controller',
 	) );
 }
 
