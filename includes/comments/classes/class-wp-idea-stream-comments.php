@@ -92,7 +92,7 @@ class WP_Idea_Stream_Comments {
 	 */
 	function maybe_idea_comments( $wp_comment_query = null ) {
 		// Bail if Ajax
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			return;
 		}
 
@@ -185,7 +185,7 @@ class WP_Idea_Stream_Comments {
 	public function maybe_alter_comments_query( $pieces = array(), $wp_comment_query = null ) {
 
 		// Bail if Ajax
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( wp_doing_ajax() ) {
 			return $pieces;
 		}
 
