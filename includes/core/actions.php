@@ -10,8 +10,8 @@
  * @since 2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 add_action( 'plugins_loaded',           'wp_idea_stream_loaded',                 11 );
 add_action( 'init',                     'wp_idea_stream_init',                   9  );

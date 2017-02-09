@@ -13,8 +13,8 @@ Text Domain: wp-idea-stream
 Domain Path: /languages/
 */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WP_Idea_Stream' ) ) :
 /**

@@ -10,8 +10,8 @@
  * @since 2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 add_filter( 'template_include',          'wp_idea_stream_set_template',                 10, 1 );
 add_filter( 'wp_title_parts',            'wp_idea_stream_title',                        10, 1 );
