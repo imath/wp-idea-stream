@@ -437,6 +437,11 @@ function wp_idea_stream_buddypress_is_spammy( $is_spammer, $user = null ) {
 }
 add_action( 'wp_idea_stream_users_is_spammy', 'wp_idea_stream_buddypress_is_spammy', 10, 2 );
 
+function bp_idea_stream_embed_cover_image_container() {
+	print( '<div id="buddypress-cover-image"></div>' );
+}
+add_action( 'wp_idea_stream_embed_before_content', 'bp_idea_stream_embed_cover_image_container' );
+
 /**
  * Add the user's cover image to his embed profile
  *
