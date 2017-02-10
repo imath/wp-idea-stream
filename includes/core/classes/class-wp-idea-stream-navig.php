@@ -46,23 +46,7 @@ defined( 'ABSPATH' ) || exit;
 	 */
 	public function set_available_nav_items() {
 		// construct nav
-		$this->nav_items_available = array(
-			'idea_archive' => array(
-				'url'  => wp_idea_stream_get_root_url(),
-				'name' => wp_idea_stream_archive_title()
-			),
-			'addnew'       => array(
-				'url'  => wp_idea_stream_get_form_url(),
-				'name' => __( 'New idea', 'wp-idea-stream' )
-			)
-		);
-
-		if ( is_user_logged_in() ) {
-			$this->nav_items_available['current_user_profile'] = array(
-				'url'  => wp_idea_stream_users_get_logged_in_profile_url(),
-				'name' => __( 'My profile', 'wp-idea-stream' )
-			);
-		}
+		$this->nav_items_available = wp_idea_stream_get_nav_items();
 
 		/**
 		 * @param array the available nav items
@@ -121,7 +105,7 @@ defined( 'ABSPATH' ) || exit;
 
 				<li class="menu-item menu-item-type-post_type<?php echo $current;?>">
 
-					<a href="<?php echo esc_url( $nav_item['url'] );?>" title="<?php echo esc_attr( $nav_item['name'] );?>"><?php echo esc_html( $nav_item['name'] ); ?></a>
+					<a href="<?php echo esc_url( $nav_item['url'] );?>" title="<?php echo esc_attr( $nav_item['title'] );?>"><?php echo esc_html( $nav_item['title'] ); ?></a>
 
 				</li>
 
@@ -183,7 +167,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php foreach ( $this->nav_items_available as $key_item => $item ) : ?>
 
 				<input class="checkbox" type="checkbox" <?php checked( in_array( $key_item, $nav_items), true) ?> id="<?php echo $this->get_field_id( 'nav_items' ) . '-' . $key_item; ?>" name="<?php echo $this->get_field_name( 'nav_items' ); ?>[]" value="<?php echo esc_attr( $key_item );?>" />
-				<label for="<?php echo $this->get_field_id( 'nav_items' ) . '-' . $key_item; ?>"><?php echo esc_html( $item['name'] ); ?></label><br />
+				<label for="<?php echo $this->get_field_id( 'nav_items' ) . '-' . $key_item; ?>"><?php echo esc_html( $item['title'] ); ?></label><br />
 
 			<?php endforeach; ?>
 

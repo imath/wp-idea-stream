@@ -1083,6 +1083,85 @@ function wp_idea_stream_maybe_reset_postdata() {
 }
 
 /**
+ * Get the WP Nav Items for WP Idea Stream main areas.
+ *
+ * @since  2.4.0
+ *
+ * @return array A list of WP Nav Items object.
+ */
+function wp_idea_stream_get_nav_items() {
+	$nav_items = array(
+		'idea_archive' => array(
+			'id'         => 'wp-idea-stream-archive',
+			'title'      => html_entity_decode( wp_idea_stream_archive_title(), ENT_QUOTES, get_bloginfo( 'charset' ) ),
+			'url'        => esc_url_raw( wp_idea_stream_get_root_url() ),
+			'object'     => 'wp-idea-stream-archive',
+		),
+		'addnew' => array(
+			'id'         => 'wp-idea-stream-new',
+			'title'      => html_entity_decode( __( 'New idea', 'wp-idea-stream' ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
+			'url'        => esc_url_raw( wp_idea_stream_get_form_url() ),
+			'object'     => 'wp-idea-stream-new',
+		)
+	);
+
+	if ( is_user_logged_in() ) {
+		$nav_items['current_user_profile'] = array(
+			'id'         => 'wp-idea-stream-profile',
+			'title'      => html_entity_decode( __( 'My profile', 'wp-idea-stream' ), ENT_QUOTES, get_bloginfo( 'charset' ) ),
+			'url'        => esc_url_raw( wp_idea_stream_users_get_logged_in_profile_url() ),
+			'object'     => 'wp-idea-stream-profile',
+		);
+	}
+
+	foreach ( $nav_items as $nav_item_key => $nav_item ) {
+		$nav_items[ $nav_item_key ] = array_merge( $nav_item, array(
+			'type'       => 'wp_idea_stream_nav_item',
+			'type_label' => _x( 'Custom Link', 'customizer menu type label', 'wp-idea-stream' ),
+			'object_id'  => -1,
+		) );
+	}
+
+	return apply_filters( 'wp_idea_stream_get_nav_items', $nav_items );
+}
+
+/**
+ * Validate & Populate nav item URLs.
+ *
+ * @since  2.4.0
+ *
+ * @param  array  $menu_items WP Nav Items list.
+ * @return array              WP Nav Items list.
+ */
+function wp_idea_stream_validate_nav_menu_items( $menu_items = array() ) {
+	$nav_items = wp_list_filter( $menu_items, array( 'type' => 'wp_idea_stream_nav_item' ) );
+
+	if ( empty( $nav_items ) ) {
+		return $menu_items;
+	}
+
+	$nav_items_urls = wp_list_pluck( wp_idea_stream_get_nav_items(), 'url', 'id' );
+
+	foreach ( $menu_items as $km => $om ) {
+		if ( ! isset( $nav_items_urls[ $om->object ] ) ) {
+			continue;
+		}
+
+		$menu_items[ $km ]->url = $nav_items_urls[ $om->object ];
+
+		if ( ( 'wp-idea-stream-archive' === $om->object && wp_idea_stream_is_ideastream() )
+			|| ( 'wp-idea-stream-profile' === $om->object && wp_idea_stream_is_current_user_profile() )
+			|| ( 'wp-idea-stream-new' === $om->object && wp_idea_stream_is_addnew() )
+		) {
+			$menu_items[ $km ]->classes = array_merge( $om->classes, array( 'current-menu-item', 'current_page_item' ) );
+		}
+	}
+
+	return apply_filters( 'wp_idea_stream_validate_nav_menu_items', $menu_items, $nav_items, $nav_items_urls );
+}
+add_filter( 'wp_get_nav_menu_items', 'wp_idea_stream_validate_nav_menu_items', 10, 1 );
+
+/**
  * Filters nav menus looking for the root page to eventually make it current if not the
  * case although it's IdeaStream's territory
  *
@@ -1090,32 +1169,14 @@ function wp_idea_stream_maybe_reset_postdata() {
  * @subpackage core/template-functions
  *
  * @since 2.0.0
+ * @deprecated 2.4.0
  *
  * @param  array  $sorted_menu_items list of menu items of the wp_nav menu
  * @param  array  $args
- * @uses   wp_idea_stream_is_ideastream() to make sure it's plugin's territory
- * @uses   apply_filters() call 'wp_idea_stream_wp_nav' to override the menu items classes
  * @return array  the menu items with specific classes if needed
  */
 function wp_idea_stream_wp_nav( $sorted_menu_items = array(), $args = array() ) {
-
-	if ( ! wp_idea_stream_is_ideastream() ) {
-		return $sorted_menu_items;
-	}
-
-	foreach ( $sorted_menu_items as $key => $menu ) {
-
-		if( wp_idea_stream_get_root_url() != $menu->url ){
-			// maybe unset parent page if not the ideas root
-			if ( in_array( 'current_page_parent', $menu->classes ) ) {
-				$sorted_menu_items[$key]->classes = array_diff( $menu->classes, array( 'current_page_parent' ) );
-			}
-		} else {
-			if ( ! in_array( 'current-menu-item', $menu->classes ) ) {
-				$sorted_menu_items[$key]->classes = array_merge( $menu->classes, array( 'current-menu-item' ) );
-			}
-		}
-	}
+	_deprecated_function( __FUNCTION__, '2.4.0' );
 
 	return apply_filters( 'wp_idea_stream_wp_nav', $sorted_menu_items );
 }
