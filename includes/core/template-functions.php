@@ -1134,7 +1134,7 @@ function wp_idea_stream_get_nav_items() {
  * @return array              WP Nav Items list.
  */
 function wp_idea_stream_validate_nav_menu_items( $menu_items = array() ) {
-	$nav_items = wp_list_filter( $menu_items, array( 'type' => 'wp_idea_stream_nav_item' ) );
+	$nav_items = wp_filter_object_list( $menu_items, array( 'type' => 'wp_idea_stream_nav_item' ), 'and', 'object' );
 
 	if ( empty( $nav_items ) ) {
 		return $menu_items;
@@ -1143,7 +1143,14 @@ function wp_idea_stream_validate_nav_menu_items( $menu_items = array() ) {
 	$nav_items_urls = wp_list_pluck( wp_idea_stream_get_nav_items(), 'url', 'id' );
 
 	foreach ( $menu_items as $km => $om ) {
+		// It's not a WP Idea Stream menu
+		if ( ! in_array( $om->object, $nav_items, true ) ) {
+			continue;
+		}
+
+		// Url is not available.
 		if ( ! isset( $nav_items_urls[ $om->object ] ) ) {
+			unset( $menu_items[ $km ] );
 			continue;
 		}
 
