@@ -1166,7 +1166,48 @@ function wp_idea_stream_validate_nav_menu_items( $menu_items = array() ) {
 
 	return apply_filters( 'wp_idea_stream_validate_nav_menu_items', $menu_items, $nav_items, $nav_items_urls );
 }
-add_filter( 'wp_get_nav_menu_items', 'wp_idea_stream_validate_nav_menu_items', 10, 1 );
+
+/**
+ * Add WP Idea Stream Nav Items to the Customizer.
+ *
+ * @since  2.4.0
+ *
+ * @param  array  $items  The array of menu items.
+ * @param  string $type   The object type.
+ * @param  string $object The object name.
+ * @param  int    $page   The current page number.
+ * @return array          The array of menu items.
+ */
+function wp_idea_stream_customizer_get_nav_menus_items( $items = array(), $type = '', $object = '', $page = 0 ) {
+	if ( 'wp_idea_stream' !== $type ) {
+		return $items;
+	}
+
+	// Get the nav items.
+	$items = array_values( wp_idea_stream_get_nav_items() );
+
+	return array_slice( $items, 10 * $page, 10 );
+}
+
+/**
+ * Add WP Idea Stream nav item type to the available Customizer Post types.
+ *
+ * @since  2.4.0
+ *
+ * @param  array $item_types Custom menu item types.
+ * @return array             Custom menu item types + WP Idea Stream item types.
+ */
+function wp_idea_stream_customizer_set_nav_menus_item_types( $item_types = array() ) {
+	$item_types = array_merge( $item_types, array(
+		'wp_idea_stream' => array(
+			'title'  => _x( 'WP Idea Stream', 'customizer menu section title', 'wp-idea-stream' ),
+			'type'   => 'wp_idea_stream',
+			'object' => 'wp_idea_stream',
+		),
+	) );
+
+	return $item_types;
+}
 
 /**
  * Filters nav menus looking for the root page to eventually make it current if not the

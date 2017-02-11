@@ -27,6 +27,11 @@ add_filter( 'comments_open',             'wp_idea_stream_comments_open',        
 add_filter( 'heartbeat_received',        'wp_idea_stream_ideas_heartbeat_check_locked', 10, 2 );
 add_filter( 'heartbeat_nopriv_received', 'wp_idea_stream_ideas_heartbeat_check_locked', 10, 2 );
 add_filter( 'mce_external_plugins',      'wp_idea_stream_ideas_tiny_mce_plugins',       10, 1 );
+add_filter( 'wp_get_nav_menu_items',     'wp_idea_stream_validate_nav_menu_items',      10, 1 );
+
+// Customizer
+add_filter( 'customize_nav_menu_available_items',      'wp_idea_stream_customizer_get_nav_menus_items',      10, 4 );
+add_filter( 'customize_nav_menu_available_item_types', 'wp_idea_stream_customizer_set_nav_menus_item_types', 10, 1 );
 
 // Prefix idea's title in case of private/protected
 add_filter( 'private_title_format',   'wp_idea_stream_ideas_private_title_prefix',   10, 2 );
