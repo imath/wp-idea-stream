@@ -266,38 +266,10 @@ function wp_idea_stream_reset_post( $args = array() ) {
  * Set the template to use, buffers the needed template parts
  * and resets post vars.
  *
- * @package WP Idea Stream
- * @subpackage core/template-loader
- *
  * @since 2.0.0
  *
  * @global $wp_query
  * @param  string $template name of the template to use
- * @uses   is_buddypress() to bail early if it's this plugin's territory
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   is_404() to check for a 404
- * @uses   get_query_template() to get a specific template
- * @uses   get_index_template() to get the index template
- * @uses   wp_idea_stream_set_idea_var() to set a globalized var
- * @uses   is_post_type_archive() to check if it's ideas post type archive
- * @uses   wp_idea_stream_get_post_type() to get ideas post type identifier
- * @uses   set_query_var() to get a query var
- * @uses   remove_all_filters() to remove all filters on a specific hook
- * @uses   wp_idea_stream_reset_post() to reset WordPress $post global and avoid notices
- * @uses   wp_idea_stream_reset_post_title() to reset the title depending on the context
- * @uses   wp_idea_stream_buffer_template_part() to buffer the content to display
- * @uses   wp_idea_stream_is_edit() to check if the idea is to be edited
- * @uses   wp_idea_stream_ideas_lock_idea() to check if the idea to edit is not currently edited by another user
- * @uses   wp_idea_stream_add_message() to give a user some feedback
- * @uses   wp_idea_stream_ideas_can_edit() to check current user can edit an idea
- * @uses   wp_safe_redirect() to safely redirect the user
- * @uses   wp_idea_stream_get_redirect_url() to get the default redirect url
- * @uses   wp_idea_stream_buffer_single_idea() to buffer the idea content to display
- * @uses   do_action() Calls 'wp_idea_stream_set_core_template' to perform actions once a core template is set
- *                     Calls 'wp_idea_stream_set_single_template' to perform actions relative to the single idea template
- *                     Calls 'wp_idea_stream_set_template' to perform actions when no template matched
- * @uses   apply_filters() Calls 'wp_idea_stream_template_args' to override template args in case of custom idea action
- *                         Calls 'wp_idea_stream_single_template_args' to override single template args
  * @return string $template.
  */
 function wp_idea_stream_set_template( $template = '' ) {
@@ -455,25 +427,15 @@ function wp_idea_stream_set_template( $template = '' ) {
 				$user_is_editing = wp_idea_stream_ideas_lock_idea( $query_loop->idea->ID );
 
 				if ( ! empty( $user_is_editing ) ) {
-					wp_idea_stream_add_message( array(
-						'type'    => 'info',
-						'content' => sprintf( __( 'The idea: &#34;%s&#34; is already being edited by another user.', 'wp-idea-stream' ), $query_loop->idea->post_title ),
-					) );
-
 					// Redirect the user
-					wp_safe_redirect( wp_idea_stream_get_redirect_url() );
+					wp_safe_redirect( add_query_arg( 'info', 1, wp_idea_stream_get_redirect_url() ) );
 					exit();
 				}
 
 				// Bail if user can't edit the idea
 				if ( ! wp_idea_stream_ideas_can_edit( $query_loop->idea ) ) {
-					wp_idea_stream_add_message( array(
-						'type'    => 'error',
-						'content' => __( 'You are not allowed to edit this idea.', 'wp-idea-stream' ),
-					) );
-
-					// Redirect the user
-					wp_safe_redirect( wp_idea_stream_get_redirect_url() );
+					// Redirect the user and inform him the talk cannot be edited by him.
+					wp_safe_redirect( add_query_arg( 'error', 2, wp_idea_stream_get_redirect_url() ) );
 					exit();
 				}
 

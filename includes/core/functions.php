@@ -4,8 +4,7 @@
  *
  * Generic functions used at various places in the plugin
  *
- * @package WP Idea Stream
- * @subpackage core/functions
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */
@@ -18,12 +17,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Get the plugin's current version
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
  * @return string Plugin's current version
  */
 function wp_idea_stream_get_version() {
@@ -37,12 +32,8 @@ function wp_idea_stream_get_version() {
  * routine of the plugin.
  * @see  core/upgrade > wp_idea_stream_is_upgrade()
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   get_option()
  * @return string DB version of the plugin
  */
 function wp_idea_stream_db_version() {
@@ -58,13 +49,8 @@ function wp_idea_stream_db_version() {
 /**
  * Get plugin's basename
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_basename' to set a different basename
  * @return string Plugin's basename
  */
 function wp_idea_stream_get_basename() {
@@ -74,13 +60,8 @@ function wp_idea_stream_get_basename() {
 /**
  * Get plugin's main path
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_plugin_dir' to set a different plugin dir
  * @return string plugin's main path
  */
 function wp_idea_stream_get_plugin_dir() {
@@ -90,13 +71,8 @@ function wp_idea_stream_get_plugin_dir() {
 /**
  * Get plugin's main url
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_plugin_url' to set a different plugin url
  * @return string plugin's main url
  */
 function wp_idea_stream_get_plugin_url() {
@@ -108,13 +84,8 @@ function wp_idea_stream_get_plugin_url() {
  *
  * That's where the plugin's js file are all available
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_js_url' to set a different js url
  * @return string plugin's javascript url
  */
 function wp_idea_stream_get_js_url() {
@@ -124,13 +95,9 @@ function wp_idea_stream_get_js_url() {
 /**
  * Get a specific javascript file url (minified or not)
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  string $script the name of the script
- * @uses   wp_idea_stream_get_js_url() to plugin's javascript url
  * @return string         url to the minified or regular script
  */
 function wp_idea_stream_get_js_script( $script = '' ) {
@@ -146,13 +113,8 @@ function wp_idea_stream_get_js_script( $script = '' ) {
 /**
  * Get plugin's path to includes directory
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_includes_dir' to set a different include dir
  * @return string includes directory path
  */
 function wp_idea_stream_get_includes_dir() {
@@ -162,13 +124,8 @@ function wp_idea_stream_get_includes_dir() {
 /**
  * Get plugin's url to includes directory
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_includes_url' to set a different include url
  * @return string includes directory url
  */
 function wp_idea_stream_get_includes_url() {
@@ -184,13 +141,8 @@ function wp_idea_stream_get_includes_url() {
  * from your theme's 'wp-idea-stream' directory. Templates in there
  * will override plugin's default ones.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_templates_dir' to set a different templates dir
  * @return string path to templates directory
  */
 function wp_idea_stream_get_templates_dir() {
@@ -201,13 +153,9 @@ function wp_idea_stream_get_templates_dir() {
  * Set a global var to be used by the plugin at different times
  * during WordPress loading process.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  string $var_key   the key to access to the globalized value
- * @uses   wp_idea_stream() to get plugin's main instance
  * @param  mixed  $var_value a value to globalize, can be object, array, int.. whatever
  */
 function wp_idea_stream_set_idea_var( $var_key = '', $var_value ='' ) {
@@ -217,13 +165,9 @@ function wp_idea_stream_set_idea_var( $var_key = '', $var_value ='' ) {
 /**
  * Get a global var set thanks to wp_idea_stream_set_idea_var()
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  string $var_key the key to access to the globalized value
- * @uses   wp_idea_stream() to get plugin's main instance
  * @return mixed           the globalized value for the requested key
  */
 function wp_idea_stream_get_idea_var( $var_key = '' ) {
@@ -235,12 +179,8 @@ function wp_idea_stream_get_idea_var( $var_key = '' ) {
 /**
  * Outputs the post type identifier (ideas) for the plugin
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_post_type()
  * @return string the post type identifier
  */
 function wp_idea_stream_post_type() {
@@ -250,13 +190,8 @@ function wp_idea_stream_post_type() {
 	/**
 	 * Gets the post type identifier (ideas)
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage core/functions
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   apply_filters() call 'wp_idea_stream_get_post_type' to set a different identifier
 	 * @return string the post type identifier
 	 */
 	function wp_idea_stream_get_post_type() {
@@ -266,19 +201,8 @@ function wp_idea_stream_post_type() {
 /**
  * Gets plugin's main post type init arguments
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_post_type() to get the post type identifier and set the query var
- * @uses   wp_idea_stream_idea_slug() can be customized through plugin's settings
- * @uses   wp_idea_stream_root_slug() can be customized through plugin's settings
- * @uses   wp_idea_stream_user_can() to check if the user can access to admin bar menu
- * @uses   wp_idea_stream_get_category() to get the hierarchical taxonomy identifier of the post type
- * @uses   wp_idea_stream_get_tag() to get the non-hierarchical taxonomy identifier of the post type
- * @uses   wp_idea_stream_get_post_type_caps() to get the ideas post type capabilities
- * @uses   apply_filters() call 'wp_idea_stream_post_type_register_args' to customize post type init arguments
  * @return array the init arguments for the 'ideas' post type
  */
 function wp_idea_stream_post_type_register_args() {
@@ -322,13 +246,9 @@ function wp_idea_stream_post_type_register_args() {
 /**
  * Gets the labels for the plugin's post type
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  * @since 2.3.0 New labels added
  *
- * @uses   apply_filters() call 'wp_idea_stream_post_type_register_labels' to customize post type labels
  * @return array post type labels
  */
 function wp_idea_stream_post_type_register_labels() {
@@ -358,13 +278,8 @@ function wp_idea_stream_post_type_register_labels() {
 /**
  * Get plugin's post type "category" identifier (category-ideas)
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_category' to customize category identifier
  * @return string hierarchical taxonomy identifier
  */
 function wp_idea_stream_get_category() {
@@ -374,15 +289,8 @@ function wp_idea_stream_get_category() {
 /**
  * Gets the "category" taxonomy init arguments
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_category_slug() can be customized through plugin's settings
- * @uses   wp_idea_stream_get_category_caps()
- * @uses   wp_idea_stream_get_category() to get the category identifier and set the query var
- * @uses   apply_filters() call 'wp_idea_stream_category_register_args' to customize category arguments
  * @return array taxonomy init arguments
  */
 function wp_idea_stream_category_register_args() {
@@ -406,12 +314,8 @@ function wp_idea_stream_category_register_args() {
 /**
  * Get the "category" taxonomy labels
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   apply_filters() call 'wp_idea_stream_category_register_labels' to customize category labels
  * @return array "category" taxonomy labels
  */
 function wp_idea_stream_category_register_labels() {
@@ -434,13 +338,8 @@ function wp_idea_stream_category_register_labels() {
 /**
  * Get plugin's post type "tag" identifier (tag-ideas)
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_get_tag' to customize tag identifier
  * @return string non hierarchical taxonomy identifier
  */
 function wp_idea_stream_get_tag() {
@@ -450,15 +349,8 @@ function wp_idea_stream_get_tag() {
 /**
  * Gets the "tag" taxonomy init arguments
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_tag_slug() can be customized through plugin's settings
- * @uses   wp_idea_stream_get_tag_caps()
- * @uses   wp_idea_stream_get_tag() to get the tag identifier and set the query var
- * @uses   apply_filters() call 'wp_idea_stream_tag_register_args' to customize tag arguments
  * @return array taxonomy init arguments
  */
 function wp_idea_stream_tag_register_args() {
@@ -482,12 +374,8 @@ function wp_idea_stream_tag_register_args() {
 /**
  * Get the "tag" taxonomy labels
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   apply_filters() call 'wp_idea_stream_tag_register_labels' to customize tag labels
  * @return array "tag" taxonomy labels
  */
 function wp_idea_stream_tag_register_labels() {
@@ -514,14 +402,8 @@ function wp_idea_stream_tag_register_labels() {
 /**
  * Gets plugin's post type main url
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   get_post_type_archive_link()
- * @uses   wp_idea_stream_get_post_type()
- * @uses   apply_filters() call 'wp_idea_stream_get_root_url' to customize post type archive url
  * @return string root url for the post type
  */
 function wp_idea_stream_get_root_url() {
@@ -531,16 +413,9 @@ function wp_idea_stream_get_root_url() {
 /**
  * Gets a specific "category" term url
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  object $category the term to build the url for
- * @uses   wp_idea_stream_get_current_term() to get the current term thanks to queried object
- * @uses   get_term_link() to build the link
- * @uses   wp_idea_stream_get_category() to get the taxonomy identifier
- * @uses   apply_filters() call 'wp_idea_stream_get_category_url' to customize post type term url
  * @return string          url to reach all ideas categorized with the requested term
  */
 function wp_idea_stream_get_category_url( $category = null ) {
@@ -560,16 +435,9 @@ function wp_idea_stream_get_category_url( $category = null ) {
 /**
  * Gets a specific "tag" term url
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  object $tag the term to build the url for
- * @uses   wp_idea_stream_get_current_term() to get the current term thanks to queried object
- * @uses   get_term_link() to build the link
- * @uses   wp_idea_stream_get_tag() to get the taxonomy identifier
- * @uses   apply_filters() call 'wp_idea_stream_get_tag_url' to customize post type term url
  * @return string          url to reach all ideas tagged with the requested term
  */
 function wp_idea_stream_get_tag_url( $tag = '' ) {
@@ -592,13 +460,8 @@ function wp_idea_stream_get_tag_url( $tag = '' ) {
  * Used after posting an idea failed
  * Defaults to root url
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_root_url()
- * @uses   apply_filters() call 'wp_idea_stream_get_redirect_url' to customize the redirect url
  * @return string the url to redirect the user to
  */
 function wp_idea_stream_get_redirect_url() {
@@ -612,22 +475,11 @@ function wp_idea_stream_get_redirect_url() {
  * there will surely be an edit action to allow users
  * to edit their ideas. Reason of the $type param
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @global $wp_rewrite
  * @param  string $type action (defaults to new)
  * @param  string $idea_name the post name of the idea to edit
- * @uses   wp_idea_stream_addnew_slug() can be customized through plugin's settings
- * @uses   apply_filters() call 'wp_idea_stream_pre_get_form_url' to customize the form url before it has been built
- * @uses   wp_idea_stream_action_slug()
- * @uses   wp_idea_stream_action_rewrite_id()
- * @uses   home_url()
- * @uses   user_trailingslashit()
- * @uses   wp_idea_stream_edit_slug() to get the edit slug
- * @uses   apply_filters() call 'wp_idea_stream_get_form_url' to customize the form url after it has been built
  * @return string the url of the form to add ideas
  */
 function wp_idea_stream_get_form_url( $type = '', $idea_name = '' ) {
@@ -678,98 +530,204 @@ function wp_idea_stream_get_form_url( $type = '', $idea_name = '' ) {
 /** Feedbacks *****************************************************************/
 
 /**
- * Add a new message to inform user
+ * Sanitize the feedback.
  *
- * Inspired by BuddyPress's bp_core_add_message() function
+ * @since 2.4.0
  *
- * package WP Idea Stream
- * @subpackage core/functions
- *
- * @since 2.0.0
- *
- * @param  array  $message_data the type and content of the message
- * @uses   wp_parse_args() to merge args with defaults
- * @uses   wp_idea_stream_set_idea_var() to globalize the feedback
+ * @param  string $text The text to sanitize.
+ * @return string       The sanitized text.
  */
-function wp_idea_stream_add_message( $message_data = array() ) {
-	// Success is the default
-	if ( empty( $type ) ) {
-		$type = 'success';
-	}
-
-	$r = wp_parse_args( $message_data, array(
-		'type'    => 'success',
-		'content' => __( 'Saved successfully', 'wp-idea-stream' ),
+function wp_idea_stream_sanitize_feedback( $text = '' ) {
+	$text = wp_kses( $text, array(
+		'a'      => array( 'href' => true ),
+		'strong' => array(),
+		'img'    => array(
+			'src'    => true,
+			'height' => true,
+			'width'  => true,
+			'class'  => true,
+			'alt'    => true
+		),
 	) );
 
-	// Send the values to the cookie for page reload display
-	@setcookie( 'wp-idea-stream-feedback',      $r['content'], time() + 60 * 60 * 24, COOKIEPATH );
-	@setcookie( 'wp-idea-stream-feedback-type', $r['type'],    time() + 60 * 60 * 24, COOKIEPATH );
+	return wp_unslash( $text );
+}
 
-	wp_idea_stream_set_idea_var( 'feedback', $r );
+/**
+ * Get the feedback message or the list of feedback messages to output to the user.
+ *
+ * @since 2.4.0
+ *
+ * @param string|array  $type  The type of the feedback (success, error or info) or
+ *                             An associative array keyed by the type of feedback and
+ *                             containing the list of message ids.
+ * @param  bool|int     $id    False or the ID of the feedback message to get.
+ * @return string|array        The feedback message or a list of feedback messages.
+ */
+function wp_idea_stream_get_feedback_messages( $type = '', $id = false ) {
+	$messages = apply_filters( 'wp_idea_stream_get_feedback_messages', array(
+		'success' => array(
+			1 => __( 'Saved successfully',                                'wp-idea-stream' ),
+			2 => __( 'Registration complete. Please check your mailbox.', 'wp-idea-stream' ),
+			3 => __( 'The idea was successfully created.',                'wp-idea-stream' ),
+			4 => __( 'The idea was successfully updated.',                'wp-idea-stream' ),
+			5 => __( 'Description updated.',                              'wp-idea-stream' ),
+		),
+		'error' => array(
+			1  => __( 'Something went wrong, please try again',                        'wp-idea-stream' ),
+			2  => __( 'You are not allowed to edit this idea.',                        'wp-idea-stream' ),
+			3  => __( 'You are not allowed to publish ideas',                          'wp-idea-stream' ),
+			4  => __( 'Title and description are required fields.',                    'wp-idea-stream' ),
+			5  => __( 'Something went wrong while trying to save your idea.',          'wp-idea-stream' ),
+			6  => __( 'There was a problem saving the featured image, sorry.',         'wp-idea-stream' ),
+			7  => __( 'Please choose a username having at least 4 characters.',        'wp-idea-stream' ),
+			8  => __( 'Please fill all required fields.',                              'wp-idea-stream' ),
+			9  => __( 'The idea you are trying to edit does not seem to exist.',       'wp-idea-stream' ),
+			10 => __( 'Something went wrong while trying to update your idea.',        'wp-idea-stream' ),
+			11 => __( 'Please enter some content in your description',                 'wp-idea-stream' ),
+			12 => __( 'Something went wrong while trying to update your description.', 'wp-idea-stream' ),
+		),
+		'info'  => array(
+			1 => __( 'This idea is already being edited by another user.', 'wp-idea-stream' ),
+			2 => __( 'Your idea is currently awaiting moderation.',        'wp-idea-stream' ),
+		),
+	) );
+
+	// Check for a custom pending message
+	$custom_pending_message = wp_idea_stream_moderation_message();
+	if ( ! empty( $custom_pending_message ) ) {
+		$messages['info'][2] = $custom_pending_message;
+	}
+
+	if ( empty( $type ) ) {
+		return $messages;
+	}
+
+	if ( ! is_array( $type ) && isset( $messages[ $type ] ) ) {
+		$messages = $messages[ $type ];
+
+		if ( false === $id || ! isset( $messages[ $type ][ $id ] ) ) {
+			return $messages;
+		}
+
+		return $messages[ $type ][ $id ];
+	}
+
+	foreach ( $type as $kt => $kv ) {
+		$message_ids = array_filter( wp_parse_id_list( $kv ) );
+
+		// If we have ids, get the corresponding messages.
+		if ( $message_ids ) {
+			$type[ $kt ] = array_intersect_key( $messages[ $kt ], array_flip( $message_ids ) );
+		}
+	}
+
+	return $type;
+}
+
+/**
+ * Explode arrays of values before using WordPress's add_query_arg() function.
+ *
+ * @since  2.4.0
+ *
+ * @param  array  $args The query arguments to add to the url.
+ * @param  string $url  The url.
+ * @return string       The url with query arguments.
+ */
+function wp_idea_stream_add_feedback_args( $args = array(), $url = '' ) {
+	foreach ( $args as $k => $v ) {
+		if ( ! is_array( $v ) ) {
+			continue;
+		}
+
+		$args[ $k ] = join( ',', $v );
+	}
+
+	return add_query_arg( $args, $url );
+}
+
+/**
+ * Add a new feedback message to inform the user.
+ *
+ * @since 2.0.0
+ * @since 2.4.0 Change the expected argument and stop using cookies.
+ *
+ * @param  array $feedback_data A list of feedback message or message ids keyed by their type.
+ */
+function wp_idea_stream_add_message( $feedback_data = array() ) {
+	// Success is the default
+	if ( empty( $feedback_data ) ) {
+		$feedback_data = array(
+			'success' => array( 1 ),
+		);
+	}
+
+	wp_idea_stream_set_idea_var( 'feedback', $feedback_data );
 }
 
 /**
  * Sets a new message to inform user
  *
- * Inspired by BuddyPress's bp_core_setup_message() function
- *
- * @package WP Idea Stream
- * @subpackage core/functions
+ * Inspired by ClusterPress's cp_feedbacks() function.
  *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_get_idea_var() to get the feedback
- * @uses   wp_idea_stream_set_idea_var() to globalize the feedback
+ * @since 2.4.0 Gets the feedback message ID and stop using cookies.
  */
 function wp_idea_stream_set_user_feedback() {
-	// Check Global if any
-	$feedback = wp_idea_stream_get_idea_var( 'feedback' );
+	// Check the URL query to find a feedback message
+	$current_url = parse_url( $_SERVER['REQUEST_URI'] );
 
-	// Check cookies if any
-	if ( empty( $feedback ) && ! empty( $_COOKIE['wp-idea-stream-feedback'] ) ) {
-		wp_idea_stream_set_idea_var( 'feedback', array(
-			'type'    => wp_unslash( $_COOKIE['wp-idea-stream-feedback-type'] ),
-			'content' => wp_unslash( $_COOKIE['wp-idea-stream-feedback'] ),
+	if ( ! empty( $current_url['query'] ) ) {
+		$vars = wp_parse_args( $current_url['query'] );
+
+		$feedback = array_intersect_key( $vars, array(
+			'error'   => true,
+			'success' => true,
+			'info'    => true,
 		) );
 	}
 
-	// Remove cookies if set.
-	if ( isset( $_COOKIE['wp-idea-stream-feedback'] ) ) {
-		@setcookie( 'wp-idea-stream-feedback', false, time() - 1000, COOKIEPATH );
+	if ( empty( $feedback ) ) {
+		return;
 	}
 
-	if ( isset( $_COOKIE['wp-idea-stream-feedback-type'] ) ) {
-		@setcookie( 'wp-idea-stream-feedback-type', false, time() - 1000, COOKIEPATH );
-	}
+	wp_idea_stream_set_idea_var( 'feedback', $feedback );
 }
 
 /**
- * Displays the feedback message to user
- *
- * Inspired by BuddyPress's bp_core_render_message() function
- *
- * @package WP Idea Stream
- * @subpackage core/functions
+ * Displays the feedback message to the user.
  *
  * @since 2.0.0
+ * @since 2.4.0 Display one or more feedback messages to the user.
  *
- * @uses   wp_idea_stream_get_idea_var() to get the feedback
- * @uses   esc_html() to sanitize the content of the feedback
+ * @return string HTML Output.
  */
 function wp_idea_stream_user_feedback() {
 	$feedback = wp_idea_stream_get_idea_var( 'feedback' );
 
-	if ( empty( $feedback ) || ! empty( $feedback['admin_notices'] ) ) {
+	if ( empty( $feedback ) || ! is_array( $feedback ) || ! empty( $feedback['admin_notices'] ) ) {
 		return;
 	}
 
-	// Display the message
-	?>
-	<div class="message <?php echo esc_attr( $feedback['type'] ); ?>">
-		<p><?php echo esc_html( $feedback['content'] ); ?></p>
-	</div>
-	<?php
+	$messages = wp_idea_stream_get_feedback_messages( $feedback );
+
+	if ( empty( $messages ) ) {
+		return;
+	}
+
+	foreach ( (array) $messages as $class => $message ) : ?>
+		<div class="message <?php echo esc_attr( $class ); ?>">
+			<p>
+				<?php if ( is_array( $message ) ) :
+						echo( join( '</p><p>', array_map( 'wp_idea_stream_sanitize_feedback', $message ) ) );
+
+					else :
+						echo wp_idea_stream_sanitize_feedback( $message );
+
+				endif ; ?>
+			</p>
+		</div>
+	<?php endforeach;
 }
 
 /** Rating Ideas **************************************************************/
@@ -782,13 +740,9 @@ function wp_idea_stream_user_feedback() {
  * the case, as i think like comments, this is a core functionality
  * when managing ideas. To deactivate the ratings, use the filter.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  int  $default   by default enabled
- * @uses   apply_filters() call 'wp_idea_stream_is_rating_disabled' to deactivate ratings
  * @return bool            True if disabled, false if enabled
  */
 function wp_idea_stream_is_rating_disabled( $default = 0 ) {
@@ -798,12 +752,8 @@ function wp_idea_stream_is_rating_disabled( $default = 0 ) {
 /**
  * Gets a fallback hintlist for ratings
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
- * @uses  wp_idea_stream_hint_list() to check for a customized list built in plugin's settings
  * @return array the hintlist
  */
 function wp_idea_stream_get_hint_list() {
@@ -825,19 +775,11 @@ function wp_idea_stream_get_hint_list() {
 /**
  * Count rating stats for a specific idea or gets the rating of a specific user for a given idea
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  integer $id      the ID of the idea object
  * @param  integer $user_id the user id
  * @param  boolean $details whether to include detailed stats
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   get_post_meta() to get the idea rates
- * @uses   apply_filters() call 'wp_idea_stream_get_user_ratings' to cheat on user's rating
- * @uses   number_format_i18n() to format the average
- * @uses   apply_filters() call 'wp_idea_stream_count_ratings' to cheat on idea's rating stats
  * @return mixed            int|array the rate of the user or the stats
  */
 function wp_idea_stream_count_ratings( $id = 0, $user_id = 0, $details = false ) {
@@ -910,18 +852,10 @@ function wp_idea_stream_count_ratings( $id = 0, $user_id = 0, $details = false )
  * This action is only available from the idea edit Administration screen
  * @see  WP_Idea_Stream_Admin->maybe_delete_rate() in admin/admin
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  int $idea    the ID of the idea
  * @param  int $user_id the ID of the user
- * @uses   get_post_meta() to get the rates
- * @uses   update_post_meta() to update the rates and the average rate
- * @uses   wp_idea_stream_count_ratings() to get the average
- * @uses   do_action() call 'wp_idea_stream_deleted_rate' to perform custom actions
- *                     once the rate has been deleted
  * @return mixed       string the new average rating or false if no more rates
  */
 function wp_idea_stream_delete_rate( $idea = 0, $user_id = 0 ) {
@@ -966,23 +900,15 @@ function wp_idea_stream_delete_rate( $idea = 0, $user_id = 0 ) {
 /**
  * Saves a new rate for the idea
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  * @since 2.3.0 Improve the way votes are saved into the DB by using
  *              non numeric keys for the array in order to avoid this
  *              bug: {@see https://github.com/imath/wp-idea-stream/issues/35}}
  *
- * @param  int $idea    the ID of the idea
- * @param  int $user_id the ID of the user
- * @param  int $rate    the rate of the user
- * @uses   get_post_meta() to get previous rates
- * @uses   update_post_meta() to update the rates
- * @uses   wp_idea_stream_count_ratings() to get the average rate
- * @uses   do_action() call 'wp_idea_stream_added_rate' to perform custom actions
- *                     once the rate has been added
- * @return mixed       string the new average rating or false if no more rates
+ * @param  int         $idea    the ID of the idea
+ * @param  int         $user_id the ID of the user
+ * @param  int         $rate    the rate of the user
+ * @return string|bool          the new average rating or false if no more rates
  */
 function wp_idea_stream_add_rate( $idea = 0, $user_id = 0, $rate = 0 ) {
 	if ( empty( $idea ) || empty( $user_id ) || empty( $rate ) ) {
@@ -1022,16 +948,9 @@ function wp_idea_stream_add_rate( $idea = 0, $user_id = 0, $rate = 0 ) {
 /**
  * Intercepts the user ajax action to rate the idea
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  * @deprecated 2.4.0 (Replaced by a Rest request)
  *
- * @uses   wp_idea_stream_user_can() to check if the user has the capability to rate the idea
- * @uses   wp_idea_stream_users_current_user_id() to get current user id
- * @uses   check_ajax_referer() to be sure the action was performed from the site
- * @uses   wp_idea_stream_add_rate() to save the user rating
  * @return mixed the average rate or 0
  */
 function wp_idea_stream_ajax_rate() {
@@ -1063,16 +982,10 @@ function wp_idea_stream_ajax_rate() {
  * rating query is first built by using a specific WP_Meta_Query, we need
  * to also make sure the ORDER BY clause of the sql query is customized.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  array    $clauses  the idea query sql parts
  * @param  WP_Query $wp_query the WordPress query object
- * @uses   wp_idea_stream_is_ideastream() to check it's front end plugin's territory
- * @uses   wp_idea_stream_is_admin() to check it's back end plugin's territory
- * @uses   wp_idea_stream_is_orderby() to check the rates count is the requested order
  * @return array              new order clauses if needed
  */
 function wp_idea_stream_set_rates_count_orderby( $clauses = array(), $wp_query = null ) {
@@ -1152,18 +1065,12 @@ function wp_idea_stream_clean_rates_count_cache( $idea_id, $user_id = 0 ) {
 /**
  * Creates a specific excerpt for the content of an idea
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  * @since 2.3.0 Added the $nofilter parameter
  *
  * @param  string  $text   the content to truncate
  * @param  integer $length the number of words
  * @param  string  $more   the more string
- * @uses   strip_shortcodes()
- * @uses   apply_filters() call 'wp_idea_stream_create_excerpt_text' to filter the excerpt content
- * @uses   wp_trim_words()
  * @return string          the excerpt of an idea
  */
 function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&hellip;]', $nofilter = false ) {
@@ -1203,13 +1110,9 @@ function wp_idea_stream_create_excerpt( $text = '', $length = 55, $more = ' [&he
 /**
  * Prepare the content to be output in a csv file
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.1.0
  *
  * @param  string $content the content
- * @uses   apply_filters() call 'wp_idea_stream_generate_csv_content' to add extra formatting stuff
  * @return string          the content to be displayed in a csv file
  */
 function wp_idea_stream_generate_csv_content( $content = '' ) {
@@ -1240,13 +1143,9 @@ function wp_idea_stream_generate_csv_content( $content = '' ) {
  * make sure "idea/s" will be used instead. Unfortunately
  * it's only possible in front end tag clouds.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  int $count Number of ideas associated with the tag
- * @uses   number_format_i18n()
  * @return string     the count text for ideas
  */
 function wp_idea_stream_tag_cloud_count_callback( $count = 0 ) {
@@ -1257,13 +1156,9 @@ function wp_idea_stream_tag_cloud_count_callback( $count = 0 ) {
  * Filters the tag cloud args by referencing a specific count text callback
  * if the plugin's "tag" taxonomy is requested.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  array  $args the tag cloud arguments
- * @uses   wp_idea_stream_get_tag()
  * @return array        the arguments with the new count text callback if needed
  */
 function wp_idea_stream_tag_cloud_args( $args = array() ) {
@@ -1280,18 +1175,10 @@ function wp_idea_stream_tag_cloud_args( $args = array() ) {
  * Used when writing a new idea to allow the author to choose
  * one or more popular idea tags.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  integer $number number of tag to display
  * @param  array   $args   the tag cloud args
- * @uses   get_terms()
- * @uses   wp_idea_stream_get_tag()
- * @uses   wp_parse_args()
- * @uses   wp_idea_stream_tag_cloud_args()
- * @uses   wp_generate_tag_cloud()
  * @return array           associative array containing the number of tags and the content of the cloud.
  */
 function wp_idea_stream_generate_tag_cloud( $number = 10, $args = array() ) {
@@ -1323,14 +1210,9 @@ function wp_idea_stream_generate_tag_cloud( $number = 10, $args = array() ) {
 /**
  * Filters WP Editor Buttons depending on plugin's settings.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  array  $buttons the list of buttons for the editor
- * @uses   wp_idea_stream_idea_editor_link() should we include the link/unlink button ?
- * @uses   wp_idea_stream_idea_editor_image() should we include the image (url) button ?
  * @return array           the filtered list of buttons to match plugin's needs
  */
 function wp_idea_stream_teeny_button_filter( $buttons = array() ) {
@@ -1385,9 +1267,6 @@ function wp_idea_stream_format_to_edit( $text = '' ) {
  *
  * Mainly used to cach comments about ideas count
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @uses wp_cache_add_global_groups()
@@ -1403,17 +1282,9 @@ function wp_idea_stream_cache_global_group() {
  * to IdeaStream backend from front end, so i've left it. You can disable it by using
  * the filer.
  *
- * @package WP Idea Stream
- * @subpackage core/functions
- *
  * @since 2.0.0
  *
  * @param  WP_Admin_Bar $wp_admin_bar WP_Admin_Bar instance
- * @uses   apply_filters() call 'wp_idea_stream_adminbar_menu' to disable the menu by returning false
- * @uses   wp_idea_stream_user_can() to check for user's capability
- * @uses   add_query_arg()
- * @uses   wp_idea_stream_get_post_type()
- * @uses   admin_url()
  */
 function wp_idea_stream_adminbar_menu( $wp_admin_bar = null ){
 	$use_admin_bar = apply_filters( 'wp_idea_stream_adminbar_menu', true );
@@ -1435,9 +1306,6 @@ function wp_idea_stream_adminbar_menu( $wp_admin_bar = null ){
 
 /**
  * Checks wether signups are allowed
- *
- * @package WP Idea Stream
- * @subpackage core/functions
  *
  * @since 2.1.0
  *
@@ -1481,9 +1349,6 @@ function wp_idea_stream_buddypress_is_managing_signup( $signup_allowed ) {
 
 /**
  * Checks wether signups are allowed for current blog
- *
- * @package WP Idea Stream
- * @subpackage core/functions
  *
  * @since 2.2.0
  *

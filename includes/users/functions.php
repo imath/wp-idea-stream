@@ -4,8 +4,7 @@
  *
  * Functions specific to users
  *
- * @package WP Idea Stream
- * @subpackage users/functions
+ * @package WP Idea Stream\users
  *
  * @since 2.0.0
  */
@@ -17,9 +16,6 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Gets current user ID
- *
- * @package WP Idea Stream
- * @subpackage users/functions
  *
  * @since 2.0.0
  *
@@ -33,9 +29,6 @@ function wp_idea_stream_users_current_user_id() {
 /**
  * Gets current user user nicename
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
  * @uses   wp_idea_stream() to get plugin's main instance
@@ -48,13 +41,8 @@ function wp_idea_stream_users_current_user_nicename() {
 /**
  * Gets displayed user ID
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_users_displayed_user_id' to override value
  * @return int the displayed user ID
  */
 function wp_idea_stream_users_displayed_user_id() {
@@ -64,13 +52,8 @@ function wp_idea_stream_users_displayed_user_id() {
 /**
  * Gets displayed user user nicename
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_users_get_displayed_user_username' to override value
  * @return string the displayed user username
  */
 function wp_idea_stream_users_get_displayed_user_username() {
@@ -80,13 +63,8 @@ function wp_idea_stream_users_get_displayed_user_username() {
 /**
  * Gets displayed user display name
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_users_get_displayed_user_displayname' to override value
  * @return string the displayed user display name
  */
 function wp_idea_stream_users_get_displayed_user_displayname() {
@@ -96,13 +74,8 @@ function wp_idea_stream_users_get_displayed_user_displayname() {
 /**
  * Gets displayed user description
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_users_get_displayed_user_description' to override value
  * @return string the displayed user description
  */
 function wp_idea_stream_users_get_displayed_user_description() {
@@ -112,12 +85,8 @@ function wp_idea_stream_users_get_displayed_user_description() {
 /**
  * Gets one specific or all attribute about a user
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
- * @uses   get_user_by() to get a user thanks to a specific field (eg: 'id' or 'slug')
  * @return mixed WP_User/string/array/int the user object or one of its attribute
  */
 function wp_idea_stream_users_get_user_data( $field = '', $value ='', $attribute = 'all'  ) {
@@ -139,15 +108,9 @@ function wp_idea_stream_users_get_user_data( $field = '', $value ='', $attribute
 /**
  * Gets the displayed user's profile url
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
  * @param  string $type profile, rates, comments
- * @uses   wp_idea_stream_users_displayed_user_id() to get a user ID
- * @uses   wp_idea_stream_users_get_displayed_user_username() to get a user user nicename
- * @uses   apply_filters() call 'wp_idea_stream_users_get_displayed_profile_url' to override url
  * @return string url of the profile type
  */
 function wp_idea_stream_users_get_displayed_profile_url( $type = 'profile' ) {
@@ -166,15 +129,9 @@ function wp_idea_stream_users_get_displayed_profile_url( $type = 'profile' ) {
 /**
  * Gets the logged in user's profile url
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
  * @param  string $type profile, rates, comments
- * @uses   wp_idea_stream_users_current_user_id() to get a user ID
- * @uses   wp_idea_stream_users_current_user_nicename() to get a user user nicename
- * @uses   apply_filters() call 'wp_idea_stream_users_get_logged_in_profile_url' to override url
  * @return string url of the profile type
  */
 function wp_idea_stream_users_get_logged_in_profile_url( $type = 'profile' ) {
@@ -195,21 +152,12 @@ function wp_idea_stream_users_get_logged_in_profile_url( $type = 'profile' ) {
  *
  * Inspired by bbPress's bbp_get_user_profile_url() function
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  * @since 2.3.0 Added the $nofilter parameter to skip included filters
  *
  * @global $wp_rewrite
  * @param  int $user_id User id
  * @param  string $user_nicename Optional. User nicename
- * @uses   wp_idea_stream_user_slug() To get user slug
- * @uses   wp_idea_stream_user_rewrite_id() to get rewrite id
- * @uses   wp_idea_stream_users_get_user_data() get user nicename
- * @uses   home_url() to get blog home url
- * @uses   add_query_arg() to build url on default permalink setting
- * @uses   apply_filters() Calls 'wp_idea_stream_users_get_user_profile_url' to override the url
  * @return string User profile url
  */
 function wp_idea_stream_users_get_user_profile_url( $user_id = 0, $user_nicename = '', $nofilter = false ) {
@@ -270,22 +218,11 @@ function wp_idea_stream_users_get_user_profile_url( $user_id = 0, $user_nicename
  *
  * Inspired by bbPress's bbp_get_user_profile_url() function
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
  * @global $wp_rewrite
  * @param  int $user_id User id
  * @param  string $user_nicename Optional. User nicename
- * @uses   wp_idea_stream_user_slug() To get user slug
- * @uses   wp_idea_stream_user_rewrite_id() to get rewrite id
- * @uses   wp_idea_stream_user_rates_slug() to get the rates slug
- * @uses   wp_idea_stream_users_get_user_data() get user nicename
- * @uses   home_url() to get blog home url
- * @uses   add_query_arg() to build url on default permalink setting
- * @uses   wp_idea_stream_user_rates_rewrite_id() to get the rates rewrite id
- * @uses   apply_filters() Calls 'wp_idea_stream_users_get_user_rates_url' to override the url
  * @return string Rates profile url
  */
 function wp_idea_stream_users_get_user_rates_url( $user_id = 0, $user_nicename = '' ) {
@@ -341,22 +278,11 @@ function wp_idea_stream_users_get_user_rates_url( $user_id = 0, $user_nicename =
  *
  * Inspired by bbPress's bbp_get_user_profile_url() function
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
  * @global $wp_rewrite
  * @param  int $user_id User id
  * @param  string $user_nicename Optional. User nicename
- * @uses   wp_idea_stream_user_slug() To get user slug
- * @uses   wp_idea_stream_user_rewrite_id() to get rewrite id
- * @uses   wp_idea_stream_user_comments_slug() to get the comments slug
- * @uses   wp_idea_stream_users_get_user_data() get user nicename
- * @uses   home_url() to get blog home url
- * @uses   add_query_arg() to build url on default permalink setting
- * @uses   wp_idea_stream_user_comments_rewrite_id() to get the comments rewrite id
- * @uses   apply_filters() Calls 'wp_idea_stream_users_get_user_comments_url' to override the url
  * @return string Comments profile url
  */
 function wp_idea_stream_users_get_user_comments_url( $user_id = 0, $user_nicename = '' ) {
@@ -410,9 +336,6 @@ function wp_idea_stream_users_get_user_comments_url( $user_id = 0, $user_nicenam
 /**
  * Gets the signup url
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.1.0
  *
  * @global  $wp_rewrite
@@ -457,18 +380,7 @@ function wp_idea_stream_users_get_signup_url() {
 /**
  * Enqueues Users description editing scripts
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
- *
- * @uses wp_idea_stream_is_ideastream() to check it's plugin's territory
- * @uses wp_idea_stream_is_current_user_profile() to check the current user is on his profile
- * @uses wp_enqueue_script() to add the script to WordPress queue
- * @uses wp_idea_stream_get_js_script() to get a specific javascript
- * @uses wp_idea_stream_get_version() to get plugin's version
- * @uses wp_localize_script() to internatianlize data used in the script
- * @uses apply_filters() Calls 'wp_idea_stream_users_current_profile_script' to override/add new datas
  */
 function wp_idea_stream_users_enqueue_scripts() {
 	if ( ! wp_idea_stream_is_user_profile() ) {
@@ -495,26 +407,12 @@ function wp_idea_stream_users_enqueue_scripts() {
 /**
  * Builds user's profile nav
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  * @since 2.3.0 Added the $nofilter parameter to skip filters
  *
  * @param  int $user_id User id
  * @param  string $user_nicename Optional. User nicename
  * @param  bool $nofilter. Whether to fire filters or not.
- * @uses   wp_idea_stream_users_get_user_profile_url() to get user main profile url
- * @uses   wp_idea_stream_is_user_profile_ideas() to check whether main profile is currently displayed
- * @uses   sanitize_title() to sanitize the nav slug
- * @uses   wp_idea_stream_users_get_user_comments_url() to get user comments profile url
- * @uses   wp_idea_stream_is_user_profile_comments() to check whether comments profile is currently displayed
- * @uses   wp_idea_stream_user_comments_slug() to get user comments slug
- * @uses   wp_idea_stream_is_rating_disabled() to check ratings functionnality is available
- * @uses   wp_idea_stream_users_get_user_rates_url() to get user rates profile url
- * @uses   wp_idea_stream_is_user_profile_rates() to check whether rates profile is currently displayed
- * @uses   wp_idea_stream_user_rates_slug() to get user rates slug
- * @uses   apply_filters() Calls 'wp_idea_stream_users_get_profile_nav_items' to override/add new datas
  * @return array the nav items organized in an associative array
  */
 function wp_idea_stream_users_get_profile_nav_items( $user_id = 0, $username ='', $nofilter = false ) {
@@ -566,20 +464,7 @@ function wp_idea_stream_users_get_profile_nav_items( $user_id = 0, $username =''
 /**
  * Edit User's profile description
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
- *
- * @uses check_admin_referer() to check the request was made on the site
- * @uses wp_idea_stream_users_displayed_user_id() to get displayed user id
- * @uses wp_idea_stream_users_get_user_profile_url() to build redirect url
- * @uses wp_idea_stream_add_message() to give feedback to the user
- * @uses wp_safe_redirect() to safely redirect the user
- * @uses wp_kses_allowed_html() to get allowed tags for user's description
- * @uses wp_kses to sanitize user's descripton
- * @uses update_user_meta() to save the edited description
- * @uses do_action() Calls 'wp_idea_stream_users_profile_description_updated' to perform actions once description edited
  */
 function wp_idea_stream_users_profile_description_update() {
 	// Bail if not a post request
@@ -613,12 +498,7 @@ function wp_idea_stream_users_profile_description_update() {
 	$user_description = rtrim( $user_description, "\n" );
 
 	if ( empty( $user_description ) ) {
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'Please enter some content in your description', 'wp-idea-stream' ),
-		) );
-
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( add_query_arg( 'error', 11, $redirect ) );
 		exit();
 	}
 
@@ -626,18 +506,10 @@ function wp_idea_stream_users_profile_description_update() {
 	$user_description = wp_kses( wp_specialchars_decode( $user_description ), array() );
 
 	if ( ! update_user_meta( $user_id, 'description', $user_description ) ) {
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'Something went wrong while trying to update your description.', 'wp-idea-stream' ),
-		) );
-
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( add_query_arg( 'error', 12, $redirect ) );
 		exit();
+
 	} else {
-		wp_idea_stream_add_message( array(
-			'type'    => 'success',
-			'content' => __( 'Description updated.', 'wp-idea-stream' ),
-		) );
 
 		/**
 		 * @param int    $user_id          the user ID
@@ -645,7 +517,7 @@ function wp_idea_stream_users_profile_description_update() {
 		 */
 		do_action( 'wp_idea_stream_users_profile_description_updated', $user_id, $user_description );
 
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( add_query_arg( 'success', 5, $redirect ) );
 		exit();
 	}
 }
@@ -664,21 +536,7 @@ function wp_idea_stream_users_profile_description_update() {
  * an existing user ID. About rates, there's no problem if a non existing user ID is in the rating
  * list of an idea.
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
- *
- * @uses add_filter() to temporarly include all post status
- * @uses wp_idea_stream_ideas_get_ideas() to get all user's ideas and rates
- * @uses remove_filter() to remove the filter
- * @uses apply_filters() Calls 'wp_idea_stream_users_delete_user_force_delete' to override
- * @uses do_action() Calls 'wp_idea_stream_users_before_trash_user_data' to perform actions before idea is trashed
- *                   Calls 'wp_idea_stream_users_before_delete_user_data' to perform actions before idea is deleted
- * @uses wp_delete_post() to peramanently delete (forces flag on) these ideas
- * @uses wp_idea_stream_is_rating_disabled() to check if rating functionality is available
- * @uses wp_idea_stream_delete_rate() to delete user's rates
- * @uses do_action() Calls 'wp_idea_stream_delete_user_rates' to perform actions once user is deleted
  */
 function wp_idea_stream_users_delete_user_data( $user_id = 0 ) {
 	if ( empty( $user_id ) ) {
@@ -782,15 +640,9 @@ function wp_idea_stream_users_delete_user_data( $user_id = 0 ) {
  *
  * count_many_users_posts() does not match the need
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.0.0
  *
  * @global  $wpdb
- * @param   int  $max the number of users to limit the query
- * @uses    get_posts_by_author_sql() to get the sql part for the author request
- * @uses    wp_idea_stream_get_post_type() to get the ideas post type identifier
  * @return  array list of users ordered by ideas count.
  */
 function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
@@ -812,9 +664,6 @@ function wp_idea_stream_users_ideas_count_by_user( $max = 10 ) {
 /**
  * Get the default role for a user (used in multisite configs)
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.2.0
  */
 function wp_idea_stream_users_get_default_role() {
@@ -824,9 +673,6 @@ function wp_idea_stream_users_get_default_role() {
 /**
  * Get the signup key if the user registered using IdeaStream
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.2.0
  *
  * @global $wpdb
@@ -834,7 +680,6 @@ function wp_idea_stream_users_get_default_role() {
  * @param  string $user_email user email
  * @param  string $key        activation key
  * @param  array  $meta       the signup's meta data
- * @uses   wp_idea_stream_set_idea_var() to temporarly globalize the activation key
  */
 function wp_idea_stream_users_intercept_activation_key( $user, $user_email = '', $key = '', $meta = array() ) {
 	if ( ! empty( $key ) && ! empty( $user_email ) ) {
@@ -847,15 +692,11 @@ function wp_idea_stream_users_intercept_activation_key( $user, $user_email = '',
 /**
  * Update the $wpdb->signups table in case of a multisite config
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.2.0
  *
  * @global $wpdb
  * @param  array $signup the signup required data
  * @param  int $user_id  the user ID
- * @uses   wp_idea_stream_users_get_user_data() to get user data
  */
 function wp_idea_stream_users_update_signups_table( $user_id = 0 ) {
 	global $wpdb;
@@ -893,25 +734,9 @@ function wp_idea_stream_users_update_signups_table( $user_id = 0 ) {
 /**
  * Signup a new user
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.1.0
  *
  * @param bool $exit whether to exit or not
- * @uses check_admin_referer()
- * @uses wp_idea_stream_get_redirect_url()
- * @uses wp_idea_stream_add_message()
- * @uses WP_Error()
- * @uses register_new_user()
- * @uses wp_update_user()
- * @uses wp_safe_redirect();
- * @uses apply_filters() Calls 'wp_idea_stream_users_is_signup_field_required' to force a contact method to be required
- *                       Calls 'wp_idea_stream_users_signup_userdata' to override the user data to update
- * @uses do_action() Calls 'wp_idea_stream_users_before_signup_field_required' to perform actions before required fields are checked
- *                   Calls 'wp_idea_stream_users_before_signup_user' to perform actions before signup is registered
- *                   Calls 'wp_idea_stream_users_after_signup_user' to perform actions after signup is registered
- *                   Calls 'wp_idea_stream_users_signup_user_created' to perform actions once the user created has been edited
  */
 function wp_idea_stream_users_signup_user( $exit = true ) {
 	// Bail if not a post request
@@ -931,9 +756,13 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 	$is_multisite = is_multisite();
 
 	/**
-	 * Before registering the user, check for required field
+	 * Set the feedback array.
 	 */
-	$required_errors = new WP_Error();
+	$feedback = array(
+		'error'   => array(),
+		'success' => array(),
+		'info'    => array(),
+	);
 
 	$user_login = false;
 
@@ -943,7 +772,7 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 
 	// Force the login to exist and to be at least 4 characters long
 	if ( 4 > mb_strlen( $user_login ) ) {
-		$required_errors->add( 'user_login_fourchars', __( 'Please choose a login having at least 4 characters.', 'wp-idea-stream' ) );
+		$feedback['error'][] = 7;
 	}
 
 	$user_email = false;
@@ -968,7 +797,7 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 	 * @param  string $user_email the user email
 	 * @param  array  $edit_user  all extra user fields
 	 */
-	do_action( 'wp_idea_stream_users_before_signup_field_required', $user_login, $user_email, $edit_user );
+	do_action_ref_array( 'wp_idea_stream_users_before_signup_field_required', array( $user_login, $user_email, $edit_user, $feedback ) );
 
 	foreach ( $edit_user as $key => $value ) {
 
@@ -976,18 +805,15 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 			continue;
 		}
 
-		if ( empty( $value ) && 'empty_required_field' != $required_errors->get_error_code() ) {
-			$required_errors->add( 'empty_required_field', __( 'Please fill all required fields.', 'wp-idea-stream' ) );
-		}
+		if ( empty( $value ) && false === array_search( 8, $feedback['error'] ) ) {
+			$feedback['error'][] = 8;
+  		}
 	}
 
 	// Stop the process and ask to fill all fields.
-	if ( $required_errors->get_error_code() ) {
+	if ( ! empty( $feedback['error'] ) ) {
 		//Add feedback to the user
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => join( ' ', array_map( 'strip_tags', $required_errors->get_error_messages() ) ),
-		) );
+		wp_idea_stream_add_message( array_filter( $feedback ) );
 		return;
 	}
 
@@ -1010,8 +836,7 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 		if ( is_wp_error( $signup_array['errors'] ) && $signup_array['errors']->get_error_code() ) {
 			//Add feedback to the user
 			wp_idea_stream_add_message( array(
-				'type'    => 'error',
-				'content' => join( ' ', array_map( 'strip_tags', $signup_array['errors']->get_error_messages() ) ),
+				'error' => $signup_array['errors']->get_error_messages(),
 			) );
 			return;
 		}
@@ -1041,8 +866,7 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 	if ( is_wp_error( $user ) ) {
 		//Add feedback to the user
 		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => join( ' ', array_map( 'strip_tags', $user->get_error_messages() ) ),
+			'error' => $user->get_error_messages(),
 		) );
 		return;
 
@@ -1081,12 +905,7 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 		}
 
 		// Finally invite the user to check his email.
-		wp_idea_stream_add_message( array(
-			'type'    => 'success',
-			'content' => __( 'Registration complete. Please check your e-mail.', 'wp-idea-stream' ),
-		) );
-
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( add_query_arg( 'success', 2, $redirect ) );
 
 		if ( $exit ) {
 			exit();
@@ -1096,9 +915,6 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 
 /**
  * Get user fields
- *
- * @package WP Idea Stream
- * @subpackage users/functions
  *
  * @since 2.1.0
  *
@@ -1123,9 +939,6 @@ function wp_idea_stream_user_get_fields( $type = 'signup' ) {
 /**
  * Redirect the loggedin user to its profile as already a member
  * Or redirect WP (non multisite) register form to IdeaStream signup form
- *
- * @package WP Idea Stream
- * @subpackage users/functions
  *
  * @since 2.1.0
  *
