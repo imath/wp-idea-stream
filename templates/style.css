@@ -831,7 +831,7 @@ body.ideastream .wp-embed-share-dialog {
 #wp-idea-stream form#send-invite-form {
 	margin-top: 20px;
 }
-#wp-idea-stream button:not( .ed_button ):not( .search-submit ):not( .submit-sort ),
+#wp-idea-stream button:not( .ed_button ):not( .search-submit ):not( .submit-sort ):not( .wp-embed-share-dialog-close ),
 #wp-idea-stream a.button,
 a.wpis-title-button,
 #wp-idea-stream input[type=submit]:not( .search-submit ),
@@ -855,7 +855,7 @@ body.single-ideas #comments .comment-reply-link {
 	padding: 0.5em 1em;
 }
 
-#wp-idea-stream button:hover:not( .ed_button ):not( .search-submit ):not( .submit-sort ),
+#wp-idea-stream button:hover:not( .ed_button ):not( .search-submit ):not( .submit-sort ):not( .wp-embed-share-dialog-close ),
 #wp-idea-stream a.button:hover,
 #wp-idea-stream a.button:focus,
 a.wpis-title-button:hover,
