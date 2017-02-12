@@ -759,7 +759,7 @@ function wp_idea_stream_ideas_enqueue_scripts() {
 		}
 
 		wp_enqueue_script( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), array( 'jquery-raty' ), wp_idea_stream_get_version(), true );
-		wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_ideas_single_script', $js_vars ) );
+		wp_idea_stream_get_js_script_localized_data( $js_vars, 'wp-idea-stream-script', 'wp_idea_stream_ideas_single_script' );
 	}
 
 	// Form > tags
@@ -788,7 +788,7 @@ function wp_idea_stream_ideas_enqueue_scripts() {
 
 		// Enqueue and localize script
 		wp_enqueue_script( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), $deps, wp_idea_stream_get_version(), true );
-		wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_ideas_form_script_vars', $js_vars ) );
+		wp_idea_stream_get_js_script_localized_data( $js_vars, 'wp-idea-stream-script', 'wp_idea_stream_ideas_form_script_vars' );
 	}
 }
 

@@ -111,6 +111,36 @@ function wp_idea_stream_get_js_script( $script = '' ) {
 }
 
 /**
+ * Attach localized data to a specific Javascript handle.
+ *
+ * @since  2.4.0
+ *
+ * @param  array  $data   The list of localized data to merge with default ones.
+ * @param  string $handle The Jascript handle to attach localize data to.
+ * @param  string $filter The filter to use to let developer edit localized data.
+ */
+function wp_idea_stream_get_js_script_localized_data( $data = array(), $handle = 'wp-idea-stream-script', $filter = '' ) {
+	if ( empty( $handle ) ) {
+		return;
+	}
+
+	$url     = set_url_scheme( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+	$js_vars = array(
+		'canonical' => remove_query_arg( array( 'success', 'error', 'info' ), $url ),
+	);
+
+	if ( ! empty( $data ) ) {
+		$js_vars = array_merge( $js_vars, $data );
+	}
+
+	if ( empty( $filter ) ) {
+		$filter = 'wp_idea_stream_data_script';
+	}
+
+	wp_localize_script( $handle, 'wp_idea_stream_vars', apply_filters( $filter, $js_vars ) );
+}
+
+/**
  * Get plugin's path to includes directory
  *
  * @since 2.0.0

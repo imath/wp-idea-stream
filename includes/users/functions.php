@@ -401,7 +401,7 @@ function wp_idea_stream_users_enqueue_scripts() {
 	}
 
 	wp_enqueue_script ( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), array( 'jquery' ), wp_idea_stream_get_version(), true );
-	wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_users_current_profile_script', $js_vars ) );
+	wp_idea_stream_get_js_script_localized_data( $js_vars, 'wp-idea-stream-script', 'wp_idea_stream_users_current_profile_script' );
 }
 
 /**

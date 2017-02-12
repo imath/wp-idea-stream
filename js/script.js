@@ -39,6 +39,11 @@
 		}
 	};
 
+	// Cleanup the url
+	if ( wp_idea_stream_vars.canonical && window.history.replaceState ) {
+			window.history.replaceState( null, null, wp_idea_stream_vars.canonical + window.location.hash );
+	}
+
 	// Only use raty if loaded
 	if ( typeof wp_idea_stream_vars.raty_loaded != 'undefined' ) {
 
