@@ -2,8 +2,7 @@
 /**
  * WP Idea Stream template functions.
  *
- * @package   WP Idea Stream
- * @subpackage core/template-functions
+ * @package   WP Idea Stream\core
  *
  * @since 2.0.0
  */
@@ -19,9 +18,6 @@ defined( 'ABSPATH' ) || exit;
  * to load and is setting the displayed user.
  *
  * Inspired by bbPress 's bbp_parse_query()
- *
- * @package WP Idea Stream
- * @subpackage core/template-functions
  *
  * @since 2.0.0
  *
@@ -329,15 +325,7 @@ function wp_idea_stream_parse_query( $posts_query = null ) {
 /**
  * Loads the plugin's stylesheet
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
- *
- * @uses apply_filters() call 'wp_idea_stream_style_deps' to override css dependencies
- * @uses wp_enqueue_style() to add the stylesheet file to WordPress queue
- * @uses wp_idea_stream_get_stylesheet() to get the stylesheet url
- * @uses wp_idea_stream_get_version() to get current plugin's version
  */
 function wp_idea_stream_enqueue_style() {
 	$style_deps = apply_filters( 'wp_idea_stream_style_deps', array( 'dashicons' ) );
@@ -375,13 +363,8 @@ function wp_idea_stream_enqueue_embed_style() {
 /**
  * Is this the admin part of IdeaStream
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   get_current_screen() to get administration screen post type
- * @uses   wp_idea_stream_get_post_type() to get the ideas post type identifier
  * @return bool true if on IdeaStream admin part, false otherwise
  */
 function wp_idea_stream_is_admin() {
@@ -406,12 +389,8 @@ function wp_idea_stream_is_admin() {
 /**
  * Is this Plugin's front end territory ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
  * @return bool true if viewing an IdeaStream page, false otherwise
  */
 function wp_idea_stream_is_ideastream() {
@@ -421,12 +400,8 @@ function wp_idea_stream_is_ideastream() {
 /**
  * Is this the new idea form ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
  * @return bool true if on the addnew form, false otherwise
  */
 function wp_idea_stream_is_addnew() {
@@ -436,12 +411,8 @@ function wp_idea_stream_is_addnew() {
 /**
  * Is this the edit idea form ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
  * @return bool true if on the edit form, false otherwise
  */
 function wp_idea_stream_is_edit() {
@@ -451,12 +422,8 @@ function wp_idea_stream_is_edit() {
 /**
  * Is this the signup form ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.1.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
  * @return bool true if on the edit form, false otherwise
  */
 function wp_idea_stream_is_signup() {
@@ -466,13 +433,8 @@ function wp_idea_stream_is_signup() {
 /**
  * Are we viewing a single idea ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   is_singular()
- * @uses   wp_idea_stream_get_post_type() to get a globalized var
  * @return bool true if on a single idea template, false otherwise
  */
 function wp_idea_stream_is_single_idea() {
@@ -482,13 +444,8 @@ function wp_idea_stream_is_single_idea() {
 /**
  * Current ID for the idea being viewed
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   apply_filters() call 'wp_idea_stream_get_single_idea_id' override the current idea ID
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
  * @return int the current idea ID
  */
 function wp_idea_stream_get_single_idea_id() {
@@ -498,15 +455,8 @@ function wp_idea_stream_get_single_idea_id() {
 /**
  * Are we viewing ideas archive ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   is_post_type_archive() to check if displaying the ideas archive
- * @uses   wp_idea_stream_get_post_type() to get the ideas post type identifier
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_idea_archive' to override condition
  * @return bool true if on ideas archive, false otherwise
  */
 function wp_idea_stream_is_idea_archive() {
@@ -522,15 +472,8 @@ function wp_idea_stream_is_idea_archive() {
 /**
  * Are we viewing ideas by category ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   is_tax()
- * @uses   wp_idea_stream_get_category() to get the ideas category identifier
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_category' to override condition
  * @return bool true if viewing ideas categorized in a sepecific term, false otherwise.
  */
 function wp_idea_stream_is_category() {
@@ -546,15 +489,8 @@ function wp_idea_stream_is_category() {
 /**
  * Are we viewing ideas by tag ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   is_tax()
- * @uses   wp_idea_stream_get_tag() to get the ideas tag identifier
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_tag' to override condition
  * @return bool true if viewing ideas tagged with a sepecific term, false otherwise.
  */
 function wp_idea_stream_is_tag() {
@@ -570,15 +506,8 @@ function wp_idea_stream_is_tag() {
 /**
  * Get / Set the current term being viewed
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   get_queried_object() to get WordPress queried object
- * @uses   wp_idea_stream_set_idea_var() to set a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_get_current_term' to override the current term being viewed
  * @return object $current_term
  */
 function wp_idea_stream_get_current_term() {
@@ -596,13 +525,8 @@ function wp_idea_stream_get_current_term() {
 /**
  * Get the current term name
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_current_term() to get the current term being requested
- * @uses   apply_filters() call 'wp_idea_stream_get_term_name' to override the current term name
  * @return string the term name
  */
 function wp_idea_stream_get_term_name() {
@@ -614,14 +538,8 @@ function wp_idea_stream_get_term_name() {
 /**
  * Are we searching ideas ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_search_rewrite_id() to get the search rewrite id
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_search' to override the condition
  * @return bool true if an idea search is performed, otherwise false
  */
 function wp_idea_stream_is_search() {
@@ -637,15 +555,9 @@ function wp_idea_stream_is_search() {
 /**
  * Has the order changed to the type being checked
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
  * @param  string $type the order to check
- * @uses   get_query_var() to get a query var
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_orderby' to override the condition
  * @return bool true if the order has changed from default one, false otherwise
  */
 function wp_idea_stream_is_orderby( $type = '' ) {
@@ -667,13 +579,8 @@ function wp_idea_stream_is_orderby( $type = '' ) {
 /**
  * Are viewing a user's profile ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_user_profile' to override the condition
  * @return bool true a user's profile is being viewed, false otherwise
  */
 function wp_idea_stream_is_user_profile() {
@@ -683,13 +590,8 @@ function wp_idea_stream_is_user_profile() {
 /**
  * Are we viewing comments in user's profile
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_user_profile_comments' to override the condition
  * @return bool true if viewing user's profile comments, false otherwise
  */
 function wp_idea_stream_is_user_profile_comments() {
@@ -699,13 +601,8 @@ function wp_idea_stream_is_user_profile_comments() {
 /**
  * Are we viewing rates in user's profile
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   apply_filters() call 'wp_idea_stream_is_user_profile_rates' to override the condition
  * @return bool true if viewing user's profile rates, false otherwise
  */
 function wp_idea_stream_is_user_profile_rates() {
@@ -715,13 +612,8 @@ function wp_idea_stream_is_user_profile_rates() {
 /**
  * Are we viewing ideas in user's profile
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses  wp_idea_stream_is_user_profile_comments() to check if viewing comments on user's profile
- * @uses  wp_idea_stream_is_user_profile_rates() to check if viewing rates on user's profile
  * @return bool true if viewing ideas in the user's profile, false otherwise
  */
 function wp_idea_stream_is_user_profile_ideas() {
@@ -731,13 +623,8 @@ function wp_idea_stream_is_user_profile_ideas() {
 /**
  * Is this self profile ?
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
- * @uses  wp_idea_stream_get_idea_var() to get a globalized var
- * @uses  apply_filters() call 'wp_idea_stream_is_current_user_profile' to override the self profile check
  * @return bool true if current user is viewing his profile, false otherwise
  */
 function wp_idea_stream_is_current_user_profile() {
@@ -761,19 +648,9 @@ function wp_idea_stream_is_current_user_profile() {
 /**
  * Reset the page (post) title depending on the context
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
  * @param string $context the context to build the title for
- * @uses  wp_idea_stream_archive_title() to get the IdeaStream archive page title
- * @uses  wp_idea_stream_user_can() to check for user's capability
- * @uses  wp_idea_stream_get_root_url() to get IdeaStream's root url
- * @uses  wp_idea_stream_get_form_url() to get IdeaStream's add new form url
- * @uses  wp_idea_stream_get_term_name() to get the term name
- * @uses  wp_idea_stream_users_get_displayed_user_displayname() to get the displayed user name
- * @uses  apply_filters() call 'wp_idea_stream_reset_post_title' to override the title of the page
  * @return string the post title
  */
 function wp_idea_stream_reset_post_title( $context = '' ) {
@@ -831,23 +708,9 @@ function wp_idea_stream_reset_post_title( $context = '' ) {
  *
  * Inspired by bbPress's bbp_title()
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
  * @param array $title the title parts
- * @uses  wp_idea_stream_is_ideastream() to make sure it's plugin's territory
- * @uses  wp_idea_stream_is_addnew() to check the submit form is displayed
- * @uses  wp_idea_stream_is_user_profile() to check if a user's profile is displayed
- * @uses  wp_idea_stream_users_get_displayed_user_displayname() to get the display name of the user being viewed
- * @uses  wp_idea_stream_is_single_idea() to check whether page is displaying the single idea template
- * @uses  is_tax() to check if a taxonomy is in queried objects
- * @uses  wp_idea_stream_get_current_term() to get the current term
- * @uses  get_taxonomy() to get the taxonomy
- * @uses  wp_idea_stream_set_idea_var() to globalize the current term
- * @uses  wp_idea_stream_is_signup() to check if on the signup page
- * @uses  apply_filters() call 'wp_idea_stream_title' to override the title meta tag of the page
  * @return string the page title meta tag
  */
 function wp_idea_stream_title( $title_array = array() ) {
@@ -995,14 +858,10 @@ function wp_idea_stream_title_adjust( $title = '', $sep = '&raquo;', $seplocatio
  *
  * Inspired by bbPress's bbp_body_class()
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
  * @param  array $wp_classes
  * @param  array $custom_classes
- * @uses   wp_idea_stream_is_ideastream() to check if it's ideastream's territory
  * @return array the new Body Classes
  */
 function wp_idea_stream_body_class( $wp_classes, $custom_classes = false ) {
@@ -1060,14 +919,7 @@ function wp_idea_stream_post_class( $wp_classes, $theme_class ) {
 /**
  * Reset postdata if needed
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_get_idea_var() to get the needs_reset global
- * @uses  wp_reset_postdata() to reset the post date
- * @uses  do_action() Call 'wp_idea_stream_maybe_reset_postdata' to perform custom actions after post reset
  */
 function wp_idea_stream_maybe_reset_postdata() {
 	if ( wp_idea_stream_get_idea_var( 'needs_reset' ) ) {
@@ -1231,16 +1083,10 @@ function wp_idea_stream_wp_nav( $sorted_menu_items = array(), $args = array() ) 
 /**
  * Filters edit post link to avoid its display when needed
  *
- * @package WP Idea Stream
- * @subpackage core/template-functions
- *
  * @since 2.0.0
  *
  * @param  string $edit_link the link to edit the post
  * @param  int    $post_id   the post ID
- * @uses   wp_idea_stream_is_ideastream() to make sure it's plugin's territory
- * @uses   wp_idea_stream_user_can() to check user's capability
- * @uses   apply_filters() call 'wp_idea_stream_edit_post_link' to override the false value applyed by the plugin
  * @return mixed false if needed, original edit link otherwise
  */
 function wp_idea_stream_edit_post_link( $edit_link = '', $post_id = 0 ) {

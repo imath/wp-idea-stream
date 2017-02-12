@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Idea Stream Loop Class.
+ * WP Idea Stream Screens Class.
  *
  * @package WP Idea Stream\core\classes
  *
