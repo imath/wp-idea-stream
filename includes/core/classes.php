@@ -24,6 +24,10 @@ if ( ! class_exists( 'WP_Idea_Stream_Template_Loader' ) ) {
 	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-template-loader.php' );
 }
 
+if ( ! class_exists( 'WP_Idea_Stream_Core_Screens' ) ) {
+	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-core-screens.php' );
+}
+
 /** Loop **********************************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Loop' ) ) {

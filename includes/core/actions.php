@@ -49,8 +49,10 @@ add_action( 'wp_idea_stream_enqueue_scripts', 'wp_idea_stream_ideas_enqueue_scri
 add_action( 'wp_idea_stream_enqueue_scripts', 'wp_idea_stream_users_enqueue_scripts', 11 );
 
 // Template actions
-add_action( 'wp_idea_stream_idea_header',             'wp_idea_stream_users_the_user_idea_rating', 1 );
-add_action( 'wp_idea_stream_before_archive_main_nav', 'wp_idea_stream_ideas_taxonomy_description'    );
+add_action( 'wp_idea_stream_idea_header',             'wp_idea_stream_users_the_user_idea_rating',      1    );
+add_action( 'wp_idea_stream_before_archive_main_nav', 'wp_idea_stream_ideas_taxonomy_description'            );
+add_action( 'wp_idea_stream_set_core_template',        array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );
+add_action( 'wp_idea_stream_set_single_template',      array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );
 
 // Actions to handle user actions (eg: submit new idea)
 add_action( 'wp_idea_stream_template_redirect', 'wp_idea_stream_actions',                             4 );
