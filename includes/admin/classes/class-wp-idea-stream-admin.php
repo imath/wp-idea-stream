@@ -1005,7 +1005,7 @@ class WP_Idea_Stream_Admin {
 					);
 				}
 
-				echo join( __( ', ' ), $out );
+				echo join( _x( ', ', 'tag separator', 'wp-idea-stream' ), $out );
 				break;
 
 			default:

@@ -297,7 +297,7 @@ class WP_Idea_Stream_Comments {
 		if ( ! user_can( $comment->comment_post_author, 'moderate_comments' ) ) {
 			// reset the message
 			$message = sprintf( __( 'New comment on your idea "%s"', 'wp-idea-stream' ), $comment->comment_post_title ) . "\r\n";
-			$message .= __('Comment: ') . "\r\n" . $comment->comment_content . "\r\n\r\n";
+			$message .= __('Comment: ', 'wp-idea-stream' ) . "\r\n" . $comment->comment_content . "\r\n\r\n";
 			$message .= sprintf( __( 'Permalink to the comment: %s', 'wp-idea-stream' ), wp_idea_stream_comments_get_comment_link( $comment_id ) ) . "\r\n";
 		}
 
