@@ -4,8 +4,7 @@
  *
  * Manage user capabilities for the plugin
  *
- * @package WP Idea Stream
- * @subpackage core/capabilities
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */
@@ -16,12 +15,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Return Ideas post type capabilities
  *
- * @package WP Idea Stream
- * @subpackage core/capabilities
- *
  * @since 2.0.0
  *
- * @uses apply_filters() Calls 'wp_idea_stream_get_post_type_caps' with the capabilities
  * @return array Ideas capabilities
  */
 function wp_idea_stream_get_post_type_caps() {
@@ -45,12 +40,8 @@ function wp_idea_stream_get_post_type_caps() {
 /**
  * Return Ideas tag capabilities
  *
- * @package WP Idea Stream
- * @subpackage core/capabilities
- *
  * @since 2.0.0
  *
- * @uses apply_filters() Calls 'wp_idea_stream_get_tag_caps' with the capabilities
  * @return array Ideas tag capabilities
  */
 function wp_idea_stream_get_tag_caps() {
@@ -65,12 +56,8 @@ function wp_idea_stream_get_tag_caps() {
 /**
  * Return Ideas category capabilities
  *
- * @package WP Idea Stream
- * @subpackage core/capabilities
- *
  * @since 2.0.0
  *
- * @uses apply_filters() Calls 'wp_idea_stream_get_category_caps' with the capabilities
  * @return array Ideas category capabilities
  */
 function wp_idea_stream_get_category_caps() {
@@ -85,18 +72,12 @@ function wp_idea_stream_get_category_caps() {
 /**
  * Maps Ideas capabilities
  *
- * @package WP Idea Stream
- * @subpackage core/capabilities
- *
  * @since 2.0.0
  *
  * @param  array $caps Capabilities for meta capability
  * @param  string $cap Capability name
  * @param  int $user_id User id
  * @param  mixed $args Arguments
- * @uses   get_post() To get the post
- * @uses   get_comment() To get the comment object
- * @uses   apply_filters() Filter mapped results
  * @return array Actual capabilities for meta capability
  */
 function wp_idea_stream_map_meta_caps( $caps = array(), $cap = '', $user_id = 0, $args = array() ) {
@@ -205,15 +186,10 @@ function wp_idea_stream_map_meta_caps( $caps = array(), $cap = '', $user_id = 0,
 /**
  * Check wether a user has the capability to perform an action
  *
- * @package WP Idea Stream
- * @subpackage core/capabilities
- *
  * @since 2.0.0
  *
  * @param  string $capability Capability to check
  * @param  array  $args additional args to help
- * @uses   current_user_can()
- * @uses   apply_filters() Filter the capability check
  * @return bool True|False
  */
 function wp_idea_stream_user_can( $capability = '', $args = false ) {

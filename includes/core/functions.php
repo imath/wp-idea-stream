@@ -1298,8 +1298,6 @@ function wp_idea_stream_format_to_edit( $text = '' ) {
  * Mainly used to cach comments about ideas count
  *
  * @since 2.0.0
- *
- * @uses wp_cache_add_global_groups()
  */
 function wp_idea_stream_cache_global_group() {
 	wp_cache_add_global_groups( array( 'wp_idea_stream' ) );

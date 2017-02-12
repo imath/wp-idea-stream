@@ -4,8 +4,7 @@
  *
  * About WP Idea Stream & credits screens
  *
- * @package WP Idea Stream
- * @subpackage admin/thanks
+ * @package WP Idea Stream\admin
  *
  * @since 2.0.0
  */
@@ -16,17 +15,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * About screen
  *
- * @package WP Idea Stream
- * @subpackage admin/thanks
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_version() to get plugin's version
- * @uses   add_query_arg() to add query vars to an url
- * @uses   admin_url() to build a link inside the current blog's Administration
- * @uses   get_transient() to get the value of a transient
- * @uses   delete_transient() to delete a transient
- * @uses   wp_oembed_get() to get the vidéo démo of the plugin
  * @return string HTML output
  */
 function wp_idea_stream_admin_about() {

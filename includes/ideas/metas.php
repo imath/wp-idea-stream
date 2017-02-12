@@ -3,7 +3,6 @@
  * Metadatas for ideas.
  *
  * @package WP Idea Stream\ideas
- * @subpackage metas
  *
  * @since 2.4.0
  */

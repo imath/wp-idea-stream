@@ -4,8 +4,7 @@
  *
  * template tags specific to ideas
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */
@@ -166,14 +165,8 @@ function wp_idea_stream_ideas_order_form() {
 /**
  * Displays the current term description if it exists
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_is_category() to check if a category about ideas is displayed
- * @uses   wp_idea_stream_is_tag() to check if a tag about ideas is displayed
- * @uses   wp_idea_stream_get_current_term() to get the current term in the displayed taxonomy
  * @return string Output for the current term description.
  */
 function wp_idea_stream_ideas_taxonomy_description() {
@@ -193,9 +186,6 @@ function wp_idea_stream_ideas_taxonomy_description() {
 
 /**
  * Initialize the ideas loop.
- *
- * @package WP Idea Stream
- * @subpackage ideas/tags
  *
  * @since 2.0.0
  *
@@ -219,14 +209,6 @@ function wp_idea_stream_ideas_taxonomy_description() {
  *     @type string 'idea_name' Limit results by a the post name of the idea.
  *     @type bool 'is_widget' is the query performed inside a widget ?
  * }
- * @uses   wp_parse_args() to merge args with defaults
- * @uses   wp_idea_stream_search_rewrite_id() to get the search rewrite id
- * @uses   wp_idea_stream_is_user_profile_ideas() to check if a user's profile is displayed
- * @uses   wp_idea_stream_users_displayed_user_id() to get the ID of the displayed user.
- * @uses   wp_idea_stream_ideas_per_page() to get the pagination preferences
- * @uses   WP_Idea_Stream_Loop_Ideas to get the ideas matching arguments
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_ideas_has_ideas' to choose whether to init the loop or not
  * @return bool         true if ideas were found, false otherwise
  */
 function wp_idea_stream_ideas_has_ideas( $args = array() ) {
@@ -295,12 +277,8 @@ function wp_idea_stream_ideas_has_ideas( $args = array() ) {
 /**
  * Get the Ideas returned by the template loop.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
  * @return array List of Ideas.
  */
 function wp_idea_stream_ideas_the_ideas() {
@@ -310,12 +288,8 @@ function wp_idea_stream_ideas_the_ideas() {
 /**
  * Get the current Idea object in the loop.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
  * @return object The current Idea within the loop.
  */
 function wp_idea_stream_ideas_the_idea() {
@@ -328,12 +302,7 @@ function wp_idea_stream_ideas_the_idea() {
 /**
  * Displays a message in case no idea was found
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses wp_idea_stream_ideas_get_not_found() to get the message
  */
 function wp_idea_stream_ideas_not_found() {
 	echo wp_idea_stream_ideas_get_not_found();
@@ -342,21 +311,8 @@ function wp_idea_stream_ideas_not_found() {
 	/**
 	 * Gets a message in case no idea was found
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream_is_user_profile() to check if on a user's profile
-	 * @uses   wp_idea_stream_is_user_profile_rates() to check if the rates part of a user's profile
-	 * @uses   wp_idea_stream_users_get_displayed_user_displayname() to get the displayed user's display name
-	 * @uses   wp_idea_stream_is_category() to check if a category is displayed
-	 * @uses   wp_idea_stream_is_tag() to check if a tag is displayed
-	 * @uses   wp_idea_stream_is_search() to check if a search is being performed
-	 * @uses   wp_idea_stream_is_orderby() to check if a specific order is being requested
-	 * @uses   wp_idea_stream_user_can() to check for user's capability
-	 * @uses   wp_idea_stream_get_form_url() to get the form url to add new ideas
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_not_found' to override the output
 	 * @return string the message to output
 	 */
 	function wp_idea_stream_ideas_get_not_found() {
@@ -409,12 +365,7 @@ function wp_idea_stream_ideas_not_found() {
 /**
  * Output the pagination count for the current Ideas loop.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_pagination_count() to get the pagination count
  */
 function wp_idea_stream_ideas_pagination_count() {
 	echo wp_idea_stream_ideas_get_pagination_count();
@@ -422,14 +373,8 @@ function wp_idea_stream_ideas_pagination_count() {
 	/**
 	 * Return the pagination count for the current Ideas loop.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   number_format_i18n() to format numbers
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_pagination_count' to override the output
 	 * @return string HTML for the pagination count.
 	 */
 	function wp_idea_stream_ideas_get_pagination_count() {
@@ -449,12 +394,7 @@ function wp_idea_stream_ideas_pagination_count() {
 /**
  * Output the pagination links for the current Ideas loop.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_pagination_links() to get pagination links
  */
 function wp_idea_stream_ideas_pagination_links() {
 	echo wp_idea_stream_ideas_get_pagination_links();
@@ -463,13 +403,8 @@ function wp_idea_stream_ideas_pagination_links() {
 	/**
 	 * Return the pagination links for the current Rendez Vous loop.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_pagination_links' to override the output
 	 * @return string output for the pagination links.
 	 */
 	function wp_idea_stream_ideas_get_pagination_links() {
@@ -482,12 +417,7 @@ function wp_idea_stream_ideas_pagination_links() {
 /**
  * Output the ID of the idea currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_id() to get the ID
  */
 function wp_idea_stream_ideas_the_id() {
 	echo wp_idea_stream_ideas_get_id();
@@ -496,13 +426,8 @@ function wp_idea_stream_ideas_the_id() {
 	/**
 	 * Return the ID of the Idea currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_id' to override the output
 	 * @return int ID of the current Idea.
 	 */
 	function wp_idea_stream_ideas_get_id() {
@@ -515,17 +440,8 @@ function wp_idea_stream_ideas_the_id() {
 /**
  * Checks if the Idea being iterated on is sticky
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   wp_idea_stream_is_idea_archive() to check if on an idea archive page
- * @uses   wp_idea_stream_get_idea_var() to check if order is not default
- * @uses   wp_idea_stream_is_search() to check if a search is being performed
- * @uses   wp_idea_stream_is_sticky_enabled() to check if sticky feature is enabled
- * @uses   wp_idea_stream_ideas_is_sticky() to check if the idea is sticky
  * @return bool True if the Idea being iterating on is sticky, false otherwise
  */
 function wp_idea_stream_ideas_is_sticky_idea() {
@@ -555,12 +471,7 @@ function wp_idea_stream_ideas_is_sticky_idea() {
 /**
  * Output the row classes of the Idea being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_classes() to get the row classes
  */
 function wp_idea_stream_ideas_the_classes() {
 	echo wp_idea_stream_ideas_get_classes();
@@ -569,13 +480,8 @@ function wp_idea_stream_ideas_the_classes() {
 	/**
 	 * Gets the row classes for the Idea being iterated on
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream_ideas_is_sticky_idea() to check if the idea is sticky
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_classes' to add/remove row classes
 	 * @return string output the row class attribute
 	 */
 	function wp_idea_stream_ideas_get_classes() {
@@ -596,12 +502,7 @@ function wp_idea_stream_ideas_the_classes() {
 /**
  * Output the author avatar of the Idea being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_author_avatar() to get the author avatar
  */
 function wp_idea_stream_ideas_the_author_avatar() {
 	echo wp_idea_stream_ideas_get_author_avatar();
@@ -610,15 +511,8 @@ function wp_idea_stream_ideas_the_author_avatar() {
 	/**
 	 * Gets the author avatar
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_avatar() to get author's avatar
-	 * @uses   wp_idea_stream_users_get_user_profile_url() to get author's profile url
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_author_avatar' to override the output
 	 * @return string output the author's avatar
 	 */
 	function wp_idea_stream_ideas_get_author_avatar() {
@@ -639,12 +533,7 @@ function wp_idea_stream_ideas_the_author_avatar() {
 /**
  * Prefix idea title.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_before_idea_title() to get the output to add before idea title
  */
 function wp_idea_stream_ideas_before_idea_title() {
 	echo wp_idea_stream_ideas_get_before_idea_title();
@@ -653,14 +542,8 @@ function wp_idea_stream_ideas_before_idea_title() {
 	/**
 	 * Gets the idea title prefix
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_idea_stream_ideas_is_sticky_idea() to check if idea is sticky
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_before_idea_title' to override the output
 	 * @return string output the idea title prefix
 	 */
 	function wp_idea_stream_ideas_get_before_idea_title() {
@@ -680,12 +563,7 @@ function wp_idea_stream_ideas_before_idea_title() {
 /**
  * Displays idea title.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_title() to get the title
  */
 function wp_idea_stream_ideas_the_title() {
 	echo wp_idea_stream_ideas_get_title();
@@ -694,14 +572,8 @@ function wp_idea_stream_ideas_the_title() {
 	/**
 	 * Gets the title of the idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_the_title() to get the title
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_title' to override the output
 	 * @return string output the title of the idea
 	 */
 	function wp_idea_stream_ideas_get_title() {
@@ -718,12 +590,7 @@ function wp_idea_stream_ideas_the_title() {
 /**
  * Displays idea permalink.
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_permalink() to get the permalink
  */
 function wp_idea_stream_ideas_the_permalink() {
 	echo wp_idea_stream_ideas_get_permalink();
@@ -732,15 +599,8 @@ function wp_idea_stream_ideas_the_permalink() {
 	/**
 	 * Gets the permalink of the idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_idea_stream_ideas_get_idea_permalink() to get the permalink of the idea
-	 * @uses   esc_url() to sanitize the url
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_permalink' to override the output
 	 * @return string output the permalink to the idea
 	 */
 	function wp_idea_stream_ideas_get_permalink() {
@@ -757,12 +617,7 @@ function wp_idea_stream_ideas_the_permalink() {
 /**
  * Adds to idea's permalink an attribute containg the idea's title
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_title_attribute() to get the title attibute of the idea
  */
 function wp_idea_stream_ideas_the_title_attribute() {
 	echo wp_idea_stream_ideas_get_title_attribute();
@@ -771,14 +626,8 @@ function wp_idea_stream_ideas_the_title_attribute() {
 	/**
 	 * Gets the title attribute of the idea's permalink
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   esc_attr() to sanitize the attribute
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_title_attribute' to override the output
 	 * @return string output of the attribute
 	 */
 	function wp_idea_stream_ideas_get_title_attribute() {
@@ -804,12 +653,7 @@ function wp_idea_stream_ideas_the_title_attribute() {
 /**
  * Displays the number of comments about an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_ideas_get_comment_number() to get the number of comments
  */
 function wp_idea_stream_ideas_the_comment_number() {
 	echo wp_idea_stream_ideas_get_comment_number();
@@ -818,14 +662,9 @@ function wp_idea_stream_ideas_the_comment_number() {
 	/**
 	 * Gets the title attribute of the idea's permalink
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  int $id the idea ID
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_comments_number() to get the comments number
 	 * @return int the comments number
 	 */
 	function wp_idea_stream_ideas_get_comment_number( $id = 0 ) {
@@ -839,9 +678,6 @@ function wp_idea_stream_ideas_the_comment_number() {
 /**
  * Displays the comment link of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
  * @param  mixed $zero       false or the text to show when idea got no comments
@@ -849,7 +685,6 @@ function wp_idea_stream_ideas_the_comment_number() {
  * @param  mixed $more       false or the text to show when idea got more than one comment
  * @param  string $css_class the name of the css classes to use
  * @param  mixed $none       false or the text to show when no idea comment link
- * @uses   wp_idea_stream_ideas_get_idea_comment_link() to get the number of comments
  */
 function wp_idea_stream_ideas_the_idea_comment_link( $zero = false, $one = false, $more = false, $css_class = '', $none = false ) {
 	echo wp_idea_stream_ideas_get_idea_comment_link( $zero, $one, $more, $css_class, $none );
@@ -858,9 +693,6 @@ function wp_idea_stream_ideas_the_idea_comment_link( $zero = false, $one = false
 	/**
 	 * Gets the comment link of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  mixed $zero       false or the text to show when idea got no comments
@@ -868,16 +700,6 @@ function wp_idea_stream_ideas_the_idea_comment_link( $zero = false, $one = false
 	 * @param  mixed $more       false or the text to show when idea got more than one comment
 	 * @param  string $css_class the name of the css classes to use
 	 * @param  mixed $none       false or the text to show when no idea comment link
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_idea_stream_ideas_get_comment_number() to get the comments number for the idea
-	 * @uses   post_password_required() to check if the idea requires a password
-	 * @uses   wp_idea_stream_user_can() to check for user's capability
-	 * @uses   comments_open() to check if comments are open for the idea
-	 * @uses   esc_attr() to sanitize the attribute
-	 * @uses   wp_idea_stream_ideas_get_idea_permalink() to get the idea permalink
-	 * @uses   wp_idea_stream_ideas_get_idea_comments_link() to get the idea link to comments
-	 * @uses   number_format_i18n() to format numbers
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_idea_comment_link' to override the output
 	 * @return string             output for the comment link
 	 */
 	function wp_idea_stream_ideas_get_idea_comment_link( $zero = false, $one = false, $more = false, $css_class = '', $none = false ) {
@@ -954,12 +776,7 @@ function wp_idea_stream_ideas_the_idea_comment_link( $zero = false, $one = false
 /**
  * Displays the average rating of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_ideas_get_average_rating() to get the average rating
  */
 function wp_idea_stream_ideas_the_average_rating() {
 	echo wp_idea_stream_ideas_get_average_rating();
@@ -968,14 +785,9 @@ function wp_idea_stream_ideas_the_average_rating() {
 	/**
 	 * Gets the average rating of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  int $id the idea ID
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_post_meta() to get the average rating
 	 * @return string  output for the average rating
 	 */
 	function wp_idea_stream_ideas_get_average_rating( $id = 0 ) {
@@ -995,17 +807,11 @@ function wp_idea_stream_ideas_the_average_rating() {
 /**
  * Displays the rating link of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
  * @param  mixed $zero       false or the text to show when idea got no rates
  * @param  mixed $more       false or the text to show when idea got one or more rates
  * @param  string $css_class the name of the css classes to use
- * @uses   wp_idea_stream_is_rating_disabled() to check if ratings are enabled
- * @uses   wp_idea_stream_is_single_idea() to check the idea is displayed on a single template
- * @uses   wp_idea_stream_ideas_get_rating_link() to get the rating link of an idea
  */
 function wp_idea_stream_ideas_the_rating_link( $zero = false, $more = false, $css_class = '' ) {
 	// Bail if ratings are disabled
@@ -1023,24 +829,11 @@ function wp_idea_stream_ideas_the_rating_link( $zero = false, $more = false, $cs
 	/**
 	 * Gets the rating link of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  mixed $zero       false or the text to show when idea got no rates
 	 * @param  mixed $more       false or the text to show when idea got one or more rates
 	 * @param  string $css_class the name of the css classes to use
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   post_password_required() to check if the idea requires a password
-	 * @uses   wp_idea_stream_user_can() to check for user's capability
-	 * @uses   wp_idea_stream_ideas_get_average_rating() to get the average rating
-	 * @uses   wp_idea_stream_ideas_get_idea_permalink() to get the idea permalink
-	 * @uses   esc_attr() to sanitize the attribute
-	 * @uses   wp_login_url() to get the login url
-	 * @uses   esc_url() to sanitize the url
-	 * @uses   number_format_i18n() to format numbers
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_rating_link' to override the output
 	 * @return string             output for the rating link
 	 */
 	function wp_idea_stream_ideas_get_rating_link( $zero = false, $more = false, $css_class = '' ) {
@@ -1104,12 +897,7 @@ function wp_idea_stream_ideas_the_rating_link( $zero = false, $more = false, $cs
 /**
  * Displays the excerpt of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_ideas_get_excerpt() to get the excerpt
  */
 function wp_idea_stream_ideas_the_excerpt() {
 	echo wp_idea_stream_ideas_get_excerpt();
@@ -1118,19 +906,10 @@ function wp_idea_stream_ideas_the_excerpt() {
 	/**
 	 * Gets the excerpt of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 * @since 2.3.0 Use the $post global to make sure Theme filtering the excerpt_more will display the right link
 	 *
 	 * @global  WP_Post $post the current post
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   post_password_required() to check if the idea requires a password
-	 * @uses   wp_idea_stream_user_can() to check for user's capability
-	 * @uses   strip_shortcodes() to strip the shortcodes in case the excerpt field was used in Edit screen
-	 * @uses   wp_idea_stream_create_excerpt() to build the excerpt
-	 * @uses   apply_filters() call 'wp_idea_stream_create_excerpt_text' to override the output
 	 * @return string  output for the excerpt
 	 */
 	function wp_idea_stream_ideas_get_excerpt() {
@@ -1173,12 +952,7 @@ function wp_idea_stream_ideas_the_excerpt() {
 /**
  * Displays the content of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_ideas_get_content() to get the content
  */
 function wp_idea_stream_ideas_the_content() {
 	echo wp_idea_stream_ideas_get_content();
@@ -1187,17 +961,10 @@ function wp_idea_stream_ideas_the_content() {
 	/**
 	 * Gets the content of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 * @since 2.3.0 Set the $post global with the Idea post type
 	 *
 	 * @global WP_Post $post
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   post_password_required() to check if the idea requires a password
-	 * @uses   wp_idea_stream_user_can() to check for user's capability
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_content' to override the output
 	 * @return string  output for the excerpt
 	 */
 	function wp_idea_stream_ideas_get_content() {
@@ -1240,9 +1007,6 @@ function wp_idea_stream_ideas_the_content() {
 /**
  * Displays the term list links
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
  * @param   integer $id       the idea ID
@@ -1250,8 +1014,6 @@ function wp_idea_stream_ideas_the_content() {
  * @param   string  $before   the string to display before
  * @param   string  $sep      the separator for the term list
  * @param   string  $after    the string to display after
- * @uses    get_the_term_list() to get the term list
- * @uses    apply_filters() call 'wp_idea_stream_ideas_get_the_term_list' to override the output
  * @return  string the term list links
  */
 function wp_idea_stream_ideas_get_the_term_list( $id = 0, $taxonomy = '', $before = '', $sep = ', ', $after = '' ) {
@@ -1271,15 +1033,11 @@ function wp_idea_stream_ideas_get_the_term_list( $id = 0, $taxonomy = '', $befor
 /**
  * Displays a custom field in single idea's view
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
  * @param  string $display_meta the meta field single output
  * @param  object $meta_object  the meta object
  * @param  string $context      the display context (single/form/admin)
- * @uses   wp_idea_stream_get_meta_single_display() to get the output
  */
 function wp_idea_stream_meta_single_display( $display_meta = '', $meta_object = null, $context = '' ) {
 	echo wp_idea_stream_get_meta_single_display( $display_meta, $meta_object, $context );
@@ -1288,16 +1046,11 @@ function wp_idea_stream_meta_single_display( $display_meta = '', $meta_object = 
 	/**
 	 * Gets the custom field output for single idea's view
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  string $display_meta the meta field single output
 	 * @param  object $meta_object  the meta object
 	 * @param  string $context      the display context (single/form/admin)
-	 * @uses   esc_html() to sanitize the output
-	 * @uses   apply_filters() call 'wp_idea_stream_get_meta_single_display' to override the output
 	 * @return string               HTML Output
 	 */
 	function wp_idea_stream_get_meta_single_display( $display_meta = '', $meta_object = null, $context = '' ) {
@@ -1326,12 +1079,7 @@ function wp_idea_stream_meta_single_display( $display_meta = '', $meta_object = 
 /**
  * Displays the footer of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_ideas_get_idea_footer() to get the footer
  */
 function wp_idea_stream_ideas_the_idea_footer() {
 	echo wp_idea_stream_ideas_get_idea_footer();
@@ -1340,25 +1088,8 @@ function wp_idea_stream_ideas_the_idea_footer() {
 	/**
 	 * Gets the footer of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_idea_stream_ideas_get_the_term_list() to get the taxonomy term list
-	 * @uses   wp_idea_stream_get_category() to get the category taxonomy identifier
-	 * @uses   wp_idea_stream_get_tag() to get the tag taxonomy identifier
-	 * @uses   mysql2date() to format the date
-	 * @uses   wp_idea_stream_is_single_idea() to check if the idea is displayed on its single template
-	 * @uses   wp_idea_stream_user_can() to check for user's capability
-	 * @uses   esc_url() to sanitize url
-	 * @uses   get_edit_post_link() to get the edit link of an idea
-	 * @uses   wp_idea_stream_users_get_user_data() to get user's attribute
-	 * @uses   wp_idea_stream_users_get_user_profile_url() to get user's profile link
-	 * @uses   get_avatar() to get user's avatar
-	 * @uses   esc_html() to sanitize the output
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_idea_footer' to override the output
 	 * @return string  output for the footer
 	 */
 	function wp_idea_stream_ideas_get_idea_footer() {
@@ -1478,15 +1209,8 @@ function wp_idea_stream_ideas_the_idea_footer() {
 /**
  * Displays a bottom nav on single template
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   previous_post_link() to get the previous adjacent idea
- * @uses   esc_url() to sanitize url
- * @uses   wp_idea_stream_get_root_url() to get main archive page url
- * @uses   next_post_link() to get the next adjacent idea
  * @return string the bottom nav output
  */
 function wp_idea_stream_ideas_bottom_navigation() {
@@ -1509,17 +1233,8 @@ function wp_idea_stream_ideas_bottom_navigation() {
 /**
  * Displays a message to not logged in users
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   is_user_logged_in() to check if the user is logged in
- * @uses   esc_url() to sanitize url
- * @uses   wp_login_url() to build login url
- * @uses   wp_idea_stream_get_form_url() to get the new idea form url
- * @uses   wp_idea_stream_login_message() to get the custom message to display
- * @uses   apply_filters() call 'wp_idea_stream_ideas_not_loggedin' to override the output
  * @return string the not logged in message output
  */
 function wp_idea_stream_ideas_not_loggedin() {
@@ -1558,12 +1273,8 @@ function wp_idea_stream_ideas_not_loggedin() {
 /**
  * Displays the field to edit the idea title
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_ideas_get_title_edit() to get the value of the field
  * @return string output for the idea title field
  */
 function wp_idea_stream_ideas_the_title_edit() {
@@ -1576,13 +1287,8 @@ function wp_idea_stream_ideas_the_title_edit() {
 	/**
 	 * Gets the value of the title field of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_title_edit' to override the output
 	 * @return string  output for the title field
 	 */
 	function wp_idea_stream_ideas_get_title_edit() {
@@ -1610,16 +1316,8 @@ function wp_idea_stream_ideas_the_title_edit() {
 /**
  * Displays the field to edit the idea content
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   get_option() to get the number of rows for the WP Editor
- * @uses   add_filter() to temporarly filter the mce buttons
- * @uses   wp_editor() to load the WP Editor
- * @uses   wp_idea_stream_ideas_get_editor_content() to get the content of the editor
- * @uses   remove_filter() to remove the filter
  * @return string output for the idea content field
  */
 function wp_idea_stream_ideas_the_editor() {
@@ -1651,15 +1349,8 @@ function wp_idea_stream_ideas_the_editor() {
 	/**
 	 * Gets the value of the content field of an idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_unslash() to strip slashes
-	 * @uses   wp_kses_post() to sanitize the idea content
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_editor_content' to override the output
 	 * @return string  output for the content field
 	 */
 	function wp_idea_stream_ideas_get_editor_content() {
@@ -1800,16 +1491,8 @@ function wp_idea_stream_ideas_the_images_list() {
 /**
  * Checks if the category taxonomy has terms
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   apply_filters() call 'wp_idea_stream_ideas_pre_has_terms' to disable the category checkboxes
- *                         call 'wp_idea_stream_ideas_get_terms_args' to customize the terms to retrieve
- * @uses   wp_idea_stream_ideas_get_terms() to get the terms
- * @uses   wp_idea_stream_get_category() to get the category taxonomy identifier
- * @uses   wp_idea_stream_set_idea_var() to globalize the terms for a later use
  * @return bool true if category has terms, false otherwise
  */
 function wp_idea_stream_ideas_has_terms() {
@@ -1840,15 +1523,7 @@ function wp_idea_stream_ideas_has_terms() {
 /**
  * Displays the checkboxes to select categories
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses   taxonomy_exists() to check a taxonomy exists
- * @uses   wp_idea_stream_get_category() to get the category taxonomy identifier
- * @uses   wp_idea_stream_ideas_has_terms() to check there are categories available
- * @uses   wp_idea_stream_ideas_get_category_edit() to get the category checkboxes list
  */
 function wp_idea_stream_ideas_the_category_edit() {
 	if ( ! taxonomy_exists( wp_idea_stream_get_category() ) || ! wp_idea_stream_ideas_has_terms() ) {
@@ -1862,20 +1537,8 @@ function wp_idea_stream_ideas_the_category_edit() {
 	/**
 	 * Builds a checkboxes list of categories
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_get_object_terms() to get the categories for the idea
-	 * @uses   wp_idea_stream_get_category() to get the category taxonomy identifier
-	 * @uses   wp_idea_stream_get_idea_var() to get the globalized category terms
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_category_edit_none' to override the output when no categories
-	 *                         call 'wp_idea_stream_ideas_get_category_edit' to override the output when has categories
-	 * @uses   esc_attr() to sanitize an attribute
-	 * @uses   esc_html() to sanitize an output
-	 * @uses   checked() to add the checked attribute to the checkbox if needed
 	 * @return string  output for the list of categories
 	 */
 	function wp_idea_stream_ideas_get_category_edit() {
@@ -1930,15 +1593,7 @@ function wp_idea_stream_ideas_the_category_edit() {
 /**
  * Displays the tag editor for an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
- *
- * @uses   taxonomy_exists() to check a taxonomy exists
- * @uses   wp_idea_stream_get_tag() to get the tag taxonomy identifier
- * @uses   wp_idea_stream_ideas_get_tags() to get the selected tags
- * @uses   wp_idea_stream_ideas_the_tag_cloud() to get the most used tags
  */
 function wp_idea_stream_ideas_the_tags_edit() {
 	if ( ! taxonomy_exists( wp_idea_stream_get_tag() ) ) {
@@ -1954,15 +1609,8 @@ function wp_idea_stream_ideas_the_tags_edit() {
 	/**
 	 * Builds a checkboxes list of categories
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_get_object_terms() to get the tags for the idea
-	 * @uses   wp_idea_stream_get_tag() to get the tag taxonomy identifier
-	 * @uses   apply_filters() call 'wp_idea_stream_ideas_get_tags' to override the output
 	 * @return string  output for the list of tags
 	 */
 	function wp_idea_stream_ideas_get_tags() {
@@ -1994,14 +1642,9 @@ function wp_idea_stream_ideas_the_tags_edit() {
 /**
  * Displays a tag cloud to show the most used one
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
  * @param  int $number the number of tags to display
- * @uses   wp_idea_stream_generate_tag_cloud() to generate a tag cloud
- * @uses   number_format_i18n() to format number
  * @return string output for the tag cloud
  */
 function wp_idea_stream_ideas_the_tag_cloud( $number = 10 ) {
@@ -2029,15 +1672,11 @@ function wp_idea_stream_ideas_the_tag_cloud( $number = 10 ) {
 /**
  * Displays a meta field for form/admin views
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
  * @param  string $display_meta the meta field single output
  * @param  object $meta_object  the meta object
  * @param  string $context      the display context (single/form/admin)
- * @uses   wp_idea_stream_get_meta_admin_display() to get the custom field output
  */
 function wp_idea_stream_meta_admin_display( $display_meta = '', $meta_object = null, $context = '' ) {
 	echo wp_idea_stream_get_meta_admin_display( $display_meta, $meta_object, $context );
@@ -2046,17 +1685,11 @@ function wp_idea_stream_meta_admin_display( $display_meta = '', $meta_object = n
 	/**
 	 * Gets the custom field output for form/admin idea's view
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage ideas/tags
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  string $display_meta the meta field single output
 	 * @param  object $meta_object  the meta object
 	 * @param  string $context      the display context (single/form/admin)
-	 * @uses   esc_html() to sanitize the output
-	 * @uses   esc_attr() to sanitize an attribute
-	 * @uses   apply_filters() call 'wp_idea_stream_get_meta_admin_display' to override the output
 	 * @return string               HTML Output
 	 */
 	function wp_idea_stream_get_meta_admin_display( $display_meta = '', $meta_object = null, $context = '' ) {
@@ -2085,16 +1718,8 @@ function wp_idea_stream_meta_admin_display( $display_meta = '', $meta_object = n
 /**
  * Displays the form submit/reset buttons
  *
- * @package WP Idea Stream
- * @subpackage ideas/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's instance
- * @uses   wp_nonce_field() to add a security token to check upon once submitted
- * @uses   do_action() call 'wp_idea_stream_ideas_the_form_submit' to add custom actions before buttons
- * @uses   wp_idea_stream_is_addnew() to check if using the add new form
- * @uses   wp_idea_stream_is_edit() to check if using the edit form
  * @return string output for submit/reset buttons
  */
 function wp_idea_stream_ideas_the_form_submit() {

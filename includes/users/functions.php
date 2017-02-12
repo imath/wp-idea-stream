@@ -1094,9 +1094,6 @@ function wp_idea_stream_multisite_filter_login_url( $login_url ) {
 /**
  * Set a role on the site of the network if needed
  *
- * @package WP Idea Stream
- * @subpackage users/functions
- *
  * @since 2.2.0
  */
 function wp_idea_stream_maybe_set_current_user_role() {

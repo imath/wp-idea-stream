@@ -4,8 +4,7 @@
  *
  * List of main Filter hooks used in the plugin
  *
- * @package WP Idea Stream
- * @subpackage core/filters
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */

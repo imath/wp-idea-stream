@@ -1,14 +1,14 @@
 <?php
 /*
 Plugin Name: WP Idea Stream
-Plugin URI: http://imathi.eu/tag/ideastream/
+Plugin URI: https://imathi.eu/tag/wp-idea-stream/
 Description: Share ideas, great ones will rise to the top!
 Version: 2.4.0-alpha
 Requires at least: 4.7
 Tested up to: 4.7
 License: GNU/GPL 2
 Author: imath
-Author URI: http://imathi.eu/
+Author URI: https://imathi.eu/
 Text Domain: wp-idea-stream
 Domain Path: /languages/
 */

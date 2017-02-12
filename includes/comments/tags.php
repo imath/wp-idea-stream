@@ -4,8 +4,7 @@
  *
  * User's profile comments tags
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
+ * @package WP Idea Stream\comments
  *
  * @since 2.0.0
  */
@@ -18,9 +17,6 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Initialize the user's comments loop.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
  *
  * @param array $args {
@@ -31,12 +27,6 @@ defined( 'ABSPATH' ) || exit;
  *     @type int 'number' Number of results per page.
  *     @type int 'page' the page of results to display.
  * }
- * @uses   wp_parse_args() to merge args with defaults
- * @uses   wp_idea_stream_users_displayed_user_id() to get the ID of the displayed user.
- * @uses   wp_idea_stream_ideas_per_page() to get the pagination preferences
- * @uses   WP_Idea_Stream_Loop_Comments to get the comments matching arguments
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   apply_filters() call 'wp_idea_stream_comments_has_comments' to choose whether to init the loop or not
  * @return bool         true if comments were found, false otherwise
  */
 function wp_idea_stream_comments_has_comments( $args = array() ) {
@@ -65,12 +55,8 @@ function wp_idea_stream_comments_has_comments( $args = array() ) {
 /**
  * Get the comments returned by the template loop.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
  * @return array List of comments.
  */
 function wp_idea_stream_comments_the_comments() {
@@ -80,12 +66,8 @@ function wp_idea_stream_comments_the_comments() {
 /**
  * Get the current comment object in the loop.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream() to get plugin's main instance
  * @return object The current comment within the loop.
  */
 function wp_idea_stream_comments_the_comment() {
@@ -98,12 +80,7 @@ function wp_idea_stream_comments_the_comment() {
 /**
  * Displays a message if no comments were found
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses wp_idea_stream_comments_get_no_comment_found() to get the message
  */
 function wp_idea_stream_comments_no_comment_found() {
 	echo wp_idea_stream_comments_get_no_comment_found();
@@ -112,13 +89,8 @@ function wp_idea_stream_comments_no_comment_found() {
 	/**
 	 * Gets a message if no comments were found
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream_users_get_displayed_user_displayname() to get the message
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_no_comment_found' to override the output
 	 * @return string the message if no comments were found
 	 */
 	function wp_idea_stream_comments_get_no_comment_found() {
@@ -136,12 +108,7 @@ function wp_idea_stream_comments_no_comment_found() {
 /**
  * Output the pagination count for the current comments loop.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_pagination_count() to get the pagination count
  */
 function wp_idea_stream_comments_pagination_count() {
 	echo wp_idea_stream_comments_get_pagination_count();
@@ -150,14 +117,8 @@ function wp_idea_stream_comments_pagination_count() {
 	/**
 	 * Return the pagination count for the current comments loop.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   number_format_i18n() to format numbers
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_pagination_count' to override the output
 	 * @return string HTML for the pagination count.
 	 */
 	function wp_idea_stream_comments_get_pagination_count() {
@@ -177,12 +138,7 @@ function wp_idea_stream_comments_pagination_count() {
 /**
  * Output the pagination links for the current comments loop.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_pagination_links() to get the pagination links
  */
 function wp_idea_stream_comments_pagination_links() {
 	echo wp_idea_stream_comments_get_pagination_links();
@@ -191,13 +147,8 @@ function wp_idea_stream_comments_pagination_links() {
 	/**
 	 * Return the pagination links for the current comments loop.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_pagination_links' to override the output
 	 * @return string HTML for the pagination links.
 	 */
 	function wp_idea_stream_comments_get_pagination_links() {
@@ -210,12 +161,7 @@ function wp_idea_stream_comments_pagination_links() {
 /**
  * Output the ID of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_comment_id() to get the comment ID
  */
 function wp_idea_stream_comments_the_comment_id() {
 	echo wp_idea_stream_comments_get_comment_id();
@@ -224,13 +170,8 @@ function wp_idea_stream_comments_the_comment_id() {
 	/**
 	 * Return the ID of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_comment_id' to override the output
 	 * @return int ID of the current comment.
 	 */
 	function wp_idea_stream_comments_get_comment_id() {
@@ -243,12 +184,7 @@ function wp_idea_stream_comments_the_comment_id() {
 /**
  * Output the avatar of the author of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_comment_author_avatar() to get the avatar
  */
 function wp_idea_stream_comments_the_comment_author_avatar() {
 	echo wp_idea_stream_comments_get_comment_author_avatar();
@@ -257,15 +193,8 @@ function wp_idea_stream_comments_the_comment_author_avatar() {
 	/**
 	 * Return the avatar of the author of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_avatar() to get the avatar of the author
-	 * @uses   wp_idea_stream_users_get_user_profile_url() to get the comment author profile url
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_comment_author_avatar' to override the output
 	 * @return string the avatar.
 	 */
 	function wp_idea_stream_comments_get_comment_author_avatar() {
@@ -284,12 +213,7 @@ function wp_idea_stream_comments_the_comment_author_avatar() {
 /**
  * Output the mention to add before the title of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_before_comment_title() to get the mention
  */
 function wp_idea_stream_comments_before_comment_title() {
 	echo wp_idea_stream_comments_get_before_comment_title();
@@ -298,12 +222,8 @@ function wp_idea_stream_comments_before_comment_title() {
 	/**
 	 * Return the mention to add before the title of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_before_comment_title' to override the output
 	 * @return string the mention to prefix the title with.
 	 */
 	function wp_idea_stream_comments_get_before_comment_title() {
@@ -316,12 +236,7 @@ function wp_idea_stream_comments_before_comment_title() {
 /**
  * Output the permalink of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_comment_permalink() to get the permalink
  */
 function wp_idea_stream_comments_the_comment_permalink() {
 	echo wp_idea_stream_comments_get_comment_permalink();
@@ -330,14 +245,8 @@ function wp_idea_stream_comments_the_comment_permalink() {
 	/**
 	 * Return the permalink of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   wp_idea_stream_comments_get_comment_link() to get the permalink
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_comment_permalink' to override the output
 	 * @return string the comment's permalink.
 	 */
 	function wp_idea_stream_comments_get_comment_permalink() {
@@ -354,12 +263,7 @@ function wp_idea_stream_comments_the_comment_permalink() {
 /**
  * Output the title attribute of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_comment_title_attribute() to get the title attribute
  */
 function wp_idea_stream_comments_the_comment_title_attribute() {
 	echo wp_idea_stream_comments_get_comment_title_attribute();
@@ -368,15 +272,8 @@ function wp_idea_stream_comments_the_comment_title_attribute() {
 	/**
 	 * Return the title attribute of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_post() to get the idea the comment is linked to
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_comment_title_attribute' to override the output
-	 * @uses   esc_attr() to sanitize the title attribute
 	 * @return string the title attribute.
 	 */
 	function wp_idea_stream_comments_get_comment_title_attribute() {
@@ -410,12 +307,7 @@ function wp_idea_stream_comments_the_comment_title_attribute() {
 /**
  * Output the title of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_comment_title() to get the title
  */
 function wp_idea_stream_comments_the_comment_title() {
 	echo wp_idea_stream_comments_get_comment_title();
@@ -424,14 +316,8 @@ function wp_idea_stream_comments_the_comment_title() {
 	/**
 	 * Return the title of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_the_title() to get the title of the idea the comment is linked to
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_comment_title' to override the output
 	 * @return string the title.
 	 */
 	function wp_idea_stream_comments_get_comment_title() {
@@ -457,12 +343,7 @@ function wp_idea_stream_comments_the_comment_title() {
 /**
  * Output the excerpt of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_comment_excerpt() to get the excerpt
  */
 function wp_idea_stream_comments_the_comment_excerpt() {
 	echo wp_idea_stream_comments_get_comment_excerpt();
@@ -471,15 +352,8 @@ function wp_idea_stream_comments_the_comment_excerpt() {
 	/**
 	 * Return the excerpt of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_post() to get the idea the comment is linked to
-	 * @uses   get_comment_excerpt() to get the comment excerpt
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_comment_excerpt' to override the output
 	 * @return string the excerpt.
 	 */
 	function wp_idea_stream_comments_get_comment_excerpt() {
@@ -515,12 +389,7 @@ function wp_idea_stream_comments_the_comment_excerpt() {
 /**
  * Output the footer of the comment currently being iterated on.
  *
- * @package WP Idea Stream
- * @subpackage comments/tags
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_comments_get_comment_footer() to get the footer
  */
 function wp_idea_stream_comments_the_comment_footer() {
 	echo wp_idea_stream_comments_get_comment_footer();
@@ -529,14 +398,8 @@ function wp_idea_stream_comments_the_comment_footer() {
 	/**
 	 * Return the footer of the comment currently being iterated on.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses   wp_idea_stream() to get plugin's main instance
-	 * @uses   get_comment_date() to get the date the comment was posted
-	 * @uses   apply_filters() call 'wp_idea_stream_comments_get_comment_footer' to override the output
 	 * @return string the footer.
 	 */
 	function wp_idea_stream_comments_get_comment_footer() {

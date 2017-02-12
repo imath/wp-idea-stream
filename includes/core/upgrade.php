@@ -4,8 +4,7 @@
  *
  * Mainly Inspired by bbPress
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */
@@ -16,13 +15,8 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Compares the current plugin version to the DB one to check if it's an upgrade
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_db_version() to get DB version
- * @uses   wp_idea_stream_get_version() to get current plugin's version
  * @return bool True if update, False if not
  */
 function wp_idea_stream_is_upgrade() {
@@ -35,13 +29,7 @@ function wp_idea_stream_is_upgrade() {
 /**
  * Checks if an upgrade is needed
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_is_upgrade() to compare current & DB version
- * @uses   wp_idea_stream_upgrade() to perform the upgrade routine
  */
 function wp_idea_stream_maybe_upgrade() {
 	// Bail if no update needed
@@ -56,16 +44,7 @@ function wp_idea_stream_maybe_upgrade() {
 /**
  * Upgrade routine
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_db_version() to get DB version
- * @uses  wp_idea_stream_add_options() to add options based on legacy ones
- * @uses  update_option() to update db version
- * @uses  wp_idea_stream_get_version() to get current plugin's version
- * @uses  wp_idea_stream_delete_rewrite_rules() to reset rewrites
  */
 function wp_idea_stream_upgrade() {
 	$db_version = wp_idea_stream_db_version();
@@ -95,16 +74,7 @@ function wp_idea_stream_upgrade() {
 /**
  * Merge legacy options and do some clean up
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
- *
- * @uses  get_option() to get legacy options
- * @uses  delete_option() to remove no more used options
- * @uses  update_option() to reset page on front if needed
- * @uses  wp_idea_stream_set_idea_var() to set the admin notices
- * @uses  set_transient() to inform a redirect is needed at next page load
  */
 function wp_idea_stream_merge_legacy_options( $default_options = array() ) {
 	// First, as previously root slug was "is", let's keep it to avoid 404 in tag & category archive
@@ -255,18 +225,7 @@ function wp_idea_stream_upgrade_to_2_3() {
 /**
  * Redirect to the Welcome Screen after activation
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
- *
- * @uses  get_transient() to check if a redirect is needed
- * @uses  delete_transient() to remove this redirect info
- * @uses  is_network_admin() to avoid playing in the network admin
- * @uses  wp_idea_stream_user_can() to check user's capability
- * @uses  wp_safe_redirect() to redirect the user to the Welcome Screen
- * @uses  add_query_arg() to build the url to the about page
- * @uses  admin_url() to get admin url
  */
 function wp_idea_stream_activation_redirect() {
 	$redirect = get_transient( '_ideastream_activation_redirect' );

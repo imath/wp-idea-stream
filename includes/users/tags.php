@@ -4,8 +4,7 @@
  *
  * Template tags specific to users
  *
- * @package WP Idea Stream
- * @subpackage users/tags
+ * @package WP Idea Stream\users
  *
  * @since 2.0.0
  */
@@ -15,9 +14,6 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Outputs user's profile nav
- *
- * @package WP Idea Stream
- * @subpackage users/tags
  *
  * @since 2.0.0
  *
@@ -30,15 +26,9 @@ function wp_idea_stream_users_the_user_nav() {
 	/**
 	 * Gets user's profile nav
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses wp_idea_stream_users_displayed_user_id() to get displayed user ID
-	 * @uses wp_idea_stream_users_get_displayed_user_username() to get displayed username
-	 * @uses wp_idea_stream_users_get_profile_nav_items() to get displayed user nav items
-	 * @uses apply_filters() call 'wp_idea_stream_users_get_user_nav' to override output
+	 * @return  string The user's profile nav.
 	 */
 	function wp_idea_stream_users_get_user_nav() {
 		// Get displayed user id.
@@ -84,8 +74,6 @@ function wp_idea_stream_users_the_user_nav() {
  * Outputs user's embed profile stats
  *
  * @since 2.3.0
- *
- * @uses wp_idea_stream_users_get_user_nav() to get the nav
  */
 function wp_idea_stream_users_embed_user_stats() {
 	echo wp_idea_stream_users_get_embed_user_stats();
@@ -156,12 +144,7 @@ function wp_idea_stream_users_embed_user_stats() {
 /**
  * Outputs user's profile avatar
  *
- * @package WP Idea Stream
- * @subpackage users/tags
- *
  * @since 2.0.0
- *
- * @uses wp_idea_stream_users_get_user_profile_avatar() to get the avatar
  */
 function wp_idea_stream_users_the_user_profile_avatar() {
 	echo wp_idea_stream_users_get_user_profile_avatar();
@@ -170,14 +153,9 @@ function wp_idea_stream_users_the_user_profile_avatar() {
 	/**
 	 * Gets user's profile avatar
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses get_avatar() to fetch user's avatar
-	 * @uses wp_idea_stream_users_displayed_user_id() to get displayed user ID
-	 * @uses apply_filters() call 'wp_idea_stream_users_get_user_profile_avatar' to override output
+	 * @return  string the user's avatar.
 	 */
 	function wp_idea_stream_users_get_user_profile_avatar() {
 		return apply_filters( 'wp_idea_stream_users_get_user_profile_avatar', get_avatar( wp_idea_stream_users_displayed_user_id(), '150' ) );
@@ -188,8 +166,6 @@ function wp_idea_stream_users_the_user_profile_avatar() {
  * Outputs user's embed profile avatar
  *
  * @since 2.3.0
- *
- * @uses wp_idea_stream_users_get_embed_user_profile_avatar() to get the avatar
  */
 function wp_idea_stream_users_embed_user_profile_avatar() {
 	echo wp_idea_stream_users_get_embed_user_profile_avatar();
@@ -199,6 +175,8 @@ function wp_idea_stream_users_embed_user_profile_avatar() {
 	 * Gets user's embed profile avatar
 	 *
 	 * @since 2.3.0
+	 *
+	 * @return  string the user's avatar for the embed profile.
 	 */
 	function wp_idea_stream_users_get_embed_user_profile_avatar() {
 		return apply_filters( 'wp_idea_stream_users_get_embed_user_profile_avatar', get_avatar( wp_idea_stream_users_displayed_user_id(), '50' ) );
@@ -208,8 +186,6 @@ function wp_idea_stream_users_embed_user_profile_avatar() {
  * Outputs user's embed profile display name
  *
  * @since 2.3.0
- *
- * @uses wp_idea_stream_users_get_embed_user_profile_display_name() to get the display name
  */
 function wp_idea_stream_users_embed_user_profile_display_name() {
 	echo wp_idea_stream_users_get_embed_user_profile_display_name();
@@ -219,6 +195,8 @@ function wp_idea_stream_users_embed_user_profile_display_name() {
 	 * Gets user's embed profile display name
 	 *
 	 * @since 2.3.0
+	 *
+	 * @return  string the user's display name.
 	 */
 	function wp_idea_stream_users_get_embed_user_profile_display_name() {
 		return esc_html( apply_filters( 'wp_idea_stream_users_get_embed_user_profile_display_name', wp_idea_stream_users_get_displayed_user_displayname() ) );
@@ -228,8 +206,6 @@ function wp_idea_stream_users_embed_user_profile_display_name() {
  * Outputs user's embed profile link
  *
  * @since 2.3.0
- *
- * @uses wp_idea_stream_users_get_embed_user_profile_link() to get the link
  */
 function wp_idea_stream_users_embed_user_profile_link() {
 	echo esc_url( wp_idea_stream_users_get_embed_user_profile_link() );
@@ -239,6 +215,8 @@ function wp_idea_stream_users_embed_user_profile_link() {
 	 * Gets user's embed profile link
 	 *
 	 * @since 2.3.0
+	 *
+	 * @return string the user's profile link for the embed profile
 	 */
 	function wp_idea_stream_users_get_embed_user_profile_link() {
 		$link = wp_idea_stream_users_get_user_profile_url( wp_idea_stream_users_displayed_user_id(), wp_idea_stream_users_get_displayed_user_username() );
@@ -248,12 +226,7 @@ function wp_idea_stream_users_embed_user_profile_link() {
 /**
  * Outputs user's profile description
  *
- * @package WP Idea Stream
- * @subpackage users/tags
- *
  * @since 2.0.0
- *
- * @uses wp_idea_stream_users_get_user_profile_description() to get the description
  */
 function wp_idea_stream_users_the_user_profile_description() {
 	echo wp_idea_stream_users_get_user_profile_description();
@@ -262,17 +235,9 @@ function wp_idea_stream_users_the_user_profile_description() {
 	/**
 	 * Gets user's profile description
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @uses wp_idea_stream_users_get_displayed_user_displayname() get displayed user display name
-	 * @uses wp_idea_stream_is_current_user_profile() to check current user is viewing his profile
-	 * @uses wp_idea_stream_users_get_displayed_user_description() to get user's descripton
-	 * @uses wp_kses_allowed_html() to get allowed tags for user's description
-     * @uses wp_kses to sanitize user's descripton
-	 * @uses apply_filters() call 'wp_idea_stream_users_get_{$self}user_profile_description' to override output
+	 * @return string the User's description.
 	 */
 	function wp_idea_stream_users_get_user_profile_description() {
 		$display_name = wp_idea_stream_users_get_displayed_user_displayname();
@@ -384,14 +349,10 @@ function wp_idea_stream_users_embed_user_profile_description() {
 /**
  * Append displayed user's rating in ideas header when viewing his rates profile
  *
- * @package WP Idea Stream
- * @subpackage users/tags
- *
  * @since 2.0.0
  *
  * @param int $id      the idea ID
  * @param int $user_id the user ID
- * @uses  wp_idea_stream_users_get_user_idea_rating() to get the description
  */
 function wp_idea_stream_users_the_user_idea_rating( $id = 0, $user_id = 0 ) {
 	echo wp_idea_stream_users_get_user_idea_rating( $id, $user_id );
@@ -400,20 +361,11 @@ function wp_idea_stream_users_the_user_idea_rating( $id = 0, $user_id = 0 ) {
 	/**
 	 * Gets displayed user's rating for a given idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage users/tags
-	 *
 	 * @since 2.0.0
 	 *
-	 * @param int $id      the idea ID
-	 * @param int $user_id the user ID
-	 * @uses  wp_idea_stream_is_user_profile_rates() to check we're on the rates part of a user's profile
-	 * @uses  wp_idea_stream_get_idea_var() to get a globalized value
-	 * @uses  wp_idea_stream_users_displayed_user_id() to get displayed user's ID
-	 * @uses  wp_idea_stream_users_get_displayed_user_username() to get displayed user's username
-     * @uses  wp_idea_stream_users_get_user_profile_url() to get user's profile url
-     * @uses  get_avatar() to get user's avatar
-	 * @uses  apply_filters() call 'wp_idea_stream_users_get_user_idea_rating' to override output
+	 * @param  int $id      the idea ID
+	 * @param  int $user_id the user ID
+	 * @return string the displayed user's rating for a given idea.
 	 */
 	function wp_idea_stream_users_get_user_idea_rating( $id = 0, $user_id = 0 ) {
 		if ( ! wp_idea_stream_is_user_profile_rates() ) {
@@ -457,9 +409,22 @@ function wp_idea_stream_users_the_user_idea_rating( $id = 0, $user_id = 0 ) {
 		return apply_filters( 'wp_idea_stream_users_get_user_idea_rating', $output, $id, $user_id );
 	}
 
+/**
+ * Display the signup fields
+ *
+ * @since 2.1.0
+ */
 function wp_idea_stream_users_the_signup_fields() {
 	echo wp_idea_stream_users_get_signup_fields();
 }
+
+	/**
+	 * Get the signup fields output.
+	 *
+	 * @since  2.1.0
+	 *
+	 * @return string HTML output for the signup fields.
+	 */
 	function wp_idea_stream_users_get_signup_fields() {
 		$output = '';
 
@@ -491,6 +456,13 @@ function wp_idea_stream_users_the_signup_fields() {
 		return apply_filters( 'wp_idea_stream_users_get_signup_fields', $output );
 	}
 
+/**
+ * Display the Signup form submit output.
+ *
+ * @since  2.1.0
+ *
+ * @return string HTML Output.
+ */
 function wp_idea_stream_users_the_signup_submit() {
 	$wp_idea_stream = wp_idea_stream();
 
