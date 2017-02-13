@@ -43,45 +43,27 @@ class WP_Idea_Stream_User_Functions_Tests extends WP_Idea_Stream_TestCase {
 	 * @group signup
 	 */
 	public function test_wp_idea_stream_users_signup_user_bad_user_login() {
-		if ( function_exists( 'buddypress' ) ) {
-			$this->markTestSkipped( 'wp_idea_stream_users_signup_user() is not used when BuddyPress is activated.' );
-		}
-
 		$this->post_signup_form( array( 'user_login' => 'foo', 'user_email' => 'foo@mail.com' ) );
 
-		wp_idea_stream_users_signup_user( false );
-
-		$this->assertContains( 'error', wp_idea_stream_get_idea_var( 'feedback' ) );
+		$this->assertEmpty( wp_idea_stream_users_signup_user( false ) );
 	}
 
 	/**
 	 * @group signup
 	 */
 	public function test_wp_idea_stream_users_signup_user_bad_user_email() {
-		if ( function_exists( 'buddypress' ) ) {
-			$this->markTestSkipped( 'wp_idea_stream_users_signup_user() is not used when BuddyPress is activated.' );
-		}
-
 		$this->post_signup_form( array( 'user_login' => 'foobar', 'user_email' => 'foo.com' ) );
 
-		wp_idea_stream_users_signup_user( false );
-
-		$this->assertContains( 'error', wp_idea_stream_get_idea_var( 'feedback' ) );
+		$this->assertEmpty( wp_idea_stream_users_signup_user( false ) );
 	}
 
 	/**
 	 * @group signup
 	 */
 	public function test_wp_idea_stream_users_signup_user_success() {
-		if ( function_exists( 'buddypress' ) ) {
-			$this->markTestSkipped( 'wp_idea_stream_users_signup_user() is not used when BuddyPress is activated.' );
-		}
-
 		$this->post_signup_form( array( 'user_login' => 'foobar', 'user_email' => 'foobar@mail.com' ) );
 
-		wp_idea_stream_users_signup_user( false );
-
-		$this->assertContains( 'success', wp_idea_stream_get_idea_var( 'feedback' ) );
+		$this->assertNotEmpty( wp_idea_stream_users_signup_user( false ) );
 	}
 
 	/**
@@ -90,10 +72,6 @@ class WP_Idea_Stream_User_Functions_Tests extends WP_Idea_Stream_TestCase {
 	public function test_wp_idea_stream_users_signup_child_blog() {
 		if ( ! is_multisite() ) {
 			$this->markTestSkipped( __METHOD__ . ' is a multisite-only test.' );
-		}
-
-		if ( function_exists( 'buddypress' ) ) {
-			$this->markTestSkipped( 'wp_idea_stream_users_signup_user() is not used when BuddyPress is activated.' );
 		}
 
 		$registration = get_site_option( 'registration' );

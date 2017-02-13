@@ -92,14 +92,35 @@ module.exports = function( grunt ) {
 				esprimaOptions:{},
 				verbose: false
 			}
+		},
+		phpunit: {
+			'default': {
+				cmd: 'phpunit',
+				args: ['-c', 'phpunit.xml.dist']
+			},
+			'multisite': {
+				cmd: 'phpunit',
+				args: ['-c', 'tests/phpunit/multisite.xml']
+			}
 		}
+	} );
+
+	/**
+	 * Register tasks.
+	 */
+	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the multisite tests.', function() {
+		grunt.util.spawn( {
+			args: this.data.args,
+			cmd:  this.data.cmd,
+			opts: { stdio: 'inherit' }
+		}, this.async() );
 	} );
 
 	grunt.registerTask( 'jstest', ['jsvalidate', 'jshint'] );
 
 	grunt.registerTask( 'shrink', ['clean', 'cssmin', 'uglify'] );
 
-	grunt.registerTask( 'commit',  ['checktextdomain', 'jstest'] );
+	grunt.registerTask( 'commit',  ['checktextdomain', 'jstest', 'phpunit'] );
 
 	grunt.registerTask( 'release', ['checktextdomain', 'makepot', 'jstest', 'clean', 'cssmin', 'uglify'] );
 

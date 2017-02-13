@@ -909,6 +909,8 @@ function wp_idea_stream_users_signup_user( $exit = true ) {
 
 		if ( $exit ) {
 			exit();
+		} else {
+			return true;
 		}
 	}
 }
