@@ -338,6 +338,7 @@ function wp_idea_stream_category_register_args() {
 		'public'                => true,
 		'show_tagcloud'         => false,
 		'show_in_rest'          => true,
+		'rest_controller_class' => 'WP_Idea_Stream_Ideas_Term_REST_Controller',
 	) );
 }
 
@@ -398,6 +399,7 @@ function wp_idea_stream_tag_register_args() {
 		'public'                => true,
 		'show_tagcloud'         => true,
 		'show_in_rest'          => true,
+		'rest_controller_class' => 'WP_Idea_Stream_Ideas_Term_REST_Controller',
 	) );
 }
 

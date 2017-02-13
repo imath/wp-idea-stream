@@ -42,6 +42,10 @@ if ( ! class_exists( 'WP_Idea_Stream_Ideas_REST_Controller' ) {
 	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-ideas-rest-controller.php' );
 }
 
+if ( ! class_exists( 'WP_Idea_Stream_Ideas_Term_REST_Controller' ) {
+	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-ideas-term-rest-controller.php' );
+}
+
 /** Ideas Categories Widget ***************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Ideas_Categories' ) ) {

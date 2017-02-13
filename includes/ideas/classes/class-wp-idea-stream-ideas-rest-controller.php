@@ -4,7 +4,7 @@
  *
  * @package WP Idea Stream\ideas\classes
  *
- * @since 2.4.0
+ * @since 2.4.0 Ideas are readonly
  */
 
 // Exit if accessed directly.
