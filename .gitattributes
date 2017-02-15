@@ -3,6 +3,8 @@
 /.gitignore export-ignore
 /.jshintignore export-ignore
 /.jshintrc export-ignore
-/phpunit.xml export-ignore
+/tests export-ignore
+/phpunit.xml.dist export-ignore
 /Gruntfile.js export-ignore
 /package.json export-ignore
+/README.md export-ignore
