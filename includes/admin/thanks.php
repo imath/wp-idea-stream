@@ -22,16 +22,15 @@ defined( 'ABSPATH' ) || exit;
 function wp_idea_stream_admin_about() {
 	$display_version = wp_idea_stream_get_version();
 	$settings_url = add_query_arg( 'page', 'ideastream', admin_url( 'options-general.php' ) );
-	$has_upgraded = get_transient( '_ideastream_reactivated_upgrade' );
+	$has_upgraded = false;
+
+	if ( ! empty( $_GET['is_upgrade'] ) ) {
+		$has_upgraded = true;
+	}
 	$thanks_for = esc_html__( 'Thank you for activating the latest version of WP Idea Stream! %s brings some really cool new features!', 'wp-idea-stream' );
 
 	if ( ! empty( $has_upgraded ) ) {
 		$thanks_for = esc_html__( 'Thank you for upgrading to the latest version of WP Idea Stream! %s brings some really cool new features!', 'wp-idea-stream' );
-		delete_transient( '_ideastream_reactivated_upgrade' );
-	}
-
-	if ( wp_idea_stream_is_embed_profile() ) {
-		$admin_profile = wp_oembed_get( wp_idea_stream_users_get_user_profile_url( get_current_user_id(), '', true ) );
 	}
 	?>
 	<div class="wrap about-wrap">
@@ -56,13 +55,14 @@ function wp_idea_stream_admin_about() {
 					<?php esc_html_e( 'WP Idea Stream is a WordPress plugin to power idea management for your site. Your members will be able to easily create, share and rate ideas.', 'wp-idea-stream' ); ?>
 				</p>
 
-				<?php if ( ! empty( $has_upgraded ) ) : ?>
-					<h4><?php esc_html_e( 'Important: these features are not supported anymore.', 'wp-idea-stream' );?></h4>
-					<ul>
-						<li><?php esc_html_e( 'Set the list of ideas as the front page of the blog.', 'wp-idea-stream' );?></li>
-						<li><?php esc_html_e( 'Sharing options (twitter or email).', 'wp-idea-stream' );?></li>
-						<li><?php esc_html_e( 'Disabling the built-in rating system.', 'wp-idea-stream' );?></li>
-					</ul>
+				<?php if ( function_exists( 'buddypress' ) ) : ?>
+					<h4 style="text-align:center"><?php esc_html_e( 'What about BuddyPress Integration?', 'wp-idea-stream' );?></h4>
+					<p>
+						<?php printf(
+							esc_html__( 'WP Idea Stream is no longer including this integration into its codebase. Don\'t panic, you can always enjoy BuddyPress with WP Idea Stream by downloading and activating this addon: %s.', 'wp-idea-stream' ),
+							'<a href="https://github.com/imath/bp-idea-stream">BP Idea Stream</a>'
+						); ?>
+					</p>
 				<?php endif; ?>
 			</div>
 		</div>
@@ -70,27 +70,19 @@ function wp_idea_stream_admin_about() {
 		<hr />
 
 		<div class="headline-feature">
-			<h2 style="text-align:center"><?php esc_html_e( 'Embed your users profiles', 'wp-idea-stream' ); ?></h2>
-
-			<?php if ( ! empty( $admin_profile ) ) :?>
-				<style>blockquote.wp-embedded-content{display:none;}iframe.wp-embedded-content{display:block!important;clip:auto!important;position:relative!important;margin:0 auto;max-height:228px!important;min-width:600px}</style>
-				<div class="embed-container" id="#embed-admin-profile">
-					<?php echo $admin_profile ; ?>
-				</div>
-			<?php else : ?>
-				<div class="feature-image" style="text-align:center">
-					<img src="https://cldup.com/4t2V1bvOMR.png" alt="<?php esc_attr_e( 'Embed profile', 'wp-idea-stream' ); ?>">
-				</div>
-			<?php endif ; ?>
+			<h2 style="text-align:center"><?php esc_html_e( 'Let\'s enjoy the awesome WordPress Rest API.', 'wp-idea-stream' ); ?></h2>
 
 			<div class="feature-section" style="margin-top:1em">
-				<h3 style="text-align:center"><?php esc_html_e( 'Great ideas are found by awesome people!', 'wp-idea-stream' ); ?></h3>
-				<p><?php esc_html_e( 'Use the powerful WordPress Embeds provider feature introduced in WordPress 4.4 to let your users show off their lovely profile and statistics about their contributions.', 'wp-idea-stream' ); ?></p>
-				<p><?php esc_html_e( 'WP Idea Stream embed profiles are even greater when BuddyPress 2.4 is activated thanks to its new Cover Images feature, check this out!', 'wp-idea-stream' ); ?></p>
-			</div>
-
-			<div class="feature-image" style="padding-bottom:1.5em;width:600px;margin:0 auto">
-				<img src="https://cldup.com/liERrg_WJJ.png" alt="<?php esc_attr_e( 'Embed profile when BuddyPress is active', 'wp-idea-stream' ); ?>">
+				<p><?php esc_html_e( 'The idea ratings built-in system is now using a custom endpoint to save your users ratings.', 'wp-idea-stream' ); ?></p>
+				<p><?php esc_html_e( 'Readonly endpoints are now available to get the great ideas your users shared:', 'wp-idea-stream' ); ?></p>
+				<ul style="width:60%; margin: 0 auto; list-style-type: square;">
+					<li><?php printf( esc_html__( 'GET ideas at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/ideas</code>' ); ?></li>
+					<li><?php printf( esc_html__( 'GET an idea at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/ideas/{ID}</code>' ); ?></li>
+					<li><?php printf( esc_html__( 'GET idea categories at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/category-ideas</code>' ); ?></li>
+					<li><?php printf( esc_html__( 'GET an idea category at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/category-ideas/{term_id}</code>' ); ?></li>
+					<li><?php printf( esc_html__( 'GET idea tags at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/tag-ideas</code>' ); ?></li>
+					<li><?php printf( esc_html__( 'GET an idea tag at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/tag-ideas/{term_id}</code>' ); ?></li>
+				</ul>
 			</div>
 
 			<div class="clear"></div>
@@ -105,8 +97,9 @@ function wp_idea_stream_admin_about() {
 				</div>
 			</div>
 			<div class="col">
-				<h3><?php esc_html_e( 'Featured images for ideas.', 'wp-idea-stream' ); ?></h3>
-				<p><?php esc_html_e( 'When a user adds images to an idea, those images will be presented as a list, and can then be selected as the featured image for the idea.', 'wp-idea-stream' ); ?></p>
+				<h3><?php esc_html_e( 'A new status for Ideas: Archive', 'wp-idea-stream' ); ?></h3>
+				<p><?php esc_html_e( 'This new status allows you to archive ideas so that they are not listed anymore on the front-end but are always available from the &quot;Archived&quot; view of the Ideas Administration screen.', 'wp-idea-stream' ); ?></p>
+				<p><?php esc_html_e( 'You can always change your mind and unarchive any archived ideas. They will be restored to their previous status.', 'wp-idea-stream' ); ?></p>
 			</div>
 		</div>
 
@@ -119,12 +112,50 @@ function wp_idea_stream_admin_about() {
 				</div>
 			</div>
 			<div class="col">
-				<h3><?php esc_html_e( 'Embeds, embeds, embeds!', 'wp-idea-stream' ); ?></h3>
+				<h3><?php esc_html_e( 'List Ideas on your site\'s static front page.', 'wp-idea-stream' ); ?></h3>
 				<p>
-					<?php esc_html_e( 'You can now share ideas within your WordPress posts, or anyone can embed them anywhere on the internet compatible with embed codes: just like regular posts. Ideas will include one more piece of information: the average rating they have received!', 'wp-idea-stream' ); ?>
+					<?php esc_html_e( 'When you choose a static front page for your home page from the General Options Administration screen, you can now override this page\'s content with the list of shared ideas.', 'wp-idea-stream' ); ?>
 				</p>
 				<p>
-					<?php esc_html_e( 'The way the plugin deal with embeds has been greatly improved and every embed code should be displayed just fine in every single view of ideas (including the one in BuddyPress Groups).', 'wp-idea-stream' ); ?>
+					<?php esc_html_e( 'Once you have set the static front page simply activate the &quot;List the ideas on the static front page&quot; WP Idea Stream\'s setting.', 'wp-idea-stream' ); ?>
+				</p>
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="feature-section two-col">
+			<div class="col">
+				<div class="media-container">
+					<img src="https://cldup.com/GglZMhKiLG.png" alt=""/>
+				</div>
+			</div>
+			<div class="col">
+				<h3><?php esc_html_e( 'WP Idea Stream\'s menu items.', 'wp-idea-stream' ); ?></h3>
+				<p>
+					<?php esc_html_e( 'It\'s now a lot more easier to add links to WP Idea Stream\'s areas within your navigation menus.', 'wp-idea-stream' ); ?>
+				</p>
+				<p>
+					<?php esc_html_e( 'From the Menu section of the customizer or the Menus Administration screen, you will be able to add the WP Idea Stream\'s menu items of your choice inside your navigation parts.', 'wp-idea-stream' ); ?>
+				</p>
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="feature-section two-col">
+			<div class="col">
+				<div class="media-container">
+					<img src="https://cldup.com/GglZMhKiLG.png" alt=""/>
+				</div>
+			</div>
+			<div class="col">
+				<h3><?php esc_html_e( 'A tabbed UI for the WP Idea Stream\'s Settings screen.', 'wp-idea-stream' ); ?></h3>
+				<p>
+					<?php esc_html_e( 'Settings sections are now organized into tabs to improve their readability and avoid a never ending options page!', 'wp-idea-stream' ); ?>
+				</p>
+				<p>
+					<?php esc_html_e( 'This UI is ready to house all existing and future WP Idea Stream\'s addons\' settings in this central place.', 'wp-idea-stream' ); ?>
 				</p>
 			</div>
 		</div>
@@ -135,12 +166,15 @@ function wp_idea_stream_admin_about() {
 				<div class="col-1">
 					<h4><?php esc_html_e( 'TwentySeventeen', 'wp-idea-stream' ); ?></h4>
 					<ul>
-						<li><?php esc_html_e( 'WP Idea Stream will look pretty nice when used with the next WordPress default theme. Its style has been optimized for it.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'WP Idea Stream will look pretty nice when used with the WordPress default theme. Its style has been optimized for it.', 'wp-idea-stream' ); ?></li>
 					</ul>
-					<h4><?php esc_html_e( 'Bug fixes', 'wp-idea-stream' ); ?></h4>
+					<h4><?php esc_html_e( 'User Feedbacks', 'wp-idea-stream' ); ?></h4>
 					<ul>
-						<li><?php esc_html_e( 'Fix an issue with comments count cache.', 'wp-idea-stream' ); ?></li>
-						<li><?php esc_html_e( 'Fix comments &quot;All&quot; count on Comments Administration screens views.', 'wp-idea-stream' ); ?></li>
+						<li><?php esc_html_e( 'User Feedbacks are no longer using cookies and can now display as many feedbacks of any types to the user.', 'wp-idea-stream' ); ?></li>
+					</ul>
+					<h4><?php esc_html_e( 'Under the hood', 'wp-idea-stream' ); ?></h4>
+					<ul>
+						<li><?php esc_html_e( 'Classes are now autoloaded!', 'wp-idea-stream' ); ?></li>
 					</ul>
 				</div>
 			</div>
@@ -213,14 +247,6 @@ function wp_idea_stream_admin_credits() {
 		<p class="wp-credits-list">
 			<a href="https://profiles.wordpress.org/imath">imath</a>.
 		</p>
-
-		<h3 class="wp-people-group"><?php esc_html_e( 'Special thanks.', 'wp-idea-stream' ); ?></h3>
-		<div class="ideastream-credits">
-			<a href="https://paris.wordcamp.org/2016/"><img src="https://cldup.com/UoFilD4UGh.png" class="gravatar" alt="WordCamp Paris 2016" /></a>
-		</div>
-		<p><?php printf( esc_html__( 'WP Idea Stream was the choice of the WordCamp Paris 2016 organization team to manage their &quot;Call for Speakers&quot;. Some requested features were very specific to their need and were all added as custom hooks in the %s file.', 'wp-idea-stream' ), '<a href="https://github.com/imath/wc-talk">wp-idea-stream-custom.php</a>' ); ?></p>
-		<p><?php esc_html_e( 'The plugin was completely transformed to let the speakers submit their talks privately. The managing team was able to discuss together using private comments and evaluate each talk using the built-in rating system.', 'wp-idea-stream' ); ?></p>
-		<p><?php esc_html_e( 'Many thanks to WordCamp Paris organizers and speakers for this great experience and for their contributions to the user rates bug report.', 'wp-idea-stream' ); ?></p>
 
 		<h3 class="wp-people-group"><?php esc_html_e( 'WP Idea Stream&#39;s external libraries and useful code', 'wp-idea-stream' ); ?></h3>
 		<ul class="wp-people-group " id="wp-people-group-project-leaders">

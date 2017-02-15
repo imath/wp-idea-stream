@@ -71,6 +71,7 @@ add_action( 'admin_init', 'wp_idea_stream_admin_init', 10 );
 add_action( 'admin_head', 'wp_idea_stream_admin_head', 10 );
 
 add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_activation_redirect',      1 );
+add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_upgrade_redirect',         2 );
 add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_admin_register_settings', 11 );
 add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_maybe_upgrade',          999 );
 
