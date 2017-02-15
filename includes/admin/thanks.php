@@ -60,7 +60,7 @@ function wp_idea_stream_admin_about() {
 					<p>
 						<?php printf(
 							esc_html__( 'WP Idea Stream is no longer including this integration into its codebase. Don\'t panic, you can always enjoy BuddyPress with WP Idea Stream by downloading and activating this addon: %s.', 'wp-idea-stream' ),
-							'<a href="https://github.com/imath/bp-idea-stream">BP Idea Stream</a>'
+							'<a href="https://github.com/imath/bp-idea-stream/archive/1.0.0-beta.zip">BP Idea Stream</a>'
 						); ?>
 					</p>
 				<?php endif; ?>
