@@ -873,10 +873,18 @@ function wp_idea_stream_body_class( $wp_classes, $custom_classes = false ) {
 	if ( wp_idea_stream_is_ideastream() ) {
 		$ideastream_classes[] = 'ideastream';
 
-		// Force Twentyseventeen to display the one column style
+		// Adapts the display to the Twentyseventeen page layout option.
 		if ( 'twentyseventeen' === get_template() ) {
-			$wp_classes = array_diff( $wp_classes, array( 'has-sidebar', 'page-two-column', 'blog', 'archive' ) );
-			$ideastream_classes[] = 'page-one-column';
+			$wp_classes = array_diff( $wp_classes, array( 'has-sidebar', 'blog', 'archive' ) );
+			$ideastream_classes[] = 'page';
+
+			if ( ! is_single() ) {
+				if ( 'one-column' === get_theme_mod( 'page_layout' ) ) {
+					$ideastream_classes[] = 'page-one-column';
+				} else {
+					$ideastream_classes[] = 'page-two-column';
+				}
+			}
 		}
 	}
 

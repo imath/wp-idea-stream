@@ -377,10 +377,6 @@ body.single-ideas #wp-idea-stream div.idea-header {
 	width: auto;
 }
 
-#buddypress #wp-idea-stream h1.idea-title {
-	margin: 1em 0;
-}
-
 #wp-idea-stream .user-rating-link {
 	vertical-align: bottom;
 }
@@ -543,8 +539,7 @@ a.wpis-title-button {
 	border:none;
 }
 
-#wp-idea-stream .profile-header .wp-embed-share-dialog .dashicons-no:before,
-body.ideastream.bp-user .wp-embed-share-dialog .dashicons-no:before {
+#wp-idea-stream .profile-header .wp-embed-share-dialog .dashicons-no:before {
 	display: none;
 }
 
@@ -558,11 +553,10 @@ body.ideastream.bp-user .wp-embed-share-dialog .dashicons-no:before {
 	border: none;
 }
 
-#wp-idea-stream .profile-header .wp-embed-share,
-body.ideastream.bp-user .wp-embed-share {
- 	margin: 9px 10px 0 0;
- 	display: block;
- 	float: left;
+#wp-idea-stream .profile-header .wp-embed-share {
+	margin: 9px 10px 0 0;
+	display: block;
+	float: left;
 }
 
 #wp-idea-stream .profile-header .wp-embed-share,
@@ -576,13 +570,7 @@ body.ideastream.bp-user .wp-embed-share {
 	width: auto;
 }
 
-body.ideastream.bp-user .wp-embed-share .wp-embed-share-dialog-open {
-	border-radius: 0;
-	margin: 0;
-}
-
-#wp-idea-stream .profile-header .wp-embed-share-dialog-open .dashicons,
-body.ideastream.bp-user .wp-embed-share-dialog-open .dashicons {
+#wp-idea-stream .profile-header .wp-embed-share-dialog-open .dashicons {
 	top: 0px;
 	padding: 0px;
 	font-size: inherit;
@@ -592,35 +580,22 @@ body.ideastream.bp-user .wp-embed-share-dialog-open .dashicons {
 }
 
 #wp-idea-stream .profile-header .wp-embed-share-dialog-open:focus .dashicons,
-#wp-idea-stream .profile-header .wp-embed-share-dialog-close:focus .dashicons,
-body.ideastream.bp-user .wp-embed-share-dialog-open:focus .dashicons,
-body.ideastream.bp-user .wp-embed-share-dialog-close:focus .dashicons {
+#wp-idea-stream .profile-header .wp-embed-share-dialog-close:focus .dashicons {
 	box-shadow: none;
 }
 
-#wp-idea-stream .profile-header .wp-embed-share-dialog-close,
-body.ideastream.bp-user #buddypress button.wp-embed-share-dialog-close {
+#wp-idea-stream .profile-header .wp-embed-share-dialog-close {
 	border: none;
 	background: none;
 }
 
 
-#wp-idea-stream .profile-header .wp-embed-share-dialog-open .dashicons-share,
-body.ideastream.bp-user .wp-embed-share-dialog-open .dashicons-share {
+#wp-idea-stream .profile-header .wp-embed-share-dialog-open .dashicons-share {
 	background-image: none;
 }
 
-#wp-idea-stream .profile-header,
-body.ideastream.bp-user #item-header-content {
+#wp-idea-stream .profile-header {
 	position: relative;
-}
-
-body.ideastream.bp-user #item-body h3:empty {
-	display: none;
-}
-
-#buddypress div#item-header ul.wp-embed-share-tabs li {
-	float: none;
 }
 
 body.ideastream .wp-embed-share-dialog {
@@ -764,10 +739,11 @@ body.ideastream .wp-embed-share-dialog {
 	font-weight: normal;
 	margin: 5px 0 0 0;
 }
-#buddypress #wp-idea-stream .standard-form input[type='text'],
+
 #wp-idea-stream .standard-form input[type=text] {
 	width: 90%;
 }
+
 #wp-idea-stream .form-allowed-tags,
 #wp-idea-stream #commentform input[type=text],
 #wp-idea-stream #commentform textarea {
@@ -884,12 +860,6 @@ body.single-ideas #comments .comment-reply-link:hover {
 #wp-idea-stream #ideas-search-submit,
 #wp-idea-stream #ideas-order-submit {
 	font-size: 80%;
-}
-
-body.single-item.groups #buddypress #wp-idea-stream #buddydrive-btn {
-	float:none;
-	margin:1em 0;
-	display:inline-block;
 }
 
 #wp-idea-stream .standard-form #idea-images-list.hidden {
