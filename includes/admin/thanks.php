@@ -75,7 +75,7 @@ function wp_idea_stream_admin_about() {
 			<div class="feature-section" style="margin-top:1em">
 				<p><?php esc_html_e( 'The idea ratings built-in system is now using a custom endpoint to save your users ratings.', 'wp-idea-stream' ); ?></p>
 				<p><?php esc_html_e( 'Readonly endpoints are now available to get the great ideas your users shared:', 'wp-idea-stream' ); ?></p>
-				<ul style="width:60%; margin: 0 auto; list-style-type: square;">
+				<ul style="width:70%; margin: 0 auto; list-style-type: square;">
 					<li><?php printf( esc_html__( 'GET ideas at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/ideas</code>' ); ?></li>
 					<li><?php printf( esc_html__( 'GET an idea at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/ideas/{ID}</code>' ); ?></li>
 					<li><?php printf( esc_html__( 'GET idea categories at %s', 'wp-idea-stream' ), '<code>wp-json/wp/v2/category-ideas</code>' ); ?></li>
@@ -93,7 +93,7 @@ function wp_idea_stream_admin_about() {
 		<div class="feature-section two-col">
 			<div class="col">
 				<div class="media-container">
-					<img src="https://cldup.com/QOitsGKqou.png" alt=""/>
+					<img src="https://cldup.com/wrp8SgYbc7.png" alt=""/>
 				</div>
 			</div>
 			<div class="col">
@@ -108,7 +108,7 @@ function wp_idea_stream_admin_about() {
 		<div class="feature-section two-col">
 			<div class="col">
 				<div class="media-container">
-					<img src="https://cldup.com/GglZMhKiLG.png" alt=""/>
+					<img src="https://cldup.com/nMYvIP3fq2.png" alt=""/>
 				</div>
 			</div>
 			<div class="col">
@@ -127,7 +127,7 @@ function wp_idea_stream_admin_about() {
 		<div class="feature-section two-col">
 			<div class="col">
 				<div class="media-container">
-					<img src="https://cldup.com/GglZMhKiLG.png" alt=""/>
+					<img src="https://cldup.com/5WvAAAn4mT.png" alt=""/>
 				</div>
 			</div>
 			<div class="col">
@@ -146,7 +146,7 @@ function wp_idea_stream_admin_about() {
 		<div class="feature-section two-col">
 			<div class="col">
 				<div class="media-container">
-					<img src="https://cldup.com/GglZMhKiLG.png" alt=""/>
+					<img src="https://cldup.com/2WbdOu2kbV.png" alt=""/>
 				</div>
 			</div>
 			<div class="col">

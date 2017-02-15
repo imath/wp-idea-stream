@@ -32,7 +32,7 @@ function wp_idea_stream_get_default_options() {
 		'_ideastream_version'            => wp_idea_stream_get_version(),
 
 		/** Core Settings **********************************************************/
-		'_ideastream_archive_title'      => 'IdeaStream',
+		'_ideastream_archive_title'      => __( 'Ideas', 'wp-idea-stream' ),
 		'_ideastream_submit_status'      => 'publish',
 		'_ideastream_editor_image'       => 1,
 		'_ideastream_editor_link'        => 1,
