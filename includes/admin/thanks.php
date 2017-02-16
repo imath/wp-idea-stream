@@ -150,9 +150,12 @@ function wp_idea_stream_admin_about() {
 				</div>
 			</div>
 			<div class="col">
-				<h3><?php esc_html_e( 'Featured images to prettify loops.', 'wp-idea-stream' ); ?></h3>
+				<h3><?php esc_html_e( 'Featured images are finally prettifying loops.', 'wp-idea-stream' ); ?></h3>
 				<p>
-					<?php esc_html_e( 'WP Idea Stream loops can look really pretty now the featured image added to ideas will be displayed.', 'wp-idea-stream' ); ?>
+					<?php esc_html_e( 'Featured images were introduced in WP Idea Stream 2.3.0 but there were only used in the single view of the idea regarding the active theme\'s support.', 'wp-idea-stream' ); ?>
+				</p>
+				<p>
+					<?php esc_html_e( '2.4.0 finally brings them into WP Idea Stream loops and they are really looking much more prettier now!', 'wp-idea-stream' ); ?>
 				</p>
 				<p>
 					<?php esc_html_e( 'If you prefer more classic idea loops, you can of course disable featured images from the WP Idea Stream settings\' Administration screen.', 'wp-idea-stream' ); ?>

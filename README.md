@@ -10,10 +10,14 @@ Available in french and english.
 Configuration needed
 --------------------
 
-+ WordPress 4.4
-+ Loves BuddyPress 2.5 & BuddyDrive 1.3+
++ WordPress 4.7
 
 Installation
 ------------
 
 Before activating the plugin, make sure all the files of the plugin are located in `/wp-content/plugins/wp-idea-stream` folder.
+
+Using BuddyPress ?
+------------------
+
+To use WP Idea Stream with BuddyPress, you will need to download and activate the [BP Idea Stream](https://github.com/imath/bp-idea-stream) addon.
