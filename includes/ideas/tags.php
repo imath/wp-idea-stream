@@ -500,6 +500,115 @@ function wp_idea_stream_ideas_the_classes() {
 	}
 
 /**
+ * Does the idea have a featured image ?
+ *
+ * @since 2.4.0
+ *
+ * @return bool True if the idea has a featured image. False otherwise.
+ */
+function wp_idea_stream_ideas_has_featured_image() {
+	$idea = wp_idea_stream()->query_loop->idea;
+
+	if ( ! post_type_supports( wp_idea_stream_get_post_type(), 'thumbnail' ) ) {
+		return false;
+	}
+
+	if ( isset( $idea->featured_image ) ) {
+		return (bool) $idea->featured_image;
+	}
+
+	$size = apply_filters( 'wp_idea_stream_ideas_featured_image_size', 'post-thumbnail' );
+
+	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $idea->ID ), $size );
+
+	if ( ! $featured_image ) {
+		return false;
+	}
+
+	$idea_index = array_flip( wp_filter_object_list( wp_idea_stream()->query_loop->ideas, array( 'ID' => $idea->ID ), 'and', 'ID' ) );
+	$idea_index = reset( $idea_index );
+
+	wp_idea_stream()->query_loop->ideas[ $idea_index ]->featured_image = $featured_image;
+	wp_idea_stream()->query_loop->idea->featured_image = $featured_image;
+
+	return true;
+}
+
+/**
+ * Output the featured image.
+ *
+ * @since 2.4.0
+ */
+function wp_idea_stream_ideas_featured_image() {
+	echo wp_idea_stream_ideas_get_featured_image();
+}
+
+	/**
+	 * Get the featured image
+	 *
+	 * @since 2.4.0
+	 *
+	 * @return string HTML Output.
+	 */
+	function wp_idea_stream_ideas_get_featured_image() {
+		$idea   = wp_idea_stream()->query_loop->idea;
+		$output = '';
+
+		if ( empty( $idea->featured_image ) ) {
+			return $output;
+		}
+
+		$image = reset( $idea->featured_image );
+
+		return apply_filters( 'wp_idea_stream_ideas_get_featured_image', sprintf( '
+			<div class="featured-image">
+				<img src="%1$s" alt="%2$s" class="post-thumbnail aligncenter">
+			</div>
+		', esc_url( $image ), sprintf( __( 'Featured image for: %s', 'wp-idea-stream'), esc_attr( $idea->post_title ) ) ) );
+	}
+
+/**
+ * Output the css class for the idea's content container in loops.
+ *
+ * @since 2.4.0
+ *
+ * @param  string Space separated list of CSS classes.
+ */
+function wp_idea_stream_ideas_content_class( $class = '' ) {
+	echo wp_idea_stream_ideas_get_content_class( $class );
+}
+
+	/**
+	 * Get the css class for the idea's content container in loops.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param  string Space separated list of CSS classes.
+	 * @return string Space separated list of CSS classes.
+	 */
+	function wp_idea_stream_ideas_get_content_class( $class = '' ) {
+		$classes = array();
+		$idea    = wp_idea_stream()->query_loop->idea;
+
+		if ( $class ) {
+			if ( ! is_array( $class ) ) {
+				$class = preg_split( '#\s+#', $class );
+			}
+			$classes = array_map( 'esc_attr', $class );
+		} else {
+			$class = array();
+		}
+
+		if ( wp_idea_stream_ideas_has_featured_image() ) {
+			$classes[] = 'has_featured_image';
+		}
+
+		$classes_array = (array) apply_filters( 'wp_idea_stream_ideas_get_content_class', $classes, $idea );
+
+		return join( ' ', array_map( 'sanitize_html_class', $classes_array ) );
+	}
+
+/**
  * Output the author avatar of the Idea being iterated on.
  *
  * @since 2.0.0
@@ -735,7 +844,7 @@ function wp_idea_stream_ideas_the_idea_comment_link( $zero = false, $one = false
 			$output .= '<a href="' . esc_url( $comment_link ) . '"';
 
 			if ( ! empty( $css_class ) ) {
-				$output .= ' class="' . $css_class . '" ';
+				$output .= ' class="' . esc_attr( $css_class ) . '" ';
 			}
 
 			$title = esc_attr( strip_tags( $idea->post_title ) );

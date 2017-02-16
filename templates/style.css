@@ -320,6 +320,15 @@ span.wp-idea-stream-group:before {
 	margin: 0 0 0 110px;
 }
 
+#wp-idea-stream ul.idea-list .idea-content.has_featured_image {
+	margin: 0 1em;
+}
+
+#wp-idea-stream ul.idea-list .idea-content .featured-image img {
+	height: auto;
+	max-width: 100%;
+}
+
 #wp-idea-stream ul.idea-list li div.idea-title,
 #wp-idea-stream ul.idea-comments-list li div.idea-comment-title {
 	font-size: 120%;
