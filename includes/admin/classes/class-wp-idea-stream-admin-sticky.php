@@ -105,6 +105,9 @@ class WP_Idea_Stream_Admin_Sticky {
 
 		// Help tabs
 		add_filter( 'wp_idea_stream_get_help_tabs', array( $this, 'sticky_help_tabs' ), 10, 1 );
+
+		// Manage the archived/unarchived stickies
+		add_action( 'wp_idea_stream_idea_archive_action', array( $this, 'manage_archived' ), 10, 2 );
 	}
 
 	/**
@@ -295,10 +298,11 @@ class WP_Idea_Stream_Admin_Sticky {
 	 * @return array         the new views
 	 */
 	public function idea_views( $views = array() ) {
-		$stickies = wp_idea_stream_ideas_get_stickies();
-		$count_stickies = count( $stickies );
+		$stickies          = wp_idea_stream_ideas_get_stickies();
+		$archived_stickies = (array) $this->get_archived_stickies();
+		$count_stickies    = count( array_diff( $stickies, $archived_stickies ) );
 
-		if ( ! empty( $stickies ) ) {
+		if ( ! empty( $count_stickies ) ) {
 			$sticky_url = add_query_arg(
 				array(
 					'post_type'    => $this->post_type,
@@ -339,6 +343,44 @@ class WP_Idea_Stream_Admin_Sticky {
 		}
 
 		return $views;
+	}
+
+	/**
+	 * Adds a new post meta to inform an archived idea was sticked.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param int    $idea_id    The Idea ID.
+	 * @param string $key_action The kind of performed action: 'archived' or 'unarchived'.
+	 */
+	public function manage_archived( $idea_id = 0, $key_action = '' ) {
+		if ( empty( $idea_id ) || empty( $key_action ) ) {
+			return;
+		}
+
+		$stickies = wp_idea_stream_ideas_get_stickies();
+		$is_sticky = array_search( $idea_id, $stickies );
+
+		if ( false === $is_sticky ) {
+			return;
+		}
+
+		if ( 'archived' === $key_action ) {
+			update_post_meta( $idea_id, '_wp_idea_stream_is_archived_sticky', $idea_id );
+		} else {
+			delete_post_meta( $idea_id, '_wp_idea_stream_is_archived_sticky' );
+		}
+	}
+
+	/**
+	 * Gets all archived sticky ideas.
+	 *
+	 * @since 2.4.0
+	 */
+	public function get_archived_stickies() {
+		global $wpdb;
+
+		return $wpdb->get_col( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_idea_stream_is_archived_sticky'" );
 	}
 
 	/**

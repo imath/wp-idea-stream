@@ -822,6 +822,18 @@ class WP_Idea_Stream_Admin {
 				} else {
 					delete_post_meta( $idea_id, '_wp_idea_stream_original_status' );
 				}
+
+				/**
+				 * Fires once the idea's post status has been changed.
+				 *
+				 * @since 2.4.0
+				 *
+				 * @param int    $idea_id     The Idea ID.
+				 * @param string $key         The kind of performed action: 'archived' or 'unarchived'.
+				 * @param string $idea_status The updated status.
+				 * @param string $status      The regular workflow status.
+				 */
+				do_action( 'wp_idea_stream_idea_archive_action', $idea_id, $key, $idea_status, $status );
 			}
 		}
 

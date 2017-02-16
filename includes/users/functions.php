@@ -423,13 +423,13 @@ function wp_idea_stream_users_get_profile_nav_items( $user_id = 0, $username =''
 
 	$nav_items = array(
 		'profile' => array(
-			'title'   => __( 'Published', 'wp-idea-stream' ),
+			'title'   => _x( 'Published', 'User profile published ideas nav', 'wp-idea-stream' ),
 			'url'     => wp_idea_stream_users_get_user_profile_url( $user_id, $username ),
 			'current' => wp_idea_stream_is_user_profile_ideas(),
 			'slug'    => sanitize_title( _x( 'ideas', 'user ideas profile slug for BuddyPress use', 'wp-idea-stream' ) ),
 		),
 		'comments' => array(
-			'title'   => __( 'Commented', 'wp-idea-stream' ),
+			'title'   => _x( 'Commented', 'User profile commented ideas nav', 'wp-idea-stream' ),
 			'url'     => wp_idea_stream_users_get_user_comments_url( $user_id, $username ),
 			'current' => wp_idea_stream_is_user_profile_comments(),
 			'slug'    => wp_idea_stream_user_comments_slug(),
@@ -438,7 +438,7 @@ function wp_idea_stream_users_get_profile_nav_items( $user_id = 0, $username =''
 
 	if ( ! wp_idea_stream_is_rating_disabled() ) {
 		$nav_items['rates'] = array(
-			'title'   => __( 'Rated', 'wp-idea-stream' ),
+			'title'   => _x( 'Rated', 'User profile rated ideas nav', 'wp-idea-stream' ),
 			'url'     => wp_idea_stream_users_get_user_rates_url( $user_id, $username ),
 			'current' => wp_idea_stream_is_user_profile_rates(),
 			'slug'    => wp_idea_stream_user_rates_slug(),
