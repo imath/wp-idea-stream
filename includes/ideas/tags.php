@@ -521,12 +521,14 @@ function wp_idea_stream_ideas_has_featured_image() {
 
 	$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id( $idea->ID ), $size );
 
-	if ( ! $featured_image ) {
-		return false;
-	}
-
 	$idea_index = array_flip( wp_filter_object_list( wp_idea_stream()->query_loop->ideas, array( 'ID' => $idea->ID ), 'and', 'ID' ) );
 	$idea_index = reset( $idea_index );
+
+	if ( ! $featured_image ) {
+		wp_idea_stream()->query_loop->ideas[ $idea_index ]->featured_image = array();
+		wp_idea_stream()->query_loop->idea->featured_image = array();
+		return false;
+	}
 
 	wp_idea_stream()->query_loop->ideas[ $idea_index ]->featured_image = $featured_image;
 	wp_idea_stream()->query_loop->idea->featured_image = $featured_image;
@@ -1232,7 +1234,7 @@ function wp_idea_stream_ideas_the_idea_footer() {
 			}
 		}
 
-		if ( wp_idea_stream_is_single_idea() ) {
+		if ( wp_idea_stream_is_single_idea() || wp_idea_stream_ideas_has_featured_image() ) {
 			$user = wp_idea_stream_users_get_user_data( 'id', $idea->post_author );
 			$user_link = '<a class="idea-author" href="' . esc_url( wp_idea_stream_users_get_user_profile_url( $idea->post_author, $user->user_nicename ) ) . '" title="' . esc_attr( $user->display_name ) . '">';
 			$user_link .= get_avatar( $idea->post_author, 20 ) . esc_html( $user->display_name ) . '</a>';

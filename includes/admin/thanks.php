@@ -146,6 +146,25 @@ function wp_idea_stream_admin_about() {
 		<div class="feature-section two-col">
 			<div class="col">
 				<div class="media-container">
+					<img src="https://cldup.com/HzSGUHRx1q.jpg" alt=""/>
+				</div>
+			</div>
+			<div class="col">
+				<h3><?php esc_html_e( 'Featured images to prettify loops.', 'wp-idea-stream' ); ?></h3>
+				<p>
+					<?php esc_html_e( 'WP Idea Stream loops can look really pretty now the featured image added to ideas will be displayed.', 'wp-idea-stream' ); ?>
+				</p>
+				<p>
+					<?php esc_html_e( 'If you prefer more classic idea loops, you can of course disable featured images from the WP Idea Stream settings\' Administration screen.', 'wp-idea-stream' ); ?>
+				</p>
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="feature-section two-col">
+			<div class="col">
+				<div class="media-container">
 					<img src="https://cldup.com/2WbdOu2kbV.png" alt=""/>
 				</div>
 			</div>

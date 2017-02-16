@@ -260,6 +260,10 @@ span.wp-idea-stream-group:before {
 /*--------------------------------------------------------------
 5 - Idea Listing
 --------------------------------------------------------------*/
+#wp-idea-stream img.avatar {
+	border: none;
+	box-shadow: none;
+}
 
 #wp-idea-stream .screen-reader-text {
 	clip: rect(1px, 1px, 1px, 1px);
@@ -301,7 +305,7 @@ span.wp-idea-stream-group:before {
 	float: left;
 }
 
-#wp-idea-stream ul.idea-list li img.avatar,
+#wp-idea-stream ul.idea-list li .idea-avatar img.avatar,
 #wp-idea-stream ul.idea-comments-list li img.avatar {
 	float: left;
 	margin: 0 10px 0 0;
@@ -363,6 +367,10 @@ body.single-ideas #wp-idea-stream div.idea-header {
 	font-size: 90%;
 	margin:0;
 	padding:5px 0;
+}
+
+#wp-idea-stream .idea-list li .has_featured_image div.idea-footer {
+	margin-bottom: 1.5em;
 }
 
 #wp-idea-stream ul.idea-list li .user-rating-link img.avatar {
