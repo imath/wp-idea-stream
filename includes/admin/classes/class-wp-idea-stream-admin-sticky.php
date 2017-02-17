@@ -1,19 +1,15 @@
 <?php
 /**
- * WP Idea Stream Sticky Administration.
+ * WP Idea Stream Admin Sticky Class.
  *
- * Sticky ideas Administration
+ * @package WP Idea Stream\admin\classes
  *
- * @package WP Idea Stream
- * @subpackage admin/sticky
- *
- * @since 2.0.0
+ * @since 2.4.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WP_Idea_Stream_Admin_Sticky' ) ) :
 /**
  * Sticky Ideas Administration class
  *
@@ -27,9 +23,6 @@ if ( ! class_exists( 'WP_Idea_Stream_Admin_Sticky' ) ) :
  * On front end, in ideas/functions you'll find the wp_idea_stream_ideas_stick_ideas()
  * function that is extending the WP_Query in order to prepend the ideas sticked to top
  * of the post type archive page.
- *
- * @package WP Idea Stream
- * @subpackage admin/sticky
  *
  * @since 2.0.0
  */
@@ -46,9 +39,6 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * The constructor
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
 	 */
 	public function __construct() {
@@ -59,13 +49,7 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * Let's start the class
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  is_admin() to check for WordPress Administration
-	 * @uses  wp_idea_stream() to get plugin's main instance
 	 */
 	public static function start() {
 		if ( ! is_admin() ) {
@@ -84,12 +68,7 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * Setups the post type global
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses  wp_idea_stream_get_post_type() The ideas post type identifier
 	 */
 	private function setup_globals() {
 		$this->post_type = wp_idea_stream_get_post_type();
@@ -98,13 +77,7 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * Setups the action and filters to hook to
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses add_action() to perform custom actions at key points
-	 * @uses add_filter() to override some key vars
 	 */
 	private function hooks() {
 
@@ -132,13 +105,13 @@ class WP_Idea_Stream_Admin_Sticky {
 
 		// Help tabs
 		add_filter( 'wp_idea_stream_get_help_tabs', array( $this, 'sticky_help_tabs' ), 10, 1 );
+
+		// Manage the archived/unarchived stickies
+		add_action( 'wp_idea_stream_idea_archive_action', array( $this, 'manage_archived' ), 10, 2 );
 	}
 
 	/**
 	 * Adds a sticky metabox to the IdeaStream metaboxes
-	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
 	 *
 	 * @since 2.0.0
 	 *
@@ -163,19 +136,11 @@ class WP_Idea_Stream_Admin_Sticky {
 	 *
 	 * It also checks the status of the idea to eventually
 	 * remove the idea from stickies if the status is not
-	 * 'publish'
-	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
+	 * 'publish'.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param  WP_Post $idea the idea object
-	 * @uses   WP_Idea_Stream_Admin_Sticky::unstick_idea() to check if the idea needs to be removed from stickies
-	 * @uses   wp_idea_stream_ideas_is_sticky() to check if the idea is already sticked to front of archive page
-	 * @uses   checked() to add a checked attribute if needed
-	 * @uses   wp_nonce_field() to add a security token to check upon once submitted
-	 * @uses   do_action() call 'wp_idea_stream_do_sticky_metabox' to perform custom actions
+	 * @param  WP_Post $idea the idea object.
 	 * @return string HTML output
 	 */
 	public static function sticky_do_metabox( $idea = null ) {
@@ -210,18 +175,11 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * Saves the sticky preference for the idea
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  int      $id     the idea ID
 	 * @param  WP_Post  $idea   the idea object
 	 * @param  bool     $update whether it's an update or not
-	 * @uses   wp_idea_stream_set_idea_var() to set an IdeaStream global for a later use
-	 * @uses   check_admin_referer() to check the request was made on the site
-	 * @uses   wp_idea_stream_ideas_get_stickies() to get the sticky ideas (list of IDs)
-	 * @uses   update_option() to update the list of sticky ideas
 	 * @return int          the idea ID
 	 */
 	public function sticky_metabox_save( $id = 0, $idea = null, $update = false ) {
@@ -272,16 +230,10 @@ class WP_Idea_Stream_Admin_Sticky {
 	 *
 	 * If the post status is not publish or if the idea was trashed: unstick!
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  int      $id     the idea ID
-	 * @param  bool     $update whether it's an update or not
-	 * @uses   wp_idea_stream_ideas_admin_no_sticky() to check if the idea can be sticked
-	 * @uses   wp_idea_stream_ideas_get_stickies() to get the sticky ideas (list of IDs)
-	 * @uses   update_option() to update the list of sticky ideas
+	 * @param  bool     $update whether it's an update or not.
 	 */
 	public static function unstick_idea( $id = 0 ) {
 		if ( empty( $id ) ) {
@@ -303,9 +255,6 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * Adds sticky updated messages to IdeaStream updated messages
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array  $messages list of IdeaStream Updated messages
@@ -322,14 +271,10 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * Adds a sticky state after the idea title in WP_List_Table
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array   $idea_states  the available idea states
 	 * @param  WP_Post $idea         the idea object
-	 * @uses   wp_idea_stream_ideas_is_sticky() to check if the idea is sticked to front of archive page
 	 * @return array                 the new idea states
 	 */
 	public function idea_states( $idea_states = array(), $idea = null ) {
@@ -347,24 +292,17 @@ class WP_Idea_Stream_Admin_Sticky {
 	/**
 	 * Add a sticky view to existing idea views (WP_List_Table)
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array  $views the available idea views
-	 * @uses   wp_idea_stream_ideas_get_stickies() to get the sticky ideas (list of IDs)
-	 * @uses   add_query_arg() to add query vars to an url
-	 * @uses   admin_url() to build a link inside the current blog's Administration
-	 * @uses   esc_url() to sanitize an url
-	 * @uses   number_format_i18n() to format numbers
 	 * @return array         the new views
 	 */
 	public function idea_views( $views = array() ) {
-		$stickies = wp_idea_stream_ideas_get_stickies();
-		$count_stickies = count( $stickies );
+		$stickies          = wp_idea_stream_ideas_get_stickies();
+		$archived_stickies = (array) $this->get_archived_stickies();
+		$count_stickies    = count( array_diff( $stickies, $archived_stickies ) );
 
-		if ( ! empty( $stickies ) ) {
+		if ( ! empty( $count_stickies ) ) {
 			$sticky_url = add_query_arg(
 				array(
 					'post_type'    => $this->post_type,
@@ -408,10 +346,45 @@ class WP_Idea_Stream_Admin_Sticky {
 	}
 
 	/**
-	 * Adds the Sticky help tabs
+	 * Adds a new post meta to inform an archived idea was sticked.
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage admin/sticky
+	 * @since 2.4.0
+	 *
+	 * @param int    $idea_id    The Idea ID.
+	 * @param string $key_action The kind of performed action: 'archived' or 'unarchived'.
+	 */
+	public function manage_archived( $idea_id = 0, $key_action = '' ) {
+		if ( empty( $idea_id ) || empty( $key_action ) ) {
+			return;
+		}
+
+		$stickies = wp_idea_stream_ideas_get_stickies();
+		$is_sticky = array_search( $idea_id, $stickies );
+
+		if ( false === $is_sticky ) {
+			return;
+		}
+
+		if ( 'archived' === $key_action ) {
+			update_post_meta( $idea_id, '_wp_idea_stream_is_archived_sticky', $idea_id );
+		} else {
+			delete_post_meta( $idea_id, '_wp_idea_stream_is_archived_sticky' );
+		}
+	}
+
+	/**
+	 * Gets all archived sticky ideas.
+	 *
+	 * @since 2.4.0
+	 */
+	public function get_archived_stickies() {
+		global $wpdb;
+
+		return $wpdb->get_col( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_idea_stream_is_archived_sticky'" );
+	}
+
+	/**
+	 * Adds the Sticky help tabs
 	 *
 	 * @since 2.0.0
 	 *
@@ -431,7 +404,3 @@ class WP_Idea_Stream_Admin_Sticky {
 		return $help_tabs;
 	}
 }
-
-endif;
-
-add_action( 'wp_idea_stream_loaded', array( 'WP_Idea_Stream_Admin_Sticky', 'start' ), 7 );

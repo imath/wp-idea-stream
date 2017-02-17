@@ -8,27 +8,22 @@
  * Most of the job is done in the class WP_Idea_Stream_Template_Loader
  * @see  core/classes
  *
- * @package   WP Idea Stream
- * @subpackage core/template-loader
+ * @package   WP Idea Stream\core
  *
  * @since  2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Buffer a template part to build the content of a page
- *
- * @package WP Idea Stream
- * @subpackage core/template-loader
  *
  * @since 2.0.0
  *
  * @param  string  $slug template slug
  * @param  string  $name template name
  * @param  bool    $echo output or return ?
- * @uses   wp_idea_stream_get_template_part()
  * @return string $output html of the buffered template part
  */
 function wp_idea_stream_buffer_template_part( $slug, $name = null, $echo = true ) {
@@ -50,14 +45,10 @@ function wp_idea_stream_buffer_template_part( $slug, $name = null, $echo = true 
 /**
  * Add a specific header and footer parts to single idea.
  *
- * @package WP Idea Stream
- * @subpackage core/template-loader
- *
  * @since 2.0.0
  * @since 2.3.0 buffer feedback message to eventually display them on the single idea
  *
  * @param  string $content the content of the idea
- * @uses   wp_idea_stream_buffer_template_part() to direclty buffer template parts in single idea
  * @return string $new_content the content of the idea
  */
 function wp_idea_stream_buffer_single_idea( $content = '' ) {
@@ -87,16 +78,12 @@ function wp_idea_stream_buffer_single_idea( $content = '' ) {
 /**
  * Load a template part
  *
- * @package WP Idea Stream
- * @subpackage core/template-loader
- *
  * @since 2.0.0
  *
  * @param  string  $slug template slug
  * @param  string  $name template name
  * @param  bool    $load should we load ?
  * @param  bool    $require_once should we load it once only ?
- * @uses   WP_Idea_Stream_Template_Loader->get_template_part()
  */
 function wp_idea_stream_get_template_part( $slug, $name = null, $load = true, $require_once = true ) {
 	$templates = new WP_Idea_Stream_Template_Loader;
@@ -109,15 +96,11 @@ function wp_idea_stream_get_template_part( $slug, $name = null, $load = true, $r
  *
  * Shortcut for wp_idea_stream_get_template_part() having require once set to false.
  *
- * @package WP Idea Stream
- * @subpackage core/template-loader
- *
  * @since 2.0.0
  *
  * @param  string $slug template slug
  * @param  string $name template name
  * @param  bool   $require_once default to false (for use in loops)
- * @uses   wp_idea_stream_get_template_part()
  */
 function wp_idea_stream_template_part( $slug, $name = null, $require_once = false ) {
 	return wp_idea_stream_get_template_part( $slug, $name, true, $require_once );
@@ -127,14 +110,10 @@ function wp_idea_stream_template_part( $slug, $name = null, $require_once = fals
  * Get the stylesheet to apply by first looking in
  * the theme's wp-idea-stream subdirectory
  *
- * @package WP Idea Stream
- * @subpackage core/template-loader
- *
  * @since 2.0.0
  * @since 2.3.0 Added the $css parameter to be able to get any stylesheet
  *
  * @param  string $css the name of the file to load
- * @uses   WP_Idea_Stream_Template_Loader->get_stylesheet() to locate the stylesheet
  * @return string the url to the stylesheet
  */
 function wp_idea_stream_get_stylesheet( $css = 'style' ) {
@@ -148,16 +127,11 @@ function wp_idea_stream_get_stylesheet( $css = 'style' ) {
  *
  * Based on bbPress bbp_theme_compat_reset_post() function
  *
- * @package WP Idea Stream
- * @subpackage core/template-loader
- *
  * @since 2.0.0
  *
  * @global WP_Query $wp_query
  * @global WP_Post  $post
  * @param  array    $args
- * @uses   wp_parse_args()
- * @uses   WP_Post class
  */
 function wp_idea_stream_reset_post( $args = array() ) {
 	global $wp_query, $post;
@@ -266,38 +240,10 @@ function wp_idea_stream_reset_post( $args = array() ) {
  * Set the template to use, buffers the needed template parts
  * and resets post vars.
  *
- * @package WP Idea Stream
- * @subpackage core/template-loader
- *
  * @since 2.0.0
  *
  * @global $wp_query
  * @param  string $template name of the template to use
- * @uses   is_buddypress() to bail early if it's this plugin's territory
- * @uses   wp_idea_stream_get_idea_var() to get a globalized var
- * @uses   is_404() to check for a 404
- * @uses   get_query_template() to get a specific template
- * @uses   get_index_template() to get the index template
- * @uses   wp_idea_stream_set_idea_var() to set a globalized var
- * @uses   is_post_type_archive() to check if it's ideas post type archive
- * @uses   wp_idea_stream_get_post_type() to get ideas post type identifier
- * @uses   set_query_var() to get a query var
- * @uses   remove_all_filters() to remove all filters on a specific hook
- * @uses   wp_idea_stream_reset_post() to reset WordPress $post global and avoid notices
- * @uses   wp_idea_stream_reset_post_title() to reset the title depending on the context
- * @uses   wp_idea_stream_buffer_template_part() to buffer the content to display
- * @uses   wp_idea_stream_is_edit() to check if the idea is to be edited
- * @uses   wp_idea_stream_ideas_lock_idea() to check if the idea to edit is not currently edited by another user
- * @uses   wp_idea_stream_add_message() to give a user some feedback
- * @uses   wp_idea_stream_ideas_can_edit() to check current user can edit an idea
- * @uses   wp_safe_redirect() to safely redirect the user
- * @uses   wp_idea_stream_get_redirect_url() to get the default redirect url
- * @uses   wp_idea_stream_buffer_single_idea() to buffer the idea content to display
- * @uses   do_action() Calls 'wp_idea_stream_set_core_template' to perform actions once a core template is set
- *                     Calls 'wp_idea_stream_set_single_template' to perform actions relative to the single idea template
- *                     Calls 'wp_idea_stream_set_template' to perform actions when no template matched
- * @uses   apply_filters() Calls 'wp_idea_stream_template_args' to override template args in case of custom idea action
- *                         Calls 'wp_idea_stream_single_template_args' to override single template args
  * @return string $template.
  */
 function wp_idea_stream_set_template( $template = '' ) {
@@ -334,22 +280,24 @@ function wp_idea_stream_set_template( $template = '' ) {
 		 * and build plugin's main_query var.
 		 */
 		if( ! wp_idea_stream_is_single_idea() ) {
-			wp_idea_stream_set_idea_var( 'main_query', array(
-				'ideas'      => $wp_query->posts,
-				'total'      => $wp_query->found_posts,
-				'query_vars' => array(
-					'author'     => $wp_query->query_vars['author'],
-					'per_page'   => $wp_query->query_vars['posts_per_page'],
-					'page'       => ! empty( $wp_query->query_vars['paged'] ) ? $wp_query->query_vars['paged'] : 1,
-					'search'     => $wp_query->query_vars['s'],
-					'exclude'    => $wp_query->query_vars['post__not_in'],
-					'include'    => $wp_query->query_vars['post__in'],
-					'orderby'    => ! empty( $wp_query->query_vars['orderby'] ) ? $wp_query->query_vars['orderby'] : 'date',
-					'order'      => $wp_query->query_vars['order'],
-					'meta_query' => $wp_query->meta_query->queries,
-					'tax_query'  => $wp_query->tax_query->queries,
-				)
-			) );
+			if ( ! wp_idea_stream_get_idea_var( 'is_front_ideas' ) ) {
+				wp_idea_stream_set_idea_var( 'main_query', array(
+					'ideas'      => $wp_query->posts,
+					'total'      => $wp_query->found_posts,
+					'query_vars' => array(
+						'author'     => $wp_query->query_vars['author'],
+						'per_page'   => $wp_query->query_vars['posts_per_page'],
+						'page'       => ! empty( $wp_query->query_vars['paged'] ) ? $wp_query->query_vars['paged'] : 1,
+						'search'     => $wp_query->query_vars['s'],
+						'exclude'    => $wp_query->query_vars['post__not_in'],
+						'include'    => $wp_query->query_vars['post__in'],
+						'orderby'    => ! empty( $wp_query->query_vars['orderby'] ) ? $wp_query->query_vars['orderby'] : 'date',
+						'order'      => $wp_query->query_vars['order'],
+						'meta_query' => $wp_query->meta_query->queries,
+						'tax_query'  => $wp_query->tax_query->queries,
+					)
+				) );
+			}
 
 			// Resetting the 's' query var now we got main query's result.
 			set_query_var( 's', '' );
@@ -366,7 +314,7 @@ function wp_idea_stream_set_template( $template = '' ) {
 			);
 
 			// Main plugin's archive page
-			if ( is_post_type_archive( wp_idea_stream_get_post_type() ) ) {
+			if ( is_post_type_archive( wp_idea_stream_get_post_type() ) || wp_idea_stream_get_idea_var( 'is_front_ideas' ) ) {
 				$template_args['context'] = 'archive';
 			}
 
@@ -453,25 +401,15 @@ function wp_idea_stream_set_template( $template = '' ) {
 				$user_is_editing = wp_idea_stream_ideas_lock_idea( $query_loop->idea->ID );
 
 				if ( ! empty( $user_is_editing ) ) {
-					wp_idea_stream_add_message( array(
-						'type'    => 'info',
-						'content' => sprintf( __( 'The idea: &#34;%s&#34; is already being edited by another user.', 'wp-idea-stream' ), $query_loop->idea->post_title ),
-					) );
-
 					// Redirect the user
-					wp_safe_redirect( wp_idea_stream_get_redirect_url() );
+					wp_safe_redirect( add_query_arg( 'info', 1, wp_idea_stream_get_redirect_url() ) );
 					exit();
 				}
 
 				// Bail if user can't edit the idea
 				if ( ! wp_idea_stream_ideas_can_edit( $query_loop->idea ) ) {
-					wp_idea_stream_add_message( array(
-						'type'    => 'error',
-						'content' => __( 'You are not allowed to edit this idea.', 'wp-idea-stream' ),
-					) );
-
-					// Redirect the user
-					wp_safe_redirect( wp_idea_stream_get_redirect_url() );
+					// Redirect the user and inform him the talk cannot be edited by him.
+					wp_safe_redirect( add_query_arg( 'error', 2, wp_idea_stream_get_redirect_url() ) );
 					exit();
 				}
 
@@ -526,45 +464,3 @@ function wp_idea_stream_set_template( $template = '' ) {
 
 	return $template;
 }
-
-/**
- * Replace the content when in an idea stream part
- *
- * @since  2.2.0
- */
-class WP_Idea_Stream_Core_Screens {
-	public function __construct( $template_args = null ) {
-		if ( ! empty( $template_args ) ) {
-			$this->template_args = $template_args;
-		}
-
-		add_filter( 'the_content', array( $this, 'replace_the_content' ), 10, 1 );
-	}
-
-	public static function start( $context, $template_args ) {
-		$wp_idea_stream = wp_idea_stream();
-
-		if ( empty( $wp_idea_stream->screens ) ) {
-			$wp_idea_stream->screens = new self( $template_args );
-		}
-
-		return $wp_idea_stream->screens;
-	}
-
-	public function replace_the_content( $content ) {
-		if ( 'single-idea' === $this->template_args['context'] ) {
-			// Do not filter the content inside the document header
-			if ( doing_action( 'wp_head' ) ) {
-				return $content;
-			}
-
-			$content = wp_idea_stream_buffer_single_idea( $content );
-		} else {
-			$content = wp_idea_stream_buffer_template_part( $this->template_args['template_slug'], $this->template_args['template_name'], false );
-		}
-
-		return $content;
-	}
-}
-add_action( 'wp_idea_stream_set_core_template',   array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );
-add_action( 'wp_idea_stream_set_single_template', array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );

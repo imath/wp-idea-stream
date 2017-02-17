@@ -4,25 +4,19 @@
  *
  * Mainly Inspired by bbPress
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Compares the current plugin version to the DB one to check if it's an upgrade
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_db_version() to get DB version
- * @uses   wp_idea_stream_get_version() to get current plugin's version
  * @return bool True if update, False if not
  */
 function wp_idea_stream_is_upgrade() {
@@ -35,13 +29,7 @@ function wp_idea_stream_is_upgrade() {
 /**
  * Checks if an upgrade is needed
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_is_upgrade() to compare current & DB version
- * @uses   wp_idea_stream_upgrade() to perform the upgrade routine
  */
 function wp_idea_stream_maybe_upgrade() {
 	// Bail if no update needed
@@ -56,16 +44,7 @@ function wp_idea_stream_maybe_upgrade() {
 /**
  * Upgrade routine
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
- *
- * @uses  wp_idea_stream_db_version() to get DB version
- * @uses  wp_idea_stream_add_options() to add options based on legacy ones
- * @uses  update_option() to update db version
- * @uses  wp_idea_stream_get_version() to get current plugin's version
- * @uses  wp_idea_stream_delete_rewrite_rules() to reset rewrites
  */
 function wp_idea_stream_upgrade() {
 	$db_version = wp_idea_stream_db_version();
@@ -77,9 +56,17 @@ function wp_idea_stream_upgrade() {
 
 			wp_idea_stream_add_options();
 
+		// Upgrade to 2.3
 		} elseif ( version_compare( $db_version, '2.3.0', '<' ) ) {
 			wp_idea_stream_upgrade_to_2_3();
+
+		// Upgrade to 2.4
+		}  elseif ( version_compare( $db_version, '2.4.0', '<' ) ) {
+			wp_idea_stream_upgrade_to_2_4();
 		}
+
+		// Make sure the changelog will be displayed at next page load
+		set_transient( '_ideastream_upgrade_redirect', wp_idea_stream_get_version(), 30 );
 
 	// It's a new install
 	} else {
@@ -95,16 +82,7 @@ function wp_idea_stream_upgrade() {
 /**
  * Merge legacy options and do some clean up
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
  * @since 2.0.0
- *
- * @uses  get_option() to get legacy options
- * @uses  delete_option() to remove no more used options
- * @uses  update_option() to reset page on front if needed
- * @uses  wp_idea_stream_set_idea_var() to set the admin notices
- * @uses  set_transient() to inform a redirect is needed at next page load
  */
 function wp_idea_stream_merge_legacy_options( $default_options = array() ) {
 	// First, as previously root slug was "is", let's keep it to avoid 404 in tag & category archive
@@ -170,9 +148,6 @@ function wp_idea_stream_merge_legacy_options( $default_options = array() ) {
 	}
 
 	wp_idea_stream_set_idea_var( 'feedback', $notice );
-
-	// If the plugin was deactivated while 1.2 and reactivated with 2.0.0
-	set_transient( '_ideastream_reactivated_upgrade', true, 60 );
 
 	return $default_options;
 }
@@ -253,42 +228,77 @@ function wp_idea_stream_upgrade_to_2_3() {
 }
 
 /**
- * Redirect to the Welcome Screen after activation
+ * Upgrade routine for 2.4.0
  *
- * @package WP Idea Stream
- * @subpackage core/upgrade
- *
- * @since 2.0.0
- *
- * @uses  get_transient() to check if a redirect is needed
- * @uses  delete_transient() to remove this redirect info
- * @uses  is_network_admin() to avoid playing in the network admin
- * @uses  wp_idea_stream_user_can() to check user's capability
- * @uses  wp_safe_redirect() to redirect the user to the Welcome Screen
- * @uses  add_query_arg() to build the url to the about page
- * @uses  admin_url() to get admin url
+ * @since 2.4.0
  */
-function wp_idea_stream_activation_redirect() {
-	$redirect = get_transient( '_ideastream_activation_redirect' );
+function wp_idea_stream_upgrade_to_2_4() {
+	delete_option( '_ideastream_buddypress_integration' );
+}
+
+/**
+ * Redirect to the Changelog Screen after upgrade
+ *
+ * @since 2.4.0
+ *
+ * @param  string $transient The transient name.
+ * @return mixed             The transient value. False if empty.
+ */
+function wp_idea_stream_needs_changelog_display( $transient = '' ) {
+	if ( empty( $transient ) ) {
+		return false;
+	}
+
+	$needs_changelog_display = get_transient( $transient );
 
 	// Bail if no activation redirect
-    if ( empty( $redirect ) ) {
-		return;
+	if ( empty( $needs_changelog_display ) ) {
+		return false;
 	}
 
 	// Delete the redirect transient
-	delete_transient( '_ideastream_activation_redirect' );
+	delete_transient( $transient );
 
 	// Bail if activating from network, or bulk
 	if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
-		return;
+		return false;
 	}
 
 	// Bail if the current user cannot see the about page
 	if ( ! wp_idea_stream_user_can( 'manage_options' ) ) {
+		return false;
+	}
+
+	return $needs_changelog_display;
+}
+
+/**
+ * Redirect to the Changelog Screen after activation
+ *
+ * @since 2.0.0
+ */
+function wp_idea_stream_activation_redirect() {
+	if ( ! wp_idea_stream_needs_changelog_display( '_ideastream_activation_redirect' ) ) {
 		return;
 	}
 
-	// Redirect to bbPress about page
+	// Redirect to WP Idea Stream changelog page
 	wp_safe_redirect( add_query_arg( array( 'page' => 'about-ideastream' ), admin_url( 'index.php' ) ) );
+}
+
+/**
+ * Redirect to the Changelog Screen after upgrade
+ *
+ * @since 2.4.0
+ */
+function wp_idea_stream_upgrade_redirect() {
+	if ( ! wp_idea_stream_needs_changelog_display( '_ideastream_upgrade_redirect' ) ) {
+		return;
+	}
+
+	// Redirect to WP Idea Stream changelog page
+	wp_safe_redirect( add_query_arg( array(
+		'page'       => 'about-ideastream',
+		'is_upgrade' => wp_idea_stream_get_version(),
+	), admin_url( 'index.php' ) ) );
 }

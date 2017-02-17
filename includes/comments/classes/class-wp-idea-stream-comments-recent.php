@@ -1,25 +1,17 @@
 <?php
 /**
- * WP Idea Stream Comments Widgets.
+ * WP Idea Stream Recent Comments Widget Class.
  *
- * Comments Widgets
+ * @package WP Idea Stream\comments\classes
  *
- * @package WP Idea Stream
- * @subpackage comments/widgets
- *
- * @since 2.0.0
+ * @since 2.4.0
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 /**
  * Recent comment about ideas Widget
- *
- * @package WP Idea Stream
- * @subpackage comments/widgets
  *
  * @since 2.0.0
  */
@@ -28,14 +20,7 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
  	/**
 	 * Constructor
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/widgets
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses WP_Widget::__construct()
-	 * @uses is_active_widget() to check if the widget is active
-	 * @uses add_action() to perform custom actions
 	 */
 	public function __construct() {
 		$widget_ops = array( 'classname' => 'widget_ideas_recent_comments', 'description' => __( 'Latest comments about ideas', 'wp-idea-stream' ) );
@@ -51,12 +36,7 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 	/**
 	 * Register the widget
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/widgets
-	 *
 	 * @since 2.0.0
-	 *
-	 * @uses   register_widget() to register the widget
 	 */
 	public static function register_widget() {
 		register_widget( 'WP_Idea_Stream_Comments_Recent' );
@@ -65,13 +45,9 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 	/**
 	 * Override comments query args to only onclude comments about ideas
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/widgets
-	 *
 	 * @since 2.0.0
 	 *
 	 * @param  array  $comment_args
-	 * @uses   wp_idea_stream_get_post_type() to get the idea post type identifier
 	 * @return array  the comments query args to display comments about ideas
 	 */
 	public function override_comment_args( $comment_args = array() ) {
@@ -83,15 +59,12 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 	}
 
 	/**
-	 * @package WP Idea Stream
-	 * @subpackage comments/widgets
+	 * Dispplay the widget.
 	 *
 	 * @since 2.0.0
+	 * 
 	 * @param  array $args
 	 * @param  array $instance
-	 * @uses   add_filter() to templorarly filter the comments query args
-	 * @uses   parent::widget() to display the widget
-	 * @uses   remove_filter() to remove the temporary filter
 	 */
 	public function widget( $args, $instance ) {
 		/**
@@ -111,11 +84,7 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 	/**
 	 * Update the preferences for the widget
 	 *
-	 * @package WP Idea Stream
-	 * @subpackage comments/widgets
-	 *
 	 * @since 2.0.0
-	 * @uses  wp_cache_get()
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
@@ -130,5 +99,3 @@ if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) :
 		return $instance;
 	}
 }
-
-endif;

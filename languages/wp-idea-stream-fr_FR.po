@@ -3,9 +3,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP Idea Stream 2.0.0-beta4\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-idea-stream\n"
-"POT-Creation-Date: 2016-12-02 23:39:16+00:00\n"
-"PO-Revision-Date: 2016-12-03 00:41+0100\n"
+"Report-Msgid-Bugs-To: https://github.com/imath/wp-idea-stream/issues\n"
+"POT-Creation-Date: 2017-02-17 17:36:18+00:00\n"
+"PO-Revision-Date: 2017-02-17 18:39+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -15,51 +15,110 @@ msgstr ""
 "X-Generator: Poedit 1.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: includes/admin/admin.php:254 includes/admin/admin.php:255
-#: includes/admin/admin.php:269 includes/admin/admin.php:270
-#: includes/admin/admin.php:1783
+#: includes/admin/classes/class-wp-idea-stream-admin-comments.php:135
+#: includes/admin/classes/class-wp-idea-stream-admin-comments.php:148
+#: includes/admin/settings.php:162
+msgid "Comments"
+msgstr "Commentaires"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:125
+msgid "Sticky"
+msgstr "Mise en une"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:153
+msgid "This idea cannot be sticky"
+msgstr "Cette idée ne peut pas être mise en une"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:160
+msgid "Select whether or not to make the idea sticky."
+msgstr "Indiquer si vous souhaitez mettre l&#39;idée en une."
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:161
+msgid "Mark as sticky"
+msgstr "Mettre en une"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:264
+msgid "Private or password protected ideas cannot be marked as sticky"
+msgstr ""
+"Les idées privées ou protégées par un mot de passe ne peuvent pas être mises "
+"en une"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:265
+msgid "Idea successfully removed from stickies"
+msgstr "L&#39;idée a été supprimée de la une"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:266
+msgid "Idea successfully added to stickies"
+msgstr "Idée mise en une avec succès"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:400
+msgid ""
+"The Sticky metabox allows you to stick a published idea (not password "
+"protected) to the top of the front ideas archive first page."
+msgstr ""
+"La metabox de mise en une vous permet de mettre an avant une idée publiée (du "
+"moment qu&#39;elle ne soit pas protégée par un mot de passe) sur la première "
+"page des idées."
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:240
+#: includes/admin/classes/class-wp-idea-stream-admin.php:241
+#: includes/admin/classes/class-wp-idea-stream-admin.php:255
+#: includes/admin/classes/class-wp-idea-stream-admin.php:256
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1890
 msgid "Settings"
 msgstr "Réglages"
 
-#: includes/admin/admin.php:301 includes/admin/admin.php:302
-#: includes/admin/admin.php:309 includes/admin/admin.php:310
+#: includes/admin/classes/class-wp-idea-stream-admin.php:287
+#: includes/admin/classes/class-wp-idea-stream-admin.php:288
+#: includes/admin/classes/class-wp-idea-stream-admin.php:295
+#: includes/admin/classes/class-wp-idea-stream-admin.php:296
 msgid "Welcome to WP Idea Stream"
 msgstr "Bienvenue dans WP Idea Stream"
 
-#: includes/admin/admin.php:475
+#: includes/admin/classes/class-wp-idea-stream-admin.php:354
+#: includes/admin/classes/class-wp-idea-stream-admin.php:437
+#: includes/admin/classes/class-wp-idea-stream-admin.php:870
+msgid "Unarchive"
+msgstr "Désarchiver"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:428
+msgid "The status for the idea, once unarchived, will be: %s."
+msgstr "Le statut de l'idée, une fois désarchivée, sera : %s."
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:491
 msgid "Idea updated. <a href=\"%s\">View idea</a>"
 msgstr "Idée mise à jour. <a href=\"%s\">Voir l&#39;idée</a>"
 
-#: includes/admin/admin.php:476
+#: includes/admin/classes/class-wp-idea-stream-admin.php:492
 msgid "Custom field updated."
 msgstr "Champ personnalisé mis à jour."
 
-#: includes/admin/admin.php:477
+#: includes/admin/classes/class-wp-idea-stream-admin.php:493
 msgid "Custom field deleted."
 msgstr "Champ personnalisé supprimé."
 
-#: includes/admin/admin.php:478
+#: includes/admin/classes/class-wp-idea-stream-admin.php:494
 msgid "Idea updated."
 msgstr "Idée mise à jour."
 
-#: includes/admin/admin.php:479
+#: includes/admin/classes/class-wp-idea-stream-admin.php:495
 msgid "Idea restored to revision from %s"
 msgstr "Idée restaurée à la révision %s"
 
-#: includes/admin/admin.php:480
+#: includes/admin/classes/class-wp-idea-stream-admin.php:496
 msgid "Idea published. <a href=\"%s\">View idea</a>"
 msgstr "Idée publiée. <a href=\"%s\">Voir l&#39;idée</a>"
 
-#: includes/admin/admin.php:481
+#: includes/admin/classes/class-wp-idea-stream-admin.php:497
 msgid "Idea saved."
 msgstr "Idée enregistrée."
 
-#: includes/admin/admin.php:482
+#: includes/admin/classes/class-wp-idea-stream-admin.php:498
 msgid "Idea submitted. <a target=\"_blank\" href=\"%s\">Preview idea</a>"
 msgstr ""
 "Idée postée. <a target=\"_blank\" href=\"%s\">Prévisualiser l&#39;idée</a>"
 
-#: includes/admin/admin.php:484
+#: includes/admin/classes/class-wp-idea-stream-admin.php:500
 msgid ""
 "Idea scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Preview idea</a>"
@@ -67,24 +126,19 @@ msgstr ""
 "Idée planifiée pour <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s"
 "\">Prévisualiser l&#39;idée</a>"
 
-#: includes/admin/admin.php:485
-msgctxt "Idea Publish box date format"
-msgid "M j, Y @ G:i"
-msgstr "M j, Y @ G:i"
-
-#: includes/admin/admin.php:488
+#: includes/admin/classes/class-wp-idea-stream-admin.php:504
 msgid "Idea draft updated. <a target=\"_blank\" href=\"%s\">Preview idea</a>"
 msgstr ""
 "Brouillon d&#39;idée mis à jour. <a target=\"_blank\" href=\"%s"
 "\">Prévisualiser l&#39;idée</a>"
 
-#: includes/admin/admin.php:515
+#: includes/admin/classes/class-wp-idea-stream-admin.php:526
 msgid "%s idea updated."
 msgid_plural "%s ideas updated."
 msgstr[0] "%s idée mise à jour."
 msgstr[1] "%s idées mises à jour."
 
-#: includes/admin/admin.php:516
+#: includes/admin/classes/class-wp-idea-stream-admin.php:527
 msgid "%s idea not updated; somebody is editing it."
 msgid_plural "%s ideas not updated; somebody is editing them."
 msgstr[0] "%s idée non modifiée, une personne la modifie actuellement."
@@ -92,106 +146,100 @@ msgstr[1] ""
 "%s idées non modifiées, elles sont en cours de modification par d&#39;autres "
 "personnes."
 
-#: includes/admin/admin.php:517
+#: includes/admin/classes/class-wp-idea-stream-admin.php:528
 msgid "%s idea permanently deleted."
 msgid_plural "%s ideas permanently deleted."
 msgstr[0] "%s idée supprimée de manière définitive"
 msgstr[1] "%s idées supprimées de manière définitive"
 
-#: includes/admin/admin.php:518
+#: includes/admin/classes/class-wp-idea-stream-admin.php:529
 msgid "%s idea moved to the Trash."
 msgid_plural "%s ideas moved to the Trash."
 msgstr[0] "%s idée mise à la corbeille."
 msgstr[1] "%s idées mises à la corbeille."
 
-#: includes/admin/admin.php:519
+#: includes/admin/classes/class-wp-idea-stream-admin.php:530
 msgid "%s idea restored from the Trash."
 msgid_plural "%s ideas restored from the Trash."
 msgstr[0] "%s idée récupérée."
 msgstr[1] "%s idées récupérées."
 
-#: includes/admin/admin.php:599
+#: includes/admin/classes/class-wp-idea-stream-admin.php:549
+msgid "%s idea archived."
+msgid_plural "%s ideas archived."
+msgstr[0] "%s idée archivée."
+msgstr[1] "%s idées archivées."
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:550
+msgid "%s idea unarchived."
+msgid_plural "%s ideas unarchived."
+msgstr[0] "%s idée désarchivée."
+msgstr[1] "%s idées désarchivées."
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:616
 msgid "Download all ideas in a csv spreadsheet"
 msgstr "Télécharger toutes les idées dans un fichier csv"
 
-#: includes/admin/admin.php:837
-msgctxt "ideas admin category column header"
-msgid "Categories"
-msgstr "Catégories"
+#: includes/admin/classes/class-wp-idea-stream-admin.php:761
+msgid "Unarchive selected ideas"
+msgstr "Désarchiver les idées sélectionnées "
 
-#: includes/admin/admin.php:838
-msgctxt "ideas admin tag column header"
-msgid "Tags"
-msgstr "Mots-clés"
-
-#: includes/admin/admin.php:842
+#: includes/admin/classes/class-wp-idea-stream-admin.php:910
 msgid "Average Rating"
 msgstr "Note moyenne:"
 
-#: includes/admin/admin.php:873
-msgctxt "downloaded csv content header"
-msgid "Content"
-msgstr "Contenu"
-
-#: includes/admin/admin.php:874
-msgctxt "downloaded csv link header"
-msgid "Link"
-msgstr "Lien"
-
-#: includes/admin/admin.php:882
-msgctxt "downloaded csv comments num header"
-msgid "# comments"
-msgstr "Nbre de commentaires"
-
-#: includes/admin/admin.php:886
-msgctxt "downloaded csv rates num header"
-msgid "Average rating"
-msgstr "Note moyenne:"
-
-#: includes/admin/admin.php:968
-msgid ", "
-msgstr ", "
-
-#: includes/admin/admin.php:1050
-msgctxt "Ratings metabox title"
-msgid "Rates"
-msgstr "Evaluations"
-
-#: includes/admin/admin.php:1089 includes/ideas/functions.php:882
-#: includes/ideas/tags.php:1037
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1121
+#: includes/ideas/functions.php:749 includes/ideas/tags.php:962
 msgid "Not rated yet"
 msgstr "Pas encore évaluée"
 
-#: includes/admin/admin.php:1095
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1127
 msgid "%1$s member rated the idea. Its Average rating is: %2$s"
 msgid_plural "%1$s members rated the idea. Its Average rating is: %2$s"
 msgstr[0] "%1$s membre a évaluée l&#39;idée. Sa moyenne est : %2$s"
 msgstr[1] "%1$s membres ont évalué l&#39;idée. Sa moyenne est : %2$s"
 
-#: includes/admin/admin.php:1118
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1150
 msgid "Delete this rating"
 msgstr "Supprimer l&#39;évaluation."
 
-#: includes/admin/admin.php:1193
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1211
 msgid "Rating successfully deleted"
 msgstr "Evaluation supprimée avec succès."
 
-#: includes/admin/admin.php:1194
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1212
 msgid "Something went wrong while trying to delete the rating."
 msgstr "Un problème est survenu pendant la suppression de l&#39;évaluation."
 
-#: includes/admin/admin.php:1318
-msgctxt "prefix of the downloaded csv"
-msgid "ideas"
-msgstr "idees"
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1337
+msgid ""
+"The front page is showing your latest ideas, you first need to change the %s "
+"before being able to edit this page."
+msgstr ""
+"La page d'accueil affiche les dernières idées partagées, vous avez d'abord "
+"besoin de changer le %s avant de pouvoir éditer cette page de nouveau."
 
-#: includes/admin/admin.php:1355 includes/admin/admin.php:1403
-#: includes/admin/admin.php:1414 includes/admin/admin.php:1448
-#: includes/admin/admin.php:1465
+#. Plugin Name of the plugin/theme
+msgid "WP Idea Stream"
+msgstr "WP Idea Stream"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1435
+msgid "Select All"
+msgstr "Tout sélectionner"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1441
+msgid "Add to menu"
+msgstr "Ajouter au menu"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1477
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1525
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1536
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1570
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1587
 msgid "Overview"
 msgstr "Vue d&#39;ensemble"
 
-#: includes/admin/admin.php:1357
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1479
 msgid ""
 "This screen provides access to all the ideas users of your site shared. You "
 "can customize the display of this screen to suit your workflow."
@@ -200,7 +248,7 @@ msgstr ""
 "partagé dans votre site. Vous pouvez personnaliser son affichage pour l&#39;"
 "adapter à vos préférences."
 
-#: includes/admin/admin.php:1358
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1480
 msgid ""
 "You can customize the display of this screen&#39;s contents in a number of "
 "ways:"
@@ -208,7 +256,7 @@ msgstr ""
 "Vous pouvez personnaliser l&#39;affichage du contenu de cet écran de "
 "nombreuses manières :"
 
-#: includes/admin/admin.php:1360
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1482
 msgid ""
 "You can hide/display columns based on your needs and decide how many ideas to "
 "list per screen using the Screen Options tab."
@@ -217,7 +265,7 @@ msgstr ""
 "du nombre d&#39;idées à lister par écran à l&#39;aide de l&#39;onglet &#34;"
 "Options de l&#39;écran&#34;."
 
-#: includes/admin/admin.php:1361
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1483
 msgid ""
 "You can filter the list of ideas by post status using the text links in the "
 "upper left to show All, Published, Private or Trashed ideas. The default view "
@@ -228,7 +276,7 @@ msgstr ""
 "idées publiés (Publié), uniquement les idées privées (Privé) ou encore le "
 "contenu de la corbeille. Par défaut, toutes les idées sont affichées."
 
-#: includes/admin/admin.php:1362
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1484
 msgid ""
 "You can view ideas in a simple title list or with an excerpt. Choose the view "
 "you prefer by clicking on the icons at the top of the list on the right."
@@ -237,11 +285,11 @@ msgstr ""
 "extrait de leur contenu. Choisissez le mode d&#39;affichage de votre "
 "préférence en cliquant sur les icônes en haut à droite de la liste."
 
-#: includes/admin/admin.php:1368
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1490
 msgid "Actions"
 msgstr "Actions"
 
-#: includes/admin/admin.php:1370
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1492
 msgid ""
 "Hovering over a row in the ideas list will display action links that allow "
 "you to manage an idea. You can perform the following actions:"
@@ -250,7 +298,7 @@ msgstr ""
 "liens d&#39;action qui vous permettent de gérer les idées. Vous pouvez mener "
 "les actions suivantes:"
 
-#: includes/admin/admin.php:1372
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1494
 msgid ""
 "Edit takes you to the editing screen for that idea. You can also reach that "
 "screen by clicking on the idea title."
@@ -259,7 +307,7 @@ msgstr ""
 "de cette idée. Vous pouvez également vous rendre sur cet écran en cliquant "
 "sur le titre de l&#39;idée."
 
-#: includes/admin/admin.php:1373
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1495
 msgid ""
 "Trash removes the idea from this list and places it in the trash, from which "
 "you can permanently delete it."
@@ -267,17 +315,17 @@ msgstr ""
 "L&#39;action Mettre à la Corbeille retire l&#39;idée de la liste et la "
 "déplace dans la Corbeille, d&#39;où vous pourrez la supprimer définitivement."
 
-#: includes/admin/admin.php:1374
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1496
 msgid "View opens the idea in the WP Idea Stream&#39;s part of your site."
 msgstr ""
 "L&#39;action Afficher ouvre l&#39;idée au sein de la zone WP Idea Stream de "
 "votre site."
 
-#: includes/admin/admin.php:1380
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1502
 msgid "Bulk Actions"
 msgstr "Actions de masse"
 
-#: includes/admin/admin.php:1382
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1504
 msgid ""
 "You can also move multiple ideas to the trash at once. Select the ideas you "
 "want to trash using the checkboxes, then select the &#34;Move to Trash&#34; "
@@ -289,11 +337,11 @@ msgstr ""
 "corbeille&#34; depuis le menu &#34;Actions groupées&#34; et cliquez sur &#34;"
 "Appliquer&#34;."
 
-#: includes/admin/admin.php:1387
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1509
 msgid "Sorting & filtering"
 msgstr "Classer & filtrer"
 
-#: includes/admin/admin.php:1389
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1511
 msgid ""
 "Clicking on specific column headers will sort the ideas list. You can sort "
 "the ideas alphabetically using the Title column header or by popularity:"
@@ -302,7 +350,7 @@ msgstr ""
 "liste des idées de manière alphabétique par rapport à leur titre ou selon "
 "leur popularité :"
 
-#: includes/admin/admin.php:1391
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1513
 msgid ""
 "Click on the column header having a dialog buble icon to sort by number of "
 "comments."
@@ -310,13 +358,13 @@ msgstr ""
 "Cliquez sur l&#39;entête de colonne contenant une bulle de dialogue pour "
 "classer les idées selon leur nombre de commentaires."
 
-#: includes/admin/admin.php:1392
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1514
 msgid "Click on the column header having a star icon to sort by rating."
 msgstr ""
 "Cliquez sur l&#39;entête de colonne contenant une étoile pour classer les "
 "idées selon leur évaluation moyenne."
 
-#: includes/admin/admin.php:1394
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1516
 msgid ""
 "Inside the rows, you can filter the ideas by categories or tags clicking on "
 "the corresponding terms."
@@ -324,7 +372,7 @@ msgstr ""
 "Dans chacun des rangs de la liste, vous pouvez filtrer les idées selon leurs "
 "catégories ou mots-clés en cliquant sur les liens correspondants."
 
-#: includes/admin/admin.php:1405
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1527
 msgid ""
 "The title field and the big Idea Editing Area are fixed in place, but you can "
 "reposition all the other boxes using drag and drop. You can also minimize or "
@@ -337,14 +385,14 @@ msgstr ""
 "chaque bloc. Utilisez l’onglet &#34;Options de l’écran&#34; pour masquer / "
 "afficher les différents blocs disponibles."
 
-#: includes/admin/admin.php:1416
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1538
 msgid ""
 "This is the place where you can customize the behavior of WP Idea Stream."
 msgstr ""
 "Voici l&#39;endroit ou vous pourrez personnaliser le comportement de WP Idea "
 "Stream."
 
-#: includes/admin/admin.php:1417
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1539
 msgid ""
 "Please see the additional help tabs for more information on each individual "
 "section."
@@ -352,11 +400,12 @@ msgstr ""
 "Merci de consulter les onglets d&#39;aides suivants pour plus d&#39;"
 "information au sujet des différentes sections des réglages."
 
-#: includes/admin/admin.php:1422 includes/admin/settings.php:31
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1544
+#: includes/admin/settings.php:26
 msgid "Main Settings"
 msgstr "Réglages principaux"
 
-#: includes/admin/admin.php:1424
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1546
 msgid ""
 "Just before the first option, you will find the link to the main archive page "
 "of the plugin. If you wish, you can use it to define a new custom link "
@@ -367,7 +416,7 @@ msgstr ""
 "en servir vous créer un nouvel emplacement de type &#34;Lien&#34; dans un "
 "des  %1$smenus%2$s mis à votre disposition par votre thème."
 
-#: includes/admin/admin.php:1425
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1547
 msgid ""
 "If you do so, do not forget to update the link in case you change your "
 "permalink settings. Another possible option is to use the %1$sWP Idea Stream "
@@ -378,11 +427,11 @@ msgstr ""
 "est l&#39;utilisation du %1$swidget de navigation%2$s fournit par WP Idea "
 "Stream dans une des barres de navigation dynamiques de votre thème."
 
-#: includes/admin/admin.php:1426
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1548
 msgid "In the Main Settings you have a number of options:"
 msgstr "La section des réglages principaux vous propose de nombreuses options :"
 
-#: includes/admin/admin.php:1428
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1550
 msgid ""
 "WP Idea Stream archive page: you can customize the title of this page. It "
 "will appear on every WP Idea Stream&#39;s page, except the single idea one."
@@ -392,7 +441,7 @@ msgstr ""
 "de votre site à l&#39;exception de la page affichant l&#39;idée dans sa vue "
 "unique."
 
-#: includes/admin/admin.php:1429
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1551
 msgid ""
 "New ideas status: this is the default status to apply to the ideas submitted "
 "by the user. If this setting is set to &#34;Pending&#34;, it will be possible "
@@ -403,7 +452,7 @@ msgstr ""
 "option est réglée sur &#34;En attente&#34;, il sera alors possible de "
 "modifier le message de modération une fois les réglages sauvegardés."
 
-#: includes/admin/admin.php:1430
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1552
 msgid ""
 "Images & Links are settings about the WP Idea Stream&#39;s editor. If you "
 "wish to disable the image or link buttons, you can disable the corresponding "
@@ -413,7 +462,7 @@ msgstr ""
 "Idea Stream. Si vous souhaitez masquer les boutons d&#39;ajout d&#39;images "
 "ou de liens, vous pouvez décocher le réglage correspondant."
 
-#: includes/admin/admin.php:1431
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1553
 msgid ""
 "Featured images is a setting that requires the Editor Images button to be "
 "active. It allows your users to select an image they inserted and set it as "
@@ -426,7 +475,7 @@ msgstr ""
 "valeur l&#39;idée. Sachez que cette image sera transférée à l'intérieur de "
 "votre site WordPress."
 
-#: includes/admin/admin.php:1432
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1554
 msgid ""
 "Moderation message: if New ideas status is defined to Pending, it is the "
 "place to customize the awaiting moderation message the user will see once he "
@@ -437,7 +486,7 @@ msgstr ""
 "personnaliser le message d&#39;attente de publication à afficher aux "
 "utilisateurs ayant soumis leur idée."
 
-#: includes/admin/admin.php:1433
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1555
 msgid ""
 "Not logged in message: if a user reaches the WP Idea Stream&#39;s front end "
 "submit form without being logged in, a message will invite him to do so. If "
@@ -448,7 +497,7 @@ msgstr ""
 "se connecter. Si vous souhaitez personnaliser ce message : utiliser la zone "
 "de texte correspondante."
 
-#: includes/admin/admin.php:1434
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1556
 msgid ""
 "Rating stars hover captions: fill a comma separated list of captions to "
 "replace default one. On front end, the number of rating stars will depend on "
@@ -459,7 +508,7 @@ msgstr ""
 "nombre de niveaux d&#39;évaluation disponibles dépendra du nombre de valeurs "
 "que vous aurez définies."
 
-#: includes/admin/admin.php:1435
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1557
 msgid ""
 "Sticky ideas: choose whether to allow or not Administrators to stick ideas to "
 "the top of the WP Idea Stream&#39;s archive first page."
@@ -467,7 +516,7 @@ msgstr ""
 "Idées mises en une : choisissez d&#39;autoriser ou non les administrateurs du "
 "site à mettre en avant des idées sur la première page d&#39;archive des idées."
 
-#: includes/admin/admin.php:1436
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1558
 msgid ""
 "Idea comments: if on, comments about ideas will be separated from other post "
 "types comments and you will be able to moderate comments about ideas from the "
@@ -484,7 +533,7 @@ msgstr ""
 "effectuera depuis le menu &#34;Commentaires&#34; de l&#39;Administration de "
 "WordPress."
 
-#: includes/admin/admin.php:1437
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1559
 msgid ""
 "Comments: you can completely disable commenting about ideas by activating "
 "this option"
@@ -492,7 +541,7 @@ msgstr ""
 "Commentaires : vous pouvez empêcher l&#39;ajout de tout commentaire aux idées "
 "en activant ce réglage."
 
-#: includes/admin/admin.php:1438
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1560
 msgid ""
 "Embed profile: if this setting is active, your users profiles will include a "
 "sharing button to let your visitors copy the embed code and share it into "
@@ -503,7 +552,7 @@ msgstr ""
 "seront en mesure d&#39;utiliser pour copier le code d&#39;incorporation et le "
 "partager dans leur site. "
 
-#: includes/admin/admin.php:1450
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1572
 msgid ""
 "Idea Categories can only be created by the site Administrator. To add a new "
 "idea category please fill the following fields:"
@@ -512,7 +561,7 @@ msgstr ""
 "du site. Pour ajouter un nouvelle catégorie, merci de remplir les champs "
 "suivants :"
 
-#: includes/admin/admin.php:1452
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1574
 msgid ""
 "Name - The name is how it appears on your site (in the category checkboxes of "
 "the idea front end submit form, in the idea&#39;s footer part or in the title "
@@ -523,7 +572,8 @@ msgstr ""
 "idées, dans la partie inférieure d&#39;une idée ou dans le titre des pages "
 "d&#39;archives de catégorie d&#39;idée)."
 
-#: includes/admin/admin.php:1453 includes/admin/admin.php:1470
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1575
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1592
 msgid ""
 "Slug - The &#34;slug&#34; is the URL-friendly version of the name. It is "
 "usually all lowercase and contains only letters, numbers, and hyphens."
@@ -532,7 +582,7 @@ msgstr ""
 "généralement que des lettres minuscules non accentuées, des chiffres et des "
 "traits d&#39;union."
 
-#: includes/admin/admin.php:1454
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1576
 msgid ""
 "Description - If you set a description for your category, it will be "
 "displayed over the list of ideas in the category archive page."
@@ -541,7 +591,8 @@ msgstr ""
 "sera affichée au dessus de la liste des idées dans la page d&#39;archive de "
 "la catégorie correspondante."
 
-#: includes/admin/admin.php:1456 includes/admin/admin.php:1473
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1578
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1595
 msgid ""
 "You can change the display of this screen using the Screen Options tab to set "
 "how many items are displayed per screen and to display/hide columns in the "
@@ -552,7 +603,7 @@ msgstr ""
 "le nombre d&#39;idées listées par page et masquer ou afficher certaines "
 "colonnes du tableau. "
 
-#: includes/admin/admin.php:1467
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1589
 msgid ""
 "Idea Tags can be created by any logged in user of the site from the idea "
 "front end submit form. From this screen, to add a new idea tag please fill "
@@ -563,7 +614,7 @@ msgstr ""
 "administrateurs peuvent ajouter un mot-clé en remplissant les champs "
 "suivants :"
 
-#: includes/admin/admin.php:1469
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1591
 msgid ""
 "Name - The name is how it appears on your site (in the tag cloud, in the tags "
 "editor of the idea front end submit form, in the idea&#39;s footer part or in "
@@ -574,7 +625,7 @@ msgstr ""
 "du formulaire de ajout de présentations, dans la partie inférieure de une "
 "présentation ou dans le titre des pages de archives de zoom de présentation)."
 
-#: includes/admin/admin.php:1471
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1593
 msgid ""
 "Description - If you set a description for your tag, it will be displayed "
 "over the list of ideas in the tag archive page."
@@ -583,11 +634,12 @@ msgstr ""
 "sera affichée au dessus de la liste des idées dans la page d&#39;archive du "
 "mot-clé correspondante."
 
-#: includes/admin/admin.php:1483 includes/admin/settings.php:39
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1605
+#: includes/admin/settings.php:35
 msgid "Pretty Links"
 msgstr "Liens conviviaux"
 
-#: includes/admin/admin.php:1485
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1607
 msgid ""
 "The Pretty Links section allows you to control the permalink structure of the "
 "plugin by defining custom slugs."
@@ -595,7 +647,7 @@ msgstr ""
 "La section des liens conviviaux vous permet de contrôler la structure des "
 "permaliens du plugin en définissant des slugs de votre choix."
 
-#: includes/admin/admin.php:1486
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1608
 msgid ""
 "The WP Idea Stream root slug is the most important one. Make sure the slug "
 "you chose is unique. Once saved, WP Idea Stream will check for an eventual "
@@ -609,7 +661,7 @@ msgstr ""
 "du réseau en cas de configuration multisite), de bbPress ou BuddyPress, et "
 "affichera le cas échéant un message d&#39;alerte."
 
-#: includes/admin/admin.php:1487
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1609
 msgid ""
 "In the case of a slug collision, I strongly advise you to change the WP Idea "
 "Stream root slug."
@@ -617,7 +669,7 @@ msgstr ""
 "En cas de conflit de slug, je vous recommande de changer le slug racine de WP "
 "Idea Stream."
 
-#: includes/admin/admin.php:1488
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1610
 msgid ""
 "Concerning the text you will enter in the slug fields, make sure it is all "
 "lowercase and contains only letters, numbers, and hyphens."
@@ -626,54 +678,34 @@ msgstr ""
 "vous qu&#39;il soit en minuscules et ne contienne que des lettres non "
 "accentuées, des nombres ou des traits d&#39;union."
 
-#: includes/admin/admin.php:1505
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1627
 msgid "For more information:"
 msgstr "Pour plus d&#39;informations :"
 
-#: includes/admin/admin.php:1507
-msgctxt "help tab links"
-msgid "%1$sSupport Forums (en)%2$s"
-msgstr "%1$sForum de support (en)%2$s"
-
-#: includes/admin/admin.php:1508
-msgctxt "help tab links"
-msgid "%1$sWP Idea Stream posts (fr)%2$s"
-msgstr "%1$sArticles au sujet de WP Idea Stream (fr)%2$s"
-
-#: includes/admin/admin.php:1535
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1654
 msgid ""
 "The Ratings metabox allows you to manage the ratings the idea has received."
 msgstr ""
 "La metabox des évaluations vous permet de manager les évaluations que l&#39;"
 "idée a reçues."
 
-#: includes/admin/admin.php:1784 includes/admin/thanks.php:54
-#: includes/admin/thanks.php:193 includes/core/upgrade.php:157
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1891
+#: includes/admin/thanks.php:43 includes/admin/thanks.php:239
+#: includes/core/upgrade.php:135
 msgid "About"
 msgstr "A propos"
 
-#: includes/admin/comments.php:151
-msgctxt "wp idea stream admin menu bubble"
-msgid "%1$s %2$s"
-msgstr "%1$s %2$s"
-
-#: includes/admin/comments.php:174 includes/admin/comments.php:187
-#: includes/admin/settings.php:162
-msgid "Comments"
-msgstr "Commentaires"
-
-#: includes/admin/comments.php:220 includes/core/functions.php:331
-msgctxt "Main Plugin menu"
-msgid "Ideas"
-msgstr "Idées"
-
-#: includes/admin/settings.php:47
+#: includes/admin/settings.php:44
 msgid "Network users settings"
 msgstr "Réglages pour les utilisateurs du réseau"
 
-#: includes/admin/settings.php:82
+#: includes/admin/settings.php:74
 msgid "WP Idea Stream archive page"
 msgstr "Nom de la page des archives"
+
+#: includes/admin/settings.php:82
+msgid "List the ideas on the static front page."
+msgstr "Lister les idées directement sur la page d&#39;accueil du site."
 
 #: includes/admin/settings.php:90
 msgid "New ideas status"
@@ -771,42 +803,31 @@ msgstr "Inscriptions"
 msgid "Default role for network users"
 msgstr "Rôle par défaut pour les utilisateurs du réseau"
 
-#: includes/admin/settings.php:423
-msgctxt "ideastream settings root slug conflict"
-msgid "this %s"
-msgstr "ce %s"
-
-#: includes/admin/settings.php:433
-msgctxt "bbPress possible conflict"
-msgid "bbPress forum root slug"
-msgstr "slug racine du forum bbPress"
-
-#: includes/admin/settings.php:447
-msgctxt "Child blog possible conflict"
-msgid "child blog slug"
-msgstr "slug de site enfant"
-
-#: includes/admin/settings.php:470
+#: includes/admin/settings.php:440
 msgid "Possible conflict with: %s"
 msgstr "Conflit possible avec : %s "
 
-#: includes/admin/settings.php:492
+#: includes/admin/settings.php:458
 msgid "Customize WP Idea Stream features"
 msgstr "Personnalisez WP Idea Stream"
 
-#: includes/admin/settings.php:493
-msgid "Url of WP Idea Stream&#39;s main page: %s"
-msgstr "Lien vers la page principale de WP Idea Stream : %s"
+#: includes/admin/settings.php:490
+msgid ""
+"This setting is only available when the site's front page is set to a static "
+"page."
+msgstr ""
+"Ce réglage est uniquement disponible lorsque votre site utilise une page "
+"statique comme page d'accueil."
 
-#: includes/admin/settings.php:535 includes/users/functions.php:528
+#: includes/admin/settings.php:506
 msgid "Published"
 msgstr "Publié"
 
-#: includes/admin/settings.php:536
+#: includes/admin/settings.php:507
 msgid "Pending"
 msgstr "En attente"
 
-#: includes/admin/settings.php:538
+#: includes/admin/settings.php:509
 msgid ""
 "The default status for all ideas. Depending on this setting, the moderation "
 "message setting will be available"
@@ -814,15 +835,15 @@ msgstr ""
 "Le statut par défaut pour toutes les idées. Selon ce réglage, celui du "
 "message de modération sera disponible"
 
-#: includes/admin/settings.php:559
+#: includes/admin/settings.php:525
 msgid "Allow users to add images to their ideas"
 msgstr "Autoriser les utilisateurs à ajouter des images à leurs idées"
 
-#: includes/admin/settings.php:560
+#: includes/admin/settings.php:526
 msgid "Depending on this setting, the featured images setting will be available"
 msgstr "Selon ce réglage, celui des images mises en avant sera disponible"
 
-#: includes/admin/settings.php:576
+#: includes/admin/settings.php:542
 msgid ""
 "If users can add images, you can allow them to choose the featured image for "
 "their ideas"
@@ -830,11 +851,11 @@ msgstr ""
 "Si les utilisateurs peuvent ajouter des images, alors vous pouvez également "
 "leur autoriser la sélection de l&#39;image à mettre en avant pour leurs idées."
 
-#: includes/admin/settings.php:597
+#: includes/admin/settings.php:558
 msgid "Allow users to add links to their ideas"
 msgstr "Autoriser les utilisateurs à ajouter des liens à leurs idées"
 
-#: includes/admin/settings.php:618
+#: includes/admin/settings.php:573
 msgid ""
 "In cases where &#34;Pending&#34; is the status for all ideas, you can "
 "customize the moderation message"
@@ -842,7 +863,7 @@ msgstr ""
 "Si &#34;En attente&#34; est le statut pour toutes les idées, vous pouvez "
 "personnaliser le message de modération."
 
-#: includes/admin/settings.php:639
+#: includes/admin/settings.php:589
 msgid ""
 "You can customize the message shown to not logged in users on the new idea "
 "form"
@@ -850,7 +871,7 @@ msgstr ""
 "Vous pouvez personnaliser le message affiché aux membres non connectés qui se "
 "rendent sur le formulaire d&#39;ajout d&#39;une idée."
 
-#: includes/admin/settings.php:662
+#: includes/admin/settings.php:607
 msgid ""
 "You can customize the hover captions used for stars by using a comma "
 "separated list of captions"
@@ -858,7 +879,7 @@ msgstr ""
 "Vous pouvez personnaliser les info-bulles utilisées pour les appréciations en "
 "séparant chacune d&#39;entre elles d&#39;une virgule"
 
-#: includes/admin/settings.php:684
+#: includes/admin/settings.php:624
 msgid ""
 "Allow ideas to be made &#34;sticky&#34; (they will stay at the top of WP Idea "
 "Stream first page)"
@@ -866,35 +887,39 @@ msgstr ""
 "Autoriser la mise en une des idées (elles seront listées en premier de la "
 "première page d&#39;archive des idées)"
 
-#: includes/admin/settings.php:705
+#: includes/admin/settings.php:640
 msgid "Separate comments made on ideas from the other post types."
 msgstr "Distinguer les commentaires faits sur des idées des autres commentaires"
 
-#: includes/admin/settings.php:726
+#: includes/admin/settings.php:656
 msgid "Allow users to add comments on ideas"
 msgstr "Autoriser les utilisateurs à ajouter des commentaires aux idées"
 
-#: includes/admin/settings.php:742
+#: includes/admin/settings.php:672
 msgid "Allow users profiles to be embed"
 msgstr "Permettre aux profils utilisateurs d&#39;être incorporés"
 
-#: includes/admin/settings.php:762
+#: includes/admin/settings.php:689
 msgid "Customize the slugs of WP Idea Stream urls"
 msgstr "Personnalisez les URL de WP Idea Stream."
 
-#: includes/admin/settings.php:906
+#: includes/admin/settings.php:690
+msgid "Url of WP Idea Stream&#39;s main page: %s"
+msgstr "Lien vers la page principale de WP Idea Stream : %s"
+
+#: includes/admin/settings.php:797
 msgid "&#39;%s&#39; slug cannot be used here."
 msgstr "Le slug &#39;%s&#39; ne peut pas être utilisé dans ce cas."
 
-#: includes/admin/settings.php:1024
+#: includes/admin/settings.php:887
 msgid "Define your preferences about network users"
 msgstr "Définissez vos préférences pour les utilisateurs du réseau"
 
-#: includes/admin/settings.php:1045
+#: includes/admin/settings.php:903
 msgid "Allow WP Idea Stream to manage signups for your site"
 msgstr "Autoriser WP Idea Stream à gérer les inscriptions de votre site"
 
-#: includes/admin/settings.php:1066
+#: includes/admin/settings.php:919
 msgid ""
 "Automatically set this site&#39;s default role for users posting a new idea "
 "and having no role on this site."
@@ -902,66 +927,15 @@ msgstr ""
 "Générer un rôle par défaut pour les utilisateurs du réseau déposant une "
 "nouvelle idée et n&#39;ayant aucun rôle sur ce site."
 
-#: includes/admin/settings.php:1282
+#: includes/admin/settings.php:1114
 msgid "WP Idea Stream Settings"
 msgstr "Réglages WP Idea Stream"
 
-#: includes/admin/settings.php:1291
+#: includes/admin/settings.php:1150
 msgid "Save Changes"
 msgstr "Enregistrer les modifications"
 
-#: includes/admin/sticky.php:152
-msgid "Sticky"
-msgstr "Mise en une"
-
-#: includes/admin/sticky.php:188
-msgid "This idea cannot be sticky"
-msgstr "Cette idée ne peut pas être mise en une"
-
-#: includes/admin/sticky.php:195
-msgid "Select whether or not to make the idea sticky."
-msgstr "Indiquer si vous souhaitez mettre l&#39;idée en une."
-
-#: includes/admin/sticky.php:196
-msgid "Mark as sticky"
-msgstr "Mettre en une"
-
-#: includes/admin/sticky.php:315
-msgid "Private or password protected ideas cannot be marked as sticky"
-msgstr ""
-"Les idées privées ou protégées par un mot de passe ne peuvent pas être mises "
-"en une"
-
-#: includes/admin/sticky.php:316
-msgid "Idea successfully removed from stickies"
-msgstr "L&#39;idée a été supprimée de la une"
-
-#: includes/admin/sticky.php:317
-msgid "Idea successfully added to stickies"
-msgstr "Idée mise en une avec succès"
-
-#: includes/admin/sticky.php:341
-msgctxt "idea list table row state"
-msgid "Sticky"
-msgstr "Mis en une"
-
-#: includes/admin/sticky.php:382
-msgctxt "admin ideas sticky view"
-msgid "Sticky <span class=\"count\">(%s)</span>"
-msgid_plural "Sticky <span class=\"count\">(%s)</span>"
-msgstr[0] "Mis en une <span class=\"count\">(%s)</span>"
-msgstr[1] "Mis en une <span class=\"count\">(%s)</span>"
-
-#: includes/admin/sticky.php:427
-msgid ""
-"The Sticky metabox allows you to stick a published idea (not password "
-"protected) to the top of the front ideas archive first page."
-msgstr ""
-"La metabox de mise en une vous permet de mettre an avant une idée publiée (du "
-"moment qu&#39;elle ne soit pas protégée par un mot de passe) sur la première "
-"page des idées."
-
-#: includes/admin/thanks.php:36
+#: includes/admin/thanks.php:30
 msgid ""
 "Thank you for activating the latest version of WP Idea Stream! %s brings some "
 "really cool new features!"
@@ -969,7 +943,7 @@ msgstr ""
 "Merci d&#39;avoir activé la dernière version de WP Idea Stream ! La version "
 "%s apporte de nouvelles fonctionnalités tip top."
 
-#: includes/admin/thanks.php:39
+#: includes/admin/thanks.php:33
 msgid ""
 "Thank you for upgrading to the latest version of WP Idea Stream! %s brings "
 "some really cool new features!"
@@ -977,21 +951,11 @@ msgstr ""
 "Merci d&#39;avoir mis à jour pour la dernière version de WP Idea Stream ! La "
 "version %s apporte de nouvelles fonctionnalités tip top."
 
-#: includes/admin/thanks.php:48
-msgctxt "about screen title"
-msgid "WP Idea Stream %s"
-msgstr "WP Idea Stream %s"
-
-#: includes/admin/thanks.php:57 includes/admin/thanks.php:196
+#: includes/admin/thanks.php:46 includes/admin/thanks.php:242
 msgid "Credits"
 msgstr "Crédits"
 
-#: includes/admin/thanks.php:62
-msgctxt "WP Idea Stream Headline"
-msgid "Share ideas, great ones will rise to the top!"
-msgstr "Partager des idées, les meilleures graviront des sommets !"
-
-#: includes/admin/thanks.php:66
+#: includes/admin/thanks.php:55
 msgid ""
 "WP Idea Stream is a WordPress plugin to power idea management for your site. "
 "Your members will be able to easily create, share and rate ideas."
@@ -1000,671 +964,295 @@ msgstr ""
 "de management des idées dans votre site. Vos membres seront à même de très "
 "simplement créer, partager et évaluer des idées."
 
-#: includes/admin/thanks.php:70
-msgid "Important: these features are not supported anymore."
-msgstr "Important: ces fonctionnalités ne sont plus supportées."
+#: includes/admin/thanks.php:59
+msgid "What about BuddyPress Integration?"
+msgstr "Qu'en est-il de l'intégration avec BuddyPress ?"
 
-#: includes/admin/thanks.php:72
-msgid "Set the list of ideas as the front page of the blog."
-msgstr "Lister les idées directement sur la page d&#39;accueil du blog"
+#: includes/admin/thanks.php:62
+msgid ""
+"WP Idea Stream is no longer including this integration into its codebase. "
+"Don't panic, you can always enjoy BuddyPress with WP Idea Stream by "
+"downloading and activating this addon: %s."
+msgstr ""
+"WP Idea Stream ne prend plus en charge nativement son intégration dans "
+"BuddyPress. Pas de panique, vous pouvez toujours profiter de BuddyPress avec "
+"WP Idea Stream en téléchargeant puis en activant cet addon : %s."
 
 #: includes/admin/thanks.php:73
-msgid "Sharing options (twitter or email)."
-msgstr "Options de Partage (twitter ou email)"
+msgid "Let's enjoy the awesome WordPress Rest API."
+msgstr "Profitons de la magnifique Rest API de WordPress."
 
-#: includes/admin/thanks.php:74
-msgid "Disabling the built-in rating system."
-msgstr "La désactivation du composant d&#39;évaluation interne."
+#: includes/admin/thanks.php:76
+msgid ""
+"The idea ratings built-in system is now using a custom endpoint to save your "
+"users ratings."
+msgstr ""
+"Le système d'évaluation des idées utilise désormais une terminaison "
+"personnalisée pour enregistrer les évaluations de vos utilisateurs."
+
+#: includes/admin/thanks.php:77
+msgid ""
+"Readonly endpoints are now available to get the great ideas your users shared:"
+msgstr ""
+"Des terminaisons en mode lecture sont désormais disponibles pour requêter les "
+"superbes idées que vos utilisateurs ont partagées :"
+
+#: includes/admin/thanks.php:79
+msgid "GET ideas at %s"
+msgstr "GET des idées depuis %s"
+
+#: includes/admin/thanks.php:80
+msgid "GET an idea at %s"
+msgstr "GET une idée depuis %s"
+
+#: includes/admin/thanks.php:81
+msgid "GET idea categories at %s"
+msgstr "GET des catégories d'idée depuis %s"
+
+#: includes/admin/thanks.php:82
+msgid "GET an idea category at %s"
+msgstr "GET une catégorie d&#39;idée depuis %s"
 
 #: includes/admin/thanks.php:83
-msgid "Embed your users profiles"
-msgstr "Des profils utilisateurs incorporables"
+msgid "GET idea tags at %s"
+msgstr "GET des étiquettes d'idée depuis %s"
 
-#: includes/admin/thanks.php:92
-msgid "Embed profile"
-msgstr "Profil incorporé"
+#: includes/admin/thanks.php:84
+msgid "GET an idea tag at %s"
+msgstr "GET une étiquette d'idée depuis %s"
 
-#: includes/admin/thanks.php:97
-msgid "Great ideas are found by awesome people!"
-msgstr "Les grandes idées sont trouvées par des gens formidables!"
+#: includes/admin/thanks.php:100
+msgid "A new status for Ideas: Archive"
+msgstr "Un nouveau statut pour vos idées :  Archive"
 
-#: includes/admin/thanks.php:98
+#: includes/admin/thanks.php:101
 msgid ""
-"Use the powerful WordPress Embeds provider feature introduced in WordPress "
-"4.4 to let your users show off their lovely profile and statistics about "
-"their contributions."
+"This new status allows you to archive ideas so that they are not listed "
+"anymore on the front-end but are always available from the &quot;"
+"Archived&quot; view of the Ideas Administration screen."
 msgstr ""
-"Utilisez la fonctionnalité de fourniture de code d&#39;incorporation "
-"introduite depuis WordPress 4.4 pour permettre à vos utilisateurs de faire "
-"étalage de leur magnifique profil et de leurs statistiques concernant leurs "
-"contributions."
+"Ce nouveau statut vous permet d'archiver les idées de telles manières "
+"qu'elles ne seront plus listées dans le \"front-end\" de votre site tout en "
+"restant disponibles depuis la vue &quot;Archive&quot; de l'écran "
+"d'administration des idées."
 
-#: includes/admin/thanks.php:99
+#: includes/admin/thanks.php:102
 msgid ""
-"WP Idea Stream embed profiles are even greater when BuddyPress 2.4 is "
-"activated thanks to its new Cover Images feature, check this out!"
+"You can always change your mind and unarchive any archived ideas. They will "
+"be restored to their previous status."
 msgstr ""
-"Les profils incorporables sont encore plus magnifiques lorsque BuddyPress 2.4 "
-"est activé grâce à la fonctionnalité images de couverture, admirez!"
+"Vous pouvez changez d'avis à tout moment et désarchiver toute idée archivée. "
+"Elles seront restaurées avec leur ancien statut."
 
-#: includes/admin/thanks.php:103
-msgid "Embed profile when BuddyPress is active"
-msgstr "Profil incorporable lorsque BuddyPress est activé"
+#: includes/admin/thanks.php:115
+msgid "List Ideas on your site's static front page."
+msgstr "Afficher la liste des idées sur la page d'accueil de votre site."
 
-#: includes/admin/thanks.php:118
-msgid "Featured images for ideas."
-msgstr "Images mises en avant."
-
-#: includes/admin/thanks.php:119
+#: includes/admin/thanks.php:117
 msgid ""
-"When a user adds images to an idea, those images will be presented as a list, "
-"and can then be selected as the featured image for the idea."
+"When you choose a static front page for your home page from the Reading "
+"settings Administration screen, you can now override this page's content with "
+"the list of shared ideas."
 msgstr ""
-"Lorsqu&#39;un utilisateur ajoute une image à son idée, elle sera désormais "
-"incluse dans une liste d&#39;images insérées parmi lesquelles il pourra "
-"choisir celle qu&#39;il souhaite utiliser pour mettre en valeur son idée."
+"Lorsque vous choisissez d'accueillir vos visiteurs à l'aide d'une page "
+"statique depuis l'écran d'administration des réglages de lecture, vous pouvez "
+"remplacer le contenu de cette page avec la liste des idées partagées."
 
-#: includes/admin/thanks.php:132
-msgid "Embeds, embeds, embeds!"
-msgstr "Incorporons, incorporons, incorporons!"
+#: includes/admin/thanks.php:120
+msgid ""
+"Once you have set the static front page simply activate the &quot;List the "
+"ideas on the static front page&quot; WP Idea Stream's setting."
+msgstr ""
+"Une fois que la page statique sera choisie, vous n'aurez plus qu'à activer "
+"l'option &quot;Lister les idées directement sur la page d'accueil du "
+"site&quot; des réglages de WP Idea Stream."
 
 #: includes/admin/thanks.php:134
-msgid ""
-"You can now share ideas within your WordPress posts, or anyone can embed them "
-"anywhere on the internet compatible with embed codes: just like regular "
-"posts. Ideas will include one more piece of information: the average rating "
-"they have received!"
-msgstr ""
-"Vous pouvez partager vos idées dans vos articles WordPress, et tout visiteur "
-"peut le faire depuis tout site internet comme c&#39;est le cas pour des "
-"articles classiques. La particularité pour les idées est qu&#39;elles "
-"incluront une information supplémentaire dans leur code d&#39;incorporation: "
-"l&#39;évaluation moyenne obtenue!"
+msgid "WP Idea Stream's menu items."
+msgstr "Eléments de menus WP Idea Stream"
 
-#: includes/admin/thanks.php:137
+#: includes/admin/thanks.php:136
 msgid ""
-"The way the plugin deal with embeds has been greatly improved and every embed "
-"code should be displayed just fine in every single view of ideas (including "
-"the one in BuddyPress Groups)."
+"It's now a lot more easier to add links to WP Idea Stream's areas within your "
+"navigation menus."
 msgstr ""
-"La manière dont le plugin gère les codes d&#39;incorporation a été améliorée "
-"et chaque code sera affiché de manière optimale dans chacune des vues "
-"individualisées des idées (incluant celle des Groupes BuddyPress)."
+"Il est désormais beaucoup plus simple d'ajouter des liens vers les zones de "
+"WP Idea Stream au sein de vos menus de navigation."
 
-#: includes/admin/thanks.php:143
+#: includes/admin/thanks.php:139
+msgid ""
+"From the Menu section of the customizer or the Menus Administration screen, "
+"you will be able to add the WP Idea Stream's menu items of your choice inside "
+"your navigation parts."
+msgstr ""
+"Depuis la section des menus du customizer ou depuis l'écran d'administration "
+"des menus, vous serez en mesure d'ajouter les éléments de WP Idea Stream de "
+"votre choix au sein de vos menus de navigation."
+
+#: includes/admin/thanks.php:153
+msgid "Featured images are finally prettifying loops."
+msgstr "Les images mises en avant enjolivent finalement les loops."
+
+#: includes/admin/thanks.php:155
+msgid ""
+"Featured images were introduced in WP Idea Stream 2.3.0 but there were only "
+"used in the single view of the idea regarding the active theme's support."
+msgstr ""
+"Les images mises en avant ont été introduites à l'occasion de la version "
+"2.3.0 de WP Idea Stream mais elles étaient uniquement utilisées dans la vue "
+"single de l'idée en fonction du support du thème actif."
+
+#: includes/admin/thanks.php:158
+msgid ""
+"2.4.0 finally brings them into WP Idea Stream loops and they are really "
+"looking much more prettier now!"
+msgstr ""
+"Avec cette version 2.4.0 elles pourront enfin s'inviter dans les loops de WP "
+"Idea Stream pour leur donner une allure beaucoup plus sympa !"
+
+#: includes/admin/thanks.php:161
+msgid ""
+"If you prefer more classic idea loops, you can of course disable featured "
+"images from the WP Idea Stream settings' Administration screen."
+msgstr ""
+"Bien sûr, si vous préférez des loops plus classiques, vous pouvez toujours "
+"désactiver les images mises en avant depuis les réglages de WP Idea Stream."
+
+#: includes/admin/thanks.php:175
+msgid "A tabbed UI for the WP Idea Stream's Settings screen."
+msgstr ""
+"Une interface à onglets pour l'écran d'administration des réglages de WP Idea "
+"Stream."
+
+#: includes/admin/thanks.php:177
+msgid ""
+"Settings sections are now organized into tabs to improve their readability "
+"and avoid a never ending options page!"
+msgstr ""
+"Les sections des réglages sont désormais organisées en onglets afin "
+"d'améliorer leur lisibilité et d'éviter d'avoir une page d'options "
+"interminable !"
+
+#: includes/admin/thanks.php:180
+msgid ""
+"This UI is ready to house all existing and future WP Idea Stream's addons' "
+"settings in this central place."
+msgstr ""
+"Cette nouvelle interface est prête à accueillir les réglages des addons "
+"existants et à venir de WP Idea Stream dans cette zone unique."
+
+#: includes/admin/thanks.php:186
 msgid "The finer points.."
 msgstr "Dans le détail.."
 
-#: includes/admin/thanks.php:146
+#: includes/admin/thanks.php:189
 msgid "TwentySeventeen"
 msgstr "TwentySeventeen"
 
-#: includes/admin/thanks.php:148
+#: includes/admin/thanks.php:191
 msgid ""
-"WP Idea Stream will look pretty nice when used with the next WordPress "
-"default theme. Its style has been optimized for it."
+"WP Idea Stream will look pretty nice when used with the WordPress default "
+"theme. Its style has been optimized for it."
 msgstr ""
-"WP Idea Stream s&#39;intègrera de manière optimale dans le nouveau thème par "
-"défaut de WordPress. Son style a été optimisé pour cela."
+"WP Idea Stream s&#39;intègrera de manière optimale dans le thème par défaut "
+"de WordPress. Son style a été optimisé pour cela."
 
-#: includes/admin/thanks.php:150
-msgid "Bug fixes"
-msgstr "Correction de bugs"
+#: includes/admin/thanks.php:193
+msgid "User Feedbacks"
+msgstr "Feedbacks d'utilisateur"
 
-#: includes/admin/thanks.php:152
-msgid "Fix an issue with comments count cache."
-msgstr "Corrige une difficulté avec le cache du compte des commentaires"
-
-#: includes/admin/thanks.php:153
+#: includes/admin/thanks.php:195
 msgid ""
-"Fix comments &quot;All&quot; count on Comments Administration screens views."
+"User Feedbacks are no longer using cookies and can now display as many "
+"feedbacks of any types to the user."
 msgstr ""
-"Corrige le compte erroné des liens vers les vues des écrans d&#39;"
-"administration des commentaires."
+"Les feedbacks utilisateur n'utilisent plus de cookies et peuvent désormais "
+"afficher autant de messages informatifs que de nécessaire."
 
-#: includes/admin/thanks.php:161 includes/admin/thanks.php:256
+#: includes/admin/thanks.php:197
+msgid "Under the hood"
+msgstr "Sous le capot"
+
+#: includes/admin/thanks.php:199
+msgid "Classes are now autoloaded!"
+msgstr "Les Classes se chargent automatiquement !"
+
+#: includes/admin/thanks.php:207 includes/admin/thanks.php:294
 msgid "Configure WP Idea Stream"
 msgstr "Configurez WP Idea Stream"
 
-#: includes/admin/thanks.php:161 includes/admin/thanks.php:256
+#: includes/admin/thanks.php:207 includes/admin/thanks.php:294
 msgid "Go to the WP Idea Stream Settings page"
 msgstr "Affichez la page des réglages de WP Idea Stream"
 
-#: includes/admin/thanks.php:187
-msgctxt "credit screen title"
-msgid "WP Idea Stream %s"
-msgstr "WP Idea Stream %s"
-
-#: includes/admin/thanks.php:188
+#: includes/admin/thanks.php:234
 msgid ""
 "%s version of WP Idea Stream was also successfully released thanks to them!"
 msgstr "La version %s de WP Idea Stream a également vu le jour grâce à eux !"
 
-#: includes/admin/thanks.php:200
+#: includes/admin/thanks.php:246
 msgid "The team!"
 msgstr "L&#39;équipe!"
 
-#: includes/admin/thanks.php:205
+#: includes/admin/thanks.php:251
 msgid "Creator"
 msgstr "Créateur"
 
-#: includes/admin/thanks.php:210
+#: includes/admin/thanks.php:256
 msgid "Developer"
 msgstr "Développeur"
 
-#: includes/admin/thanks.php:214
+#: includes/admin/thanks.php:260
 msgid "Rock Stars"
 msgstr "Rock Stars"
 
-#: includes/admin/thanks.php:222
+#: includes/admin/thanks.php:268
 msgid "Contributors to %s"
 msgstr "Les contributeurs de la version %s"
 
-#: includes/admin/thanks.php:227
-msgid "Special thanks."
-msgstr "Remerciements particuliers"
-
-#: includes/admin/thanks.php:231
-msgid ""
-"WP Idea Stream was the choice of the WordCamp Paris 2016 organization team to "
-"manage their &quot;Call for Speakers&quot;. Some requested features were very "
-"specific to their need and were all added as custom hooks in the %s file."
-msgstr ""
-"WP Idea Stream a été le choix de l'&#39;équipe d&#39;organisation du WordCamp "
-"Paris 2016 pour la gestion de leur appel à orateurs. Un certain nombre des "
-"adaptations apportées étaient très spécifiques à leurs besoins et ont toutes "
-"été ajoutées en utilisant des hooks personnalisés ajoutés au fichier %s."
-
-#: includes/admin/thanks.php:232
-msgid ""
-"The plugin was completely transformed to let the speakers submit their talks "
-"privately. The managing team was able to discuss together using private "
-"comments and evaluate each talk using the built-in rating system."
-msgstr ""
-"Ce plugin a été complètement transformé pour permettre aux orateurs de "
-"soumettre leurs candidatures de manière privée. L&#39;équipe d&#39;"
-"administration a pu entretenir des discussions à leurs propos en utilisant "
-"des commentaires privés et évaluer chaque proposition grâce au système de "
-"notation intégré."
-
-#: includes/admin/thanks.php:233
-msgid ""
-"Many thanks to WordCamp Paris organizers and speakers for this great "
-"experience and for their contributions to the user rates bug report."
-msgstr ""
-"Merci infiniment aux organisateurs et aux intervenants du WordCamp Paris pour "
-"cette expérience très intéressante et pour leurs contributions dans l&#39;"
-"identification de la difficulté liée aux évaluations d&#39;idées."
-
-#: includes/admin/thanks.php:235
+#: includes/admin/thanks.php:273
 msgid "WP Idea Stream&#39;s external libraries and useful code"
 msgstr "Librairies externes et codes utiles"
 
-#: includes/buddypress/activity.php:235 includes/buddypress/groups.php:2584
-msgctxt "activity admin dropdown caption"
-msgid "New %s published"
-msgstr "Nouvelle %s publiée"
-
-#: includes/buddypress/activity.php:237 includes/buddypress/groups.php:2586
-msgctxt "activity front dropdown caption"
-msgid "%s"
-msgstr "%s"
-
-#: includes/buddypress/activity.php:243 includes/buddypress/groups.php:2592
-msgctxt "activity comment admin dropdown caption"
-msgid "New %s comment posted"
-msgstr "Nouveau commentaire d&#39;%s"
-
-#: includes/buddypress/activity.php:245 includes/buddypress/groups.php:2594
-msgctxt "activity comments front dropdown caption"
-msgid "%s comments"
-msgstr "Commentaires d&#39;%s"
-
-#: includes/buddypress/activity.php:522
-msgctxt "idea posted activity action"
-msgid "%1$s wrote a new %2$s"
-msgstr "%1$s a écrit une nouvelle %2$s"
-
-#: includes/buddypress/activity.php:559
-msgctxt "idea commented activity action"
-msgid "%1$s replied to this %2$s"
-msgstr "%1$s a répondu à cette %2$s"
-
-#: includes/buddypress/activity.php:1353
-msgid "Repair WP Idea Stream activities."
-msgstr "Réparer les activités générées par WP Idea Stream."
-
-#: includes/buddypress/activity.php:1388
-msgid "Making sure WP Idea Stream activities are consistent: %s"
-msgstr ""
-"Vérification que les activités &#34;WP Idea Stream&#34; sont cohérentes : %s"
-
-#: includes/buddypress/activity.php:1391
-msgid "No activity needs to be repaired."
-msgstr "aucune activité à réparer."
-
-#: includes/buddypress/activity.php:1531
-msgid "%d repared"
-msgstr "%d réparée(s)"
-
-#: includes/buddypress/groups.php:227 includes/buddypress/groups.php:235
-msgid "%s group settings"
-msgstr "%s réglages de groupe"
-
-#: includes/buddypress/groups.php:244
-msgid "Activate %s."
-msgstr "Activer %s"
-
-#: includes/buddypress/groups.php:253
-msgid "Allow members to comment on ideas."
-msgstr "Autoriser les membres à commenter les idées."
-
-#: includes/buddypress/groups.php:262
-msgid "Use Categories."
-msgstr "Utiliser les catégories"
-
-#: includes/buddypress/groups.php:285
-msgid "Remove all ideas."
-msgstr "Supprimer toutes les idées"
-
-#: includes/buddypress/groups.php:293
-msgid "Save"
-msgstr "Enregistrer"
-
-#: includes/buddypress/groups.php:366
-msgid "Settings saved successfully"
-msgstr "Réglages sauvegardés."
-
-#: includes/buddypress/groups.php:993
-msgid "BuddyPress Groups"
-msgstr "Groupes BuddyPress"
-
-#: includes/buddypress/groups.php:1019
-msgid "Activate WP Idea Stream in Groups"
-msgstr "Activer WP Idea Stream pour les Groupes"
-
-#: includes/buddypress/groups.php:1762 includes/buddypress/groups.php:1776
-msgid "Removing the idea failed."
-msgstr "La suppression de l&#39;idée a échouée"
-
-#: includes/buddypress/groups.php:1770
-msgid ""
-"Removing the idea failed. You do not have the capability to remove ideas."
-msgstr ""
-"La suppression de l&#39;idée a échoué, vous n&#39;avez pas les droits "
-"suffisants."
-
-#: includes/buddypress/groups.php:1780
-msgid "The idea was successfully removed."
-msgstr "L&#39;idée a été supprimée avec succès."
-
-#: includes/buddypress/groups.php:1792 includes/buddypress/groups.php:1806
-msgid "Spamming the comment failed."
-msgstr "Le commentaire n&#39;a pu être spammé."
-
-#: includes/buddypress/groups.php:1800
-msgid ""
-"Spamming the comment failed. You do not have the capability to spam comments."
-msgstr ""
-"Le commentaire n&#39;a pu être spammé, vous n&#39;avez pas les droits "
-"suffisants."
-
-#: includes/buddypress/groups.php:1809
-msgid "The comment was successfully marked as spam."
-msgstr "Le commentaire a été spammé avec succès."
-
-#: includes/buddypress/groups.php:1822 includes/buddypress/groups.php:1836
-msgid "Deleting the comment failed."
-msgstr "La suppression du commentaire a échoué."
-
-#: includes/buddypress/groups.php:1830
-msgid ""
-"Deleting the comment failed. You do not have the capability to delete "
-"comments."
-msgstr ""
-"La suppression du commentaire a échoué, vous n&#39;avez pas les droits "
-"suffisants."
-
-#: includes/buddypress/groups.php:1839
-msgid "The comment was successfully deleted."
-msgstr "Le commentaire a été supprimé avec succès."
-
-#: includes/buddypress/groups.php:1928 includes/buddypress/groups.php:1978
-msgid "No idea was requested"
-msgstr "Aucune idée n&#39;a été demandée."
-
-#: includes/buddypress/groups.php:1938 includes/core/template-loader.php:458
-msgid "The idea: &#34;%s&#34; is already being edited by another user."
-msgstr ""
-"L&#39;idée: &#34;%s&#34; est déjà en cours de modification par un autre "
-"utilisateur."
-
-#: includes/buddypress/groups.php:1944 includes/core/template-loader.php:470
-#: includes/ideas/functions.php:1236
-msgid "You are not allowed to edit this idea."
-msgstr "Vous ne pouvez pas modifier cette idée."
-
-#: includes/buddypress/groups.php:1966 includes/buddypress/groups.php:1996
-msgid "The idea was not found in this group."
-msgstr "L&#39;idée est introuvable dans ce groupe."
-
-#: includes/buddypress/groups.php:1970
-msgid "The action requested is not available"
-msgstr "L&#39;action demandée n&#39;est pas disponible"
-
-#: includes/buddypress/groups.php:2004
-msgid "No %s was requested"
-msgstr "Aucun %s n&#39;a été demandé."
-
-#: includes/buddypress/groups.php:2010
-msgid "This group does not support the %s feature."
-msgstr "Ce groupe ne supporte pas la fonctionnalité %s"
-
-#: includes/buddypress/groups.php:2042
-msgid "The %s was not found"
-msgstr "%s introuvable."
-
-#: includes/buddypress/groups.php:2159
-msgid "You must be a member of the group to post ideas"
-msgstr "Vous devez être membre de ce groupe pour y poster des idées."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2320
-msgctxt "group idea footer utility text"
-msgid "This idea was posted from the group %4$s on %3$s."
-msgstr "Cette idée a été publiée depuis le groupe %4$s le %3$s."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2324
-msgctxt "group idea attached to at least one category footer utility text"
-msgid "This idea was posted in %1$s from the group %4$s on %3$s."
-msgstr "Cette idée a été publiée dans %1$s depuis le groupe %4$s le %3$s."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2332
-msgctxt "group idea attached to at least one tag footer utility text"
-msgid "This idea was tagged %2$s and posted from the group %4$s on %3$s."
-msgstr ""
-"Cette idée a été étiquetée %2$s et postée depuis le groupe %4$s le %3$s."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is group link.
-#: includes/buddypress/groups.php:2337
-msgctxt ""
-"group idea attached to at least one tag and one category footer utility text"
-msgid ""
-"This idea was posted in %1$s from the group %4$s and tagged %2$s on %3$s."
-msgstr ""
-"Cette idée a été publiée dans %1$s depuis le groupe %4$s et étiquetée %2$s le "
-"%3$s."
-
-#: includes/buddypress/groups.php:2367 includes/core/functions.php:336
-#: includes/core/template-functions.php:813 includes/ideas/tags.php:1431
-msgid "Edit Idea"
-msgstr "Modifier Idée"
-
-#: includes/buddypress/groups.php:2376
-msgid "Remove Idea"
-msgstr "Supprimer Idée"
-
-#: includes/buddypress/groups.php:2453
-msgid "Spam comment"
-msgstr "Spammer le commentaire"
-
-#: includes/buddypress/groups.php:2453
-msgid "Spam"
-msgstr "Spammer"
-
-#: includes/buddypress/groups.php:2458
-msgid "Delete comment"
-msgstr "Supprimer le commentaire"
-
-#: includes/buddypress/groups.php:2458
-msgid "Delete"
-msgstr "Supprimer"
-
-#: includes/buddypress/groups.php:2896
-msgctxt "idea posted group activity action"
-msgid "%1$s wrote a new %2$s in the group %3$s"
-msgstr "%1$s a publié une nouvelle %2$s dans le groupe %3$s"
-
-#: includes/buddypress/groups.php:2951
-msgctxt "idea commented group activity action"
-msgid "%1$s replied to this %2$s posted in the group %3$s"
-msgstr "%1$s a répondu à cette %2$s postée dans le groupe %3$s"
-
-#: includes/buddypress/groups.php:3091
-msgid "BuddyPress Group"
-msgstr "Groupe BuddyPress"
-
-#: includes/buddypress/groups.php:3112
-msgid "The author of the idea needs to be a member of the group selected"
-msgstr "L&#39;auteur de l&#39;idée doit être membre du groupe sélectionné"
-
-#: includes/buddypress/groups.php:3113
-msgid "Idea successfully removed from group"
-msgstr "L&#39;idée a été supprimée du groupe"
-
-#: includes/buddypress/groups.php:3114
-msgid "Idea successfully added to group"
-msgstr "Idée ajoutée au groupe avec succès"
-
-#: includes/buddypress/groups.php:3115
-msgid "Status of the idea is not compatible with the group visibility"
-msgstr ""
-"Le statut de l&#39;idée n&#39;est pas compatible avec la visibilité du Groupe"
-
-#: includes/buddypress/groups.php:3116
-msgid "Group was not found."
-msgstr "Groupe introuvable."
-
-#: includes/buddypress/groups.php:3159
-msgid "Search in groups to select one:"
-msgstr "Rechercher un groupe :"
-
-#: includes/buddypress/groups.php:3162
-msgid ""
-"Only groups where WP Idea Stream is activated and where the author of this "
-"idea is a member of will show."
-msgstr ""
-"Seuls les groupes dans lesquels WP Idea Stream est activé et dont fait partie "
-"l&#39;auteur de l&#39;idée seront affichés."
-
-#: includes/buddypress/groups.php:3175
-msgid "This idea is not associated to any group"
-msgstr "Cette idée n&#39;est associée à aucun groupe"
-
-#: includes/buddypress/groups.php:3344
-msgid "Groups"
-msgstr "Groupes"
-
-#: includes/buddypress/groups.php:3399
-msgid ""
-"The Buddypress Group metabox allows you to select a group the author is "
-"member of, and attach the idea to that group. Private or hidden groups will "
-"require the idea to have the status set to private."
-msgstr ""
-"La metabox du Groupe BuddyPress permet de sélectionner un groupe, dont l&#39;"
-"auteur de l&#39;idée est membre, pour lui rattacher l&#39;idée. Les groupes "
-"privés ou masqués nécessitent que l&#39;idée aient un statut définit à privé."
-
-#: includes/buddypress/groups.php:3455
-msgctxt "ideas groups admin column header"
-msgid "# Ideas"
-msgstr "# Idées"
-
-#: includes/buddypress/loader.php:359
-msgid ""
-"To benefit of WP Idea Stream in BuddyPress, version %s of BuddyPress is "
-"required. Please upgrade or deactivate %s."
-msgstr ""
-"Pour profiter de WP Idea Stream dans BuddyPress, la version %s de BuddyPress "
-"est requise. Merci de mettre à jour BuddyPress ou désactiver %s."
-
-#: includes/buddypress/notifications.php:57
-msgid "New idea comments"
-msgstr "Nouveaux commentaires d&#39;idées"
-
-#: includes/buddypress/notifications.php:58
-msgid "%d new idea comments"
-msgstr "%d nouveaux commentaires d&#39;idées"
-
-#: includes/buddypress/notifications.php:62
-#: includes/buddypress/notifications.php:63
-msgid "New idea comment"
-msgstr "Nouveau commentaire d&#39;idée"
-
-#: includes/buddypress/notifications.php:67
-msgid "New comment about the idea: %s"
-msgstr "Nouveau commentaire à propos de l&#39;idée : %s"
-
-#: includes/buddypress/notifications.php:78
-#: includes/buddypress/notifications.php:83
-#: includes/buddypress/notifications.php:84
-msgid "New idea rating"
-msgstr "Nouvelle Evaluation d#&39;Idée"
-
-#: includes/buddypress/notifications.php:79
-msgid "%d new idea ratings"
-msgstr "%d nouvelles évaluations d&#39;idée"
-
-#: includes/buddypress/notifications.php:89
-msgid "%s rated the idea: %s"
-msgstr "%s a évalué l&#39;idée : %s"
-
-#: includes/buddypress/settings.php:29 includes/buddypress/settings.php:119
-msgid "BuddyPress Integration Settings"
-msgstr "Réglages de l&#39;Intégration BuddyPress"
-
-#: includes/buddypress/settings.php:52
-msgid "BuddyPress"
-msgstr "BuddyPress"
-
-#: includes/buddypress/settings.php:78
-msgid "Customize the way WP Idea Stream should play with BuddyPress."
-msgstr ""
-"Personnalisez la manière dont WP Idea Stream doit jouer avec BuddyPress."
-
-#: includes/buddypress/settings.php:99
-msgid "Activate BuddyPress integration"
-msgstr "Activer l&#39;Intégration"
-
-#: includes/buddypress/settings.php:121
-msgid ""
-"Sharing Ideas in a BuddyPress powered community will improve user "
-"interactions with the ideas posted on your site."
-msgstr ""
-"Partager des idées au sein d&#39;une communauté motorisée par BuddyPress "
-"améliorera les interactions entre utilisateurs en lien avec les idées postées "
-"sur votre site."
-
-#: includes/buddypress/settings.php:122
-msgid ""
-"If the setting &#34;Activate BuddyPress integration&#34; is activated and you "
-"are using at least version 2.1 of BuddyPress, some nice new functionalities "
-"will be available depending on the BuddyPress components you have activated:"
-msgstr ""
-"Si le réglage &#34;Activer l&#39;intégration&#34; est activé et que vous "
-"utilisez à minima la version 2.1 de BuddyPress, de nouvelles fonctionnalités "
-"seront disponibles en fonction des composants BuddyPress que vous avez "
-"activés :"
-
-#: includes/buddypress/settings.php:124
-msgid ""
-"The plugin&#39;s user profile becomes a new navigation in the BuddyPress "
-"member page."
-msgstr ""
-"Le profil utilisateur du plugin s&#39;intègre dans une nouvelle navigation de "
-"la page de membre de BuddyPress."
-
-#: includes/buddypress/settings.php:125
-msgid "Groups component is activated?"
-msgstr "Le composant des groupes est activé ?"
-
-#: includes/buddypress/settings.php:126
-msgid ""
-"Nice! It’s now possible to share ideas within these micro-communities "
-"ensuring their members that the group&#39;s visibility is transposed to the "
-"status of their ideas."
-msgstr ""
-"Super, il devient possible de partager des présentations depuis ces micro-"
-"communautés tout en garantissant aux membres la transposition de la "
-"visibilité du groupe pour leurs présentations."
-
-#: includes/buddypress/settings.php:127
-msgid ""
-"You may prefer to disable WP Idea Stream&#39;s Group integration. This is "
-"possible by deactivating the &#34;BuddyPress Groups setting&#34;."
-msgstr ""
-"Vous pouvez aussi préférer de ne pas utiliser WP Idea Stream au sein des "
-"groupes, c&#39;est possible en désactivant l&#39;intégration de WP Idea "
-"Stream dans les groupes."
-
-#: includes/buddypress/settings.php:128
-msgid "Site Tracking and Activity components are activated?"
-msgstr "Les composants de suivi des blogs et activité sont activés ?"
-
-#: includes/buddypress/settings.php:129
-msgid ""
-"Great! Each time a new idea or a new comment about an idea is posted, the "
-"members of your community will be informed through an activity update."
-msgstr ""
-"Génial, à chaque fois qu&#39;une idée ou qu&#39;un commentaire d&#39;idée "
-"sera posté, une activité sera automatiquement générée informant les membres "
-"de votre communauté de l&#39;existence de ce nouveau contenu."
-
-#: includes/buddypress/settings.php:130
-msgid "Notifications component is activated?"
-msgstr "Le composant des notifications est activé ?"
-
-#: includes/buddypress/settings.php:131
-msgid ""
-"Awesome! Your members will receive a screen notification when their ideas has "
-"been rated or commented upon."
-msgstr ""
-"Superbe, les membres de votre communauté recevront une notification lorsque "
-"leurs idées seront commentées ou évaluées."
-
-#: includes/comments/classes.php:371
+#: includes/comments/classes/class-wp-idea-stream-comments-recent.php:26
+msgid "Latest comments about ideas"
+msgstr "Commentaires récents à propos d&#39;idées"
+
+#: includes/comments/classes/class-wp-idea-stream-comments-recent.php:27
+msgid "WP Idea Stream latest comments"
+msgstr "Commentaires récents de WP Idea Stream"
+
+#: includes/comments/classes/class-wp-idea-stream-comments.php:299
 msgid "New comment on your idea \"%s\""
 msgstr "Nouveau commentaire sur votre idée \"%s\""
 
-#: includes/comments/classes.php:372
+#: includes/comments/classes/class-wp-idea-stream-comments.php:300
 msgid "Comment: "
 msgstr "Commentaire:"
 
-#: includes/comments/classes.php:373
+#: includes/comments/classes/class-wp-idea-stream-comments.php:301
 msgid "Permalink to the comment: %s"
 msgstr "Permalien vers le commentaire : %s"
 
-#: includes/comments/tags.php:126
+#: includes/comments/tags.php:98
 msgid "It looks like %s has not commented on any ideas yet"
 msgstr "On dirait que %s n&#39;a toujours pas commenté d&#39;idée"
 
-#: includes/comments/tags.php:169
+#: includes/comments/tags.php:130
 msgid "Viewing %1$s to %2$s (of %3$s comments)"
 msgid_plural "Viewing %1$s to %2$s (of %3$s comments)"
 msgstr[0] "Affichage de %1$s à %2$s (sur un total de %3$s commentaire)"
 msgstr[1] "Affichage de %1$s à %2$s (sur un total de %3$s commentaires)"
 
-#: includes/comments/tags.php:274 includes/ideas/tags.php:607
+#: includes/comments/tags.php:203 includes/ideas/tags.php:633
 msgid "User&#39;s profile"
 msgstr "Profil utilisateur"
 
-#: includes/comments/tags.php:313
+#: includes/comments/tags.php:233
 msgid "In reply to:"
 msgstr "En réponse à :"
 
-#: includes/comments/tags.php:395 includes/ideas/tags.php:768
-msgctxt "idea permalink title protected attribute"
-msgid "Protected:"
-msgstr "Protégé :"
-
-#: includes/comments/tags.php:397 includes/ideas/tags.php:770
-msgctxt "idea permalink title private attribute"
-msgid "Private:"
-msgstr "Privé :"
-
-#: includes/comments/tags.php:498
+#: includes/comments/tags.php:372
 msgid ""
 "The idea the comment was posted on is password protected: you will need the "
 "password to view its content."
@@ -1672,311 +1260,323 @@ msgstr ""
 "L&#39;idée sur laquelle a été posté le commentaire est protégée par un mot de "
 "passe. Vous avez besoin de ce mot de passe pour voir son contenu."
 
-#: includes/comments/tags.php:502
+#: includes/comments/tags.php:376
 msgid ""
 "The idea the comment was posted on is private: you cannot view its content."
 msgstr ""
 "L&#39;idée sur laquelle a été posté le commentaire est privée. Vous ne pouvez "
 "pas voir son contenu."
 
-#: includes/comments/tags.php:543
+#: includes/comments/tags.php:406
 msgid "This comment was posted on %s"
 msgstr "Ce commentaire a été posté le %s"
 
-#: includes/comments/widgets.php:41
-msgid "Latest comments about ideas"
-msgstr "Commentaires récents à propos d&#39;idées"
+#: includes/core/classes/class-wp-idea-stream-navig.php:26
+msgid "Add WP Idea Stream&#39;s nav to your sidebar."
+msgstr ""
+"Ajouter la navigation WP Idea Stream à votre barre de navigation latérale"
 
-#: includes/comments/widgets.php:42
-msgid "WP Idea Stream latest comments"
-msgstr "Commentaires récents de WP Idea Stream"
+#: includes/core/classes/class-wp-idea-stream-navig.php:27
+msgid "WP Idea Stream Nav"
+msgstr "Navigation WP Idea Stream"
 
-#: includes/core/classes.php:600
-msgctxt "pagination previous text"
-msgid "&larr;"
-msgstr "&larr;"
+#: includes/core/classes/class-wp-idea-stream-navig.php:161
+#: includes/ideas/classes/class-wp-idea-stream-ideas-categories.php:93
+#: includes/ideas/classes/class-wp-idea-stream-ideas-popular.php:177
+#: includes/users/classes/class-wp-idea-stream-users-top-contributors.php:155
+msgid "Title:"
+msgstr "Titre:"
 
-#: includes/core/classes.php:601
-msgctxt "pagination next text"
-msgid "&rarr;"
-msgstr "&rarr;"
-
-#: includes/core/functions.php:330 includes/core/template-functions.php:882
-#: includes/core/template-functions.php:945
+#: includes/core/functions.php:287 includes/core/options.php:35
+#: includes/core/template-functions.php:745
+#: includes/core/template-functions.php:808
 msgid "Ideas"
 msgstr "Idées"
 
-#: includes/core/functions.php:332 includes/ideas/tags.php:1475
+#: includes/core/functions.php:289 includes/ideas/tags.php:1336
 msgid "All Ideas"
 msgstr "Toutes les idées"
 
-#: includes/core/functions.php:333
+#: includes/core/functions.php:290
 msgid "Idea"
 msgstr "Idée"
 
-#: includes/core/functions.php:334 includes/core/functions.php:335
+#: includes/core/functions.php:291 includes/core/functions.php:292
 msgid "Add New Idea"
 msgstr "Ajouter une Idée"
 
-#: includes/core/functions.php:337 includes/core/template-functions.php:808
+#: includes/core/functions.php:293 includes/core/template-functions.php:690
+#: includes/ideas/tags.php:1294
+msgid "Edit Idea"
+msgstr "Modifier Idée"
+
+#: includes/core/functions.php:294 includes/core/template-functions.php:685
 msgid "New Idea"
 msgstr "Nouvelle Idée"
 
-#: includes/core/functions.php:338
+#: includes/core/functions.php:295
 msgid "View Idea"
 msgstr "Voir Idée"
 
-#: includes/core/functions.php:339 includes/ideas/tags.php:39
+#: includes/core/functions.php:296 includes/ideas/tags.php:25
 msgid "Search Ideas"
 msgstr "Rechercher Idées"
 
-#: includes/core/functions.php:340
+#: includes/core/functions.php:297
 msgid "No Ideas Found"
 msgstr "Pas d&#39;idées trouvées"
 
-#: includes/core/functions.php:341
+#: includes/core/functions.php:298
 msgid "No Ideas Found in Trash"
 msgstr "Pas d&#39;idées trouvées dans la corbeille"
 
-#: includes/core/functions.php:342
+#: includes/core/functions.php:299
 msgid "Insert into idea"
 msgstr "Insérer dans l&#39;idée"
 
-#: includes/core/functions.php:343
+#: includes/core/functions.php:300
 msgid "Uploaded to this idea"
 msgstr "Attaché à cette idée"
 
-#: includes/core/functions.php:344
+#: includes/core/functions.php:301
 msgid "Filter Ideas list"
 msgstr "Filtrer la liste d&#39;idées"
 
-#: includes/core/functions.php:345
+#: includes/core/functions.php:302
 msgid "Ideas list navigation"
 msgstr "Navigation de la liste d&#39;idées"
 
-#: includes/core/functions.php:346
+#: includes/core/functions.php:303
 msgid "Ideas list"
 msgstr "Liste d&#39;idées"
 
-#: includes/core/functions.php:412
+#: includes/core/functions.php:355
 msgid "Idea Categories"
 msgstr "Catégories d&#39;idée"
 
-#: includes/core/functions.php:413
+#: includes/core/functions.php:356
 msgid "Idea Category"
 msgstr "Catégorie d&#39;idée"
 
-#: includes/core/functions.php:414
+#: includes/core/functions.php:357
 msgid "Edit Category"
 msgstr "Modifier Catégorie"
 
-#: includes/core/functions.php:415
+#: includes/core/functions.php:358
 msgid "Update Category"
 msgstr "Mettre à jour Catégorie"
 
-#: includes/core/functions.php:416
+#: includes/core/functions.php:359
 msgid "Add New Category"
 msgstr "Ajouter Catégorie"
 
-#: includes/core/functions.php:417
+#: includes/core/functions.php:360
 msgid "New Category Name"
 msgstr "Nom de la nouvelle catégorie"
 
-#: includes/core/functions.php:418
+#: includes/core/functions.php:361
 msgid "All Categories"
 msgstr "Toutes"
 
-#: includes/core/functions.php:419
+#: includes/core/functions.php:362
 msgid "Search Categories"
 msgstr "Rechercher Catégories"
 
-#: includes/core/functions.php:420
+#: includes/core/functions.php:363
 msgid "Parent Category"
 msgstr "Catégorie Parente"
 
-#: includes/core/functions.php:421
+#: includes/core/functions.php:364
 msgid "Parent Category:"
 msgstr "Catégorie Parente:"
 
-#: includes/core/functions.php:487
+#: includes/core/functions.php:416
 msgid "Idea Tags"
-msgstr "Mots clés d&#39;idée"
+msgstr "Etiquettes d&#39;idée"
 
-#: includes/core/functions.php:488
+#: includes/core/functions.php:417
 msgid "Idea Tag"
 msgstr "Mot clé d&#39;idée"
 
-#: includes/core/functions.php:489
+#: includes/core/functions.php:418
 msgid "Edit Tag"
 msgstr "Modifier Mot clé"
 
-#: includes/core/functions.php:490
+#: includes/core/functions.php:419
 msgid "Update Tag"
 msgstr "Mettre à jour Mot clé"
 
-#: includes/core/functions.php:491
+#: includes/core/functions.php:420
 msgid "Add New Tag"
 msgstr "Ajouter Mot clé"
 
-#: includes/core/functions.php:492
+#: includes/core/functions.php:421
 msgid "New Tag Name"
 msgstr "Nouveau nom de Mot clé"
 
-#: includes/core/functions.php:493
+#: includes/core/functions.php:422
 msgid "All Tags"
-msgstr "Tous les Mots clés"
+msgstr "Toutes les Etiquettes"
 
-#: includes/core/functions.php:494
+#: includes/core/functions.php:423
 msgid "Search Tags"
-msgstr "Rechercher Mots clés"
+msgstr "Rechercher les étiquettes"
 
-#: includes/core/functions.php:495
+#: includes/core/functions.php:424
 msgid "Popular Tags"
-msgstr "Mots clés populaires"
+msgstr "Etiquettes populaires"
 
-#: includes/core/functions.php:496
+#: includes/core/functions.php:425
 msgid "Separate tags with commas"
 msgstr "Séparer les mots clés par des virgules"
 
-#: includes/core/functions.php:497
+#: includes/core/functions.php:426
 msgid "Add or remove tags"
 msgstr "Ajouter ou supprimer des mots clés"
 
-#: includes/core/functions.php:498
+#: includes/core/functions.php:427
 msgid "Choose from the most popular tags"
 msgstr "Choisir parmi les mots clés les plus populaires"
 
-#: includes/core/functions.php:693
+#: includes/core/functions.php:602
 msgid "Saved successfully"
 msgstr "La section a été enregistrée avec succès !"
 
-#: includes/core/functions.php:805
+#: includes/core/functions.php:603
+msgid "Registration complete. Please check your mailbox."
+msgstr "Inscription terminée. Merci de vérifier votre boîte de réception."
+
+#: includes/core/functions.php:604
+msgid "The idea was successfully created."
+msgstr "L'idée a été créée avec succès."
+
+#: includes/core/functions.php:605
+msgid "The idea was successfully updated."
+msgstr "L'idée a été mise à jour avec succès."
+
+#: includes/core/functions.php:606
+msgid "Description updated."
+msgstr "Présentation mise à jour."
+
+#: includes/core/functions.php:609
+msgid "Something went wrong, please try again"
+msgstr "Une erreur s'est produite. Merci de renouveler plus tard."
+
+#: includes/core/functions.php:610
+msgid "You are not allowed to edit this idea."
+msgstr "Vous ne pouvez pas modifier cette idée."
+
+#: includes/core/functions.php:611
+msgid "You are not allowed to publish ideas"
+msgstr "Vous n&#39;avez pas les droits suffisants pour publier des idées."
+
+#: includes/core/functions.php:612
+msgid "Title and description are required fields."
+msgstr "Le titre et la description sont obligatoires."
+
+#: includes/core/functions.php:613
+msgid "Something went wrong while trying to save your idea."
+msgstr "Une erreur est survenue lors de la sauvegarde de votre idée."
+
+#: includes/core/functions.php:614
+msgid "There was a problem saving the featured image, sorry."
+msgstr ""
+"Un problème est survenu lors de l&#39;enregistrement de votre image de mise "
+"en avant. Désolé."
+
+#: includes/core/functions.php:615
+msgid "Please choose a username having at least 4 characters."
+msgstr ""
+"Merci de choisir un nom d'utilisateur contenant au moins quatre caractères."
+
+#: includes/core/functions.php:616
+msgid "Please fill all required fields."
+msgstr "Veuillez remplir tous les champs."
+
+#: includes/core/functions.php:617
+msgid "The idea you are trying to edit does not seem to exist."
+msgstr "L&#39;idée que vous essayez de modifier ne semble pas exister."
+
+#: includes/core/functions.php:618
+msgid "Something went wrong while trying to update your idea."
+msgstr "Une erreur est survenue lors de la mise à jour de votre idée."
+
+#: includes/core/functions.php:619
+msgid "Please enter some content in your description"
+msgstr "Merci de bien vouloir saisir un contenu dans votre présentation"
+
+#: includes/core/functions.php:620
+msgid "Something went wrong while trying to update your description."
+msgstr "Une erreur est survenue lors de la sauvegarde de votre présentation"
+
+#: includes/core/functions.php:623
+msgid "This idea is already being edited by another user."
+msgstr "Cette idée est déjà en cours d'édition par un autre utilisateur."
+
+#: includes/core/functions.php:624
+msgid "Your idea is currently awaiting moderation."
+msgstr "Votre idée est en cours de modération."
+
+#: includes/core/functions.php:796
 msgid "bad"
 msgstr "mauvaise"
 
-#: includes/core/functions.php:806
+#: includes/core/functions.php:797
 msgid "poor"
 msgstr "pas terrible"
 
-#: includes/core/functions.php:807
+#: includes/core/functions.php:798
 msgid "regular"
 msgstr "normale"
 
-#: includes/core/functions.php:808
+#: includes/core/functions.php:799
 msgid "good"
 msgstr "bonne"
 
-#: includes/core/functions.php:809
+#: includes/core/functions.php:800
 msgid "gorgeous"
 msgstr "superbe"
 
-#: includes/core/functions.php:1236
-msgctxt "ideas tag cloud count text"
-msgid "%s idea"
-msgid_plural "%s ideas"
-msgstr[0] "%s idée"
-msgstr[1] "%s idées"
-
-#: includes/core/functions.php:1413
-msgctxt "Admin bar menu"
-msgid "WP Idea Stream"
-msgstr "WP Idea Stream"
-
-#: includes/core/options.php:59 includes/core/options.php:351
-msgctxt "default root slug"
-msgid "ideastream"
-msgstr "ideastream"
-
-#: includes/core/options.php:60 includes/core/options.php:389
-msgctxt "default idea slug"
-msgid "idea"
-msgstr "idee"
-
-#: includes/core/options.php:61 includes/core/options.php:427
-msgctxt "default category slug"
-msgid "category"
-msgstr "categorie"
-
-#: includes/core/options.php:62 includes/core/options.php:465
-msgctxt "default tag slug"
-msgid "tag"
-msgstr "etiquette"
-
-#: includes/core/options.php:63 includes/core/options.php:503
-msgctxt "default user slug"
-msgid "user"
-msgstr "utilisateur"
-
-#: includes/core/options.php:64 includes/core/options.php:545
-msgctxt "default comments slug"
-msgid "comments"
-msgstr "commentaires"
-
-#: includes/core/options.php:65 includes/core/options.php:524
-msgctxt "default ratings slug"
-msgid "ratings"
-msgstr "evaluations"
-
-#: includes/core/options.php:66 includes/core/options.php:646
-msgctxt "default sign-up action slug"
-msgid "sign-up"
-msgstr "rejoindre"
-
-#: includes/core/options.php:67 includes/core/options.php:583
-msgctxt "default action slug"
-msgid "action"
-msgstr "action"
-
-#: includes/core/options.php:68 includes/core/options.php:604
-msgctxt "default add idea action slug"
-msgid "add"
-msgstr "ajouter"
-
-#: includes/core/options.php:69 includes/core/options.php:625
-msgctxt "default edit idea action slug"
-msgid "edit"
-msgstr "modifier"
-
-#: includes/core/options.php:70 includes/core/options.php:667
-msgctxt "default comments pagination slug"
-msgid "cpage"
-msgstr "cpage"
-
-#: includes/core/template-functions.php:792
+#: includes/core/template-functions.php:669
 msgid "Add new"
 msgstr "Ajouter"
 
-#: includes/core/template-functions.php:803
-#: includes/core/template-functions.php:865 includes/users/functions.php:1484
+#: includes/core/template-functions.php:680
+#: includes/core/template-functions.php:728 includes/users/functions.php:1296
 msgid "%s&#39;s profile"
 msgstr "Profil de %s"
 
-#: includes/core/template-functions.php:818
-#: includes/core/template-functions.php:880
+#: includes/core/template-functions.php:695
+#: includes/core/template-functions.php:743
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: includes/core/template-functions.php:861 includes/core/widgets.php:83
+#: includes/core/template-functions.php:724
+#: includes/core/template-functions.php:961
 msgid "New idea"
 msgstr "Nouvelle Idée"
 
-#: includes/core/template-functions.php:863
+#: includes/core/template-functions.php:726
 msgid "Edit idea"
 msgstr "Modifier"
 
-#: includes/core/template-functions.php:925
+#: includes/core/template-functions.php:788
 msgid "Idea Comments"
 msgstr "Commentaires d&#39;idées"
 
-#: includes/core/template-functions.php:936
+#: includes/core/template-functions.php:799
 msgid "Page %s"
 msgstr "Page %s"
 
-#: includes/core/template-functions.php:941
+#: includes/core/template-functions.php:804
 msgid "Idea Ratings"
 msgstr "Evaluations d&#39;idées"
 
-#: includes/core/upgrade.php:156
+#: includes/core/template-functions.php:970
+msgid "My profile"
+msgstr "Mon profil"
+
+#: includes/core/upgrade.php:134
 msgid ""
 "Please take a few minutes to read the WP Idea Stream %s page: version 2.0.0 "
 "introduced some new features and stopped supporting some others."
@@ -1985,7 +1585,7 @@ msgstr ""
 "depuis la version 2.0.0 de nouvelles fonctionnalités ont été introduites et "
 "d&#39;autres ne sont plus supportées."
 
-#: includes/core/upgrade.php:169
+#: includes/core/upgrade.php:147
 msgid ""
 "For instance, having the ideas directly on your site&#39;s front page is no "
 "more supported in 2.0.0, sorry."
@@ -1993,126 +1593,118 @@ msgstr ""
 "Par exemple, l&#39;affichage de la liste des idées en page d&#39;accueil de "
 "votre blog n&#39;est plus supporté depuis la version 2.0.0, désolé."
 
-#: includes/core/widgets.php:38
-msgid "Add WP Idea Stream&#39;s nav to your sidebar."
-msgstr ""
-"Ajouter la navigation WP Idea Stream à votre barre de navigation latérale"
-
-#: includes/core/widgets.php:39
-msgid "WP Idea Stream Nav"
-msgstr "Navigation WP Idea Stream"
-
-#: includes/core/widgets.php:90
-msgid "My profile"
-msgstr "Mon profil"
-
-#: includes/core/widgets.php:221 includes/ideas/widgets.php:121
-#: includes/ideas/widgets.php:335 includes/users/widgets.php:194
-msgid "Title:"
-msgstr "Titre:"
-
-#: includes/ideas/classes.php:669
+#: includes/ideas/classes/class-wp-idea-stream-idea-metas.php:89
 msgid "Custom fields"
 msgstr "Champs personnalisés"
 
-#: includes/ideas/classes.php:693
+#: includes/ideas/classes/class-wp-idea-stream-idea-metas.php:108
 msgid "No custom fields available"
 msgstr "Aucun champ personnalisé n&#39;est disponible."
 
-#: includes/ideas/classes.php:914
+#: includes/ideas/classes/class-wp-idea-stream-ideas-categories.php:31
+msgid "A list of Idea categories"
+msgstr "Une liste des catégories d&#39;idée"
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-categories.php:32
+msgid "WP Idea Stream categories"
+msgstr "Catégories de WP Idea Stream"
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-categories.php:99
+msgid "Show idea counts"
+msgstr "Afficher le nombre d&#39;idées"
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-popular.php:32
+msgid "List the most popular ideas"
+msgstr "Une liste des idées les plus populaires"
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-popular.php:33
+msgid "WP Idea Stream Popular Ideas"
+msgstr "Idées populaires de WP Idea Stream"
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-popular.php:182
+msgid "Type:"
+msgstr "Type:"
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-popular.php:195
+msgid "Number of ideas to show:"
+msgstr "Nombre d&#39;idées à afficher :"
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-rest-controller.php:59
+msgid "The %s method for ideas is not supported yet."
+msgstr "La méthode %s n&#39;est pas supportée pour les idées pour le moment."
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-term-rest-controller.php:34
+msgid "The %1$s method for %2$s is not supported yet."
+msgstr "La méthode %s n&#39;est pas supportée pour les %2$s pour le moment."
+
+#: includes/ideas/classes/class-wp-idea-stream-ideas-thumbnail.php:53
 msgid "This image file type is not supported."
 msgstr "Ce fichier image n&#39;est supporté."
 
-#: includes/ideas/functions.php:873
+#: includes/ideas/functions.php:740
 msgid "Saving your rating; please wait"
 msgstr "Enregistrement de votre évaluation, merci de patienter."
 
-#: includes/ideas/functions.php:874
+#: includes/ideas/functions.php:741
 msgid "Thanks! The average rating is now:"
 msgstr "Merci, l&#39;évaluation moyenne est désormais :"
 
-#: includes/ideas/functions.php:875
+#: includes/ideas/functions.php:742
 msgid "Oops! Something went wrong"
 msgstr "Oops une erreur est survenue"
 
-#: includes/ideas/functions.php:878
+#: includes/ideas/functions.php:745
 msgid "One rating"
 msgstr "Une évaluation"
 
-#: includes/ideas/functions.php:879
+#: includes/ideas/functions.php:746
 msgid "% ratings"
 msgstr "% évaluations"
 
-#: includes/ideas/functions.php:907
+#: includes/ideas/functions.php:774
 msgid "Duplicate tag:"
 msgstr "Mot clé en doublon :"
 
-#: includes/ideas/functions.php:908
+#: includes/ideas/functions.php:775
 msgid "Forbidden character:"
 msgstr "Caractère interdit :"
 
-#: includes/ideas/functions.php:909
+#: includes/ideas/functions.php:776
 msgid "Forbidden word:"
 msgstr "Mot interdit :"
 
-#: includes/ideas/functions.php:918
+#: includes/ideas/functions.php:785
 msgid ""
 "An admin is currently editing this idea, please try to edit your idea later."
 msgstr ""
 "Un administrateur modifie actuellement cette idée, merci de retenter d&#39;"
 "éditer cette idée dans quelques instants."
 
-#: includes/ideas/functions.php:973
+#: includes/ideas/functions.php:830
 msgid "Latest"
 msgstr "Récentes"
 
-#: includes/ideas/functions.php:974
+#: includes/ideas/functions.php:831
 msgid "Most commented"
 msgstr "Les plus commentées"
 
-#: includes/ideas/functions.php:979
+#: includes/ideas/functions.php:836
 msgid "Highest Rating"
 msgstr "Meilleure Evaluation"
 
-#: includes/ideas/functions.php:1089
-msgid "You are not allowed to publish ideas"
-msgstr "Vous n&#39;avez pas les droits suffisants pour publier des idées."
-
-#: includes/ideas/functions.php:1104 includes/ideas/functions.php:1251
-msgid "Title and description are required fields."
-msgstr "Le titre et la description sont obligatoires."
-
-#: includes/ideas/functions.php:1117
-msgid "Something went wrong while trying to save your idea."
-msgstr "Une erreur est survenue lors de la sauvegarde de votre idée."
-
-#: includes/ideas/functions.php:1132 includes/ideas/functions.php:1261
-msgid "There was a problem saving the featured image, sorry."
-msgstr ""
-"Un problème est survenu lors de l&#39;enregistrement de votre image de mise "
-"en avant. Désolé."
-
-#: includes/ideas/functions.php:1138
-msgid "Your idea is currently awaiting moderation."
-msgstr "Votre idée est en cours de modération."
-
-#: includes/ideas/functions.php:1222
-msgid "The idea you are trying to edit does not seem to exist."
-msgstr "L&#39;idée que vous essayez de modifier ne semble pas exister."
-
-#: includes/ideas/functions.php:1301
-msgid "Something went wrong while trying to update your idea."
-msgstr "Une erreur est survenue lors de la mise à jour de votre idée."
-
-#: includes/ideas/tags.php:56
+#: includes/ideas/tags.php:82
 msgid "Search"
 msgstr "Rechercher"
 
-#: includes/ideas/tags.php:140
+#: includes/ideas/tags.php:160
+msgid "Select the sort order"
+msgstr "Trier par:"
+
+#: includes/ideas/tags.php:160
 msgid "Sort"
 msgstr "Trier"
 
-#: includes/ideas/tags.php:343
+#: includes/ideas/tags.php:320
 msgid ""
 "It looks like no idea has been submitted yet, please sign in or sign up to "
 "add yours!"
@@ -2120,31 +1712,31 @@ msgstr ""
 "On dirait qu&#39;aucune idée n&#39;a été déposée pour le moment, merci de "
 "vous connecter ou vous inscrire pour ajouter la vôtre !"
 
-#: includes/ideas/tags.php:349
+#: includes/ideas/tags.php:326
 msgid "It looks like %s has not submitted any idea yet"
 msgstr "On dirait que %s n&#39;a toujours pas déposé d&#39;idée pour le moment."
 
-#: includes/ideas/tags.php:355
+#: includes/ideas/tags.php:332
 msgid "It looks like %s has not rated any ideas yet"
 msgstr "On dirait que %s n&#39;a toujours pas évalué d&#39;idée pour le moment"
 
-#: includes/ideas/tags.php:361
+#: includes/ideas/tags.php:338
 msgid "It looks like no idea has been published in this category yet"
 msgstr "On dirait qu&#39;aucune idée n&#39;a été publiée dans cette catégorie"
 
-#: includes/ideas/tags.php:364
+#: includes/ideas/tags.php:341
 msgid "It looks like no idea has been marked with this tag yet"
 msgstr "On dirait qu&#39;aucune idée n&#39;a été publiée avec ce mot clé"
 
-#: includes/ideas/tags.php:367 includes/ideas/tags.php:370
+#: includes/ideas/tags.php:344 includes/ideas/tags.php:347
 msgid "It looks like no idea matches your search terms."
 msgstr "On dirait qu&#39;aucune idée ne satisfait votre recherche."
 
-#: includes/ideas/tags.php:373
+#: includes/ideas/tags.php:350
 msgid "It looks like no ideas have been rated yet."
 msgstr "On dirait qu&#39;aucune idée n&#39;a été évaluée pour le moment."
 
-#: includes/ideas/tags.php:377
+#: includes/ideas/tags.php:354
 msgid ""
 "It looks like no ideas has been submitted yet, <a href=\"%s\" title=\"Submit "
 "your idea\">add yours</a>"
@@ -2152,129 +1744,59 @@ msgstr ""
 "On dirait qu&#39;aucune idée n&#39;a été publiée pour le moment, <a href=\"%s"
 "\" title=\"Déposez la vôtre\">Déposez la vôtre</a>"
 
-#: includes/ideas/tags.php:420
+#: includes/ideas/tags.php:386
 msgid "Viewing %1$s to %2$s (of %3$s ideas)"
 msgid_plural "Viewing %1$s to %2$s (of %3$s ideas)"
 msgstr[0] "Affichage de %1$s à %2$s (sur un total de %3$s idée)"
 msgstr[1] "Affichage de %1$s à %2$s (sur un total de %3$s idées)"
 
-#: includes/ideas/tags.php:867
+#: includes/ideas/tags.php:569
+msgid "Featured image for: %s"
+msgstr "Image mise en avant pour: %s"
+
+#: includes/ideas/tags.php:821
 msgid "No Comments"
 msgstr "Aucun Commentaire"
 
-#: includes/ideas/tags.php:870
+#: includes/ideas/tags.php:824
 msgid "1 Comment"
 msgstr "1 Commentaire"
 
-#: includes/ideas/tags.php:873
+#: includes/ideas/tags.php:827
 msgid "% Comments"
 msgstr "% Commentaires"
 
-#: includes/ideas/tags.php:876
+#: includes/ideas/tags.php:830
 msgid "Comments Off"
 msgstr "Commentaires fermés"
 
-#: includes/ideas/tags.php:883
-msgctxt "idea protected comments message"
-msgid "Comments are protected."
-msgstr "Commentaires protégés."
-
-#: includes/ideas/tags.php:886
-msgctxt "idea private comments message"
-msgid "Comments are private."
-msgstr "Commentaires privés"
-
-#: includes/ideas/tags.php:900
+#: includes/ideas/tags.php:854
 msgid "Comment on %s"
 msgstr "Commenter %s"
 
-#: includes/ideas/tags.php:1040 templates/idea-header.php:13
+#: includes/ideas/tags.php:965 templates/idea-header.php:13
 msgid "Average rating: %"
 msgstr "Evaluation moyenne: %"
 
-#: includes/ideas/tags.php:1048
+#: includes/ideas/tags.php:973
 msgid "Rate %s"
 msgstr "Evaluer %s"
 
-#: includes/ideas/tags.php:1052
-msgctxt "idea rating not logged in message"
-msgid "Please, log in to rate."
-msgstr "Merci de vous connecter pour évaluer l&#39;idée"
-
-#: includes/ideas/tags.php:1122 includes/ideas/tags.php:1191
+#: includes/ideas/tags.php:1033 includes/ideas/tags.php:1090
 msgid "This idea is password protected, you will need it to view its content."
 msgstr ""
 "Cette idée est protégée par un mot de passe, vous en avez besoin pour voir "
 "son contenu."
 
-#: includes/ideas/tags.php:1126 includes/ideas/tags.php:1195
+#: includes/ideas/tags.php:1037 includes/ideas/tags.php:1094
 msgid "This idea is private, you cannot view its content."
 msgstr "Cette idée est privée, vous ne pouvez pas voir son contenu."
 
-#. Translators: 1 is category, 2 is tag and 3 is the date.
-#: includes/ideas/tags.php:1354
-msgctxt "default idea footer utility text"
-msgid "This idea was posted on %3$s."
-msgstr "Cette idée a été publiée le %3$s."
-
-#. Translators: 1 is category, 2 is tag and 3 is the date.
-#: includes/ideas/tags.php:1359
-msgctxt "idea attached to at least one category footer utility text"
-msgid "This idea was posted in %1$s on %3$s."
-msgstr "Cette idée a été publiée dans %1$s le %3$s."
-
-#. Translators: 1 is category, 2 is tag and 3 is the date.
-#: includes/ideas/tags.php:1365
-msgctxt "idea attached to at least one tag footer utility text"
-msgid "This idea was tagged %2$s on %3$s."
-msgstr "Cette idée a été étiquetée %2$s le %3$s."
-
-#. Translators: 1 is category, 2 is tag and 3 is the date.
-#: includes/ideas/tags.php:1370
-msgctxt "idea attached to at least one tag and one category footer utility text"
-msgid "This idea was posted in %1$s and tagged %2$s on %3$s."
-msgstr "Cette idée a été publiée dans %1$s et étiquetée %2$s le %3$s."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
-#: includes/ideas/tags.php:1380
-msgctxt "default single idea footer utility text"
-msgid "This idea was posted on %3$s by %4$s."
-msgstr "Cette idée a été publiée le %3$s par %4$s."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
-#: includes/ideas/tags.php:1385
-msgctxt "single idea attached to at least one category footer utility text"
-msgid "This idea was posted in %1$s on %3$s by %4$s."
-msgstr "Cette idée a été publiée dans %1$s le %3$s par %4$s."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
-#: includes/ideas/tags.php:1390
-msgctxt "single idea attached to at least one tag footer utility text"
-msgid "This idea was tagged %2$s on %3$s by %4$s."
-msgstr "Cette idée a été étiquetée %2$s le %3$s par %4$s."
-
-#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
-#: includes/ideas/tags.php:1394
-msgctxt ""
-"single idea attached to at least one tag and one category footer utility text"
-msgid "This idea was posted in %1$s and tagged %2$s on %3$s by %4$s."
-msgstr "Cette idée a été publiée dans %1$s et étiquetée %2$s le %3$s par %4$s."
-
-#: includes/ideas/tags.php:1474
-msgctxt "Previous post link"
-msgid "&larr;"
-msgstr "&larr;"
-
-#: includes/ideas/tags.php:1476
-msgctxt "Next post link"
-msgid "&rarr;"
-msgstr "&rarr;"
-
-#: includes/ideas/tags.php:1500
+#: includes/ideas/tags.php:1352
 msgid "You are not allowed to submit ideas"
 msgstr "Vous n'avez pas les droits suffisants pour publier des idées."
 
-#: includes/ideas/tags.php:1506
+#: includes/ideas/tags.php:1358
 msgid ""
 "Please <a href=\"%s\" title=\"Log in\">log in</a> or <a href=\"%s\" title="
 "\"Sign up\">register</a> to this site to submit an idea."
@@ -2282,7 +1804,7 @@ msgstr ""
 "Merci de vous <a href=\"%s\" title=\"Connexion\">connecter</a> ou de vous <a "
 "href=\"%s\" title=\"Inscription\">inscrire</a> avant de partager votre idée."
 
-#: includes/ideas/tags.php:1512
+#: includes/ideas/tags.php:1364
 msgid ""
 "Please <a href=\"%s\" title=\"Log in\">log in</a> to this site to submit an "
 "idea."
@@ -2290,189 +1812,102 @@ msgstr ""
 "Merci de vous <a href=\"%s\" title=\"Log in\">connecter</a> avant de partager "
 "votre idée."
 
-#: includes/ideas/tags.php:1545
+#: includes/ideas/tags.php:1393
 msgid "Title"
 msgstr "Titre"
 
-#: includes/ideas/tags.php:1616
+#: includes/ideas/tags.php:1451
 msgid "Description"
 msgstr "Description"
 
-#: includes/ideas/tags.php:1750
+#: includes/ideas/tags.php:1578
 msgid "Select the featured image for your idea."
 msgstr "Sélectionner l&#39;image mise en avant pour votre idée."
 
-#: includes/ideas/tags.php:1832
+#: includes/ideas/tags.php:1644
 msgid "Categories"
 msgstr "Catégories"
 
-#: includes/ideas/tags.php:1874
+#: includes/ideas/tags.php:1674
 msgid "No categories are available."
 msgstr "Aucune catégorie disponible. "
 
-#: includes/ideas/tags.php:1922
+#: includes/ideas/tags.php:1714
 msgid "Tags"
-msgstr "Mots clés"
+msgstr "Etiquettes"
 
-#: includes/ideas/tags.php:1923
+#: includes/ideas/tags.php:1715
 msgid "Type your tag, then hit the return or space key to add it"
 msgstr ""
 "Taper votre mot clé, puis appuyer sur la touche entrée ou espace pour l&#39;"
 "ajouter"
 
-#: includes/ideas/tags.php:1995
+#: includes/ideas/tags.php:1775
 msgid "Choose the most used tag"
 msgid_plural "Choose from the %d most used tags"
 msgstr[0] "Sélectionnez le mot clé le plus utilisé"
 msgstr[1] "Sélectionner parmi les mots clés les plus utilisés"
 
-#: includes/ideas/tags.php:2083 includes/users/tags.php:501
+#: includes/ideas/tags.php:1845 includes/users/tags.php:473
 msgid "Reset"
 msgstr "Annuler"
 
-#: includes/ideas/tags.php:2084
+#: includes/ideas/tags.php:1846
 msgid "Submit"
 msgstr "Déposer"
 
-#: includes/ideas/tags.php:2089
+#: includes/ideas/tags.php:1851
 msgid "Update"
 msgstr "Mettre à jour"
 
-#: includes/ideas/tags.php:2137
+#: includes/ideas/tags.php:1899
 msgid "%1$sAverage Rating:%2$s%3$s"
 msgstr "%1$sEvaluation moyenne : %2$s%3$s"
 
-#: includes/ideas/widgets.php:43
-msgid "A list of Idea categories"
-msgstr "Une liste des catégories d&#39;idée"
+#: includes/users/classes/class-wp-idea-stream-users-top-contributors.php:26
+msgid "List the top idea contributors"
+msgstr "Liste des meilleurs contributeurs d&#39;idées"
 
-#: includes/ideas/widgets.php:44
-msgid "WP Idea Stream categories"
-msgstr "Catégories de WP Idea Stream"
+#: includes/users/classes/class-wp-idea-stream-users-top-contributors.php:27
+msgid "WP Idea Stream Tops"
+msgstr "Meilleurs Contributeurs de WP Idea Stream"
 
-#: includes/ideas/widgets.php:127
-msgid "Show idea counts"
-msgstr "Afficher le nombre d&#39;idées"
+#: includes/users/classes/class-wp-idea-stream-users-top-contributors.php:160
+msgid "Number of users to show:"
+msgstr "Nombre d&#39;utilisateurs à afficher :"
 
-#: includes/ideas/widgets.php:163
-msgid "List the most popular ideas"
-msgstr "Une liste des idées les plus populaires"
-
-#: includes/ideas/widgets.php:164
-msgid "WP Idea Stream Popular Ideas"
-msgstr "Idées populaires de WP Idea Stream"
-
-#: includes/ideas/widgets.php:340
-msgid "Type:"
-msgstr "Type:"
-
-#: includes/ideas/widgets.php:353
-msgid "Number of ideas to show:"
-msgstr "Nombre d&#39;idées à afficher :"
-
-#: includes/users/functions.php:531
-msgctxt "user ideas profile slug for BuddyPress use"
-msgid "ideas"
-msgstr "idees"
-
-#: includes/users/functions.php:534
-msgid "Commented"
-msgstr "Commentées"
-
-#: includes/users/functions.php:543
-msgid "Rated"
-msgstr "Evaluées"
-
-#: includes/users/functions.php:618
-msgid "Please enter some content in your description"
-msgstr "Merci de bien vouloir saisir un contenu dans votre présentation"
-
-#: includes/users/functions.php:631
-msgid "Something went wrong while trying to update your description."
-msgstr "Une erreur est survenue lors de la sauvegarde de votre présentation"
-
-#: includes/users/functions.php:639
-msgid "Description updated."
-msgstr "Présentation mise à jour."
-
-#: includes/users/functions.php:946
-msgid "Please choose a login having at least 4 characters."
-msgstr ""
-"Merci de choisir un nom d&#39;utilisateur contenant au moins quatre "
-"caractères."
-
-#: includes/users/functions.php:980
-msgid "Please fill all required fields."
-msgstr "Veuillez remplir tous les champs."
-
-#: includes/users/functions.php:1086
-msgid "Registration complete. Please check your e-mail."
-msgstr "Inscription terminée. Merci de vérifier votre messagerie électronique."
-
-#: includes/users/functions.php:1113
+#: includes/users/functions.php:931
 msgid "Username"
 msgstr "Identifiant"
 
-#: includes/users/functions.php:1114
+#: includes/users/functions.php:932
 msgid "E-mail"
 msgstr "Courriel"
 
-#: includes/users/functions.php:1175
-msgctxt "Use the same translation as WP Core"
-msgid "[%s] Your username and password info"
-msgstr "[%s] Votre identifiant et votre mot de passe"
-
-#: includes/users/tags.php:130
-msgctxt "embed profile type of stat"
-msgid "%s ideas"
-msgstr "Idées %s"
-
-#: includes/users/tags.php:282
+#: includes/users/tags.php:247
 msgid "%s has not created his description yet"
 msgstr "%s n&#39;a pas rédigé sa présentation."
 
-#: includes/users/tags.php:285
+#: includes/users/tags.php:250
 msgid ""
 "Replace this text with your description, then hit the Edit button to save it."
 msgstr ""
 "Remplacer ce texte avec votre présentation, ensuite cliquez sur le bouton "
 "Modifier pour la sauvegarder."
 
-#: includes/users/tags.php:332
-msgctxt "User profile description edit"
-msgid "Edit"
-msgstr "Modifier"
-
-#: includes/users/tags.php:375
+#: includes/users/tags.php:340
 msgid "View %s full profile"
 msgstr "Voir l&#39;intégralité du profil %s"
 
-#: includes/users/tags.php:375
-msgctxt "Screen reader text for embed user display name for the more link"
-msgid "%s&#39;s"
-msgstr "de %s"
-
-#: includes/users/tags.php:448
+#: includes/users/tags.php:400
 msgid "rated 1 star"
 msgid_plural "rated %s stars"
 msgstr[0] "a évalué 1 étoile"
 msgstr[1] "a évalué %s étoiles"
 
-#: includes/users/tags.php:502
+#: includes/users/tags.php:474
 msgid "Sign-up"
 msgstr "S&#39;inscrire"
-
-#: includes/users/widgets.php:41
-msgid "List the top idea contributors"
-msgstr "Liste des meilleurs contributeurs d&#39;idées"
-
-#: includes/users/widgets.php:42
-msgid "WP Idea Stream Tops"
-msgstr "Meilleurs Contributeurs de WP Idea Stream"
-
-#: includes/users/widgets.php:199
-msgid "Number of users to show:"
-msgstr "Nombre d&#39;utilisateurs à afficher :"
 
 #: templates/idea-header.php:12
 msgid "Leave a reply"
@@ -2490,13 +1925,23 @@ msgstr "%  Réponses"
 msgid "Rate the idea"
 msgstr "Evaluer l&#39;idée"
 
-#. Plugin Name of the plugin/theme
-msgid "WP Idea Stream"
-msgstr "WP Idea Stream"
+#: wp-idea-stream.php:266
+msgid "Archive"
+msgstr "Archive"
+
+#: wp-idea-stream.php:267
+msgid "Archived <span class=\"count\">(%s)</span>"
+msgid_plural "Archived <span class=\"count\">(%s)</span>"
+msgstr[0] "Archivée <span class=\"count\">(%s)</span>"
+msgstr[1] "Archivées <span class=\"count\">(%s)</span>"
+
+#: wp-idea-stream.php:271
+msgid "Archive selected ideas"
+msgstr "Archiver les idées sélectionnées"
 
 #. Plugin URI of the plugin/theme
-msgid "http://imathi.eu/tag/ideastream/"
-msgstr "http://imathi.eu/tag/ideastream/"
+msgid "https://imathi.eu/tag/wp-idea-stream/"
+msgstr "https://imathi.eu/tag/wp-idea-stream/"
 
 #. Description of the plugin/theme
 msgid "Share ideas, great ones will rise to the top!"
@@ -2507,5 +1952,339 @@ msgid "imath"
 msgstr "imath"
 
 #. Author URI of the plugin/theme
-msgid "http://imathi.eu/"
-msgstr "http://imathi.eu"
+msgid "https://imathi.eu/"
+msgstr "https://imathi.eu/"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-comments.php:119
+msgctxt "wp idea stream admin menu bubble"
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-comments.php:176
+#: includes/core/functions.php:288
+msgctxt "Main Plugin menu"
+msgid "Ideas"
+msgstr "Idées"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:286
+msgctxt "idea list table row state"
+msgid "Sticky"
+msgstr "Mis en une"
+
+#: includes/admin/classes/class-wp-idea-stream-admin-sticky.php:320
+msgctxt "admin ideas sticky view"
+msgid "Sticky <span class=\"count\">(%s)</span>"
+msgid_plural "Sticky <span class=\"count\">(%s)</span>"
+msgstr[0] "Mis en une <span class=\"count\">(%s)</span>"
+msgstr[1] "Mis en une <span class=\"count\">(%s)</span>"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:501
+msgctxt "Idea Publish box date format"
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:905
+msgctxt "ideas admin category column header"
+msgid "Categories"
+msgstr "Catégories"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:906
+msgctxt "ideas admin tag column header"
+msgid "Tags"
+msgstr "Mots-clés"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:941
+msgctxt "downloaded csv content header"
+msgid "Content"
+msgstr "Contenu"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:942
+msgctxt "downloaded csv link header"
+msgid "Link"
+msgstr "Lien"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:950
+msgctxt "downloaded csv comments num header"
+msgid "# comments"
+msgstr "Nbre de commentaires"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:954
+msgctxt "downloaded csv rates num header"
+msgid "Average rating"
+msgstr "Note moyenne:"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1024
+msgctxt "tag separator"
+msgid ", "
+msgstr ", "
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1095
+msgctxt "Ratings metabox title"
+msgid "Rates"
+msgstr "Evaluations"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1322
+msgctxt "prefix of the downloaded csv"
+msgid "ideas"
+msgstr "idees"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1341
+msgctxt "front page edit screen notice"
+msgid "corresponding setting"
+msgstr "réglage correspondant"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1629
+msgctxt "help tab links"
+msgid "%1$sSupport Forums (en)%2$s"
+msgstr "%1$sForum de support (en)%2$s"
+
+#: includes/admin/classes/class-wp-idea-stream-admin.php:1630
+msgctxt "help tab links"
+msgid "%1$sWP Idea Stream posts (fr)%2$s"
+msgstr "%1$sArticles au sujet de WP Idea Stream (fr)%2$s"
+
+#: includes/admin/settings.php:393
+msgctxt "ideastream settings root slug conflict"
+msgid "this %s"
+msgstr "ce %s"
+
+#: includes/admin/settings.php:403
+msgctxt "bbPress possible conflict"
+msgid "bbPress forum root slug"
+msgstr "slug racine du forum bbPress"
+
+#: includes/admin/settings.php:417
+msgctxt "Child blog possible conflict"
+msgid "child blog slug"
+msgstr "slug de site enfant"
+
+#: includes/admin/thanks.php:37
+msgctxt "about screen title"
+msgid "WP Idea Stream %s"
+msgstr "WP Idea Stream %s"
+
+#: includes/admin/thanks.php:51
+msgctxt "WP Idea Stream Headline"
+msgid "Share ideas, great ones will rise to the top!"
+msgstr "Partager des idées, les meilleures graviront des sommets !"
+
+#: includes/admin/thanks.php:233
+msgctxt "credit screen title"
+msgid "WP Idea Stream %s"
+msgstr "WP Idea Stream %s"
+
+#: includes/comments/tags.php:292 includes/ideas/tags.php:749
+msgctxt "idea permalink title protected attribute"
+msgid "Protected:"
+msgstr "Protégé :"
+
+#: includes/comments/tags.php:294 includes/ideas/tags.php:751
+msgctxt "idea permalink title private attribute"
+msgid "Private:"
+msgstr "Privé :"
+
+#: includes/core/classes/class-wp-idea-stream-loop.php:152
+msgctxt "pagination previous text"
+msgid "&larr;"
+msgstr "&larr;"
+
+#: includes/core/classes/class-wp-idea-stream-loop.php:153
+msgctxt "pagination next text"
+msgid "&rarr;"
+msgstr "&rarr;"
+
+#: includes/core/functions.php:1184
+msgctxt "ideas tag cloud count text"
+msgid "%s idea"
+msgid_plural "%s ideas"
+msgstr[0] "%s idée"
+msgstr[1] "%s idées"
+
+#: includes/core/functions.php:1331
+msgctxt "Admin bar menu"
+msgid "WP Idea Stream"
+msgstr "WP Idea Stream"
+
+#: includes/core/options.php:53 includes/core/options.php:294
+msgctxt "default root slug"
+msgid "ideastream"
+msgstr "ideastream"
+
+#: includes/core/options.php:54 includes/core/options.php:322
+msgctxt "default idea slug"
+msgid "idea"
+msgstr "idee"
+
+#: includes/core/options.php:55 includes/core/options.php:349
+msgctxt "default category slug"
+msgid "category"
+msgstr "categorie"
+
+#: includes/core/options.php:56 includes/core/options.php:376
+msgctxt "default tag slug"
+msgid "tag"
+msgstr "etiquette"
+
+#: includes/core/options.php:57 includes/core/options.php:403
+msgctxt "default user slug"
+msgid "user"
+msgstr "utilisateur"
+
+#: includes/core/options.php:58 includes/core/options.php:435
+msgctxt "default comments slug"
+msgid "comments"
+msgstr "commentaires"
+
+#: includes/core/options.php:59 includes/core/options.php:419
+msgctxt "default ratings slug"
+msgid "ratings"
+msgstr "evaluations"
+
+#: includes/core/options.php:60 includes/core/options.php:509
+msgctxt "default sign-up action slug"
+msgid "sign-up"
+msgstr "rejoindre"
+
+#: includes/core/options.php:61 includes/core/options.php:462
+msgctxt "default action slug"
+msgid "action"
+msgstr "action"
+
+#: includes/core/options.php:62 includes/core/options.php:478
+msgctxt "default add idea action slug"
+msgid "add"
+msgstr "ajouter"
+
+#: includes/core/options.php:63 includes/core/options.php:494
+msgctxt "default edit idea action slug"
+msgid "edit"
+msgstr "modifier"
+
+#: includes/core/options.php:64 includes/core/options.php:525
+msgctxt "default comments pagination slug"
+msgid "cpage"
+msgstr "cpage"
+
+#: includes/core/template-functions.php:979
+msgctxt "customizer menu type label"
+msgid "Custom Link"
+msgstr "Lien personnalisé"
+
+#: includes/core/template-functions.php:1062
+msgctxt "customizer menu section title"
+msgid "WP Idea Stream"
+msgstr "WP Idea Stream"
+
+#: includes/ideas/tags.php:837
+msgctxt "idea protected comments message"
+msgid "Comments are protected."
+msgstr "Commentaires protégés."
+
+#: includes/ideas/tags.php:840
+msgctxt "idea private comments message"
+msgid "Comments are private."
+msgstr "Commentaires privés"
+
+#: includes/ideas/tags.php:977
+msgctxt "idea rating not logged in message"
+msgid "Please, log in to rate."
+msgstr "Merci de vous connecter pour évaluer l&#39;idée"
+
+#. Translators: 1 is category, 2 is tag and 3 is the date.
+#: includes/ideas/tags.php:1217
+msgctxt "default idea footer utility text"
+msgid "This idea was posted on %3$s."
+msgstr "Cette idée a été publiée le %3$s."
+
+#. Translators: 1 is category, 2 is tag and 3 is the date.
+#: includes/ideas/tags.php:1222
+msgctxt "idea attached to at least one category footer utility text"
+msgid "This idea was posted in %1$s on %3$s."
+msgstr "Cette idée a été publiée dans %1$s le %3$s."
+
+#. Translators: 1 is category, 2 is tag and 3 is the date.
+#: includes/ideas/tags.php:1228
+msgctxt "idea attached to at least one tag footer utility text"
+msgid "This idea was tagged %2$s on %3$s."
+msgstr "Cette idée a été étiquetée %2$s le %3$s."
+
+#. Translators: 1 is category, 2 is tag and 3 is the date.
+#: includes/ideas/tags.php:1233
+msgctxt "idea attached to at least one tag and one category footer utility text"
+msgid "This idea was posted in %1$s and tagged %2$s on %3$s."
+msgstr "Cette idée a été publiée dans %1$s et étiquetée %2$s le %3$s."
+
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+#: includes/ideas/tags.php:1243
+msgctxt "default single idea footer utility text"
+msgid "This idea was posted on %3$s by %4$s."
+msgstr "Cette idée a été publiée le %3$s par %4$s."
+
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+#: includes/ideas/tags.php:1248
+msgctxt "single idea attached to at least one category footer utility text"
+msgid "This idea was posted in %1$s on %3$s by %4$s."
+msgstr "Cette idée a été publiée dans %1$s le %3$s par %4$s."
+
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+#: includes/ideas/tags.php:1253
+msgctxt "single idea attached to at least one tag footer utility text"
+msgid "This idea was tagged %2$s on %3$s by %4$s."
+msgstr "Cette idée a été étiquetée %2$s le %3$s par %4$s."
+
+#. Translators: 1 is category, 2 is tag, 3 is the date and 4 is author.
+#: includes/ideas/tags.php:1257
+msgctxt ""
+"single idea attached to at least one tag and one category footer utility text"
+msgid "This idea was posted in %1$s and tagged %2$s on %3$s by %4$s."
+msgstr "Cette idée a été publiée dans %1$s et étiquetée %2$s le %3$s par %4$s."
+
+#: includes/ideas/tags.php:1335
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr "&larr;"
+
+#: includes/ideas/tags.php:1337
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr "&rarr;"
+
+#: includes/users/functions.php:426
+msgctxt "User profile published ideas nav"
+msgid "Published"
+msgstr "Publiées"
+
+#: includes/users/functions.php:429
+msgctxt "user ideas profile slug for BuddyPress use"
+msgid "ideas"
+msgstr "idees"
+
+#: includes/users/functions.php:432
+msgctxt "User profile commented ideas nav"
+msgid "Commented"
+msgstr "Commentées"
+
+#: includes/users/functions.php:441
+msgctxt "User profile rated ideas nav"
+msgid "Rated"
+msgstr "Evaluées"
+
+#: includes/users/functions.php:990
+msgctxt "Use the same translation as WP Core"
+msgid "[%s] Your username and password info"
+msgstr "[%s] Votre identifiant et votre mot de passe"
+
+#: includes/users/tags.php:118
+msgctxt "embed profile type of stat"
+msgid "%s ideas"
+msgstr "Idées %s"
+
+#: includes/users/tags.php:297
+msgctxt "User profile description edit"
+msgid "Edit"
+msgstr "Modifier"
+
+#: includes/users/tags.php:340
+msgctxt "Screen reader text for embed user display name for the more link"
+msgid "%s&#39;s"
+msgstr "de %s"

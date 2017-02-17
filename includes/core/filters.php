@@ -4,14 +4,13 @@
  *
  * List of main Filter hooks used in the plugin
  *
- * @package WP Idea Stream
- * @subpackage core/filters
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 add_filter( 'template_include',          'wp_idea_stream_set_template',                 10, 1 );
 add_filter( 'wp_title_parts',            'wp_idea_stream_title',                        10, 1 );
@@ -21,13 +20,17 @@ add_filter( 'body_class',                'wp_idea_stream_body_class',           
 add_filter( 'post_class',                'wp_idea_stream_post_class',                   10, 2 );
 add_filter( 'map_meta_cap',              'wp_idea_stream_map_meta_caps',                10, 4 );
 add_filter( 'widget_tag_cloud_args',     'wp_idea_stream_tag_cloud_args',               10, 1 );
-add_filter( 'wp_nav_menu_objects',       'wp_idea_stream_wp_nav',                       10, 2 );
 add_filter( 'get_edit_post_link',        'wp_idea_stream_edit_post_link',               10, 2 );
 add_filter( 'get_edit_comment_link',     'wp_idea_stream_edit_comment_link',            10, 1 );
 add_filter( 'comments_open',             'wp_idea_stream_comments_open',                10, 2 );
 add_filter( 'heartbeat_received',        'wp_idea_stream_ideas_heartbeat_check_locked', 10, 2 );
 add_filter( 'heartbeat_nopriv_received', 'wp_idea_stream_ideas_heartbeat_check_locked', 10, 2 );
 add_filter( 'mce_external_plugins',      'wp_idea_stream_ideas_tiny_mce_plugins',       10, 1 );
+add_filter( 'wp_get_nav_menu_items',     'wp_idea_stream_validate_nav_menu_items',      10, 1 );
+
+// Customizer
+add_filter( 'customize_nav_menu_available_items',      'wp_idea_stream_customizer_get_nav_menus_items',      10, 4 );
+add_filter( 'customize_nav_menu_available_item_types', 'wp_idea_stream_customizer_set_nav_menus_item_types', 10, 1 );
 
 // Prefix idea's title in case of private/protected
 add_filter( 'private_title_format',   'wp_idea_stream_ideas_private_title_prefix',   10, 2 );

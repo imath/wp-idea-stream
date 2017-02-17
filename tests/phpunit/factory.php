@@ -1,28 +1,16 @@
 <?php
-
 /**
  * Use BuddyPress factory if running BuddyPress tests
  */
-if ( class_exists( 'BP_UnitTest_Factory' ) && defined( 'WP_TESTS_BUDDYPRESS' ) && 1 == WP_TESTS_BUDDYPRESS ) :
-class WP_Idea_Stream_UnitTest_Factory extends BP_UnitTest_Factory {
-
-	function __construct() {
-		parent::__construct();
-
-		$this->idea = new WP_Idea_Stream_UnitTest_Factory_For_Idea( $this );
-		$this->idea_comment = new WP_Idea_Stream_UnitTest_Factory_For_Idea_Comment( $this );
-	}
-}
-else :
 class WP_Idea_Stream_UnitTest_Factory extends WP_UnitTest_Factory {
 
 	function __construct() {
 		parent::__construct();
 
-		$this->idea = new WP_Idea_Stream_UnitTest_Factory_For_Idea( $this );
+		$this->idea         = new WP_Idea_Stream_UnitTest_Factory_For_Idea( $this );
+		$this->idea_comment = new WP_Idea_Stream_UnitTest_Factory_For_Idea_Comment( $this );
 	}
 }
-endif;
 
 class WP_Idea_Stream_UnitTest_Factory_For_Idea extends WP_UnitTest_Factory_For_Thing {
 

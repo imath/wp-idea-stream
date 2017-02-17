@@ -1,10 +1,10 @@
 === WP Idea Stream ===
 Contributors: imath, aglekis
-Donate link: http://imathi.eu/donations/
-Tags: buddypress, idea, innovation, management, ideas, ideation, sharing, post-type, rating
-Requires at least: 4.4
+Donate link: https://imathi.eu/donations/
+Tags: idea, innovation, management, ideas, ideation, sharing
+Requires at least: 4.7
 Tested up to: 4.7
-Stable tag: 2.3.4
+Stable tag: 2.4.0
 License: GNU/GPL 2
 
 Share ideas, great ones will rise to the top!
@@ -26,28 +26,33 @@ Activate WP Idea Stream in the "Plugins" admin panel using the "Activate" link.
 
 == Frequently Asked Questions ==
 
-= Is it possible to attach files to an idea ? =
-Since 2.2.0, if you are using the BuddyPress (2.3+) and BuddyDrive (1.3+) plugins, then YES :)
-
-= I'm not using BuddyPress, will it work without it ? =
-Of course! But try BuddyPress, it's awesome :)
-
-= I'm not using WordPress 4.4, is this plugin compatible with an older version ? =
-Since 2.3.0, plugin is requiring 4.4. You can use allways check the [different versions](http://wordpress.org/plugins/wp-idea-stream/developers/ "Other version") to find the one that best matches your config.
+= I'm not using WordPress 4.7, is this plugin compatible with an older version ? =
+Since 2.4.0, plugin is requiring WordPress 4.7. You can use allways check the [different versions](http://wordpress.org/plugins/wp-idea-stream/developers/ "Other version") to find the one that best matches your config.
 
 = If you have any other questions =
 
-Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or use this plugin forum.
+Please add a comment [here](https://imathi.eu/tag/wp-idea-stream/ "my blog") or use this plugin forum.
 
 == Screenshots ==
 
 1. User profile.
 2. Moderating comments about ideas
 3. Moderating ratings
-4. Submit form in a BuddyPress group.
-5. Ideas archive page
+4. Ideas archive page
 
 == Changelog ==
+
+= 2.4.0 =
+* The idea ratings built-in system is now using a custom Rest API endpoint to save your users ratings.
+* Readonly Rest API endpoints are now available to get the great ideas your users shared.
+* A new status for Ideas: Archive.
+* List Ideas on your site's static front page.
+* New WP Idea Stream's menu items for your navigation menus.
+* Featured images are finally prettifying loops.
+* A tabbed UI for the WP Idea Stream's Settings screen.
+* Improved TwentySeventeen integration.
+* Improved user feedbacks.
+* Classes are now autoloaded!
 
 = 2.3.4 =
 * Fix an issue about comments in BuddyPress private groups.
@@ -155,6 +160,9 @@ Please add a comment [here](http://imathi.eu/tag/wp-idea-stream/ "my blog") or u
 * Plugin birth..
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+Please be sure to use at least WordPress 4.7. If you are using BuddyPress, required version is 2.5. Back up your database and files.
 
 = 2.3.4 =
 Please be sure to use at least WordPress 4.4. If you are using BuddyPress, required version is 2.5. Back up your database and files.

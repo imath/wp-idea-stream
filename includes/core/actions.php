@@ -4,14 +4,13 @@
  *
  * List of main Action hooks used in the plugin
  *
- * @package WP Idea Stream
- * @subpackage core/actions
+ * @package WP Idea Stream\core
  *
  * @since 2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 add_action( 'plugins_loaded',           'wp_idea_stream_loaded',                 11 );
 add_action( 'init',                     'wp_idea_stream_init',                   9  );
@@ -27,6 +26,7 @@ add_action( 'template_redirect',        'wp_idea_stream_template_redirect',     
 
 // Actions to register post_type, metas, taxonomies & rewrite stuff
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_register_post_types',            2 );
+add_action( 'wp_idea_stream_init', 'wp_idea_stream_register_post_stati',            3 );
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_register_taxonomies',            4 );
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_add_rewrite_tags',               6 );
 add_action( 'wp_idea_stream_init', 'wp_idea_stream_add_rewrite_rules',              8 );
@@ -48,8 +48,10 @@ add_action( 'wp_idea_stream_enqueue_scripts', 'wp_idea_stream_ideas_enqueue_scri
 add_action( 'wp_idea_stream_enqueue_scripts', 'wp_idea_stream_users_enqueue_scripts', 11 );
 
 // Template actions
-add_action( 'wp_idea_stream_idea_header',             'wp_idea_stream_users_the_user_idea_rating', 1 );
-add_action( 'wp_idea_stream_before_archive_main_nav', 'wp_idea_stream_ideas_taxonomy_description'    );
+add_action( 'wp_idea_stream_idea_header',             'wp_idea_stream_users_the_user_idea_rating',      1    );
+add_action( 'wp_idea_stream_before_archive_main_nav', 'wp_idea_stream_ideas_taxonomy_description'            );
+add_action( 'wp_idea_stream_set_core_template',        array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );
+add_action( 'wp_idea_stream_set_single_template',      array( 'WP_Idea_Stream_Core_Screens', 'start' ), 0, 2 );
 
 // Actions to handle user actions (eg: submit new idea)
 add_action( 'wp_idea_stream_template_redirect', 'wp_idea_stream_actions',                             4 );
@@ -69,6 +71,7 @@ add_action( 'admin_init', 'wp_idea_stream_admin_init', 10 );
 add_action( 'admin_head', 'wp_idea_stream_admin_head', 10 );
 
 add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_activation_redirect',      1 );
+add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_upgrade_redirect',         2 );
 add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_admin_register_settings', 11 );
 add_action( 'wp_idea_stream_admin_init', 'wp_idea_stream_maybe_upgrade',          999 );
 
@@ -96,11 +99,11 @@ add_action( 'wp_idea_stream_enqueue_embed_scripts', 'wp_idea_stream_enqueue_embe
 add_action( 'wp_idea_stream_embed_content_meta',    'wp_idea_stream_users_embed_content_meta'    );
 add_action( 'wp_idea_stream_head',                  'wp_idea_stream_oembed_add_discovery_links'  );
 
+// Ideas on front
+add_action( 'update_option_show_on_front', 'wp_idea_stream_reset_ideas_as_front', 10, 2 );
+
 /**
  * Fire the 'wp_idea_stream_init' action.
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */
@@ -110,9 +113,6 @@ function wp_idea_stream_init() {
 
 /**
  * Fire the 'wp_idea_stream_loaded' action.
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */
@@ -125,9 +125,6 @@ function wp_idea_stream_loaded() {
  *
  * Used to register IdeaStream widgets.
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_widgets_init() {
@@ -138,9 +135,6 @@ function wp_idea_stream_widgets_init() {
  * Fire the 'wp_idea_stream_enqueue_scripts' action.
  *
  * Used to register and enqueue custom scripts
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */
@@ -169,9 +163,6 @@ function wp_idea_stream_enqueue_embed_scripts() {
 /**
  * Fire the 'wp_idea_stream_head' action.
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_head() {
@@ -180,9 +171,6 @@ function wp_idea_stream_head() {
 
 /**
  * Fire the 'wp_idea_stream_footer' action.
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */
@@ -195,9 +183,6 @@ function wp_idea_stream_footer() {
  *
  * Used to set the IdeaStream logged in user
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_setup_current_user() {
@@ -206,9 +191,6 @@ function wp_idea_stream_setup_current_user() {
 
 /**
  * Fire the 'wp_idea_stream_template_redirect' action.
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */
@@ -219,9 +201,6 @@ function wp_idea_stream_template_redirect() {
 /**
  * Fire the 'wp_idea_stream_register_post_types' action.
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_register_post_types() {
@@ -229,10 +208,16 @@ function wp_idea_stream_register_post_types() {
 }
 
 /**
- * Fire the 'wp_idea_stream_register_taxonomies' action.
+ * Fire the 'wp_idea_stream_register_post_stati' action.
  *
- * @package WP Idea Stream
- * @subpackage core/actions
+ * @since 2.4.0
+ */
+function wp_idea_stream_register_post_stati() {
+	do_action( 'wp_idea_stream_register_post_stati' );
+}
+
+/**
+ * Fire the 'wp_idea_stream_register_taxonomies' action.
  *
  * @since 2.0.0
  */
@@ -246,9 +231,6 @@ function wp_idea_stream_register_taxonomies() {
  * Used in core/rewrites to add user's profile, search & action
  * custom tags
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_add_rewrite_tags() {
@@ -259,9 +241,6 @@ function wp_idea_stream_add_rewrite_tags() {
  * Fire the 'wp_idea_stream_add_rewrite_rules' action.
  *
  * Used in core/rewrites to add user's profile custom rule
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */
@@ -275,9 +254,6 @@ function wp_idea_stream_add_rewrite_rules() {
  * Used in core/rewrites to add custom permalink structures
  * such as the user's profile one
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_add_permastructs() {
@@ -286,9 +262,6 @@ function wp_idea_stream_add_permastructs() {
 
 /**
  * Fire the 'wp_idea_stream_after_setup_theme' action.
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */
@@ -301,9 +274,6 @@ function wp_idea_stream_after_setup_theme() {
  *
  * Used to handle user actions (profile update, submit ideas)
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_actions() {
@@ -315,9 +285,6 @@ function wp_idea_stream_actions() {
 /**
  * Fire the 'wp_idea_stream_admin_init' action.
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_admin_init() {
@@ -327,9 +294,6 @@ function wp_idea_stream_admin_init() {
 /**
  * Fire the 'wp_idea_stream_admin_head' action.
  *
- * @package WP Idea Stream
- * @subpackage core/actions
- *
  * @since 2.0.0
  */
 function wp_idea_stream_admin_head() {
@@ -338,9 +302,6 @@ function wp_idea_stream_admin_head() {
 
 /**
  * Fire the 'wp_idea_stream_admin_register_settings' action.
- *
- * @package WP Idea Stream
- * @subpackage core/actions
  *
  * @since 2.0.0
  */

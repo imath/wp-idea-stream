@@ -4,14 +4,13 @@
  *
  * Functions that are specifics to ideas
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
+ * @package WP Idea Stream\ideas
  *
  * @since 2.0.0
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /** Set/Get Idea(s) ***********************************************************/
 
@@ -20,14 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * By default, 'publish'
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_user_can() to check user's capbility to eventually add private ideas
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_status' to override the post status
- * @return array          the post status of ideas to retrieve
+ * @return array the post status of ideas to retrieve
  */
 function wp_idea_stream_ideas_get_status() {
 	$status = array( 'publish' );
@@ -47,9 +41,6 @@ function wp_idea_stream_ideas_get_status() {
 /**
  * Gets all WordPress built in post status (to be used in filters)
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  array  $status
@@ -65,14 +56,9 @@ function wp_idea_stream_ideas_get_all_status( $status = array() ) {
  * By default, same value than regular posts
  * Uses the WordPress posts per page setting
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
- * @uses   wp_idea_stream_get_idea_var() get the globalized per page value
- * @uses   apply_filters() call 'wp_idea_stream_ideas_per_page' to override number of ideas per page
- * @return array           the post status of ideas to retrieve
+ * @return array the post status of ideas to retrieve
  */
 function wp_idea_stream_ideas_per_page() {
 	return apply_filters( 'wp_idea_stream_ideas_per_page', wp_idea_stream_get_idea_var( 'per_page' ) );
@@ -81,18 +67,9 @@ function wp_idea_stream_ideas_per_page() {
 /**
  * Get Ideas matching the query args
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  array  $args custom args to merge with default ones
- * @uses   wp_idea_stream_ideas_per_page() to get the preferences about pagination
- * @uses   wp_idea_stream_get_idea_var() to get globalized vars
- * @uses   wp_parse_args to merge custom args with default ones
- * @uses   WP_Idea_Stream_Idea::get() to get the ideas if the main query is not used or overriden
- * @uses   wp_idea_stream_set_idea_var() to globally set a var
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_ideas' to override/edit the retrieved ideas
  * @return array        requested ideas
  */
 function wp_idea_stream_ideas_get_ideas( $args = array() ) {
@@ -148,14 +125,9 @@ function wp_idea_stream_ideas_get_ideas( $args = array() ) {
 /**
  * Gets an idea with additional metas and terms
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  string $id_or_name ID or post_name of the idea to get
- * @uses   WP_Idea_Stream_Idea  to get the idea
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_idea' to override/edit the retrieved idea
  * @return WP_Idea_Stream_Idea  the idea object
  */
 function wp_idea_stream_ideas_get_idea( $id_or_name = '' ) {
@@ -175,14 +147,9 @@ function wp_idea_stream_ideas_get_idea( $id_or_name = '' ) {
 /**
  * Gets an idea by its slug without additional metas or terms
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  string $name the post_name of the idea to get
- * @uses   WP_Idea_Stream_Idea::get_idea_by_name()  to get the idea
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_idea_by_name' to override/edit the retrieved idea
  * @return WP_Post the idea object
  */
 function wp_idea_stream_ideas_get_idea_by_name( $name = '' ) {
@@ -202,17 +169,10 @@ function wp_idea_stream_ideas_get_idea_by_name( $name = '' ) {
 /**
  * Registers a new ideas meta
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  string $meta_key  the identifier of the meta key to register
  * @param  string $meta_args the arguments (array of callback functions)
- * @uses   wp_idea_stream_get_idea_var() to get the globalized array of registered metas
- * @uses   sanitize_key() to sanitize the new meta key
- * @uses   wp_parse_args() to merge args with defaults
- * @uses   wp_idea_stream_set_idea_var() to update the globalized array of registered metas
  */
 function wp_idea_stream_ideas_register_meta( $meta_key = '', $meta_args = '' ) {
 	if ( empty( $meta_key ) || ! is_array( $meta_args ) ) {
@@ -243,19 +203,11 @@ function wp_idea_stream_ideas_register_meta( $meta_key = '', $meta_args = '' ) {
 /**
  * Gets an idea meta data
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  int     $idea_id  the ID of the idea
  * @param  string  $meta_key the meta key to get
  * @param  bool    $single   whether to get an array of meta or unique one
- * @uses   sanitize_key() to sanitize a meta key
- * @uses   get_post_meta() to get an idea meta
- * @uses   apply_filters() call 'wp_idea_stream_meta_{$sanitized_key}_sanitize_display' to customize the
- *                         meta value sanitization to be displayed
- * @uses   sanitize_text_field() to sanitize a meta value
  * @return mixed             the meta value
  */
 function wp_idea_stream_ideas_get_meta( $idea_id = 0, $meta_key = '', $single = true ) {
@@ -298,19 +250,11 @@ function wp_idea_stream_ideas_get_meta( $idea_id = 0, $meta_key = '', $single = 
 /**
  * Updates an idea meta data
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  int     $idea_id    the ID of the idea
  * @param  string  $meta_key   the meta key to update
  * @param  mixed   $meta_value the meta value to update
- * @uses   sanitize_key() to sanitize a meta key
- * @uses   apply_filters() call 'wp_idea_stream_meta_{$sanitized_key}_sanitize_db' to customize the
- *                         meta value sanitization to be saved in db
- * @uses   sanitize_text_field() to sanitize a meta value
- * @uses   update_post_meta() to update an idea meta
  * @return bool                the update meta result
  */
 function wp_idea_stream_ideas_update_meta( $idea_id = 0, $meta_key = '', $meta_value = '' ) {
@@ -351,15 +295,10 @@ function wp_idea_stream_ideas_update_meta( $idea_id = 0, $meta_key = '', $meta_v
 /**
  * Deletes an idea meta data
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  int     $idea_id    the ID of the idea
  * @param  string  $meta_key   the meta key to update
- * @uses   sanitize_key() to sanitize a meta key
- * @uses   delete_post_meta() to delete an idea meta
  * @return bool                the delete meta result
  */
 function wp_idea_stream_ideas_delete_meta( $idea_id = 0, $meta_key = '' ) {
@@ -375,16 +314,10 @@ function wp_idea_stream_ideas_delete_meta( $idea_id = 0, $meta_key = '' ) {
 /**
  * Gets idea terms given a taxonomy and args
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  string $taxonomy the taxonomy identifier
  * @param  array  $args     the arguments to get the terms
- * @uses   wp_parse_args()  to merge custom with defaults
- * @uses   get_terms()      to get the taxonomy terms
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_terms' to override/edit the retrieved terms
  * @return array|WP_Error List of Term Objects and their children. Will return WP_Error, if any of $taxonomies
  *                        do not exist.
  */
@@ -413,14 +346,9 @@ function wp_idea_stream_ideas_get_terms( $taxonomy = '', $args = array() ) {
 /**
  * Sets the post status of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  array  $ideaarr the posted arguments
- * @uses   wp_idea_stream_default_idea_status() to get default post status
- * @uses   apply_filters() call 'wp_idea_stream_ideas_insert_status' to override the post status
  * @return string          the post status of the idea
  */
 function wp_idea_stream_ideas_insert_status( $ideaarr = array() ) {
@@ -439,15 +367,10 @@ function wp_idea_stream_ideas_insert_status( $ideaarr = array() ) {
  * Checks if another user is editing an idea, if not
  * locks the idea for the current user.
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  int $idea_id The ID of the idea to edit
- * @uses   wp_check_post_lock() to check if the idea is locked to another user
- * @uses   wp_set_post_lock() to lock the idea to current user
- * @return int                the user id editing the idea
+ * @return int          the user id editing the idea
  */
 function wp_idea_stream_ideas_lock_idea( $idea_id = 0 ) {
 	$user_id = false;
@@ -472,9 +395,6 @@ function wp_idea_stream_ideas_lock_idea( $idea_id = 0 ) {
 
 /**
  * HeartBeat callback to check if an idea is being edited by an admin
- *
- * @package WP Idea Stream
- * @subpackage ideas/functions
  *
  * @since 2.0.0
  *
@@ -507,19 +427,9 @@ function wp_idea_stream_ideas_heartbeat_check_locked( $response = array(), $data
  *   screen.
  * - BuddyPress Group admins can also edit ideas.
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  WP_Post $idea the idea object
- * @uses   wp_idea_stream_users_current_user_id() to get current user's ID
- * @uses   is_super_admin() to check for a super admin
- * @uses   wp_idea_stream_user_can() to check user's capability
- * @uses   get_post_meta() to check if the idea received rates
- * @uses   apply_filters() call 'wp_idea_stream_ideas_pre_can_edit' to disable the time lock, comments and rates checks
- *                         call 'wp_idea_stream_ideas_can_edit' to override user's edit capability
- *                         call 'wp_idea_stream_ideas_can_edit_time' to change the time period an idea can be edited
  * @return bool          whether the user can edit the idea (true), or not (false)
  */
 function wp_idea_stream_ideas_can_edit( $idea = null ) {
@@ -606,22 +516,9 @@ function wp_idea_stream_ideas_can_edit( $idea = null ) {
 /**
  * Saves an idea entry in posts table
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  array  $ideaarr the posted arguments
- * @uses   wp_idea_stream_users_current_user_id() to get current user ID
- * @uses   wp_idea_stream_ideas_insert_status() to get the status of the idea
- * @uses   wp_parse_id_list() to sanitize a list of ids
- * @uses   wp_idea_stream_get_category() to get the category taxonomy identifier
- * @uses   wp_idea_stream_get_tag() to get the tag taxonomy identifier
- * @uses   WP_Idea_Stream_Idea->save() to insert the idea
- * @uses   do_action() call 'wp_idea_stream_ideas_before_idea_save' to perform custom actions
- *                     before the idea is saved
- *                     call 'wp_idea_stream_ideas_after_{$hook}_idea' to perform custom actions
- *                     after the idea is saved
  * @return int    the ID of the created or updated idea
  */
 function wp_idea_stream_ideas_save_idea( $ideaarr = array() ) {
@@ -771,15 +668,9 @@ function wp_idea_stream_ideas_save_idea( $ideaarr = array() ) {
 /**
  * Gets the permalink to the idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  WP_Post|int  $idea the idea object or its ID
- * @uses   get_post()   to get the idea object
- * @uses   get_permalink() to get the link to the idea
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_idea_permalink' to customize the url
  * @return string|bool     the permalink to the idea, false if the idea is not set
  */
 function wp_idea_stream_ideas_get_idea_permalink( $idea = null ) {
@@ -807,14 +698,9 @@ function wp_idea_stream_ideas_get_idea_permalink( $idea = null ) {
 /**
  * Gets the comment link of an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  WP_Post $idea the idea object or its ID
- * @uses   wp_idea_stream_ideas_get_idea_permalink() to get the link to the idea
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_idea_comments_link' to customize the url
  * @return string          the comment link of an idea
  */
 function wp_idea_stream_ideas_get_idea_comments_link( $idea = null ) {
@@ -832,28 +718,7 @@ function wp_idea_stream_ideas_get_idea_comments_link( $idea = null ) {
 /**
  * Adds needed scripts to rate the idea or add tags to it
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_is_ideastream() to check it's plugin territory
- * @uses   wp_idea_stream_is_single_idea() to check if a single idea is displayed
- * @uses   wp_idea_stream_is_edit() to check if the idea is being edited
- * @uses   wp_idea_stream_is_rating_disabled() to check if ratings are enabled
- * @uses   wp_idea_stream_count_ratings() to get the idea rating stats
- * @uses   wp_idea_stream_get_hint_list() to get the rating captions
- * @uses   wp_idea_stream_users_current_user_id() to get current user ID
- * @uses   wp_create_nonce() to create a nonce to be check when rating an idea
- * @uses   wp_idea_stream_user_can() to check user's capability
- * @uses   wp_enqueue_script() to add the needed scripts to WordPress queue
- * @uses   wp_idea_stream_get_js_script() to get a specific javascript
- * @uses   wp_idea_stream_get_version() to get plugin's version
- * @uses   wp_localize_script() to localized script datas
- * @uses   wp_idea_stream_is_addnew() to check the form is displayed
- * @uses   wp_idea_stream_get_single_idea_id() to get current idea ID
- * @uses   apply_filters() call 'wp_idea_stream_ideas_single_script' to add data to scripts used on single idea
- *                         call 'wp_idea_stream_ideas_form_script_vars' to add data to scripts used when using the form
  */
 function wp_idea_stream_ideas_enqueue_scripts() {
 	if ( ! wp_idea_stream_is_ideastream() ) {
@@ -869,6 +734,8 @@ function wp_idea_stream_ideas_enqueue_scripts() {
 
 		$js_vars = array(
 			'raty_loaded'  => 1,
+			'root_url'     => esc_url_raw( rest_url( trailingslashit( 'wp/v2' ) ) ),
+			'nonce'        => wp_create_nonce( 'wp_rest' ),
 			'ajaxurl'      => admin_url( 'admin-ajax.php', 'relative' ),
 			'wait_msg'     => esc_html__( 'Saving your rating; please wait', 'wp-idea-stream' ),
 			'success_msg'  => esc_html__( 'Thanks! The average rating is now:', 'wp-idea-stream' ),
@@ -892,7 +759,7 @@ function wp_idea_stream_ideas_enqueue_scripts() {
 		}
 
 		wp_enqueue_script( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), array( 'jquery-raty' ), wp_idea_stream_get_version(), true );
-		wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_ideas_single_script', $js_vars ) );
+		wp_idea_stream_get_js_script_localized_data( $js_vars, 'wp-idea-stream-script', 'wp_idea_stream_ideas_single_script' );
 	}
 
 	// Form > tags
@@ -921,7 +788,7 @@ function wp_idea_stream_ideas_enqueue_scripts() {
 
 		// Enqueue and localize script
 		wp_enqueue_script( 'wp-idea-stream-script', wp_idea_stream_get_js_script( 'script' ), $deps, wp_idea_stream_get_version(), true );
-		wp_localize_script( 'wp-idea-stream-script', 'wp_idea_stream_vars', apply_filters( 'wp_idea_stream_ideas_form_script_vars', $js_vars ) );
+		wp_idea_stream_get_js_script_localized_data( $js_vars, 'wp-idea-stream-script', 'wp_idea_stream_ideas_form_script_vars' );
 	}
 }
 
@@ -932,13 +799,9 @@ function wp_idea_stream_ideas_enqueue_scripts() {
  * using WordPress main query & retrieved posts. This function
  * allows to override it with custom arguments usfin the filter
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  string $type is this a single idea ?
- * @uses   apply_filters() call 'wp_idea_stream_ideas_query_args' to set different loop args
  * @return array        the loop args
  */
 function wp_idea_stream_ideas_query_args( $type = '' ) {
@@ -960,13 +823,7 @@ function wp_idea_stream_ideas_query_args( $type = '' ) {
 /**
  * Sets the available orderby possible filters
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
- *
- * @uses   wp_idea_stream_is_rating_disabled() to check if ratings are enabled
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_order_options' to add / remove orderby filters
  */
 function wp_idea_stream_ideas_get_order_options() {
 	$order_options =  array(
@@ -988,15 +845,10 @@ function wp_idea_stream_ideas_get_order_options() {
 /**
  * Sets the title prefix in case of a private idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  string  $prefix the prefix to apply in case of a private idea
  * @param  WP_Post $idea   the idea object
- * @uses   wp_idea_stream_get_post_type() to check current post is an idea
- * @uses   apply_filters() call 'wp_idea_stream_ideas_private_title_prefix' to override the prefix
  * @return string          the title prefix
  */
 function wp_idea_stream_ideas_private_title_prefix( $prefix = '', $idea = null ) {
@@ -1015,15 +867,10 @@ function wp_idea_stream_ideas_private_title_prefix( $prefix = '', $idea = null )
 /**
  * Sets the title prefix in case of a password protected idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  string  $prefix the prefix to apply in case of a private idea
  * @param  WP_Post $idea   the idea object
- * @uses   wp_idea_stream_get_post_type() to check current post is an idea
- * @uses   apply_filters() call 'wp_idea_stream_ideas_private_title_prefix' to override the prefix
  * @return string          the title prefix
  */
 function wp_idea_stream_ideas_protected_title_prefix( $prefix = '', $idea = null ) {
@@ -1044,21 +891,7 @@ function wp_idea_stream_ideas_protected_title_prefix( $prefix = '', $idea = null
 /**
  * Handles posting ideas
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
- *
- * @uses   check_admin_referer() to check the request has been done from current site
- * @uses   wp_idea_stream_get_redirect_url() to get default redirect url
- * @uses   wp_idea_stream_user_can() to check user's capability
- * @uses   wp_idea_stream_add_message() to add a feddback message to user
- * @uses   wp_safe_redirect() to safely redirect the user and avoid duplicates
- * @uses   wp_idea_stream_ideas_save_idea() to save the idea
- * @uses   wp_idea_stream_get_form_url() to get the add new form url
- * @uses   get_post() to get the idea object
- * @uses   wp_idea_stream_moderation_message() to check for a custom moderation message
- * @uses   wp_idea_stream_ideas_get_idea_permalink() to get the idea link
  */
 function wp_idea_stream_ideas_post_idea() {
 	// Bail if not a post request
@@ -1083,14 +916,8 @@ function wp_idea_stream_ideas_post_idea() {
 
 	// Check capacity
 	if ( ! wp_idea_stream_user_can( 'publish_ideas' ) ) {
-		// Add feedback to the user
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'You are not allowed to publish ideas', 'wp-idea-stream' ),
-		) );
-
-		// Redirect to main archive page
-		wp_safe_redirect( $redirect );
+		// Redirect to main archive page and inform the user he cannot publish talks.
+		wp_safe_redirect( add_query_arg( 'error', 3, $redirect ) );
 		exit();
 	}
 
@@ -1100,8 +927,7 @@ function wp_idea_stream_ideas_post_idea() {
 	if ( empty( $posted['_the_title'] ) || empty( $posted['_the_content'] ) ) {
 		// Add feedback to the user
 		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'Title and description are required fields.', 'wp-idea-stream' ),
+			'error' => array( 4 ),
 		) );
 
 		// Simply stop, so that the user keeps the posted values.
@@ -1111,52 +937,37 @@ function wp_idea_stream_ideas_post_idea() {
 	$id = wp_idea_stream_ideas_save_idea( $posted );
 
 	if ( empty( $id ) ) {
-		// Add feedback to the user
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'Something went wrong while trying to save your idea.', 'wp-idea-stream' ),
-		) );
-
 		// Redirect to an empty form
-		wp_safe_redirect( wp_idea_stream_get_form_url() );
+		wp_safe_redirect( add_query_arg( 'error', 5, wp_idea_stream_get_form_url() ) );
 		exit();
+
 	} else {
 		$idea             = get_post( $id );
-		$feedback_message = array();
+		$feedback_message = array(
+			'error'   => array(),
+			'success' => array( 3 ),
+			'info'    => array(),
+		);
 
 		if ( ! empty( $posted['_the_thumbnail'] ) ) {
 			$thumbnail = reset( $posted['_the_thumbnail'] );
 			$sideload = WP_Idea_Stream_Ideas_Thumbnail::start( $thumbnail, $id );
 
 			if ( is_wp_error( $sideload->result ) ) {
-				$feedback_message[] = __( 'There was a problem saving the featured image, sorry.', 'wp-idea-stream' );
+				$feedback_message['error'][] = 6;
 			}
 		}
 
 		if ( 'pending' == $idea->post_status ) {
-			// Build pending message.
-			$feedback_message['pending'] = __( 'Your idea is currently awaiting moderation.', 'wp-idea-stream' );
-
-			// Check for a custom pending message
-			$custom_pending_message = wp_idea_stream_moderation_message();
-			if ( ! empty( $custom_pending_message ) ) {
-				$feedback_message['pending'] = $custom_pending_message;
-			}
+			// Use the pending message.
+			$feedback_message['info'][] = 2;
 
 		// redirect to the idea
 		} else {
 			$redirect = wp_idea_stream_ideas_get_idea_permalink( $idea );
 		}
 
-		if ( ! empty( $feedback_message ) ) {
-			// Add feedback to the user
-			wp_idea_stream_add_message( array(
-				'type'    => 'info',
-				'content' => join( ' ', $feedback_message ),
-			) );
-		}
-
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( wp_idea_stream_add_feedback_args( array_filter( $feedback_message ), $redirect ) );
 		exit();
 	}
 }
@@ -1164,23 +975,7 @@ function wp_idea_stream_ideas_post_idea() {
 /**
  * Handles updating an idea
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
- *
- * @uses   check_admin_referer() to check the request has been done from current site
- * @uses   wp_idea_stream_get_redirect_url() to get default redirect url
- * @uses   get_query_var() to get the value of a specific query var
- * @uses   wp_idea_stream_get_post_type() to get the ideas post type identifier
- * @uses   get_queried_object() to try to get the idea object WordPress built
- * @uses   wp_idea_stream_ideas_get_idea_by_name() to get an idea object out of its post name
- * @uses   wp_idea_stream_user_can() to check user's capability
- * @uses   wp_idea_stream_add_message() to add a feddback message to user
- * @uses   wp_safe_redirect() to safely redirect the user and avoid duplicates
- * @uses   wp_idea_stream_ideas_save_idea() to save the idea
- * @uses   wp_idea_stream_get_form_url() to get the add new form url
- * @uses   wp_idea_stream_ideas_get_idea_permalink() to get the idea link
  */
 function wp_idea_stream_ideas_update_idea() {
 	global $wp_query;
@@ -1217,27 +1012,15 @@ function wp_idea_stream_ideas_update_idea() {
 
 	// Found no idea, redirect and inform the user
 	if ( empty( $idea->ID ) ) {
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'The idea you are trying to edit does not seem to exist.', 'wp-idea-stream' ),
-		) );
-
-		// Redirect to main archive page
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( add_query_arg( 'error', 9, $redirect ) );
 		exit();
 	}
 
 
 	// Checks if the user can edit the idea
 	if ( ! wp_idea_stream_ideas_can_edit( $idea ) ) {
-		// Add feedback to the user
-		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'You are not allowed to edit this idea.', 'wp-idea-stream' ),
-		) );
-
 		// Redirect to main archive page
-		wp_safe_redirect( $redirect );
+		wp_safe_redirect( add_query_arg( 'error', 2, $redirect ) );
 		exit();
 	}
 
@@ -1247,8 +1030,7 @@ function wp_idea_stream_ideas_update_idea() {
 	if ( empty( $updated['_the_title'] ) || empty( $updated['_the_content'] ) ) {
 		// Add feedback to the user
 		wp_idea_stream_add_message( array(
-			'type'    => 'error',
-			'content' => __( 'Title and description are required fields.', 'wp-idea-stream' ),
+			'error' => array( 4 ),
 		) );
 
 		// Simply stop, so that the user keeps the posted values.
@@ -1257,9 +1039,11 @@ function wp_idea_stream_ideas_update_idea() {
 
 	// Reset '_the_id' param to the ID of the idea found
 	$updated['_the_id'] = $idea->ID;
-	$feedback_message   = array();
-	$featured_error     = __( 'There was a problem saving the featured image, sorry.', 'wp-idea-stream' );
-	$featured_type      = 'info';
+	$feedback_message   = array(
+		'error'   => array(),
+		'success' => array(),
+		'info'    => array(),
+	);
 
 	// Take care of the featured image
 	$thumbnail_id = (int) get_post_thumbnail_id( $idea );
@@ -1273,7 +1057,7 @@ function wp_idea_stream_ideas_update_idea() {
 			if ( is_numeric( $thumbnail ) ) {
 				// validate the attachment
 				if ( ! get_post( $thumbnail ) ) {
-					$feedback_message[] = $featured_error;
+					$feedback_message['error'][] = 6;
 				// Set the new Featured image
 				} else {
 					set_post_thumbnail( $idea->ID, $thumbnail );
@@ -1282,7 +1066,7 @@ function wp_idea_stream_ideas_update_idea() {
 				$sideload = WP_Idea_Stream_Ideas_Thumbnail::start( $thumbnail_src, $idea->ID );
 
 				if ( is_wp_error( $sideload->result ) ) {
-					$feedback_message[] = $featured_error;
+					$feedback_message['error'][] = 6;
 				}
 			}
 		}
@@ -1297,26 +1081,18 @@ function wp_idea_stream_ideas_update_idea() {
 
 	if ( empty( $id ) ) {
 		// Set the feedback for the user
-		$featured_type    = 'error';
-		$feedback_message = __( 'Something went wrong while trying to update your idea.', 'wp-idea-stream' );
+		$feedback_message['error'][] = 10;
 
 		// Redirect to the form
 		$redirect = wp_idea_stream_get_form_url( wp_idea_stream_edit_slug(), $idea_name );
 
 	// Redirect to the idea
 	} else {
+		$feedback_message['success'][] = 4;
 		$redirect = wp_idea_stream_ideas_get_idea_permalink( $id );
 	}
 
-	if ( ! empty( $feedback_message ) ) {
-		// Add feedback to the user
-		wp_idea_stream_add_message( array(
-			'type'    => $featured_type,
-			'content' => join( ' ', $feedback_message ),
-		) );
-	}
-
-	wp_safe_redirect( $redirect );
+	wp_safe_redirect( wp_idea_stream_add_feedback_args( array_filter( $feedback_message ), $redirect ) );
 	exit();
 }
 
@@ -1325,13 +1101,8 @@ function wp_idea_stream_ideas_update_idea() {
 /**
  * Gets the sticky ideas
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
- * @uses   get_option() to get the stickies
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_stickies' to alter this list
  * @return array the list of IDs of sticked to front ideas
  */
 function wp_idea_stream_ideas_get_stickies() {
@@ -1348,17 +1119,10 @@ function wp_idea_stream_ideas_get_stickies() {
  *
  * Simply a "copy paste" of how WordPress deals with sticky posts
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  array    $posts The array of retrieved posts.
  * @param  WP_Query The WP_Query instance
- * @uses   wp_idea_stream_is_sticky_enabled() to check sticking ideas is enabled
- * @uses   wp_idea_stream_ideas_get_stickies() to get the sticky ideas
- * @uses   is_post_type_archive() to check the ideas archive page is displayed
- * @uses   apply_filters() call 'wp_idea_stream_ideas_get_stickies' to alter this list
  * @return array the posts with stickies if some are found
  */
 function wp_idea_stream_ideas_stick_ideas( $posts = array(), $wp_query = null ) {
@@ -1438,15 +1202,9 @@ function wp_idea_stream_ideas_stick_ideas( $posts = array(), $wp_query = null ) 
 /**
  * Checks if an idea is sticky
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  int $id The idea ID
- * @param  array $stickies the list of IDs of the sticky ideas
- * @uses   wp_idea_stream() to get plugin's main instance
- * @uses   wp_idea_stream_ideas_get_stickies() to get the sticky ideas
  * @return bool true if it's a sticky idea, false otherwise
  */
 function wp_idea_stream_ideas_is_sticky( $id = 0, $stickies = array() ) {
@@ -1478,13 +1236,9 @@ function wp_idea_stream_ideas_is_sticky( $id = 0, $stickies = array() ) {
 /**
  * Make sure sticky ideas are not private or password protected
  *
- * @package WP Idea Stream
- * @subpackage ideas/functions
- *
  * @since 2.0.0
  *
  * @param  WP_Post $idea   the idea object
- * @uses   apply_filters() call 'wp_idea_stream_ideas_admin_no_sticky' to alter this list
  * @return bool true if the idea cannot be sticked, false otherwise
  */
 function wp_idea_stream_ideas_admin_no_sticky( $idea = null ) {
