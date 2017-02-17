@@ -48,6 +48,7 @@ Please add a comment [here](https://imathi.eu/tag/wp-idea-stream/ "my blog") or 
 * A new status for Ideas: Archive.
 * List Ideas on your site's static front page.
 * New WP Idea Stream's menu items for your navigation menus.
+* Featured images are finally prettifying loops.
 * A tabbed UI for the WP Idea Stream's Settings screen.
 * Improved TwentySeventeen integration.
 * Improved user feedbacks.
