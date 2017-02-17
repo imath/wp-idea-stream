@@ -114,7 +114,7 @@ function wp_idea_stream_admin_about() {
 			<div class="col">
 				<h3><?php esc_html_e( 'List Ideas on your site\'s static front page.', 'wp-idea-stream' ); ?></h3>
 				<p>
-					<?php esc_html_e( 'When you choose a static front page for your home page from the General Options Administration screen, you can now override this page\'s content with the list of shared ideas.', 'wp-idea-stream' ); ?>
+					<?php esc_html_e( 'When you choose a static front page for your home page from the Reading settings Administration screen, you can now override this page\'s content with the list of shared ideas.', 'wp-idea-stream' ); ?>
 				</p>
 				<p>
 					<?php esc_html_e( 'Once you have set the static front page simply activate the &quot;List the ideas on the static front page&quot; WP Idea Stream\'s setting.', 'wp-idea-stream' ); ?>
