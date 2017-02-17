@@ -212,6 +212,10 @@ class WP_Idea_Stream_Admin {
 			add_filter( 'wp_idea_stream_get_help_tabs', array( $this, 'rates_help_tabs' ), 11, 1 );
 		}
 
+		if ( wp_idea_stream_is_front_page() ) {
+			add_action( 'load-page.php',  array( $this, 'maybe_disable_editor' ) );
+		}
+
 		// Add New Accordion section to ease adding menu items to WP Idea Stream areas
 		add_action( 'load-nav-menus.php', array( $this, 'menu_accordion' ), 10, 1 );
 	}
@@ -1319,6 +1323,49 @@ class WP_Idea_Stream_Admin {
 		header( 'Content-Type: text/csv;' );
 		print( $file );
 		exit();
+	}
+
+	/**
+	 * Display a feedback to explain why the editor is disabled.
+	 *
+	 * @since 2.4.0
+	 */
+	public function editor_disabled_feedback() {
+		printf(
+			'<div class="notice notice-warning inline"><p>%s</p></div>',
+			sprintf(
+				esc_html__( 'The front page is showing your latest ideas, you first need to change the %s before being able to edit this page.', 'wp-idea-stream' ),
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					esc_url( add_query_arg( 'page', 'ideastream', admin_url( 'options-general.php' ) ) ),
+					esc_html( _x( 'corresponding setting', 'front page edit screen notice', 'wp-idea-stream' ) )
+				)
+			)
+		);
+	}
+
+	/**
+	 * Check the current page being edited to eventually disable the editor.
+	 *
+	 * NB: this is only fired when front page is set to list latest ideas.
+	 *
+	 * @since 2.4.0
+	 */
+	public function maybe_disable_editor() {
+		if ( ! isset( $_GET['post'] ) ) {
+			return;
+		}
+
+		$page_id = (int) $_GET['post'];
+
+		if ( ! $page_id || $page_id !== (int) get_option( 'page_on_front') || 'page' !== get_option( 'show_on_front' ) ) {
+			return;
+		}
+
+		remove_post_type_support( 'page', 'editor' );
+		remove_meta_box( 'submitdiv', get_current_screen(), 'side' );
+
+		add_action( 'edit_form_after_title', array( $this, 'editor_disabled_feedback' ) );
 	}
 
 	/**
