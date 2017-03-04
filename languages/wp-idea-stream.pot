@@ -2,9 +2,9 @@
 # This file is distributed under the GNU/GPL 2.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Idea Stream 2.4.0\n"
+"Project-Id-Version: WP Idea Stream 2.4.1-beta\n"
 "Report-Msgid-Bugs-To: https://github.com/imath/wp-idea-stream/issues\n"
-"POT-Creation-Date: 2017-02-17 17:36:18+00:00\n"
+"POT-Creation-Date: 2017-03-04 18:11:20+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1495,7 +1495,7 @@ msgstr ""
 
 #: includes/ideas/tags.php:354
 msgid ""
-"It looks like no ideas has been submitted yet, <a href=\"%s\" "
+"It looks like no ideas have been submitted yet, <a href=\"%s\" "
 "title=\"Submit your idea\">add yours</a>"
 msgstr ""
 

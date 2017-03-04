@@ -351,7 +351,7 @@ function wp_idea_stream_ideas_not_found() {
 
 		} else if ( wp_idea_stream_user_can( 'publish_ideas' ) ) {
 			$output = sprintf(
-				__( 'It looks like no ideas has been submitted yet, <a href="%s" title="Submit your idea">add yours</a>', 'wp-idea-stream' ),
+				__( 'It looks like no ideas have been submitted yet, <a href="%s" title="Submit your idea">add yours</a>', 'wp-idea-stream' ),
 				esc_url( wp_idea_stream_get_form_url() )
 			);
 		}
