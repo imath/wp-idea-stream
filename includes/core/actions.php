@@ -102,6 +102,9 @@ add_action( 'wp_idea_stream_head',                  'wp_idea_stream_oembed_add_d
 // Ideas on front
 add_action( 'update_option_show_on_front', 'wp_idea_stream_reset_ideas_as_front', 10, 2 );
 
+// Refresh editor styles if needed.
+add_action( 'switch_theme', 'wp_idea_stream_theme_switched' );
+
 /**
  * Fire the 'wp_idea_stream_init' action.
  *

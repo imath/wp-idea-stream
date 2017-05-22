@@ -1457,6 +1457,11 @@ function wp_idea_stream_ideas_the_editor() {
 		'quicktags'     => false
 	);
 
+	// Disable the MediaThèque button if custom buttons are used.
+	if ( has_action( 'wp_idea_stream_media_buttons' ) ) {
+		$args['mediatheque_button'] = false;
+	}
+
 	// Temporarly filter the editor
 	add_filter( 'mce_buttons', 'wp_idea_stream_teeny_button_filter', 10, 1 );
 	?>
@@ -1464,8 +1469,28 @@ function wp_idea_stream_ideas_the_editor() {
 	<label for="wp_idea_stream_the_content"><?php esc_html_e( 'Description', 'wp-idea-stream' ) ;?> <span class="required">*</span></label>
 
 	<?php
+	/**
+	 * Hook here to add your custom media buttons.
+	 *
+	 * @since  2.2.0
+	 */
 	do_action( 'wp_idea_stream_media_buttons' );
+
+	$needs_unset = false;
+
+	// Check if we need to temporarly override editor styles.
+	if ( ! isset( $GLOBALS['editor_styles'] ) ) {
+		$needs_unset = true;
+
+		$GLOBALS['editor_styles'] = get_option( '_ideastream_editor_styles', array() );
+	}
+
 	wp_editor( wp_idea_stream_ideas_get_editor_content(), 'wp_idea_stream_the_content', $args );
+
+	// Unset the Global
+	if ( $needs_unset ) {
+		unset( $GLOBALS['editor_styles'] );
+	}
 
 	if ( is_a( $post, 'WP_Post' ) ) {
 		wp_enqueue_script( 'mce-view' );
@@ -1893,14 +1918,14 @@ function wp_idea_stream_ideas_the_form_submit() {
  * If BuddyDrive is activated, then use it to allow files
  * to be added to ideas !
  *
+ * This function has been moved in the BP Idea Stream plugin.
+ *
  * @since  2.2.0
+ * @deprecated 2.5.0.
  */
 function wp_idea_stream_buddydrive_button() {
-	if ( function_exists( 'buddydrive_editor' ) ) {
-		buddydrive_editor();
-	}
+	_deprecated_function( __FUNCTION__, '2.5.0' );
 }
-add_action( 'wp_idea_stream_media_buttons', 'wp_idea_stream_buddydrive_button' );
 
 /**
  * Output the Idea Ratings if needed into the Embedded idea

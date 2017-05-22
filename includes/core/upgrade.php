@@ -61,8 +61,12 @@ function wp_idea_stream_upgrade() {
 			wp_idea_stream_upgrade_to_2_3();
 
 		// Upgrade to 2.4
-		}  elseif ( version_compare( $db_version, '2.4.0', '<' ) ) {
+		} elseif ( version_compare( $db_version, '2.4.0', '<' ) ) {
 			wp_idea_stream_upgrade_to_2_4();
+
+		// Upgrade to 2.5
+		} elseif ( version_compare( $db_version, '2.5.0', '<' ) ) {
+			wp_idea_stream_upgrade_to_2_5();
 		}
 
 		// Make sure the changelog will be displayed at next page load
@@ -234,6 +238,15 @@ function wp_idea_stream_upgrade_to_2_3() {
  */
 function wp_idea_stream_upgrade_to_2_4() {
 	delete_option( '_ideastream_buddypress_integration' );
+}
+
+/**
+ * Upgrade routine for 2.5.0
+ *
+ * @since 2.5.0
+ */
+function wp_idea_stream_upgrade_to_2_5() {
+	wp_idea_stream_refresh_editor_styles();
 }
 
 /**

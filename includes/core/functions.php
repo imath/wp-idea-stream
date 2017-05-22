@@ -1409,3 +1409,31 @@ function wp_idea_stream_reset_ideas_as_front( $oldvalue = '', $value = '' ) {
 
 	delete_option( '_ideastream_as_front_page' );
 }
+
+/**
+ * Saves the Editor Styles in DB.
+ *
+ * Editor styles are only set in the WP Administration context.
+ * To use it into the WP Idea Stream Editor we need to catch it
+ * for our front-end use. This function is only used during our
+ * 2.5.0 upgrade routine and each time the active Theme is switched.
+ *
+ * @since  2.5.0
+ */
+function wp_idea_stream_refresh_editor_styles() {
+	if ( empty( $GLOBALS['editor_styles'] ) ) {
+		delete_option( '_ideastream_editor_styles' );
+		return;
+	}
+
+	update_option( '_ideastream_editor_styles', $GLOBALS['editor_styles'] );
+}
+
+/**
+ * Sets a transient when the theme has been switched.
+ *
+ * @since 2.5.0
+ */
+function wp_idea_stream_theme_switched() {
+	set_transient( '_ideastream_editor_styles_refresh', true, 30 );
+}

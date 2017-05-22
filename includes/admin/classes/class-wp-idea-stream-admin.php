@@ -218,6 +218,9 @@ class WP_Idea_Stream_Admin {
 
 		// Add New Accordion section to ease adding menu items to WP Idea Stream areas
 		add_action( 'load-nav-menus.php', array( $this, 'menu_accordion' ), 10, 1 );
+
+		// Check if we need to refresh the Editor styles
+		add_action( 'wp_idea_stream_admin_init', array( $this, 'refresh_editor_styles' ), 1000 );
 	}
 
 	/**
@@ -1890,5 +1893,24 @@ class WP_Idea_Stream_Admin {
 			'settings' => '<a href="' . esc_url( add_query_arg( 'page', 'ideastream', admin_url( 'options-general.php' ) ) ) . '">' . esc_html__( 'Settings', 'wp-idea-stream' ) . '</a>',
 			'about'    => '<a href="' . esc_url( add_query_arg( 'page', 'about-ideastream', admin_url( 'index.php'     ) ) ) . '">' . esc_html__( 'About',    'wp-idea-stream' ) . '</a>'
 		) );
+	}
+
+	/**
+	 * Checks if Editor Styles need to be refreshed.
+	 *
+	 * @since 2.5.0
+	 */
+	public function refresh_editor_styles() {
+		$needs_editor_styles_refresh = get_transient( '_ideastream_editor_styles_refresh' );
+
+		// Bail if no activation redirect
+		if ( empty( $needs_editor_styles_refresh ) ) {
+			return;
+		}
+
+		wp_idea_stream_refresh_editor_styles();
+
+		// Delete the editor styles refresh transient
+		delete_transient( '_ideastream_editor_styles_refresh' );
 	}
 }
