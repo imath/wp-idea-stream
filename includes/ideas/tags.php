@@ -1403,19 +1403,30 @@ function wp_idea_stream_ideas_the_title_edit() {
 	 * @return string  output for the title field
 	 */
 	function wp_idea_stream_ideas_get_title_edit() {
+		global $post;
 		$wp_idea_stream = wp_idea_stream();
+
+		wp_idea_stream_set_idea_var( 'resetpost', clone $post );
 
 		// Did the user submitted a title ?
 		if ( ! empty( $_POST['wp_idea_stream']['_the_title'] ) ) {
 			$edit_title = $_POST['wp_idea_stream']['_the_title'];
+			$post = get_post( $_POST['wp_idea_stream']['_auto_draft_id'] );
 
 		// Are we editing an idea ?
 		} else if ( ! empty( $wp_idea_stream->query_loop->idea->post_title ) ) {
 			$edit_title = $wp_idea_stream->query_loop->idea->post_title;
+			$post       = get_post( $wp_idea_stream->query_loop->idea );
 
 		// Fallback to empty
 		} else {
 			$edit_title = '';
+			$auto_draft_id = wp_insert_post( array(
+				'post_title'  => __( 'Auto Draft', 'default' ),
+				'post_type'   => wp_idea_stream_get_post_type(),
+				'post_status' => 'auto-draft',
+			) );
+			$post = get_post( $auto_draft_id );
 		}
 
 		/**
@@ -1432,6 +1443,8 @@ function wp_idea_stream_ideas_the_title_edit() {
  * @return string output for the idea content field
  */
 function wp_idea_stream_ideas_the_editor() {
+	$post = get_post();
+
 	$args = array(
 		'textarea_name' => 'wp_idea_stream[_the_content]',
 		'wpautop'       => true,
@@ -1453,6 +1466,20 @@ function wp_idea_stream_ideas_the_editor() {
 	<?php
 	do_action( 'wp_idea_stream_media_buttons' );
 	wp_editor( wp_idea_stream_ideas_get_editor_content(), 'wp_idea_stream_the_content', $args );
+
+	if ( is_a( $post, 'WP_Post' ) ) {
+		wp_enqueue_script( 'mce-view' );
+		wp_add_inline_script( 'media-views', sprintf( '
+			( function( wp ) {
+				if ( \'undefined\' === typeof wp.media.view.settings.post ) {
+					_.extend( wp.media.view.settings, {
+						post: { id: %d }
+					} );
+				}
+			} )( window.wp );
+		', $post->ID ) );
+	}
+
 
 	remove_filter( 'mce_buttons', 'wp_idea_stream_teeny_button_filter', 10, 1 );
 }
@@ -1834,6 +1861,7 @@ function wp_idea_stream_meta_admin_display( $display_meta = '', $meta_object = n
  * @return string output for submit/reset buttons
  */
 function wp_idea_stream_ideas_the_form_submit() {
+	global $post;
 	$wp_idea_stream = wp_idea_stream();
 
 	wp_nonce_field( 'wp_idea_stream_save' );
@@ -1842,6 +1870,7 @@ function wp_idea_stream_ideas_the_form_submit() {
 
 	<?php if ( wp_idea_stream_is_addnew() ) : ?>
 
+		<input type="hidden" value="<?php echo esc_attr( $post->ID ) ;?>" name="wp_idea_stream[_auto_draft_id]"/>
 		<input type="reset" value="<?php esc_attr_e( 'Reset', 'wp-idea-stream' ) ;?>"/>
 		<input type="submit" value="<?php esc_attr_e( 'Submit', 'wp-idea-stream' ) ;?>" name="wp_idea_stream[save]"/>
 
@@ -1853,6 +1882,11 @@ function wp_idea_stream_ideas_the_form_submit() {
 	<?php endif ; ?>
 
 	<?php
+
+	$resetpost = wp_idea_stream_get_idea_var( 'resetpost' );
+	if ( is_a( $resetpost, 'WP_Post' ) ) {
+		$post = $resetpost;
+	}
 }
 
 /**

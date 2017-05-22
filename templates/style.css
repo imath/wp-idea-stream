@@ -773,6 +773,14 @@ body.ideastream .wp-embed-share-dialog {
 
 #wp-wp_idea_stream_the_content-wrap {
 	width: 90%;
+}
+
+#wp-idea-stream #wp-wp_idea_stream_the_content-media-buttons {
+	clear: both;
+	margin-bottom: 0.5em;
+}
+
+#wp-idea-stream #wp-wp_idea_stream_the_content-editor-container {
 	border: 1px solid #ccc;
 }
 
