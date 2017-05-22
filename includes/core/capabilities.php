@@ -105,7 +105,7 @@ function wp_idea_stream_map_meta_caps( $caps = array(), $cap = '', $user_id = 0,
 
 				$caps = array();
 
-				if ( ( ( ! empty( $_POST ) && 'parse-embed' === $_POST['action'] ) || ! is_admin() ) && ( (int) $user_id === (int) $_post->post_author ) ) {
+				if ( ( ( ! empty( $_POST['action'] ) && 'parse-embed' === $_POST['action'] ) || ! is_admin() ) && ( (int) $user_id === (int) $_post->post_author ) ) {
 
 					$caps = array( 'exist' );
 
