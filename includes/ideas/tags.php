@@ -1495,13 +1495,24 @@ function wp_idea_stream_ideas_the_editor() {
 	if ( is_a( $post, 'WP_Post' ) ) {
 		wp_enqueue_script( 'mce-view' );
 		wp_add_inline_script( 'media-views', sprintf( '
-			( function( wp ) {
+			( function( wp, $ ) {
 				if ( \'undefined\' === typeof wp.media.view.settings.post ) {
 					_.extend( wp.media.view.settings, {
 						post: { id: %d }
 					} );
+
+					// We need to prevent some Edit buttons to show to avoid JS errors.
+					$( document ).on( \'tinymce-editor-init\', function( event, editor ) {
+						if ( \'undefined\' !== typeof editor.controlManager.buttons.wp_view_edit._id ) {
+							$( \'#\' + editor.controlManager.buttons.wp_view_edit._id ).remove();
+						}
+
+						if ( \'undefined\' !== typeof editor.controlManager.buttons.wp_img_edit._id ) {
+							$( \'#\' + editor.controlManager.buttons.wp_img_edit._id ).remove();
+						}
+					} );
 				}
-			} )( window.wp );
+			} )( window.wp, jQuery );
 		', $post->ID ) );
 	}
 

@@ -362,6 +362,11 @@ body.single-ideas #wp-idea-stream div.idea-header {
 	margin:5px 0;
 }
 
+body.single-ideas div.idea-footer {
+	padding-top: 1em;
+	clear: both;
+}
+
 #wp-idea-stream .idea-list li div.idea-footer p.idea-meta,
 #wp-idea-stream .idea-comments-list li div.idea-comment-footer p.idea-comment-meta {
 	font-size: 90%;
