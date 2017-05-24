@@ -1,10 +1,10 @@
 /* global tinymce */
 /*!
  * WP Idea Stream Featured images script
- * A tinyMCE plugin to list inserted images
+ * It lists images inserted into the WP Editor.
  */
 
-( function($) {
+( function( $ ) {
 	if ( ! $( '#idea-images-list' ).length || 'undefined' === typeof tinymce ) {
 		return;
 	}
@@ -18,45 +18,55 @@
 		} );
 	} );
 
-	tinymce.PluginManager.add( 'wpIdeaStreamListImages', function( editor ) {
+	$( document ).on( 'tinymce-editor-init', function( event, editor ) {
+		editor.on( 'setcontent', function( event ) {
+			if ( ! event.content ) {
+				return;
+			}
 
-		// Wait till editor is inited
-		editor.on( 'init', function() {
-			// Listen to Image Tiny MCE Plugin form submit
-			editor.on( 'wpImageFormSubmit', function( event ) {
-				var is_in  = 0, image = event.imgData,
-					output = $( '<li></li>' ).html( '<img src="' + image.data.src + '"/><div class="cb-container"><input type="checkbox" name="wp_idea_stream[_the_thumbnail][' + image.data.src + ']" value="' + image.data.src + '"/></div>' );
+			var c = $.parseHTML( event.content ), o, img, is_in = 0;
 
-				// Display the container
-				if ( $( '#idea-images-list' ).hasClass( 'hidden' ) ) {
-					$( '#idea-images-list' ).removeClass( 'hidden' );
-				} else {
-					$( '#idea-images-list :checkbox' ).each( function( i, cb ) {
-						/**
-						 * The value of src can be different although image are the same.
-						 * Once an image is saved as an attachment, we need to use the original
-						 * image url as the index of the name attribute and compare it with
-						 * the inserted image
-						 */
-						var match_src = $( cb ).prop( 'name' ).match( /wp_idea_stream\[_the_thumbnail\]\[(.*)\]/ );
+			if ( 'IMG' === $( c ).prop( 'nodeName' ) ) {
+				img = $( c ).prop( 'src' );
+			}
 
-						if ( match_src && image.data.src === match_src[1] ) {
-							is_in += 1;
-						}
-					} );
-				}
+			if ( ! img ) {
+				return;
+			}
 
-				// Insert the image in it...
-				if ( ! $( '#idea-images-list ul' ).length ) {
-					$( '#idea-images-list label' ).after( $( '<ul></ul>' ).html( output ) );
+			o = $( '<li></li>' ).html(
+				'<img src="' + img + '"/><div class="cb-container"><input type="checkbox" name="wp_idea_stream[_the_thumbnail][' + img + ']" value="' + img + '"/></div>'
+			);
 
-				// ... only if it's not already in!
-				} else if ( 0 === is_in ) {
-					$( '#idea-images-list ul' ).append( output );
-				}
+			// Display the container
+			if ( $( '#idea-images-list' ).hasClass( 'hidden' ) ) {
+				$( '#idea-images-list' ).removeClass( 'hidden' );
+			} else {
+				$( '#idea-images-list :checkbox' ).each( function( i, cb ) {
+					/**
+					 * The value of src can be different although image are the same.
+					 * Once an image is saved as an attachment, we need to use the original
+					 * image url as the index of the name attribute and compare it with
+					 * the inserted image
+					 */
+					var match_src = $( cb ).prop( 'name' ).match( /wp_idea_stream\[_the_thumbnail\]\[(.*)\]/ );
 
-				is_in = 0;
-			} );
+					if ( match_src && img === match_src[1] ) {
+						is_in += 1;
+					}
+				} );
+			}
+
+			// Insert the image in it...
+			if ( ! $( '#idea-images-list ul' ).length ) {
+				$( '#idea-images-list label' ).after( $( '<ul></ul>' ).html( o ) );
+
+			// ... only if it's not already in!
+			} else if ( 0 === is_in ) {
+				$( '#idea-images-list ul' ).append( o );
+			}
+
+			is_in = 0;
 		} );
 	} );
 } )( jQuery );
