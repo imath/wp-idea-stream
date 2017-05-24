@@ -150,13 +150,13 @@ function wp_idea_stream_admin_credits() {
 		<h3 class="wp-people-group"><?php _e( 'The team!', 'wp-idea-stream' ); ?></h3>
 		<ul class="wp-people-group" id="wp-people-group-core-team">
 			<li class="wp-person" id="wp-person-imath">
-				<a href="https://github.com/imath"><img src="http://0.gravatar.com/avatar/8b208ca408dad63888253ee1800d6a03?s=60" class="gravatar" alt="Mathieu Viet" /></a>
-				<a class="web" href="http://profiles.wordpress.org/imath">imath</a>
+				<a href="https://github.com/imath"><img src="//0.gravatar.com/avatar/8b208ca408dad63888253ee1800d6a03?s=60" class="gravatar" alt="Mathieu Viet" /></a>
+				<a class="web" href="https://github.com/imath">imath</a>
 				<span class="title"><?php _e( 'Creator', 'wp-idea-stream' ); ?></span>
 			</li>
 			<li class="wp-person" id="wp-person-aglekis">
-				<a href="http://profiles.wordpress.org/aglekis"><img src="http://0.gravatar.com/avatar/9aed4c3373374032e4ecdde02894d5fb?s=60" class="gravatar" alt="Grégoire Noyelle" /></a>
-				<a class="web" href="http://profiles.wordpress.org/aglekis">Grégoire Noyelle</a>
+				<a href="http://profiles.wordpress.org/aglekis"><img src="//0.gravatar.com/avatar/9aed4c3373374032e4ecdde02894d5fb?s=60" class="gravatar" alt="Grégoire Noyelle" /></a>
+				<a class="web" href="https://profiles.wordpress.org/aglekis">Grégoire Noyelle</a>
 				<span class="title"><?php _e( 'Developer', 'wp-idea-stream' ); ?></span>
 			</li>
 		</ul>
@@ -164,7 +164,7 @@ function wp_idea_stream_admin_credits() {
 		<h3 class="wp-people-group"><?php _e( 'Rock Stars', 'wp-idea-stream' ); ?></h3>
 		<ul class="wp-people-group" id="wp-people-group-rock-stars">
 			<li class="wp-person" id="wp-person-jennybeaumont">
-				<a href="http://profiles.wordpress.org/jennybeaumont"><img src="http://0.gravatar.com/avatar/c5b883c76357aa309642c255edd51ee1?s=60" class="gravatar" alt="Jenny Beaumont" /></a>
+				<a href="https://profiles.wordpress.org/jennybeaumont"><img src="//0.gravatar.com/avatar/c5b883c76357aa309642c255edd51ee1?s=60" class="gravatar" alt="Jenny Beaumont" /></a>
 				<a class="web" href="http://profiles.wordpress.org/jennybeaumont">Jenny Beaumont</a>
 			</li>
 		</ul>

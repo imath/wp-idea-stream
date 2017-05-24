@@ -1422,6 +1422,7 @@ function wp_idea_stream_ideas_the_title_edit() {
 		} else {
 			$edit_title = '';
 			$auto_draft_id = wp_insert_post( array(
+				/* translators: do not translate this string, it is already translated by WordPress */
 				'post_title'  => __( 'Auto Draft', 'default' ),
 				'post_type'   => wp_idea_stream_get_post_type(),
 				'post_status' => 'auto-draft',
