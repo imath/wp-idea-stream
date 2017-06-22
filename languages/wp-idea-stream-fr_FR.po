@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WP Idea Stream 2.0.0-beta4\n"
 "Report-Msgid-Bugs-To: https://github.com/imath/wp-idea-stream/issues\n"
-"POT-Creation-Date: 2017-05-24 17:12:27+00:00\n"
-"PO-Revision-Date: 2017-05-24 19:24+0100\n"
+"POT-Creation-Date: 2017-06-22 02:52:36+00:00\n"
+"PO-Revision-Date: 2017-06-22 04:53+0100\n"
 "Last-Translator: imath <mathchristo@yahoo.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -1661,8 +1661,9 @@ msgstr "Titre"
 #. translators: do not translate this string, it is already translated by
 #. WordPress
 #: includes/ideas/tags.php:1426
+#, fuzzy
 msgid "Auto Draft"
-msgstr ""
+msgstr "Brouillon"
 
 #: includes/ideas/tags.php:1470
 msgid "Description"
@@ -1773,17 +1774,17 @@ msgstr "%  Réponses"
 msgid "Rate the idea"
 msgstr "Evaluer l&#39;idée"
 
-#: wp-idea-stream.php:266
+#: wp-idea-stream.php:267
 msgid "Archive"
 msgstr "Archive"
 
-#: wp-idea-stream.php:267
+#: wp-idea-stream.php:268
 msgid "Archived <span class=\"count\">(%s)</span>"
 msgid_plural "Archived <span class=\"count\">(%s)</span>"
 msgstr[0] "Archivée <span class=\"count\">(%s)</span>"
 msgstr[1] "Archivées <span class=\"count\">(%s)</span>"
 
-#: wp-idea-stream.php:271
+#: wp-idea-stream.php:272
 msgid "Archive selected ideas"
 msgstr "Archiver les idées sélectionnées"
 

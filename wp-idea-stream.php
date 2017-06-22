@@ -11,7 +11,7 @@ Author: imath
 Author URI: https://imathi.eu/
 Text Domain: wp-idea-stream
 Domain Path: /languages/
-GitHub Plugin URI: https://github.com/imath/galerie/
+GitHub Plugin URI: https://github.com/imath/wp-idea-stream/
 */
 
 // Exit if accessed directly.
