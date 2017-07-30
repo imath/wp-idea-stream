@@ -102,6 +102,15 @@ module.exports = function( grunt ) {
 				cmd: 'phpunit',
 				args: ['-c', 'tests/phpunit/multisite.xml']
 			}
+		},
+		'git-archive': {
+			archive: {
+				options: {
+					'format'  : 'zip',
+					'output'  : '<%= pkg.name %>.zip',
+					'tree-ish': 'HEAD@{0}'
+				}
+			}
 		}
 	} );
 
@@ -120,9 +129,11 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask( 'shrink', ['clean', 'cssmin', 'uglify'] );
 
+	grunt.registerTask( 'zip', ['git-archive'] );
+
 	grunt.registerTask( 'commit',  ['checktextdomain', 'jstest', 'phpunit'] );
 
-	grunt.registerTask( 'release', ['checktextdomain', 'makepot', 'jstest', 'clean', 'cssmin', 'uglify'] );
+	grunt.registerTask( 'release', ['checktextdomain', 'makepot', 'jstest', 'clean', 'cssmin', 'uglify', 'zip'] );
 
 	// Default task.
 	grunt.registerTask( 'default', ['commit'] );
