@@ -47,19 +47,6 @@ class WP_Idea_Stream_Ideas_REST_Controller extends WP_REST_Posts_Controller {
 	}
 
 	/**
-	 * Returns a feedback to inform the method is not supported yet by WP Idea Stream.
-	 *
-	 * @since 2.4.0
-	 * @access public
-	 *
-	 * @param  string $method The Rest request.
-	 * @return WP_Error       The feedback for the method.
-	 */
-	public function not_supported( $method = 'CREATE' ) {
-		return new WP_Error( 'rest_not_supported', sprintf( __( 'The %s method for ideas is not supported yet.', 'wp-idea-stream' ), strtoupper( $method ) ), array( 'status' => 400 ) );
-	}
-
-	/**
 	 * Temporarly Adds specific idea metas to the registered post metas.
 	 *
 	 * @since 2.4.0
@@ -131,39 +118,60 @@ class WP_Idea_Stream_Ideas_REST_Controller extends WP_REST_Posts_Controller {
 	 * Creates a single idea.
 	 *
 	 * @since 2.4.0
+	 * @since 2.6.0 Allow the method
 	 * @access public
 	 *
 	 * @param  WP_REST_Request   $request Full details about the request.
 	 * @return WP_Error Response          WP_Error containing the not supported feedback.
 	 */
 	public function create_item( $request ) {
-		return $this->not_supported( WP_REST_Server::CREATABLE );
+		$this->register_post_type_only_metas();
+
+		$response = parent::create_item( $request );
+
+		$this->unregister_post_type_only_metas();
+
+		return $response;
 	}
 
 	/**
 	 * Updates a single idea.
 	 *
 	 * @since 2.4.0
+	 * @since 2.6.0 Allow the method
 	 * @access public
 	 *
 	 * @param  WP_REST_Request   $request Full details about the request.
 	 * @return WP_Error Response          WP_Error containing the not supported feedback.
 	 */
 	public function update_item( $request ) {
-		return $this->not_supported( WP_REST_Server::EDITABLE );
+		$this->register_post_type_only_metas();
+
+		$response = parent::update_item( $request );
+
+		$this->unregister_post_type_only_metas();
+
+		return $response;
 	}
 
 	/**
 	 * Deletes a single idea.
 	 *
 	 * @since 2.4.0
+	 * @since 2.6.0 Allow the method
 	 * @access public
 	 *
 	 * @param  WP_REST_Request   $request Full details about the request.
 	 * @return WP_Error Response          WP_Error containing the not supported feedback.
 	 */
 	public function delete_item( $request ) {
-		return $this->not_supported( WP_REST_Server::DELETABLE );
+		$this->register_post_type_only_metas();
+
+		$response = parent::delete_item( $request );
+
+		$this->unregister_post_type_only_metas();
+
+		return $response;
 	}
 
 	/**
