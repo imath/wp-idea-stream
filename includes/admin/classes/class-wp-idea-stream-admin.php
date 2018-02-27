@@ -105,22 +105,22 @@ class WP_Idea_Stream_Admin {
 		// By default, comments are disjoined from the other post types.
 		if ( $this->comments_disjoined && ! $autoload ) {
 			if ( ! class_exists( 'WP_Idea_Stream_Admin_Comments' ) ) {
-				require( $this->includes_dir . 'classes/class-wp-idea-stream-admin-comments.php' );
+				require $this->includes_dir . 'classes/class-wp-idea-stream-admin-comments.php';
 			}
 		}
 
 		// By default, ideas can be sticked to front post type archive page.
 		if ( $this->sticky_enabled && ! $autoload ) {
 			if ( ! class_exists( 'WP_Idea_Stream_Admin_Sticky' ) ) {
-				require( $this->includes_dir . 'classes/class-wp-idea-stream-admin-sticky.php' );
+				require $this->includes_dir . 'classes/class-wp-idea-stream-admin-sticky.php';
 			}
 		}
 
 		// Settings
-		require( $this->includes_dir . 'settings.php' );
+		require $this->includes_dir . 'settings.php';
 
 		// About & credits screens
-		require( $this->includes_dir . 'thanks.php' );
+		require $this->includes_dir . 'thanks.php';
 	}
 
 	/**
@@ -708,7 +708,7 @@ class WP_Idea_Stream_Admin {
 	 * @since 2.0.0
 	 */
 	public function restore_settings_feedback() {
-		require( ABSPATH . 'wp-admin/options-head.php' );
+		require ABSPATH . 'wp-admin/options-head.php';
 	}
 
 	/**

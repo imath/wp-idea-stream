@@ -142,37 +142,37 @@ final class WP_Idea_Stream {
 			$this->autoload = true;
 		}
 
-		require( $this->includes_dir . 'core/options.php' );
-		require( $this->includes_dir . 'core/functions.php' );
-		require( $this->includes_dir . 'core/rewrites.php' );
-		require( $this->includes_dir . 'core/capabilities.php' );
-		require( $this->includes_dir . 'core/upgrade.php' );
-		require( $this->includes_dir . 'core/template-functions.php' );
-		require( $this->includes_dir . 'core/template-loader.php' );
+		require $this->includes_dir . 'core/options.php';
+		require $this->includes_dir . 'core/functions.php';
+		require $this->includes_dir . 'core/rewrites.php';
+		require $this->includes_dir . 'core/capabilities.php';
+		require $this->includes_dir . 'core/upgrade.php';
+		require $this->includes_dir . 'core/template-functions.php';
+		require $this->includes_dir . 'core/template-loader.php';
 
-		require( $this->includes_dir . 'comments/functions.php' );
-		require( $this->includes_dir . 'comments/tags.php' );
+		require $this->includes_dir . 'comments/functions.php';
+		require $this->includes_dir . 'comments/tags.php';
 
-		require( $this->includes_dir . 'ideas/metas.php' );
-		require( $this->includes_dir . 'ideas/functions.php' );
-		require( $this->includes_dir . 'ideas/tags.php' );
+		require $this->includes_dir . 'ideas/metas.php';
+		require $this->includes_dir . 'ideas/functions.php';
+		require $this->includes_dir . 'ideas/tags.php';
 
-		require( $this->includes_dir . 'users/functions.php' );
-		require( $this->includes_dir . 'users/tags.php' );
+		require $this->includes_dir . 'users/functions.php';
+		require $this->includes_dir . 'users/tags.php';
 
 		if ( ! $this->autoload ) {
-			require( $this->includes_dir . 'core/classes.php' );
-			require( $this->includes_dir . 'comments/classes.php' );
-			require( $this->includes_dir . 'ideas/classes.php' );
-			require( $this->includes_dir . 'users/classes.php' );
+			require $this->includes_dir . 'core/classes.php';
+			require $this->includes_dir . 'comments/classes.php';
+			require $this->includes_dir . 'ideas/classes.php';
+			require $this->includes_dir . 'users/classes.php';
 		}
 
-		require( $this->includes_dir . 'core/actions.php' );
-		require( $this->includes_dir . 'core/filters.php' );
+		require $this->includes_dir . 'core/actions.php';
+		require $this->includes_dir . 'core/filters.php';
 
 		if ( is_admin() ) {
 			if ( ! $this->autoload ) {
-				require( $this->includes_dir . 'admin/admin.php' );
+				require $this->includes_dir . 'admin/admin.php';
 			}
 		}
 
@@ -186,7 +186,7 @@ final class WP_Idea_Stream {
 		 * @see https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#the-global-custom-file
 		 */
 		if ( file_exists( WP_PLUGIN_DIR . '/wp-idea-stream-custom.php' ) ) {
-			require( WP_PLUGIN_DIR . '/wp-idea-stream-custom.php' );
+			require WP_PLUGIN_DIR . '/wp-idea-stream-custom.php';
 		}
 
 		/**
@@ -199,7 +199,7 @@ final class WP_Idea_Stream {
 		 * @see https://github.com/imath/wp-idea-stream/wiki/wp-idea-stream-custom.php#on-multisite-configs-a-custom-file-for-each-blog
 		 */
 		if ( is_multisite() && file_exists( WP_PLUGIN_DIR . '/wp-idea-stream-custom-' . get_current_blog_id() . '.php' ) ) {
-			require( WP_PLUGIN_DIR . '/wp-idea-stream-custom-' . get_current_blog_id() . '.php' );
+			require WP_PLUGIN_DIR . '/wp-idea-stream-custom-' . get_current_blog_id() . '.php';
 		}
 	}
 

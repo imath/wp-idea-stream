@@ -11,4 +11,4 @@ tests_add_filter( 'muplugins_loaded', '_bootstrap_wp_idea_stream' );
 require getenv( 'WP_DEVELOP_DIR' ) . '/tests/phpunit/includes/bootstrap.php';
 
 // include our testcase
-require( 'testcase.php' );
+require 'testcase.php';

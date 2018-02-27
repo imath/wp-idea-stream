@@ -13,5 +13,5 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WP_Idea_Stream_Users_Top_Contributors' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-users-top-contributors.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-users-top-contributors.php';
 }

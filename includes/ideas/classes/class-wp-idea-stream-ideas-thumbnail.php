@@ -39,9 +39,9 @@ class WP_Idea_Stream_Ideas_Thumbnail {
 	 * Get the required files
 	 */
 	private function includes() {
-		require_once( ABSPATH . 'wp-admin/includes/file.php'  );
-		require_once( ABSPATH . 'wp-admin/includes/media.php' );
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
 	}
 
 	/**

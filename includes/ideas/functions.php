@@ -381,7 +381,7 @@ function wp_idea_stream_ideas_lock_idea( $idea_id = 0 ) {
 	}
 
 	// Include needed file
-	require_once( ABSPATH . '/wp-admin/includes/post.php' );
+	require_once ABSPATH . '/wp-admin/includes/post.php';
 
 	$user_id = wp_check_post_lock( $idea_id );
 

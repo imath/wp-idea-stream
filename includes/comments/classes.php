@@ -15,17 +15,17 @@ defined( 'ABSPATH' ) || exit;
 /** Disjoin comments **********************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Comments' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-comments.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-comments.php';
 }
 
 /** Comment Loop **************************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Loop_Comments' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-loop-comments.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-loop-comments.php';
 }
 
 /** Recent Comments Widget ****************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Comments_Recent' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-comments-recent.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-comments-recent.php';
 }

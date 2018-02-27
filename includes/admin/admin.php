@@ -13,5 +13,5 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WP_Idea_Stream_Admin' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-admin.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-admin.php';
 }

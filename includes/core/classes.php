@@ -15,27 +15,27 @@ defined( 'ABSPATH' ) || exit;
 /** Rewrites ******************************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Rewrites' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-rewrites.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-rewrites.php';
 }
 
 /** Template Loader class *****************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Template_Loader' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-template-loader.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-template-loader.php';
 }
 
 if ( ! class_exists( 'WP_Idea_Stream_Core_Screens' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-core-screens.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-core-screens.php';
 }
 
 /** Loop **********************************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Loop' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-loop.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-loop.php';
 }
 
 /** Nav Widget ****************************************************************/
 
 if ( ! class_exists( 'WP_Idea_Stream_Navig' ) ) {
-	require( dirname( __FILE__ ) . '/classes/class-wp-idea-stream-navig.php' );
+	require dirname( __FILE__ ) . '/classes/class-wp-idea-stream-navig.php';
 }
